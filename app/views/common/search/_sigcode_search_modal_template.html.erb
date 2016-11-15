@@ -1,0 +1,66 @@
+<%# parameters: searchSigcodes - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="sigcodeSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Sig Code Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table table-condensed table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font"><input type="text" id="sigcodeSearchModal_Keys1_9" style="width:0.5px;" ></th></th>
+							<th class="phx-search-font">Active</th>
+							<th class="phx-search-font">Code</th>
+							<th class="phx-search-font">Language</th>
+							<th class="phx-search-font">Short Text</th>
+							<th class="phx-search-font">Frequency</th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchSigcodes.each do |sigcode| %>
+							<tr	id="<%= 'sigcodeSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-sigcodeSearchModal-row"
+									data-phx-search-sigcode-id="<%= sigcode.id %>"
+									data-phx-search-sigcode-sig_code="<%= sigcode.sig_code %>"
+									data-phx-search-sigcode-display_name="<%= sigcode.display_name %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= sigcode.active ? "Y" : "N" %> </td>
+								<td class="phx-search-font"> <%= sigcode.sig_code %> </td>
+								<td class="phx-search-font"> <%= sigcode.language %> </td>
+								<td class="phx-search-font"> <%= sigcode.expanded_text[0..25].gsub(/\s\w+\s*$/, ' ...') %> </td>
+								<td class="phx-search-font"> <%= sigcode.frequency %> </td>
+							</tr>
+						<% end %> <!-- END OF item list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchSigcodes,
+						params: { controller: "sigcodes", action: "nextSigcodes"} , remote: true  unless searchSigcodes.empty? %>
+
+				<button id="sigcodeSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+
+<script>
+	$('#sigcode_search_modal_partial').trigger('contentchanged');
+</script>

@@ -1,0 +1,14 @@
+<%= form_for(@contact) do |f| %>
+
+  <div class="form-inputs">
+
+    <%= f.input :entity, collection: Contact.entities.keys,:selected => Contact.entities.keys[@contact[:entity].to_i] %>
+    <%= f.input :contact_type, collection: Contact.contact_types.keys,:selected => Contact.contact_types.keys[@contact[:contact_type].to_i] %>
+    <%= f.input :entity %>
+    <%= f.input :phone %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

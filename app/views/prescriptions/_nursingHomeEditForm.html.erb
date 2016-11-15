@@ -1,0 +1,229 @@
+<%# dispenseEdit form %>
+
+<%= form_for( @prescription ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button id=rx-hamburger class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="row phx-working-area-title-info">
+				<div class="col-lg-8">
+					<div class="phx-working-area-title">Change Nursing Home Prescription
+						<% if @prescription.customer_display_name %>
+							<span style="font-weight:font-weight: bold;bold;" id="prescriptionCustomerName">
+								&nbsp;&nbsp;|&nbsp;&nbsp;<%= @prescription.customer_display_name %>
+					      	</span>
+						<% end %>
+					</div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+				</div>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+      <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
+
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Prescription Info
+                </div>
+                <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+            </div>
+
+            <%= render partial: 'rxPrimaryInfoForm', locals: {f: f} %>
+
+            </br>
+
+            <%= phx_red_submit_button_for f, "Prescription", ["F i l l","C h a n g e"], "fill", "phx-btn-model-control-width pull-right", false %>
+
+            <div class="field form-group phx-input-control-spacer">&nbsp;
+            </br>
+
+					</div>
+				</div>
+			</div> <!-- end of Primary Info col lg def -->
+		</div> <!-- end of container fluid for Primary Info -->
+
+
+		<!-- TABBED AREA -->
+    <div class="col-lg-8">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#dispenseEditPanel-general" role="tab" data-toggle="tab">General</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+      	<div id="dispenseEditPanel-general" class="tab-pane active">
+        	<div class="row container-fluid">
+
+						<!-- First panel, first column -->
+						<div class="container-fluid col-lg-4">
+              <%= phx_textfield_for f, :auto_fill_type, "Auto Fill Type" %>
+              <%= phx_datefield_for f, :auto_fill_next_date, "Auto Fill Next Date" %>
+              <%= phx_textfield_for f, :procycle_quantity_dispensed, "Pro Cycle Quantity Dispensed" %>
+              <%= phx_textfield_for f, :procycle_quantity_left, "Wing" %>
+              <%= phx_datefield_for f, :start_date, "Start Date" %>
+              <%= phx_datefield_for f, :stop_date, "Stop Date" %>
+						</div> <!-- END OF first panel, first column -->
+
+						<!-- First panel, second column -->
+						<div class="container-fluid col-lg-4">
+              <%= phx_checkbox_for f,  :print_division_code, "Print Division Code" %>
+            </br></br>
+              <%= phx_checkbox_for f,  :print_on_prn, "Print on PRN" %>
+            </br></br>
+              <%= phx_checkbox_for f,  :print_on_mar, "Print on MAR" %>
+            </br></br>
+              <%= phx_checkbox_for f,  :print_on_po, "Print on PO" %>
+            </br></br>
+              <%= phx_checkbox_for f,  :print_on_treatment, "Print on Treatment" %>
+            </br></br>
+              <%= phx_checkbox_for f,  :print_on_flow, "Print Print on Flow" %>
+						</div> <!-- END OF first panel, second column -->
+
+						<!-- First panel, third column -->
+						<div class="container-fluid col-lg-4">
+
+                <% pt_number=1 %>
+                <% @prescription.pass_times.each do |pass_time| %>
+                  Pass Time <%=pt_number%>:
+                  <%pt_number+=1%>
+                </br></br>
+                <%end%>
+
+						</div> <!-- END OF first panel, third column -->
+					</div> <!-- container-fluid for panel -->
+				</div>  <!-- END OF GENERAL INFO PANEL -->
+
+        <div class="field form-group phx-input-control-spacer">&nbsp;</div>
+			</div>  <!-- End of Tab Panes -->
+
+		</div>  <!-- End of TABBED AREA -->
+
+		<div id="customer_search_modal_partial">
+        <div id="customerSearchModal">
+        </div>
+		</div>
+
+    <div id="prescription_search_modal_partial">
+        <div id="prescriptionSearchModal">
+        </div>
+    </div>
+
+    <div id="prescriber_search_modal_partial">
+        <div id="prescriberSearchModal">
+        </div>
+    </div>
+
+    <div id="item_search_modal_partial">
+        <div id="itemSearchModal">
+        </div>
+    </div>
+
+<% end %>
+
+
+<script>
+
+  //<%#  *** PRESCRIPTION number ***  %>
+
+	$('#prescription_rx_number').on("keypress", function(e) {
+		var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+      rxNumber = $("#prescription_rx_number").val();
+		if(key == 13 && rxNumber ) {
+			window.location.replace( "/prescription/rx_number/" + rxNumber );
+			return false;
+		}
+	});
+
+
+  // TEMPORARY CODE SOLUTION !!!!!
+  // TODO:  don't do this on a refill, only a change ... need to ask Steve how
+  // he wants to distinguish behavior when it either a change to an Rx vs a Refill
+  $('#prescription_refills_prescribed').on("change", function(e) {
+    var refills_prescribed = $("#prescription_refills_prescribed").val();
+    $("#prescription_refills_left").val(refills_prescribed);
+	});
+
+
+    // -----------------------------
+    // CUSTOMER: define the search
+    var custsrch = FEENX.Search.NewSearch('customer',
+        {   context:      'prescription',
+            triggerField: 'display_name',
+            fieldPrefix:  'customer',
+            modalId:      'customerSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      false,
+            refreshTo:    ''});
+
+    // additional attributes would be defined
+    custsrch.addAttribute('display_name', false, '', 'display_name');
+    custsrch.addAttribute('age', false, '', 'age');
+    custsrch.addAttribute('gender', false, '', 'gender');
+    custsrch.addAttribute('birthdate', false, '', 'birthdate');
+    custsrch.addAttribute('profile_trigger', true, '', 'profile_trigger');
+
+    // create the corresponding hidden fields in the form
+    custsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    custsrch.dataFormattedAttributes();
+
+
+    // -----------------------------
+    // PRESCRIPTION: define the search
+    var rxsrch = FEENX.Search.NewSearch('prescription',
+        {   context:      '',
+            triggerField: '',
+            fieldPrefix:  '',
+            modalId:      'prescriptionSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/prescriptions/',
+            onAbortFocusTo: 'prescription_prescriber_display_name'});
+
+    // create the corresponding hidden fields in the form
+    rxsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    rxsrch.dataFormattedAttributes();
+
+
+    // set all search clean-up & following actions below ...
+
+    $(custsrch).on(custsrch.done(), function(event, data) {
+        rxsrch.doSearch(data);  // provide start ID
+    });
+
+    // set focus to specific fields following search
+    $(rxsrch).on(rxsrch.done(), function(event, data) {
+      $('#prescription_last_fill_quantity').focus();
+    });
+
+    $(prescribsrch).on(prescribsrch.done(), function() { $('#prescription_item_display_name').focus(); });
+    $(itemsrch).on(itemsrch.done(), function() { $('#prescription_quantity_prescribed').focus(); });
+
+    // Force Focus to
+    var formFocus = FEENX.Focus.SetFocus("prescription_customer_display_name");
+
+</script>

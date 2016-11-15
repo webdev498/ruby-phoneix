@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @price_history.dept_number %>
+</p>
+
+<p>
+  <strong>Employee id number:</strong>
+  <%= @price_history.employee_id_number %>
+</p>
+
+<p>
+  <strong>Mode:</strong>
+  <%= @price_history.mode %>
+</p>
+
+<p>
+  <strong>Mechanism:</strong>
+  <%= @price_history.mechanism %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @price_history.source %>
+</p>
+
+<p>
+  <strong>Element changed:</strong>
+  <%= @price_history.element_changed %>
+</p>
+
+<p>
+  <strong>Old price:</strong>
+  <%= @price_history.old_price %>
+</p>
+
+<p>
+  <strong>New price:</strong>
+  <%= @price_history.new_price %>
+</p>
+
+<%= link_to 'Edit', edit_price_history_path(@price_history) %> |
+<%= link_to 'Back', price_histories_path %>

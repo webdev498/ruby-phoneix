@@ -1,0 +1,17 @@
+<%= simple_form_for(@clinical_icd) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :diagnosis_code %>
+    <%= f.input :diagnosis_description %>
+    <%= f.input :diagnosis_icd10 %>
+    <%= f.input :diagnosis_type %>
+    <%= f.input :diagnosis_source %>
+    <%= f.input :diagnosis_start_date %>
+    <%= f.input :diagnosis_end_date %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

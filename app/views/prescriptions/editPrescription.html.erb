@@ -1,0 +1,296 @@
+<%# editPrescription form %>
+<% phx_subnav_for :m_prescription %>
+
+<% provide :prescription, "active" %>
+
+
+<%= form_for( @prescription, html: { autocomplete: "off" } ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button id=rx-hamburger class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="row phx-working-area-title-info">
+				<div class="col-lg-8">
+					<div class="phx-working-area-title">Change Prescription
+            <% if !@prescription.customer_display_name.empty? %>
+              &nbsp;&nbsp;|
+							<span class="phx-working-area-title-displayName" id="prescriptionCustomerName">
+								&nbsp;&nbsp;&nbsp;<%= @prescription.customer_display_name %>&nbsp;&nbsp;&nbsp;
+			      	</span>
+              [&nbsp;<%= @prescription.item.display_name %>&nbsp;]
+						<% end %>
+					</div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+				</div>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+      <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
+
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Prescription Info
+                </div>
+                <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+            </div>
+
+            <%= render partial: 'rxPrimaryInfoForm', locals: {f: f} %>
+
+            <div class="field form-group phx-input-control-spacer">&nbsp;
+            </br>
+
+					</div>
+				</div>
+			</div> <!-- end of Primary Info col lg def -->
+		</div> <!-- end of container fluid for Primary Info -->
+
+
+		<!-- TABBED AREA -->
+    <div class="col-lg-8">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#dispenseEditPanel-general" role="tab" data-toggle="tab">General</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+      	<div id="dispenseEditPanel-general" class="tab-pane active">
+        	<div class="row container-fluid">
+
+						<!-- First panel, first column -->
+						<div class="container-fluid col-lg-4">
+
+              <%= phx_textfield_for f, :facility, "Facility", 0, "", :readonly %>
+
+              <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :customer_age, "Age", 0, "col-md-6", :readonly  %>
+    						<%= phx_textfield_for f, :customer_gender, "Gender", 0, "col-md-6", :readonly %>
+    					</div>
+
+              <%= phx_textfield_for f, :prescriber_npi_number, "NPI #", 0, "", :readonly %>
+              <%= phx_textfield_for f, :item_ndc_number, "NDC #", 0, "", :readonly %>
+              <%= phx_textfield_for f, :quantity_remaining, "Quantity Left" %>
+              <%= phx_datefield_for f, :refill_through_date, "Refill Through" %>
+              <%= phx_selectfield_for f, :rx_type, "Prescription Type", Prescription.rx_types, false, 0, "", true %>
+              <%= phx_textfield_for f, :diagnosis_code, "Diagnosis Code" %>
+              <%= phx_datefield_for f, :renewed_rx_date, "Renewed Prescription Date" %>
+              <%= phx_textfield_for f, :retail_auto_fill_type, "Retail Auto Fill Type" %>
+
+						</div> <!-- END OF first panel, first column -->
+
+						<!-- First panel, second column -->
+						<div class="container-fluid col-lg-4">
+
+              <%= phx_textfield_for f, :wing, "Wing", 0, "", :readonly %>
+              <%= phx_textfield_for f, :customer_birthdate, "Birthdate", 0, "", :readonly %>
+              <%= phx_textfield_for f, :prescriber_phone, "Prescriber Phone", 0, "", :readonly %>
+              <%= phx_textfield_for f, :dea_schedule, "DEA Schedule" %>
+              <%= phx_textfield_for f, :original_refills_prescribed, "Original Refills Prescribed" %>
+              <%= phx_datefield_for f, :expiration_date, "Expiration Date" %>
+              <%= phx_selectfield_for f, :status, "Prescription Status", Prescription.statuses, false, 0, "", true %>
+              <%= phx_textfield_for f, :diagnosis_code_qualifier, "Diagnosis Qualifier" %>
+              <%= phx_textfield_for f, :renewed_rx_number, "Renewed Prescription #" %>
+              <%= phx_textfield_for f, :sig_frequency, "Sig Frequency" %>
+
+						</div> <!-- END OF first panel, second column -->
+
+						<!-- First panel, third column -->
+						<div class="container-fluid col-lg-4">
+
+              <%= phx_textfield_for f, :room, "Room", 0, "", :readonly %>
+              <%= phx_textfield_for f, :customer_phone, "Customer Phone", 0, "", :readonly %>
+              <%= phx_textfield_for f, :prescriber_dea_number, "DEA #", 0, "", :readonly %>
+              <%= phx_textfield_for f, :item_last_awp_update_date, "Last AWP Update", 0, "", :readonly %>
+              <%= phx_textfield_for f, :original_total_quantity_prescribed, "Original Total Quantity Prescribed" %>
+              <%= phx_datefield_for f, :auto_fill_next_date, "Auto Fill Date" %>
+              <%= phx_textfield_for f, :certification_code, "Certification Code" %>
+              <%= phx_textfield_for f, :prior_authorization_number, "Prior Authorization" %>
+              </br>
+              <%= phx_checkbox_for f,  :doc_u_dose_rx, "Doc-U-Dose Prescription" %>
+              <%= phx_checkbox_for f,  :on_docudose_calendar, "On Doc-U-Dose Calendar" %>
+              </br></br>
+
+              <% if f.object.persisted? %>
+                <%= phx_red_submit_button_for f, "Prescription", ["", "Update Prescription"], "updatePrescription", "phx-btn-model-control-width pull-left", false %>
+              <%end%>
+
+						</div> <!-- END OF first panel, third column -->
+					</div> <!-- container-fluid for panel -->
+				</div>  <!-- END OF GENERAL INFO PANEL -->
+
+        <div class="field form-group phx-input-control-spacer">&nbsp;</div>
+			</div>  <!-- End of Tab Panes -->
+
+		</div>  <!-- End of TABBED AREA -->
+
+		<div id="customer_search_modal_partial">
+        <div id="customerSearchModal">
+        </div>
+		</div>
+
+    <div id="prescription_search_modal_partial">
+        <div id="prescriptionSearchModal">
+        </div>
+    </div>
+
+    <div id="prescriber_search_modal_partial">
+        <div id="prescriberSearchModal">
+        </div>
+    </div>
+
+    <div id="item_search_modal_partial">
+        <div id="itemSearchModal">
+        </div>
+    </div>
+
+<% end %>
+
+
+<script>
+
+  //<%#  *** PRESCRIPTION number ***  %>
+
+	$('#prescription_rx_number').on("keypress", function(e) {
+		var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+      rxNumber = $("#prescription_rx_number").val();
+		if(key == 13 && rxNumber ) {
+			window.location.replace( "editPrescriptionRx/" + rxNumber );
+			return false;
+		}
+	});
+
+
+  // TEMPORARY CODE SOLUTION !!!!!
+  // TODO:  don't do this on a refill, only a change ... need to ask Steve how
+  // he wants to distinguish behavior when it either a change to an Rx vs a Refill
+  $('#prescription_refills_prescribed').on("change", function(e) {
+    var refills_prescribed = $("#prescription_refills_prescribed").val();
+    $("#prescription_refills_left").val(refills_prescribed);
+	});
+
+
+    // -----------------------------
+    // CUSTOMER: define the search
+    var custsrch = FEENX.Search.NewSearch('customer',
+        {   context:      'prescription',
+            triggerField: 'display_name',
+            fieldPrefix:  'customer',
+            modalId:      'customerSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      false,
+            refreshTo:    ''});
+
+    // additional attributes would be defined
+    custsrch.addAttribute('display_name', false, '', 'display_name');
+    custsrch.addAttribute('age', false, '', 'age');
+    custsrch.addAttribute('gender', false, '', 'gender');
+    custsrch.addAttribute('birthdate', false, '', 'birthdate');
+    custsrch.addAttribute('profile_trigger', true, '', 'profile_trigger');
+
+
+    // create the corresponding hidden fields in the form
+    custsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    custsrch.dataFormattedAttributes();
+
+    // -----------------------------
+    // PRESCRIBER: define the search
+    var prescribsrch = FEENX.Search.NewSearch('prescriber',
+        {   context:      'prescription',
+            triggerField: 'display_name',
+            fieldPrefix:  'prescriber',
+            modalId:      'prescriberSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      false,
+            refreshTo:    '' });
+
+    // additional attributes would be defined
+    prescribsrch.addAttribute('display_name', false, '', 'display_name');
+
+    // create the corresponding hidden fields in the form
+    prescribsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    prescribsrch.dataFormattedAttributes();
+
+
+    // -----------------------------
+    // PRESCRIPTION: define the search
+    var rxsrch = FEENX.Search.NewSearch('prescription',
+        {   context:      '',
+            triggerField: '',
+            fieldPrefix:  '',
+            modalId:      'prescriptionSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/prescription/editPrescription/',
+            onAbortFocusTo: 'prescription_prescriber_display_name'});
+
+    // create the corresponding hidden fields in the form
+    rxsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    rxsrch.dataFormattedAttributes();
+
+
+    // -----------------------------
+    // ITEM: define the search
+    var itemsrch = FEENX.Search.NewSearch('item',
+        {   context:      'prescription',
+            triggerField: 'display_name',
+            fieldPrefix:  'item',
+            modalId:      'itemSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      false,
+            refreshTo:    '' });
+
+    // additional attributes would be defined
+    itemsrch.addAttribute('display_name', false, '', 'display_name');
+
+    // create the corresponding hidden fields in the form
+    itemsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    itemsrch.dataFormattedAttributes();
+
+
+    // set all search clean-up & following actions below ...
+
+    $(custsrch).on(custsrch.done(), function(event, data) {
+        rxsrch.doSearch(data);  // provide start ID
+    });
+
+    // set focus to specific fields following search
+    $(rxsrch).on(rxsrch.done(), function(event, data) {
+      $('#prescription_last_fill_quantity').focus();
+    });
+
+    $(prescribsrch).on(prescribsrch.done(), function() { $('#prescription_item_display_name').focus(); });
+    $(itemsrch).on(itemsrch.done(), function() { $('#prescription_quantity_prescribed').focus(); });
+
+    // Force Focus to
+    var formFocus = FEENX.Focus.SetFocus("prescription_customer_display_name");
+
+    // Sig Cache
+    var sigCache = FEENX.Sig.SigCache();
+
+</script>

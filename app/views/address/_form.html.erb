@@ -1,0 +1,24 @@
+<%# claim form %>
+
+<%= form_for address do |f| %>
+
+	<div class="row container-fluid">
+
+		<div class="container-fluid col-lg-4">
+
+			<%= phx_textfield_for f, :street1, "Street" %>
+      <%= phx_textfield_for f, :street2, "" %>
+
+			<%= phx_textfield_for f, :city, "City" %>
+
+      <%= phx_textfield_for f, :state, "State" %>
+
+      <%= phx_textfield_for f, :postal, "State" %>
+
+			<div class="form-group phx-input-control-spacer"></div>
+
+    </div>
+
+  </div>
+
+<% end %>

@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html id="feenxRx">
+<head>
+  <title>Phoenix by RNA</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <div id="feenxRx">
+    	<%= render 'common/phx_navbar' %>
+
+    	<!-- Sub-nav and body below the navbar -->
+    	<div style="padding-top:80px;" class="container-fluid phx-working-area-background">
+            <div class="row">
+                <div class="col-md-2" style="padding-top:60px; height:940px; background-color:#e1dfdf; border: 1px solid #d9d8d8;">
+
+                    <%= yield :phx_subnav %>
+
+                    <div class="phx-subnav-medsoft-logo">
+                          <%= image_tag "brandingWatermarkLogo.png", crop: :scale %>
+                    </div>
+
+                </div>
+
+                <%= yield %>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+<!-- move this -->
+$('.datepicker').datepicker({
+            format: 'mm-dd-yyyy',
+            autoclose: 'true'
+        });
+
+// function closePhoenix(){
+    var feenxRx = document.getElementById('feenxRx');
+    var signout = document.getElementById('signout');
+
+    // signout.addEventListener('click', function() {
+    //
+    //         if (feenxRx.exitFullscreen) {
+    //                 feenxRx.exitFullscreen();
+    //         } else if (feenxRx.msExitFullscreen) {
+    //                 feenxRx.msExitFullscreen();
+    //         } else if (feenxRx.mozCancelFullScreen) {
+    //                 feenxRx.mozCancelFullScreen();
+    //         } else if (feenxRx.webkitExitFullscreen) {
+    //                 feenxRx.webkitExitFullscreen();
+    //         }
+    //     });
+
+// }();
+
+  // trap carriage returns ... user's must use mouse for submit
+  var t13 = FEENX.Trap13.Catch13();
+
+</script>
+
+</html>

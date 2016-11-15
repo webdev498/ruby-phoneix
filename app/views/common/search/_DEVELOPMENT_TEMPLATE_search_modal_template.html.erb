@@ -1,0 +1,210 @@
+**************************************************************************************
+CODE to be EMBEDDED in the MODEL CLASS
+
+Replace:
+*PHX-MODEL*
+with:  the name of the model ... all lower case
+
+
+**************************************************************************************
+CODE to be EMBEDDED in the CALLING view
+
+Replace:
+*PHX-MODEL*
+with:  the name of the model ... all lower case
+
+**** HTML at the end of the body of html ****
+
+
+<div id="*PHX-MODEL*_search_modal_partial">
+    <div id="c*PHX-MODEL*SearchModal">
+    </div>
+</div>
+
+
+**** JAVASCRIPT IN THE <script></script> AREA  ****
+
+//<%# bind selection event in the search back to a handler here %>
+$('#*PHX-MODEL*_search_modal_partial').on('shown.bs.modal', function () {
+    // unbind any prior search events - prevents multiple handlers for the same search modal
+    $( document ).off( "phx-selected-*PHX-MODEL*" );
+
+    // bind the handler to the custom event
+    $( document ).on( "phx-selected-*PHX-MODEL*",
+        function( event, selected_id, selected_name ) {
+// custom code that utilizes the results of the search goes below
+// this is an example that calls another Javascript function
+// to go back to the server and retrieve the selected object
+//            get_*PHX-MODEL*( selected_id );
+    });
+})
+
+
+**************************************************************************************
+CODE for the the AJAX JAVASCRIPT ERB
+
+Filename pattern:  nextSearch*PHX-CAMEL-PLURAL-MODEL*.js.erb
+
+Replace:
+*PHX-MODEL*
+with:  the name of the model ... all lower case
+
+*PHX-CAMEL-PLURAL-MODEL*
+with:  the name of the model ... camel cased
+
+
+$('.modal-backdrop').remove();
+$("#*PHX-MODEL*_search_modal_partial").html(
+		"<%= escape_javascript(render partial: 'common/search/*PHX-MODEL*_search_modal_template', locals: { search*PHX-CAMEL-PLURAL-MODEL*: @search*PHX-CAMEL-PLURAL-MODEL* } ) %>");
+$("#*PHX-MODEL*SearchModal").modal('toggle');
+$("#*PHX-MODEL*SearchModal_Keys1_9").focus();
+$(document).on("click", function(e) { $("#*PHX-MODEL*SearchModal_Keys1_9").focus(); });
+
+
+
+**************************************************************************************
+CODE to be EMBEDDED in the model's CONTROLLER
+
+Filename pattern:  nextSearch*PHX-CAMEL-PLURAL-MODEL*.js.erb
+
+Replace:
+
+*PHX-MODEL-CLASS*
+with:  the name of the model ... camel cased
+
+*PHX-CAMEL-PLURAL-MODEL*
+with:  the name of the model ... camel cased
+
+
+def next*PHX-CAMEL-PLURAL-MODEL*
+
+  if params[:start]
+    @searchFor = params[:start]
+  else
+    @searchFor = ""
+  end
+
+  if params[:page]
+    @search*PHX-CAMEL-PLURAL-MODEL* = **PHX-MODEL-CLASS**.paged_search_by_partial(@searchFor, params[:page], 9)
+  else
+    @search*PHX-CAMEL-PLURAL-MODEL* = **MODEL-CLASS**.paged_search_by_partial( @searchFor, 1, 9)
+  end
+
+  render  template: 'common/search/nextSearch*PHX-CAMEL-PLURAL-MODEL*.js'
+
+end
+
+
+**************************************************************************************
+SEARCH MODAL code
+
+Replace:
+*PHX-KIND-OF-SEARCH*
+with: the string to appear in the header and on the create button
+
+Replace:
+*PHX-MODEL*
+with:  the name of the model ... all lower case
+
+Replace:
+*PHX-CAMEL-PLURAL-MODEL*
+with:  the name of the model ... camel cased
+
+Replace:
+*PHX-MODEL-ACCESSOR*
+with: all of the model accessors (attributes) that are the columns of the displayed search table
+
+
+<div class="phx-modal containter-fluid" id="*PHX-MODEL*SearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>*PHX-KIND-OF-SEARCH* Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+ 		  			<tr>
+						<th class="phx-search-font"><input type="text" id="*PHX-MODEL*SearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font">*PHX-MODEL-ACCESSOR*</th>
+		  		  </tr>
+  				</thead>
+
+					<tbody>
+						<% search*PHX-CAMMEL-PLURAL-MODEL*.each do |*PHX-MODEL*| %>
+
+							<% *PHX-MODEL*SearchRowId = "*PHX-MODEL*Row" + (choice += 1).to_s %>
+							<tr	id="<%=*PHX-MODEL*SearchRowId%>"
+									class="phx-search-row clickable-*PHX-MODEL*Row"
+									data-phx-search-*PHX-MODEL*-id="<%= *PHX-MODEL*.id %>"
+									data-phx-search-*PHX-MODEL*-name="<%= *PHX-MODEL*.display_name %>" >
+
+								<td class="phx-search-font" > <%= choice %> </td>
+								<td class="phx-search-font"> <%= *PHX-MODEL*.*PHX-MODEL-ACCESSOR* %> </td>
+							</tr>
+						<% end %> <!-- END OF *PHX-MODEL* list -->
+					</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%= paginate search*PHX-CAMMEL-PLURAL-MODEL*,
+						params: { controller: "*PHX-CONTROLLER*", action: "next*PHX-CAMMEL-PLURAL-MODEL*"} , remote: true  unless search*PHX-CAMMEL-PLURAL-MODEL*.empty? %>
+
+				<%# CUSTOMIZE BUTTONS AS NEEDED - BASED ON SEARCH CONTEXT %>
+				<%= link_to "New *PHX-KIND-OF-SEARCH*",
+						*PHX-MODEL*_path,
+						id: "createNew*PHX-CAMMEL-PLURAL-MODEL*Button",
+						method: "get",
+						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
+				<%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+				<button id="*PHX-MODEL*_modal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+	<script>
+
+		//<%# signal that a search selection has been made, and provide the ID and Name %>
+		//<%# the calling view MUST define the "phx-selected-*PHX-MODEL*" custom event  %>
+		function triggerSearchSelection( selectedSearchItem ) {
+			$( document ).trigger( "phx-selected-*PHX-MODEL*",
+										[ selectedSearchItem.data("phxSearch*PHX-MODEL*Id"),
+										  selectedSearchItem.data("phxSearch*PHX-MODEL*Name") ] );
+			$('#*PHX-MODEL*_modal_close_btn').trigger("click");
+			}
+
+
+		//<%# handle a click event on any of the search rows %>
+		$(".clickable-*PHX-MODEL*Row").click(function() {
+			//<%# send the jQuery version of "this" %>
+			triggerSearchSelection( $(this) );
+			});
+
+
+		//<%# handle a number selection on the search %>
+		$('#*PHX-MODEL*SearchModal_Keys1_9').on("keypress", function(e) {
+				var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+				if( key >= 48 && key <= 57 ) {
+						triggerSearchSelection( $("#*PHX-MODEL*Row" + (key-48).toString()) );
+						return false; }
+				if (key == 27) { $("#*PHX-MODEL*SearchModal_close_btn").trigger("click"); return false; }
+				if (key == 43) { $("#createNew*PHX-MODEL*Button").trigger("click"); return false; }
+			});
+
+	</script>
+</div>

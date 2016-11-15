@@ -1,0 +1,63 @@
+<% provide(:pos_tax, "active") %>
+
+<%= form_for( @pos_tax ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+	  <!-- working area title and nav -->
+	  <div class="row span10 phx-working-area-nav">
+	    <div class="col-xs-1 phx-hamburger-box">
+	    	<button class="phx-hamburger">|||</button>
+		</div>
+
+	    <div style="height:50px;">
+			<row>
+				<div class="col-lg-8">
+			      <div class="phx-working-area-title">POS Method of Payment
+			      </div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+			      <p>
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+			      </p>
+				</div>
+			</row>
+		</div>
+
+	  <!-- working area -->
+      <div class="containter-fluid" style="padding-top:30px;">
+
+		<!-- Primary Info -->
+        <div class="col-lg-4">
+
+			<div class="phx-primary-info-column">
+			
+				<div class="field form-group phx-input-control">
+					<label class="phx-form-control-label" for="dept_number">Department</label>
+					<%= f.text_field :dept_number, class: 'phx-form-control' %>
+				</div>
+				
+				<div class="field form-group phx-input-control">
+					<label class="phx-form-control-label" for="tax_code">Tax Code</label>
+					<%= f.text_field :tax_code, class: 'phx-form-control' %>
+				</div>
+				
+				<div class="field form-group phx-input-control">
+					<label class="phx-form-control-label" for="tax_description">Description</label>
+					<%= f.text_field :tax_description, class: 'phx-form-control' %>
+				</div>
+				
+				<div class="field form-group phx-input-control">
+					<label class="phx-form-control-label" for="tax_rate">Tax Rate</label>
+					<%= f.text_field :tax_rate, class: 'phx-form-control' %>
+				</div>
+
+			</div> <!-- end of container fluid for Primary Info -->
+
+		</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-8">
+
+<% end %>

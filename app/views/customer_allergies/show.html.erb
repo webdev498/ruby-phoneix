@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @customer_allergy.dept_number %>
+</p>
+
+<p>
+  <strong>Rna customer id number:</strong>
+  <%= @customer_allergy.rna_customer_id_number %>
+</p>
+
+<p>
+  <strong>Customer allergy code:</strong>
+  <%= @customer_allergy.customer_allergy_code %>
+</p>
+
+<p>
+  <strong>Allergy type:</strong>
+  <%= @customer_allergy.allergy_type %>
+</p>
+
+<p>
+  <strong>Allergy description:</strong>
+  <%= @customer_allergy.allergy_description %>
+</p>
+
+<%= link_to 'Edit', edit_customer_allergy_path(@customer_allergy) %> |
+<%= link_to 'Back', customer_allergies_path %>

@@ -1,0 +1,15 @@
+<%= simple_form_for(@clinical_hic4) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :hic4_sequence_number %>
+    <%= f.input :hic4_description %>
+    <%= f.input :hic4_root %>
+    <%= f.input :hic4_hic %>
+    <%= f.input :hic4_salt %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

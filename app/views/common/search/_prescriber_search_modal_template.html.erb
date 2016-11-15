@@ -1,0 +1,81 @@
+<%# parameters: searchPrescribers - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="prescriberSearchModal" role="dialog" aria-hidden="true">
+
+	<div>  <%# every search has the standard hidden search fields relevant to that particular search %>
+		<input type="hidden" name="search_prescriber_id" id="search_prescriber_id">
+		<input type="hidden" name="search_prescriber_name" id="search_prescriber_name">
+	</div>
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Prescriber Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table table-condensed table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font"><input type="text" id="prescriberSearchModal_Keys1_9" style="width:0.5px;" ></th></th>
+							<th class="phx-search-font">Last Name</th>
+							<th class="phx-search-font">First Name</th>
+							<th class="phx-search-font">Middle Name</th>
+							<th class="phx-search-font">Active</th>
+							<th class="phx-search-font">NPI Number</th>
+							<th class="phx-search-font">DEA</th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchPrescribers.each do |prescriber| %>
+							<tr	id="<%= 'prescriberSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-prescriberSearchModal-row"
+								data-phx-search-prescriber-id="<%= prescriber.id %>"
+								data-phx-search-prescriber-last_name="<%= prescriber.last_name %>"
+								data-phx-search-prescriber-display_name="<%= prescriber.display_name %>"
+								data-phx-search-prescriber-npi_number="<%= prescriber.npi_number %>"
+								data-phx-search-prescriber-dea_number="<%= prescriber.dea_number %>"
+								data-phx-search-prescriber-phone="<%= prescriber.prescribing_phone %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= prescriber.last_name %> </td>
+								<td class="phx-search-font"> <%= prescriber.first_name %> </td>
+								<td class="phx-search-font"> <%= prescriber.middle_name %> </td>
+								<td class="phx-search-font"> <%= prescriber.active ? "Yes" : "No" %> </td>
+								<td class="phx-search-font"> <%= prescriber.npi_number %> </td>
+								<td class="phx-search-font"> <%= prescriber.dea_number %> </td>
+							</tr>
+						<% end %> <!-- END OF item list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchPrescribers,
+						params: { controller: (searchController.nil? ? "prescribers" : searchController),
+							 				action: "nextPrescribers"} , remote: true  unless searchPrescribers.empty? %>
+
+				<%= link_to "New Prescriber",
+						menu_prescriber_path,
+						id: "createNewPrescriberButton",
+						method: "get",
+						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
+				<button id="prescriberSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+</div>
+<script>
+	$('#prescriber_search_modal_partial').trigger('contentchanged');
+</script>

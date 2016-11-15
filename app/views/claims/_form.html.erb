@@ -1,0 +1,1012 @@
+<!--  RNA Holdings, LLC - COPYRIGHT and INTELLECTUAL PROPERTY NOTICE: -->
+<!-- This source code contains copyrighted material and other confidential and proprietary information  -->
+<!-- that is wholly owned by RNA Holdings, LLC d/b/a Mobile MedSoft, LLC.  All rights reserved.  -->
+
+<%# claim form %>
+
+<%= form_for @claim do |f| %>
+
+
+<div class="col-lg-10 phx-working-area-background">
+
+    <!-- working area title and nav -->
+    <div class="row span10 phx-working-area-nav">
+
+        <%# temporarily disable hamburger  with  type="button" %>
+        <div class="col-xs-1 phx-hamburger-box">
+            <button type="button" class="phx-hamburger">|||</button>
+        </div>
+
+        <div class="phx-working-area-nav">
+            <row>
+				<div class="col-lg-8">
+			      <div class="phx-working-area-title">Claim Management
+			      </div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+				</div>
+			</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<!-- working area -->
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+				<!-- Primary Info -->
+				<div class="col-lg-4">
+
+					<div class="phx-primary-info-column">
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Claims Lookup
+                </div>
+            </div>
+
+            <div class="form-group phx-input-control-spacer" style="margin-bottom: -15px;">&nbsp;</div>
+
+              <%= f.hidden_field :id %>
+
+						<%= phx_checkbox_for f, :search_for_all_claims, "View All Claims" %>
+
+            <div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+
+						<div class="row phx-two-horizontal-controls">
+							<%= phx_textfield_for f, :search_for_rx_number, "Rx Number", 0, "col-md-6" %>
+
+							<%= phx_textfield_for f, :search_for_fill_number, "Fill Number", 0, "col-md-6" %>
+						</div>
+
+						<%= phx_textfield_for f, :search_for_customer, "Customer" %>
+
+						<%= phx_textfield_for f, :search_for_plan, "Plan" %>
+
+						<%= phx_datefield_for f, :search_for_from_date, "Date" %>
+
+						<%= phx_textfield_for f, :search_for_status, "Status" %>
+
+						<div class="form-group phx-input-control-spacer"></div>
+
+					</div> <!-- end of container fluid for Primary Info -->
+
+          <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+          <!-- Prescription Info -->
+          <div class="phx-primary-info-column">
+
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Prescription Information
+              </div>
+            </div>
+
+            <div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+
+            <div class=" field form-group phx-input-control">
+              <label class="phx-form-control-label" for="claim_display_name">Customer</label>
+              <input class="phx-form-control" value="<%= Customer.find(@claim.customer_id).display_name if @claim.customer_id %>" name="claim[claim_display_name]" id="claim_display_name" type="text" readonly>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+
+              <%= phx_textfield_for f, :rx_number, "Rx Number", 0, "col-md-6", :readonly %>
+
+              <%= phx_textfield_for f, :fill_number, "Fill Number", 0, "col-md-6", :readonly %>
+
+            </div>
+
+            <%#= phx_textfield_for f, :search_for_customer, "Prescriber",0,"", :readonly %>
+            <div class=" field form-group phx-input-control">
+              <label class="phx-form-control-label" for="customer_prescriber">Prescriber</label>
+                <% prescriber_id = -1 %>
+                <% prescriber_id = Prescription.find(@claim.prescription_id).prescriber_id if @claim.prescription_id %>
+                <input class="phx-form-control" value="<%= Prescriber.find(prescriber_id).display_name if prescriber_id >= 0  %>" name="claim[claim_prescriber]" id="claim_prescriber" type="text" readonly>
+            </div>
+
+            <!-- FIXME item table data does not exist right now -->
+            <%#= phx_textfield_for f, :search_for_customer, "Item",0,"", :readonly %>
+            <div class=" field form-group phx-input-control">
+              <label class="phx-form-control-label" for="customer_item">Item</label>
+              <% item_id = -1 %>
+              <% item_id = Prescription.find(@claim.prescription_id).item_id if @claim.prescription_id  %>
+              <input class="phx-form-control" value="<%= Item.find(item_id).item_name if item_id >= 0  %>" name="claim[claim_item]" id="claim_item" type="text" readonly>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+
+              <%#= phx_textfield_for f, :search_for_rx_number, "Payment Type", 0, "col-md-6", :readonly %>
+
+              <div class=" field form-group phx-input-control col-md-6">
+                <label class="phx-form-control-label" for="claim_payment_type">Payment Type</label>
+                <input class="phx-form-control" value="<%= Plan.find(@claim.plan_id).plan_type if @claim.plan_id  %>" name="claim[claim_payment_type]" id="claim_payment_type" type="text" readonly>
+              </div>
+
+              <%= phx_textfield_for f, :status, "Status", 0, "col-md-6", :readonly %>
+
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+              <% dispense = nil %>
+              <% dispense = Prescription.find(@claim.prescription_id).dispenses.find_by rx_number: @claim.rx_number, fill_number: @claim.fill_number if @claim.prescription_id   %>
+
+              <div class=" field form-group phx-input-control col-md-6">
+                <label class="phx-form-control-label" for="claim_quanitity_dispensed">Quantity Dispensed</label>
+
+                <input class="phx-form-control" value="<%= dispense.quantity if dispense  %>"
+                       name="claim[claim_quanitity_dispensed]" id="claim_quanitity_dispensed" type="text" readonly>
+              </div>
+
+              <div class=" field form-group phx-input-control col-md-6">
+                <label class="phx-form-control-label" for="claim_days_supply">Days Supply</label>
+
+                <input class="phx-form-control" value="<%= dispense.days_supply if dispense  %>"
+                       name="claim[claim_days_supply]" id="claim_days_supply" type="text" readonly>
+              </div>
+              <%#= phx_textfield_for f, :search_for_fill_number, "Days Supply", 0, "col-md-6", :readonly %>
+
+            </div>
+
+            <div class="form-group phx-input-control-spacer"></div>
+
+          </div>
+
+          <div class="form-group phx-input-control-spacer"></div>
+
+				</div> <!-- end of Prescription Info col lg def -->
+
+				<div class="col-lg-7">
+
+					<!-- Tab labels -->
+					<ul class="nav nav-tabs" role="tablist" id = "tabs">
+						<li class="disabled"><a href="#claimPanel-paid" role="tab" data-toggle="tab">Paid Claim</a></li>
+						<li class="disabled"><a href="#claimPanel-rejected" role="tab" data-toggle="tab">Rejected</a></li>
+						<li class="disabled"><a href="#claimPanel-reversal" role="tab" data-toggle="tab">Reversal</a></li>
+						<li class="disabled"><a href="#claimPanel-pending" role="tab" data-toggle="tab">Pending</a></li>
+						<li><a href="#claimPanel-cob" role="tab" data-toggle="tab">COB</a></li>
+						<li><a href="#claimPanel-dur" role="tab" data-toggle="tab">DUR</a></li>
+						<li><a href="#claimPanel-compound" role="tab" data-toggle="tab">Compound</a></li>
+						<li><a href="#claimPanel-clinical" role="tab" data-toggle="tab">Clinical</a></li>
+						<li><a href="#claimPanel-priorAuth" role="tab" data-toggle="tab">Prior Auth</a></li>
+						<li><a href="#claimPanel-preferences" role="tab" data-toggle="tab">Preferences</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content phx-tab-pane">
+
+						<div class="tab-pane active" id="claimPanel-paid">
+							<div class="container-fluid">
+
+								<row>
+									<!-- GENERAL INFO, first column -->
+									<div class="container-fluid col-lg-4">
+
+                    <%#= cust = Customer.find(@claim.customer_id).last_name %>
+                    <%#= phx_textfield_for cust, :last_name, "Customer" %>
+                    <div class=" field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="customer_last_name">Customer Last Name</label>
+                      <input class="phx-form-control" value="<%= Customer.find(@claim.customer_id).last_name if @claim.customer_id  %>" name="claim[customer_last_name]" id="customer_last_name" type="text">
+                    </div>
+
+
+										<%= phx_textfield_for f, :usual_customary_price, "Usual and Customary Price", 0,"", nil, false, number_with_precision(f.object.usual_customary_price, precision:2) %>
+
+										<%= phx_textfield_for f, :cost_submitted, "Cost Submitted", 0,"", nil, false, number_with_precision(f.object.cost_submitted, precision:2) %>
+
+										<%= phx_textfield_for f, :fee_submitted, "Fee Submitted",  0,"", nil, false, number_with_precision(f.object.fee_submitted, precision:2) %>
+
+										<%= phx_textfield_for f, :tax_submitted, "Tax Submitted",  0,"", nil, false, number_with_precision(f.object.tax_submitted, precision:2) %>
+
+										<%= phx_textfield_for f, :incentive_amount, "Incentive Fee Submitted", 0,"", nil, false, number_with_precision(f.object.incentive_amount, precision:2) %>
+
+										<%= phx_textfield_for f, :cost_basis, "Cost Basis Submitted" %>
+
+										<%= phx_textfield_for f, :other_amount_fee_paid, "Other Fee Paid", 0,"", nil, false, number_with_precision(f.object.other_amount_fee_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :other_coverage_code, "Other Coverage" %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+                 					 </div> <!-- END OF first panel, first column -->
+
+									<!-- GENERAL INFO panel, second column -->
+									<div class="container-fluid col-lg-4">
+
+										<%= phx_textfield_for f, :partial_copay_amount, "Partial Copay", 0,"", nil, false, number_with_precision(f.object.partial_copay_amount, precision:2) %>
+
+										<%= phx_textfield_for f, :cost_paid, "Cost Paid", 0,"", nil, false, number_with_precision(f.object.cost_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :cost_paid, "**** Fee Paid ****", 0,"", nil, false, number_with_precision(f.object.cost_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :tax_paid, "Tax Paid",  0,"", nil, false, number_with_precision(f.object.tax_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :incentive_fee_paid, "Incentive Fee Paid", 0,"", nil, false, number_with_precision(f.object.incentive_fee_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :cost_submitted, "**** Reimburse Paid ****", 0,"", nil, false, number_with_precision(f.object.cost_submitted, precision:2) %>
+
+										<%= phx_textfield_for f, :service_fee_paid, "Service Fee Paid", 0,"", nil, false, number_with_precision(f.object.service_fee_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :eligibility_override, "Eligibility Override" %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+									</div> <!-- END OF GENERAL INFO panel, second column -->
+
+									<!-- GENERAL INFO panel, third column -->
+									<div class="container-fluid col-lg-4">
+
+										<%= phx_textfield_for f, :copay_amount, "Copay", 0,"", nil, false, number_with_precision(f.object.copay_amount, precision:2) %>
+
+										<%= phx_textfield_for f, :amount_due_filler, "Amount Due" %>
+
+										<%= phx_textfield_for f, :total_paid, "Total Paid", 0,"", nil, false, number_with_precision(f.object.total_paid, precision:2) %>
+
+										<%= phx_textfield_for f, :eligibility_override, "**** Diff ****" %>
+
+										<%= phx_textfield_for f, :denial_code, "Eligibility Override" %>
+
+										<%= phx_textfield_for f, :authorization_number, "Authorization Number" %>
+
+										<%= phx_textarea_for f, :transmission_message, "Message", 5 %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+									</div> <!-- END OF GENERAL INFO panel, third column -->
+								</row>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+							</div> <!-- END OF GENERAL INFO panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-rejected">
+							<div class="container-fluid">
+								<row>
+									<!-- REJECTED panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+
+										<%= phx_textfield_for f, :header_response, "Claim Header" %>
+
+										<%= phx_textfield_for f, :communications_error_code, "Communications Error" %>
+
+										<%= phx_textfield_for f, :reject_count, "Number of Errors" %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+									</div> <!-- END OF SECOND panel, second column -->
+
+									<!-- PLAN panel, 2nd column -->
+									<div class="container-fluid col-lg-7">
+
+										<%= phx_textarea_for f, :transmission_message, "Message", 7 %>
+
+                    <!--<input class="phx-form-control" value="<%= Customer.find(@claim.customer_id).last_name if @claim.customer_id %>" name="claim[customer_last_name]" id="customer_last_name" type="text">-->
+
+									</div> <!-- END OF PLAN panel, second column -->
+                  <div class="form-group phx-input-control-spacer"></div>
+
+								</row>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <%= phx_textfield_for f, :reject_code, "Error Code", 0, "col-md-4" %>
+                      <div class=" field form-group phx-input-control col-md-7">
+                        <label class="phx-form-control-label" for="claim_error_text">Error  Text</label>
+                        <% claim_error = ClaimError.find_by error_type:1, error_code:@claim.reject_code %>
+                        <input class="phx-form-control" value="<%= (ClaimError.find_by error_type:1, error_code:@claim.reject_code).error_text if claim_error  %>" name="claim[error_text]" id="claim_error_text" type="text" readonly>
+                      </div>
+                    </div>
+                    <%= phx_checkbox_for f, :dur_messages, "**** DUR Messages ****" %>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+							</div> <!-- END OF PLAN panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-reversal">
+							<div class="container-fluid">
+
+								<row>
+									<!-- PLAN panel 3, 1st column -->
+									<div class="container-fluid col-lg-6">
+
+                                        <%= phx_textfield_for f, :status, "Status" %>
+
+                                        <%= phx_textfield_for f, :authorization_number, "Authorization Number" %>
+
+										<%= phx_textarea_for f, :transmission_message, "Message", 6 %>
+
+                                        <div class="form-group phx-input-control-spacer"></div>
+
+                                    </div>
+                                    <div class="container-fluid col-lg-8">
+
+<%# Rejected test below COMMENTED OUT FOR DEMONSTRATION/TESTING %>
+                                        <%# if @claim.rejected? %>
+                                            <div class="row phx-two-horizontal-controls">
+                                                <%= phx_textfield_for f, :reject_code, "Error", 0, "col-md-3" %>
+                                                <%= phx_textfield_for f, :reject_code, "*** text lookup WAITING for rejected_code ARRAY ***", 0, "col-md-9" %>
+                                            </div>
+
+                                            <div class="row phx-two-horizontal-controls">
+                                                <%= phx_textfield_for f, :reject_code, "Error", 0, "col-md-3" %>
+                                                <%= phx_textfield_for f, :reject_code, "*** text lookup for code tbd ***", 0, "col-md-9" %>
+                                            </div>
+
+                                            <div class="row phx-two-horizontal-controls">
+                                                <%= phx_textfield_for f, :reject_code, "Error", 0, "col-md-3" %>
+                                                <%= phx_textfield_for f, :reject_code, "*** text lookup for code tbd ***", 0, "col-md-9" %>
+                                            </div>
+
+                                            <div class="row phx-two-horizontal-controls">
+                                                <%= phx_textfield_for f, :reject_code, "Error", 0, "col-md-3" %>
+                                                <%= phx_textfield_for f, :reject_code, "*** text lookup for code tbd ***", 0, "col-md-9" %>
+                                            </div>
+
+                                            <div class="row phx-two-horizontal-controls">
+                                                <%= phx_textfield_for f, :reject_code, "Error", 0, "col-md-3" %>
+                                                <%= phx_textfield_for f, :reject_code, "*** text lookup for code tbd ***", 0, "col-md-9" %>
+                                            </div>
+
+                                        <%# end %>
+									</div>
+
+								</row>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="form-group phx-input-control-spacer"></div>
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+
+							<div class="form-group phx-input-control-spacer"></div>
+
+						</div>
+
+
+						<div class="tab-pane" id="claimPanel-pending">
+							<div class="container-fluid">
+								<row>
+									<!-- PLAN panel 3, 1st column -->
+									<div class="container-fluid col-lg-4">
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="usual_customary_price">Usual and Customary Price</label>
+											<%= f.text_field :usual_customary_price, class: 'phx-form-control', :value => number_with_precision(f.object.usual_customary_price, precision:2) %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="amount_due">Amount Due</label>
+											<%= f.text_field :amount_due_filler, class: 'phx-form-control' %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="cost_submitted">Cost Submitted</label>
+											<%= f.text_field :cost_submitted, class: 'phx-form-control', :value => number_with_precision(f.object.cost_submitted, precision:2) %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="fee_submitted">Fee Submitted</label>
+											<%= f.text_field :fee_submitted, class: 'phx-form-control', :value => number_with_precision(f.object.fee_submitted, precision:2) %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="tax_submitted">Tax Submitted</label>
+											<%= f.text_field :tax_submitted, class: 'phx-form-control',:value => number_with_precision(f.object.tax_submitted, precision:2) %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="incentive_amount">Incentive Amount</label>
+											<%= f.text_field :incentive_amount, class: 'phx-form-control',:value => number_with_precision(f.object.incentive_amount, precision:2) %>
+										</div>
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="cost_basis">Cost Basis</label>
+											<%= f.text_field :cost_basis, class: 'phx-form-control' %>
+										</div>
+
+									</div>
+									<!-- PLAN CONT'D panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF SECOND panel, second column -->
+
+									<!-- PLAN CONT'D panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF PLAN CONT'D panel, second column -->
+                  <div class="form-group phx-input-control-spacer"></div>
+								</row>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="form-group phx-input-control-spacer"></div>
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="button">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+
+							<div class="form-group phx-input-control-spacer"></div>
+
+						</div>
+
+						<div class="tab-pane" id="claimPanel-cob">
+							<div class="container-fluid">
+                <% if(@cob_id && @cob_id != '') %>
+                  <%= f.fields_for :claimCobs , @claim.claimCobs.find(@cob_id)  do |ff| %>
+                    <div class="row">
+                      <!-- GENERAL INFO panel, second column -->
+                      <div class="container-fluid col-lg-3">
+
+                        <%= phx_textfield_for ff, :payor_coverage_type, "Coverage Type" %>
+
+                        <%= phx_textfield_for ff, :payor_id_qualifier, "Qualifier" %>
+
+                        <%= phx_textfield_for ff, :payor_paid_qualifier, "Payor Qualifier" %>
+
+                        <%= phx_textfield_for ff, :patient_amount_qualifier, "Pat Qualifier" %>
+
+                        <%= phx_textfield_for ff, :benefit_qualifier, "Benefit Qualifier" %>
+
+                      </div> <!-- END OF GENERAL INFO panel, second column -->
+
+                      <!-- GENERAL INFO panel, third column -->
+                      <div class="container-fluid col-lg-3">
+
+                        <%= phx_textfield_for ff, :payor_date, "Date" %>
+
+                        <%= phx_textfield_for ff, :payor_id, "Payor ID" %>
+
+                        <%= phx_textfield_for ff, :payor_amount_paid, "Payor Amount",0,"", nil, false, number_with_precision(ff.object.payor_amount_paid, precision:2) %>
+
+                        <%= phx_textfield_for ff, :patient_amount, "Pat Amount",0,"", nil, false, number_with_precision(ff.object.patient_amount, precision:2) %>
+
+                        <%= phx_textfield_for ff, :benefit_amount, "Benefit Amount", 0,"", nil, false, number_with_precision(ff.object.benefit_amount, precision:2) %>
+
+                      </div> <!-- END OF GENERAL INFO panel, third column -->
+                    </div>
+                  <% end %>
+                <% else %>
+                    <%= f.fields_for :claimCobs , @claim.claimCobs.build  do |ff| %>
+                        <div class="row">
+                          <!-- GENERAL INFO panel, second column -->
+                          <div class="container-fluid col-lg-3">
+
+                            <%= phx_textfield_for ff, :payor_coverage_type, "Coverage Type" %>
+
+                            <%= phx_textfield_for ff, :payor_id_qualifier, "Qualifier" %>
+
+                            <%= phx_textfield_for ff, :payor_paid_qualifier, "Payor Qualifier" %>
+
+                            <%= phx_textfield_for ff, :patient_amount_qualifier, "Pat Qualifier" %>
+
+                            <%= phx_textfield_for ff, :benefit_qualifier, "Benefit Qualifier" %>
+
+                          </div> <!-- END OF GENERAL INFO panel, second column -->
+
+                          <!-- GENERAL INFO panel, third column -->
+                          <div class="container-fluid col-lg-3">
+
+                            <%= phx_textfield_for ff, :payor_date, "Date" %>
+
+                            <%= phx_textfield_for ff, :payor_id, "Payor ID" %>
+
+                            <%= phx_textfield_for ff, :payor_amount_paid, "Payor Amount" %>
+
+                            <%= phx_textfield_for ff, :patient_amount, "Pat Amount" %>
+
+                            <%= phx_textfield_for ff, :benefit_amount, "Benefit Amount" %>
+
+                          </div> <!-- END OF GENERAL INFO panel, third column -->
+                        </div>
+                    <% end %>
+                <% end %>
+
+                <div class="form-group phx-input-control-spacer">&nbsp;</div>
+                <div class="row">
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <% if @cob_id %>
+                          <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Update</button>
+                          <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Delete</button>
+                      <% else %>
+                          <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Create</button>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group phx-input-control-spacer">&nbsp;</div>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-dur">
+							<div class="container-fluid">
+                <% if @dur_id %>
+                <%= f.fields_for :claimDurs , @claim.claimDurs.find(@dur_id) do |ff| %>
+									<row>
+										<div class="container-fluid col-lg-6">
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :dur_code, "DUR Code", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :dur_severity, "Severity", 0, "col-md-6" %>
+											</div>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :dur_prescriber, "Prescriber", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :dur_database, "Database", 0, "col-md-6" %>
+											</div>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :dur_pharmacy, "Pharmacy", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :dur_pharmacy, "**** Chain ****", 0, "col-md-6" %>
+											</div>
+
+											<%= phx_textfield_for ff, :dur_message, "Message" %>
+
+										</div>
+									</row>
+									<row>
+										<!-- PLAN CONT'D panel, 2nd column -->
+										<div class="container-fluid col-lg-5 pull-right">
+											<%= phx_textfield_for ff, :dur_code, "**** DUR Code ****", 0, "" %>
+											<%= phx_textfield_for ff, :result_code, "**** Intervention ****", 0, "" %>
+											<%= phx_textfield_for ff, :result_code, "**** Result *****", 0, "" %>
+											<%= phx_textfield_for ff, :level_of_effort, "Level of Effort", 0, "" %>
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :coagent_id, "Coagent", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :coagent_qualifier, "Coagent Qualifier", 0, "col-md-6" %>
+											</div>
+
+										</div> <!-- END OF Auth CONT'D panel, second column -->
+									</row>
+								<% end %>
+                <% else %>
+                    <%= f.fields_for :claimDurs, @claim.claimDurs.build do |ff| %>
+                        <row>
+                          <div class="container-fluid col-lg-6">
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for ff, :dur_code, "DUR Code", 0, "col-md-6" %>
+                              <%= phx_textfield_for ff, :dur_severity, "Severity", 0, "col-md-6" %>
+                            </div>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for ff, :dur_prescriber, "Prescriber", 0, "col-md-6" %>
+                              <%= phx_textfield_for ff, :dur_database, "Database", 0, "col-md-6" %>
+                            </div>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for ff, :dur_pharmacy, "Pharmacy", 0, "col-md-6" %>
+                              <%= phx_textfield_for ff, :dur_pharmacy, "**** Chain ****", 0, "col-md-6" %>
+                            </div>
+
+                            <%= phx_textfield_for ff, :dur_message, "Message" %>
+
+                          </div>
+                        </row>
+                        <row>
+                          <!-- PLAN CONT'D panel, 2nd column -->
+                          <div class="container-fluid col-lg-5 pull-right">
+                            <%= phx_textfield_for ff, :dur_code, "**** DUR Code ****", 0, "" %>
+                            <%= phx_textfield_for ff, :result_code, "**** Intervention ****", 0, "" %>
+                            <%= phx_textfield_for ff, :result_code, "**** Result *****", 0, "" %>
+                            <%= phx_textfield_for ff, :level_of_effort, "Level of Effort", 0, "" %>
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for ff, :coagent_id, "Coagent", 0, "col-md-6" %>
+                              <%= phx_textfield_for ff, :coagent_qualifier, "Coagent Qualifier", 0, "col-md-6" %>
+                            </div>
+
+                          </div> <!-- END OF Auth CONT'D panel, second column -->
+                        </row>
+                    <% end %>
+                <% end %>
+                <div class="row">
+                  <div class="form-group phx-input-control-spacer">&nbsp;</div>
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <% if @dur_id %>
+                        <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Update</button>
+                        <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Delete</button>
+                      <% else %>
+                          <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Create</button>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="form-group phx-input-control-spacer">&nbsp;</div>
+                </div>
+                <div class="form-group phx-input-control-spacer">&nbsp;</div>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-compound">
+							<div class="container-fluid">
+
+                                <div class="row">
+									<!-- GENERAL INFO, first column -->
+									<div class="container-fluid col-lg-3">
+
+										<%= phx_textfield_for f, :usual_customary_price, "Usual and Customary Price" %>
+
+										<%= phx_textfield_for f, :cost_submitted, "Cost Submitted" %>
+
+										<%= phx_textfield_for f, :fee_submitted, "Fee Submitted" %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+                 					 </div> <!-- END OF first panel, first column -->
+
+									<!-- GENERAL INFO panel, second column -->
+									<div class="container-fluid col-lg-3">
+
+										<%= phx_textfield_for f, :partial_copay_amount, "Partial Copay" %>
+
+										<%= phx_textfield_for f, :cost_paid, "Cost Paid" %>
+
+										<div class="form-group phx-input-control-spacer"></div>
+
+									</div> <!-- END OF GENERAL INFO panel, second column -->
+
+                                </div> <%# end of row %>
+
+<%# USING CLAIM CLINICALS JUST TO LAY OUT THE SCREEN !!!!!%>
+                                <%= f.fields_for :claim_clinicals do |ff| %>
+                                <row>
+                                    <div class="container-fluid col-lg-12">
+                                        <%= phx_textfield_for ff, :diagnosis_code_qualifier, "Ingredient", 0, "col-md-6" %>
+                                        <%= phx_textfield_for ff, :diagnosis_code, "Basis", 0, "col-md-1" %>
+                                        <%= phx_datefield_for ff, :clinical_date, "Quantity", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_time, "Cost", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_dimension, "HCPLS", 0, "col-md-3" %>
+                                    </div>
+                                </row>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <row>
+                                    <div class="container-fluid col-lg-12">
+                                        <%= phx_textfield_for ff, :diagnosis_code_qualifier, "Ingredient", 0, "col-md-6" %>
+                                        <%= phx_textfield_for ff, :diagnosis_code, "Basis", 0, "col-md-1" %>
+                                        <%= phx_datefield_for ff, :clinical_date, "Quantity", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_time, "Cost", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_dimension, "HCPLS", 0, "col-md-3" %>
+                                    </div>
+                                </row>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <row>
+                                    <div class="container-fluid col-lg-12">
+                                        <%= phx_textfield_for ff, :diagnosis_code_qualifier, "Ingredient", 0, "col-md-6" %>
+                                        <%= phx_textfield_for ff, :diagnosis_code, "Basis", 0, "col-md-1" %>
+                                        <%= phx_datefield_for ff, :clinical_date, "Quantity", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_time, "Cost", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_dimension, "HCPLS", 0, "col-md-3" %>
+                                    </div>
+                                </row>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <div class="form-group phx-input-control-spacer"></div>
+                                <row>
+                                    <div class="container-fluid col-lg-12">
+                                        <%= phx_textfield_for ff, :diagnosis_code_qualifier, "Ingredient", 0, "col-md-6" %>
+                                        <%= phx_textfield_for ff, :diagnosis_code, "Basis", 0, "col-md-1" %>
+                                        <%= phx_datefield_for ff, :clinical_date, "Quantity", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_time, "Cost", 0, "col-md-1" %>
+                                        <%= phx_textfield_for ff, :clinical_dimension, "HCPLS", 0, "col-md-3" %>
+                                    </div>
+                                </row>
+                                <div class="form-group phx-input-control-spacer"></div>
+								<% end %>
+								<div class="form-group phx-input-control-spacer">&nbsp;</div>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-clinical">
+							<div class="container-fluid">
+                <%= f.fields_for :claimClinicals do |ff| %>
+									<row>
+										<div class="container-fluid col-lg-12">
+											<%= phx_textfield_for ff, :diagnosis_code_qualifier, "Qualifier", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :diagnosis_code, "Diagnosis", 0, "col-md-2", nil, false, number_with_precision(ff.object.diagnosis_code, precision:2) %>
+											<%= phx_datefield_for ff, :clinical_date, "Date", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :clinical_time, "Time", 0, "col-md-1" %>
+											<%= phx_textfield_for ff, :clinical_dimension, "Dimension", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :clinical_unit, "Unit", 0, "col-md-2" %>
+										</div>
+									</row>
+								<% end %>
+
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="form-group phx-input-control-spacer"></div>
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel-priorAuth">
+							<div class="container-fluid">
+	                            <%= f.fields_for :claimPriorAuth do |ff| %>
+									<row>
+										<div class="container-fluid col-lg-6">
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :authorization_number, "Authorization Number", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :authorization_basis, "Basis", 0, "col-md-6" %>
+											</div>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_datefield_for ff, :effective_date, "Begin Date", 0, "col-md-6" %>
+												<%= phx_datefield_for ff, :expiration_date, "End Date", 0, "col-md-6" %>
+											</div>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :representative_first_name, "First Name", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :representative_last_name, "Last Name", 0, "col-md-6" %>
+											</div>
+
+											<%= phx_textfield_for ff, :representative_address, "Address" %>
+											<%= phx_textfield_for ff, :representative_city, "City" %>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :representative_state, "State", 0, "col-md-6" %>
+												<%= phx_textfield_for ff, :representative_zip_code, "Zip", 0, "col-md-6" %>
+											</div>
+
+											<div class="row phx-two-horizontal-controls">
+												<%= phx_textfield_for ff, :request_type, "Request Type", 0, "col-md-6" %>
+												<div class="col-md-6 form-group phx-input-control-spacer"></div>
+											</div>
+											<%= phx_textarea_for ff, :supporting_text, "Text", 10, 0, "" %>
+
+											<div class="form-group phx-input-control-spacer"></div>
+										</div>
+									</row>
+									<row>
+										<!-- PLAN CONT'D panel, 2nd column -->
+										<div class="container-fluid col-lg-5 pull-right">
+											<%= phx_datefield_for ff, :response_effective_date, "Effective Date", 0, "" %>
+											<%= phx_datefield_for ff, :response_expiration_date, "Expiration Date", 0, "" %>
+											<%= phx_textfield_for ff, :response_amount_authorized, "Amount Authorized", 0, "" %>
+											<%= phx_textfield_for ff, :quantity_authorized, "Quantity Authorized", 0, "" %>
+											<%= phx_textfield_for ff, :quantity_accumulated, "Quantity Accumulated", 0, "" %>
+										</div> <!-- END OF Auth CONT'D panel, second column -->
+									</row>
+
+								<% end %>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="form-group phx-input-control-spacer"></div>
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+		                    </div> <!-- END OF Panel -->
+		                </div>
+
+						<div class="tab-pane" id="claimPanel-preferences">
+							<div class="container-fluid">
+                <%= f.fields_for :claimPreferences, f.object.claimPreferences.order(:product_name) do |ff| %>
+									<row>
+										<div class="col-lg-12">
+											<%= phx_textfield_for ff, :product_name, "Product Name", 0, "col-lg-5" %>
+											<div class="col-lg-7"></div>
+										</div>
+										<div class="container-fluid col-lg-12">
+											<%= phx_textfield_for ff, :product_id_number, "Id Number", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :product_qualifier, "Qualifier", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :product_incentive, "Incentive", 0, "col-md-2" %>
+											<%= phx_textfield_for ff, :product_copay_incentive, "Copay Incentive", 0, "col-md-2" %>
+										</div>
+									</row>
+									<div class="form-group phx-input-control-spacer">&nbsp;</div>
+
+									<!--<row>-->
+										<!--<div class="col-lg-12">-->
+											<!--<%#= phx_textfield_for ff, :product_name, "Product Name", 0, "col-lg-5" %>-->
+											<!--<div class="col-lg-7"></div>-->
+										<!--</div>-->
+										<!--<div class="container-fluid col-lg-12">-->
+											<!--<%#= phx_textfield_for ff, :product_id_number, "Id Number", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_cualifier, "Qualifier", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_incentive, "Incentive", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_copay_incentive, "Copay Incentive", 0, "col-md-2" %>-->
+										<!--</div>-->
+									<!--</row>-->
+									<!--<div class="form-group phx-input-control-spacer">&nbsp;</div>-->
+									<!--<row>-->
+										<!--<div class="col-lg-12">-->
+											<!--<%#= phx_textfield_for ff, :product_name, "Product Name", 0, "col-lg-5" %>-->
+											<!--<div class="col-lg-7"></div>-->
+										<!--</div>-->
+										<!--<div class="container-fluid col-lg-12">-->
+											<!--<%#= phx_textfield_for ff, :product_id_number, "Id Number", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_cualifier, "Qualifier", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_incentive, "Incentive", 0, "col-md-2" %>-->
+											<!--<%#= phx_textfield_for ff, :product_copay_incentive, "Copay Incentive", 0, "col-md-2" %>-->
+										<!--</div>-->
+									<!--</row>-->
+									<!--<div class="form-group phx-input-control-spacer">&nbsp;</div>-->
+								<% end %>
+                <row>
+                  <div class="container-fluid col-lg-12">
+                    <div class="row phx-two-horizontal-controls">
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Submit</button>
+                      <button class="button btn-danger col-md-3" style="margin-left: 9px" type="submit">Reversal</button>
+                    </div>
+                    <div class="form-group phx-input-control-spacer"></div>
+                  </div>
+                </row>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+
+						</div>
+
+					</div>
+
+				</div> <!-- end of tab panes -->
+
+        	</div> <!-- end of tab area -->
+
+    </div> <!-- end of work area -->
+
+
+    <div id="claim_search_modal_partial">
+        <div id="claimSearchModal">
+        </div>
+    </div>
+
+
+<% end %> <!-- end of form-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Select Claim </h4>
+      </div>
+      <div class="modal-body">
+        <table id ="modal_table" class="table table-hover">
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+    <%= phx_search_caller_javascript "claims", "", "search_for_rx_number", "id", "", true %>
+    var cs = FEENX.Search.NewSearch('claims',
+        {   context:      '',
+          triggerField: 'last_name',
+          fieldPrefix:  '',
+          modalId:      'claimSearchModal',
+          hiddenDivId:  'hidden_fields',
+          refresh:      true,
+          refreshTo:    '/claims/' });
+
+    var transmission_code = "<%= @claim.transmission_code%>";
+    var status = "<%= @claim.status%>";
+    var tabindex = 0;
+    if (transmission_code == 'rebill' || transmission_code == 'claim') {
+
+      if (status == "paid" || status == 'duplicate') {
+        tabindex = 0;
+      }else {
+        if (status == 'rejected')
+            tabindex = 1;
+        else if (status == 'pending')
+            tabindex = 3;
+      }
+    }else {
+      if (status == 'accepted') {
+        tabindex = 2;
+      }else {
+        if (status == 'rejected')
+          tabindex = 1;
+        else if (status == 'pending')
+          tabindex = 3;
+      }
+    }
+
+    $('#tabs >li.active').removeClass('active');
+    $('#tabs >li').eq(tabindex).removeClass("disabled");
+    $('#tabs >li:eq('+tabindex+') > a').tab("show");
+
+    function claimCobSelected(cob_id){
+      $('#myModal').modal('hide');
+
+      location.href ="?cob_selected=" + cob_id;
+
+    }
+    function claimDurSelected(dur_id){
+      $('#myModal').modal('hide');
+      location.href ="?dur_selected=" + dur_id;
+    }
+    $(document).ready(function() {
+      var cob_selected = <%= @cob_id ? true : false %>;
+      var dur_selected = <%= @dur_id ? true : false %>;
+
+      if (cob_selected) {
+        $('#tabs >li:eq(4) > a').tab("show");
+      }
+
+      if(dur_selected) {
+        $('#tabs >li:eq(5) > a').tab("show");
+      }
+
+
+      $("#tabs > li").click(function () {
+        if ($(this).hasClass("disabled"))
+          return false;
+        var tab_idx = $(this).index();
+        //
+        var claim_id = $("#claim_id").val();
+
+        if (tab_idx == 4) {
+          var tbl_html = "<thead>\
+                <tr>\
+                <th></th>\
+                <th> Plan ID Code </th>\
+                <th> Payor Coverage Type </th>\
+                <th> Payor ID </th>\
+                <th> Amount Paid </th>\
+                <th> Patient Amount </th>\
+                </tr>\
+                </thead>\
+                <tbody>\
+                </tbody>";
+
+          if (!cob_selected) {
+            openSelectionModal("Select Claim Cob", tbl_html, 'search_cob?claim_id=' + claim_id, claimCobSelected);
+          }
+        }else if(tab_idx == 5){
+
+          var tbl_html = "<thead>\
+                <tr>\
+                <th></th>\
+                <th> Dur Code </th>\
+                <th> Severity </th>\
+                <th> Dur Message </th>\
+                </tr>\
+                </thead>\
+                <tbody>\
+                </tbody>";
+          if(!dur_selected)
+           openSelectionModal("Select Claim Dur",tbl_html,'search_dur?claim_id='+claim_id, claimDurSelected);
+        }
+
+      });
+    });
+
+</script>

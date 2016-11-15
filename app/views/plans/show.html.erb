@@ -1,0 +1,149 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @plan.dept_number %>
+</p>
+
+<p>
+  <strong>Paytype code:</strong>
+  <%= @plan.rna_plan_id_code %>
+</p>
+
+<p>
+  <strong>Insurance name:</strong>
+  <%= @plan.insurance_plan_name %>
+</p>
+
+<p>
+  <strong>Abbreviated name:</strong>
+  <%= @plan.abbreviated_name %>
+</p>
+
+<p>
+  <strong>Plan active:</strong>
+  <%= @plan.active_flag %>
+</p>
+
+<p>
+  <strong>Plan type:</strong>
+  <%= @plan.plan_type %>
+</p>
+
+<p>
+  <strong>Payor type:</strong>
+  <%= @plan.payor_type %>
+</p>
+
+<p>
+  <strong>Print sort code:</strong>
+  <%= @plan.print_sort_code %>
+</p>
+
+<p>
+  <strong>Provider number:</strong>
+  <%= @plan.provider_number %>
+</p>
+
+<p>
+  <strong>Account number:</strong>
+  <%= @plan.account_number %>
+</p>
+
+<p>
+  <strong>Address1:</strong>
+  <%= @plan.address1 %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @plan.address2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @plan.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @plan.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @plan.zip_code %>
+</p>
+
+<p>
+  <strong>Extra unit dose fee:</strong>
+  <%= @plan.extra_unit_dose_fee %>
+</p>
+
+<p>
+  <strong>Extra ctrl fee:</strong>
+  <%= @plan.extra_ctrl_fee %>
+</p>
+
+<p>
+  <strong>Extra narcotic fee:</strong>
+  <%= @plan.extra_narcotic_fee %>
+</p>
+
+<p>
+  <strong>Extra delivery fee:</strong>
+  <%= @plan.extra_delivery_fee %>
+</p>
+
+<p>
+  <strong>Extra ancillary fee:</strong>
+  <%= @plan.extra_ancillary_fee %>
+</p>
+
+<p>
+  <strong>Patient price schedule apply:</strong>
+  <%= @plan.patient_price_schedule_apply %>
+</p>
+
+<p>
+  <strong>Copay type:</strong>
+  <%= @plan.copay_type %>
+</p>
+
+<p>
+  <strong>Adjudicate claims:</strong>
+  <%= @plan.adjudicate_claims %>
+</p>
+
+<p>
+  <strong>Do discounts apply:</strong>
+  <%= @plan.do_discounts_apply %>
+</p>
+
+<p>
+  <strong>Support split billing:</strong>
+  <%= @plan.support_split_billing %>
+</p>
+
+<p>
+  <strong>Split bill format:</strong>
+  <%= @plan.split_bill_format %>
+</p>
+
+<p>
+  <strong>Authorization on label:</strong>
+  <%= @plan.authorization_on_label %>
+</p>
+
+<p>
+  <strong>Plan info on label:</strong>
+  <%= @plan.plan_info_on_label %>
+</p>
+
+<p>
+  <strong>Submit as cash:</strong>
+  <%= @plan.submit_as_cash %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @claim_preference.dept_number %>
+</p>
+
+<p>
+  <strong>Rna plan id code:</strong>
+  <%= @claim_preference.rna_plan_id_code %>
+</p>
+
+<p>
+  <strong>Rx number:</strong>
+  <%= @claim_preference.rx_number %>
+</p>
+
+<p>
+  <strong>Fill number:</strong>
+  <%= @claim_preference.fill_number %>
+</p>
+
+<p>
+  <strong>Product count:</strong>
+  <%= @claim_preference.product_count %>
+</p>
+
+<p>
+  <strong>Product copay incentive:</strong>
+  <%= @claim_preference.product_copay_incentive %>
+</p>
+
+<p>
+  <strong>Product incentive:</strong>
+  <%= @claim_preference.product_incentive %>
+</p>
+
+<p>
+  <strong>Product name:</strong>
+  <%= @claim_preference.product_name %>
+</p>
+
+<p>
+  <strong>Product id number:</strong>
+  <%= @claim_preference.product_id_number %>
+</p>
+
+<p>
+  <strong>Product qualifier:</strong>
+  <%= @claim_preference.product_qualifier %>
+</p>
+
+<%= link_to 'Edit', edit_claim_preference_path(@claim_preference) %> |
+<%= link_to 'Back', claim_preferences_path %>

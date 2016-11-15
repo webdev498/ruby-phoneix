@@ -1,0 +1,285 @@
+<%# pharmacy form %>
+
+<%= form_for @pharmacy do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+        <%# BEGIN Working Area TITLE and NAV %>
+        <div class="row span10 phx-working-area-nav">
+
+            <div class="col-xs-1 phx-hamburger-box">
+                <button class="phx-hamburger">|||</button>
+            </div>
+
+            <%# BEGIN Working Area TITLE %>
+            <div class="phx-working-area-title-info">
+                <row>
+                    <div class="col-lg-8">
+                        <div class="phx-working-area-title">Pharmacy Management
+                            <% if @pharmacy.display_name %>
+								<span style="font-weight:font-weight: bold;bold;" id="prescriberDisplayName">
+									&nbsp;&nbsp;|&nbsp;&nbsp;<%= @pharmacy.display_name %>
+						      	</span>
+							<% end %>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 phx-working-area-title-buttons">
+                    </div>
+                </row>
+            </div> <%# END of Working Area TITLE %>
+
+        </div> <%# END of Working Area TITLE and NAV %>
+
+        <%# BEGIN Working Area %>
+        <div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+            <!-- Primary Info -->
+            <div class="col-lg-4">
+
+                <div class="phx-primary-info-column">
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= f.hidden_field :id %>
+
+                    <div class="col-md-12">
+                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                        Primary Info
+                        </div>
+                        <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+                    </div>
+
+                    <div class="field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="pharmacy_name">Pharmacy Name</label>
+                        <%= f.text_field :pharmacy_name, class: 'phx-form-control' %>
+                    </div>
+
+                    <div class="field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="address1">Address1</label>
+                        <%= f.text_field :address1, class: 'phx-form-control' %>
+                    </div>
+
+                    <div class="field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="address2">Address2</label>
+                        <%= f.text_field :address2, class: 'phx-form-control' %>
+                    </div>
+
+                    <div class="field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="city">City</label>
+                        <%= f.text_field :city, class: 'phx-form-control' %>
+                    </div>
+
+
+                    <div class="row phx-two-horizontal-controls">
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="state">State</label>
+                            <%= f.text_field :state, class: 'phx-form-control' %>
+                        </div>
+
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="zip_code">Postal Code</label>
+                            <%= f.text_field :zip_code, class: 'phx-form-control' %>
+                        </div>
+                    </div>
+
+
+                    <div class="field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="pharmacy_type">Pharmacy Type</label>
+                        <%= f.text_field :pharmacy_type, class: 'phx-form-control' %>
+                    </div>
+
+
+                    <div class="row phx-two-horizontal-controls">
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="ncpdp_number">NCPDP Number</label>
+                            <%= f.text_field :ncpdp_number, class: 'phx-form-control' %>
+                        </div>
+
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="dea_number">DEA Number</label>
+                            <%= f.text_field :dea_number, class: 'phx-form-control' %>
+                        </div>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="npi_number">NPI Number</label>
+                            <%= f.text_field :npi_number, class: 'phx-form-control' %>
+                        </div>
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="rna_account_number">RNA Account</label>
+                            <%= f.text_field :rna_account_number, class: 'phx-form-control' %>
+                        </div>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="eligibility_counter">Eligibility Counter</label>
+                            <%= f.text_field :eligibility_counter, class: 'phx-form-control' %>
+                        </div>
+
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="claimguard_counter">Claimguard Counter</label>
+                            <%= f.text_field :claimguard_counter, class: 'phx-form-control' %>
+                        </div>
+                    </div>
+
+
+                    <div class="row phx-two-horizontal-controls">
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="max_sessions">Max Sessions</label>
+                            <%= f.text_field :max_sessions, class: 'phx-form-control' %>
+                        </div>
+
+                        <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="us_or_metric">US or Metric</label>
+                            <%= f.text_field :us_or_metric, class: 'phx-form-control' %>
+                        </div>
+                    </div>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+                    <%= phx_red_submit_button_for f, "Pharmacy", [], "", "phx-btn-model-control-width pull-right", false %>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+                </br>
+            </div> <!-- end of container fluid for Primary Info -->
+
+        </div> <!-- end of Primary Info col lg def -->
+
+        <!-- Tab area -->
+        <div class="col-lg-6">
+
+            <!-- Tab labels -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#generalPane" role="tab" data-toggle="tab">General Info</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content phx-tab-pane">
+
+                <div class="tab-pane active" id="generalPane">
+
+                    <div class="container-fluid">
+
+                        <row>
+
+                            <!-- GENERAL INFO, first column -->
+                            <div class="container-fluid col-lg-4">
+                                <div class="field form-group phx-input-control">
+                                    <label class="phx-form-control-label" for="expiration_date">Expiration Date</label>
+                                    <%= f.text_field :expiration_date, class: 'phx-form-control', readonly: true  %>
+                                </div>
+
+                                <div class="field form-group phx-input-control">
+                                    <label class="phx-form-control-label" for="local_tax_rate">Local Tax Rate</label>
+                                    <%= f.text_field :local_tax_rate, class: 'phx-form-control'  %>
+                                </div>
+
+                                <div class="field form-group phx-input-control">
+                                    <label class="phx-form-control-label" for="state_tax_rate">State Tax Rate</label>
+                                    <%= f.text_field :state_tax_rate, class: 'phx-form-control'  %>
+                                </div>
+
+                                <div class="field form-group phx-input-control">
+                                    <label class="phx-form-control-label" for="total_tax_rate">Total Tax Rate</label>
+                                    <%= f.text_field :total_tax_rate, class: 'phx-form-control'  %>
+                                </div>
+
+                                <div class="field form-group phx-input-control">
+                                    <label class="phx-form-control-label" for="federal_tax_id_number">Federal Tax ID</label>
+                                    <%= f.text_field :federal_tax_id_number, class: 'phx-form-control'  %>
+                                </div>
+
+</br>
+                                <%= phx_checkbox_for f, :rx_taxable_flag, "Rx Taxable" %>
+</br>
+
+                            </div> <!-- END OF first panel, first column -->
+
+                            <!-- GENERAL INFO panel, second column -->
+                            <div class="container-fluid col-lg-4">
+
+                            </div> <!-- END OF GENERAL INFO panel, second column -->
+                        </row>
+                    </div> <!-- END OF GENERAL INFO panel container-fluid -->
+                </div>
+
+                <div class="tab-pane" id="pharmacyPanel2">
+                    <div class="container-fluid">
+                        <row>
+                            <!-- Panel 2, 1st column -->
+                            <div class="container-fluid col-lg-4">
+                            </div> <!-- end of panel 2, 1st column -->
+
+                            <!-- Panel 2, 2nd column -->
+                            <div class="container-fluid col-lg-4">
+                            </div> <!-- end of panel 2, wnd column -->
+                        </row>
+                    </div> <!-- END OF Panel 2 -->
+                </div>
+
+                <div class="tab-pane" id="pharmacyPanel3">
+                    <div class="container-fluid">
+                        <row>
+                            <!-- Panel 3, 1st column -->
+                            <div class="container-fluid col-lg-4">
+                            </div> <!-- end of panel 3, 1st column -->
+
+                            <!-- Panel 2, 2nd column -->
+                            <div class="container-fluid col-lg-4">
+                            </div> <!-- end of panel 3, wnd column -->
+                        </row>
+                    </div> <!-- <!-- END OF Panel 3 -->
+                </div>
+
+            </div> <!-- end of tab panes -->
+
+        </div> <!-- end of tab area -->
+
+    </div> <!-- end of work area -->
+
+    <div id="pharmacy_search_modal_partial">
+        <div id="pharmaciesSearchModal">
+        </div>
+    </div>
+
+<% end %>
+
+
+<script>
+
+
+    function getPharmacy() {
+            window.location.replace( "/pharmacies/" + $("#pharmacy_id").val() );
+    }
+
+    $('#pharmacy_pharmacy_name').on("keypress", function(e) {
+        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+        if(key == 13) {
+            // register the callback to save the information based
+            // on the change to search item id
+            $.get( "/pharmacy/nextPharmacies?start="+$('#pharmacy_search_for_rx_number').val(),
+                function( data ) {
+                });
+            return false;
+            }
+    });
+
+
+    $('#pharmacy_search_modal_partial').on('shown.bs.modal', function () {
+
+        $( document ).off( "phx-selected-pharmacy" );
+
+        $( document ).on( "phx-selected-pharmacy",
+            function( event, selected_id, selected_name ) {
+                $('#pharmacy_id').val( selected_id );
+                window.location.replace( "/pharmacies/" + $("#harmacy_id").val() );
+        });
+    });
+
+
+</script>

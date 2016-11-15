@@ -1,0 +1,2 @@
+module PosDetailsHelper
+end

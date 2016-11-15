@@ -1,0 +1,3 @@
+<%=	paginate searchItems,
+              params: { controller: (searchController.nil? ? "items" : searchController),
+                        action: "nextItemFormulaToCopy"} , remote: true  unless searchItems.empty? %>

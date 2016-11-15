@@ -1,0 +1,70 @@
+<div class="phx-modal containter-fluid" id="employeeSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Employee Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+ 		  			<tr>
+						<th class="phx-search-font"><input type="text" id="employeeSearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font">ID</th>
+						<th class="phx-search-font">Position</th>
+						<th class="phx-search-font">Initials</th>
+						<th class="phx-search-font">Last Name</th>
+						<th class="phx-search-font">First Name</th>
+						<th class="phx-search-font">Middle Name</th>
+						<th class="phx-search-font">Active</th>
+		  		  </tr>
+  				</thead>
+
+					<tbody>
+						<% searchEmployees.each do |employee| %>
+							<tr	id="<%= 'employeeSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-employeeSearchModal-row"
+									data-phx-search-employee-id="<%= employee.id %>"
+									data-phx-search-employee-name="<%= employee.display_name %>"
+									data-phx-search-employee-first_name="<%= employee.first_name %>"
+									data-phx-search-employee-last_name="<%= employee.last_name %>" >
+								<td class="phx-search-font" > <%= choice %> </td>
+								<td class="phx-search-font"> <%= employee.employee_id %> </td>
+								<td class="phx-search-font"> <%= employee.employee_title %> </td>
+								<td class="phx-search-font"> <%= employee.initials %> </td>
+								<td class="phx-search-font"> <%= employee.last_name %>&nbsp;, </td>
+								<td class="phx-search-font"> <%= employee.first_name %> </td>
+								<td class="phx-search-font"> <%= employee.middle_name %> </td>
+								<td class="phx-search-font"> <%= employee.active %> </td>
+							</tr>
+						<% end %> <!-- END OF employee list -->
+					</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%= paginate searchEmployees,
+						params: { action: "nextEmployees"} , remote: true  unless searchEmployees.empty? %>
+
+				<%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+				<button id="employee_modal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+
+<script>
+	$('#employee_search_modal_partial').trigger('contentchanged');
+</script>

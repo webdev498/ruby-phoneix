@@ -1,0 +1,66 @@
+<div class="phx-modal containter-fluid" id="dispenseSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog" style="width:540px;">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Dispenses<%= !@searchDispenses.empty? ? " for " + @searchDispenses[0].prescription.customer.display_name : ""%></h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+			  		<thead class="phx-search-row-header">
+  				  		<tr>
+							<th class="phx-search-font"><input type="text" id="dispenseSearchModal_Keys1_9" style="width:0.1px;" ></th>
+							<th class="phx-search-font">Rx #</th>
+							<th class="phx-search-font">Fill #</th>
+							<th class="phx-search-font">Date</th>
+							<th class="phx-search-font">Item</th>
+							<th class="phx-search-font">Dispensed</th>
+							<th class="phx-search-font">Price<th>
+  		  				</tr>
+  					</thead>
+
+			  		<tbody>
+						<% @searchDispenses.each do |dispense| %>
+							<tr	id="<%= 'dispenseSearchModal-row' + (choice += 1).to_s %>"
+									class="phx-search-row clickable-dispenseRow clickable-dispenseSearchModal-row"
+									data-phx-search-dispense-id="<%= dispense.id %>"
+									data-phx-search-dispense-display_name="<%= dispense.prescription.item.display_name %>"
+									data-phx-search-dispense-profile_trigger="<%= dispense.id %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= dispense.rx_number %> </td>
+								<td class="phx-search-font center"> <%= dispense.fill_number %> </td>
+								<td class="phx-search-font"> <%= dispense.fill_time.strftime("%m-%d-%Y") %> </td>
+								<td class="phx-search-font"> <%= dispense.prescription.item.display_name %> </td>
+								<td class="phx-search-font"> <%= dispense.quantity %> </td>
+								<td class="phx-search-font"> <%= dispense.price %> </td>
+							</tr>
+						<% end %> <!-- END OF Dispense list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchDispenses,
+						params: { controller: (searchController.nil? ? "dispenses" : searchController),
+					 				action: "nextDispenses"} , remote: true  unless searchDispenses.empty? %>
+
+				<button id="dispenseSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+<script>
+	$('#dispense_search_modal_partial').trigger('contentchanged');
+</script>

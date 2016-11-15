@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pos_detail.dept_number %>
+</p>
+
+<p>
+  <strong>Pos ticket number:</strong>
+  <%= @pos_detail.pos_ticket_number %>
+</p>
+
+<p>
+  <strong>Rx number:</strong>
+  <%= @pos_detail.rx_number %>
+</p>
+
+<p>
+  <strong>Fill number:</strong>
+  <%= @pos_detail.fill_number %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @pos_detail.category %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @pos_detail.quantity %>
+</p>
+
+<p>
+  <strong>Item type:</strong>
+  <%= @pos_detail.item_type %>
+</p>
+
+<p>
+  <strong>Item number:</strong>
+  <%= @pos_detail.item_number %>
+</p>
+
+<p>
+  <strong>Item description:</strong>
+  <%= @pos_detail.item_description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @pos_detail.price %>
+</p>
+
+<p>
+  <strong>Extended price:</strong>
+  <%= @pos_detail.extended_price %>
+</p>
+
+<p>
+  <strong>Tax amount:</strong>
+  <%= @pos_detail.tax_amount %>
+</p>
+
+<p>
+  <strong>Medical item:</strong>
+  <%= @pos_detail.medical_item %>
+</p>
+
+<p>
+  <strong>Price override:</strong>
+  <%= @pos_detail.price_override %>
+</p>
+
+<%= link_to 'Edit', edit_pos_detail_path(@pos_detail) %> |
+<%= link_to 'Back', pos_details_path %>

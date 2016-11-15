@@ -1,0 +1,2 @@
+module SigcodesHelper
+end

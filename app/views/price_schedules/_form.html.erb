@@ -1,0 +1,153 @@
+<%# price_schedule form %>
+
+<%= form_for( @price_schedule ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Price Schedule Maintenance
+							<% if @price_schedule.display_name %>
+								<span style="font-weight:font-weight: bold;bold;" id="priceScheduleDisplayName">
+									&nbsp;&nbsp;|&nbsp;&nbsp;<%= @price_schedule.display_name %>
+						      	</span>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+						<input  type="submit" name="commit" value="Create" class="btn btn-sm btn-default phx-btn-model-control-red">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+    <div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	      <div class="col-lg-4">
+
+				  <div class="phx-primary-info-column">
+
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Primary Info
+                </div>
+                <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+            </div>
+
+            </br>
+            <%= f.hidden_field :id %>
+
+            <%= phx_textsearchfield_for f, :number, "Price Schedule Number" %>
+
+            <%= phx_textfield_for f, :name, "Name" %>
+
+  					<div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :basis, "Price Basis", PriceSchedule.bases, false, 0, "col-md-6", true %>
+                <%= phx_selectfield_for f, :break_type, "Type", PriceSchedule.break_types, false, 0, "col-md-6", true %>
+  					</div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :qualifier, "Restrictions", PriceSchedule.qualifiers, false, 0, "col-md-6", true %>
+                <%= phx_selectfield_for f, :fee_calculation_type, "Fee Calculation", PriceSchedule.fee_calculation_types, false, 0, "col-md-6", true %>
+  					</div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :customer_assigned_schedule, "Customer Schedules", PriceSchedule.customer_assigned_schedules, false, 0, "col-md-6", true %>
+                <%= phx_selectfield_for f, :usual_customary_calculation, "Usual and Customary", PriceSchedule.usual_customary_calculations, false, 0, "col-md-6", true %>
+  					</div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :percentage_fee_type, "Percentage Markup", PriceSchedule.percentage_fee_types, false, 0, "col-md-6", true %>
+                <%= phx_selectfield_for f, :amount_fee_type, "Amount Markup", PriceSchedule.amount_fee_types, false, 0, "col-md-6", true %>
+  					</div>
+
+
+            <%= phx_checkbox_for f, :discounts_allowed, "Allow Discounts" %>
+            <%= phx_checkbox_for f, :cumulative, "Cumulative" %>
+            <%= phx_checkbox_for f, :generic_percentage_calculation, "Generic Percentage of Brand" %>
+            <%= phx_checkbox_for f, :exact_hit, "Exact Hits on Qty Breaks" %>
+            <%= phx_checkbox_for f, :round_price, "Round Price" %>
+            <%= phx_textfield_for f, :round_to_amount, "Round Price to" %>
+
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+			<div class="col-lg-8">
+
+				<!-- Tab labels -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active"><a href="#priceSchedulePanel-general" role="tab" data-toggle="tab">Fee Percent / Fee Amount</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content phx-tab-pane">
+
+					<div class="tab-pane active" id="priceSchedulePanel-general">
+
+						<div class="row container-fluid">
+								<!-- GENERAL INFO, first column -->
+								<div class="container-fluid col-lg-6">
+
+								</div> <!-- END OF first panel, first column -->
+
+								<!-- GENERAL INFO panel, second column -->
+								<div class="container-fluid col-lg-6">
+
+								</div> <!-- END OF GENERAL INFO panel, second column -->
+
+						</div> <!-- END general panel container-fluid -->
+					</div>
+
+				</div> <!-- end of col lg 10 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="price_schedule_search_modal_partial">
+    <div id="priceScheduleSearchModal">
+    </div>
+</div>
+
+<% end %>
+
+<script>
+
+    // define the search
+    var pss = FEENX.Search.NewSearch('price_schedule',
+        {   context:      '',
+            prefix:       '',
+            triggerField: 'name',
+            modalId:      'priceScheduleSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/priceSchedules/' });
+
+    // additional attributes would be defined
+    // .... here - using addAttribute
+
+    // create the corresponding hidden fields in the form
+    pss.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    pss.dataFormattedAttributes();
+
+</script>

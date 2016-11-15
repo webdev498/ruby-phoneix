@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @account_posting.dept_number %>
+</p>
+
+<p>
+  <strong>Master account number:</strong>
+  <%= @account_posting.master_account_number %>
+</p>
+
+<p>
+  <strong>Account number:</strong>
+  <%= @account_posting.account_number %>
+</p>
+
+<p>
+  <strong>Post date:</strong>
+  <%= @account_posting.post_date %>
+</p>
+
+<p>
+  <strong>Post ticket number:</strong>
+  <%= @account_posting.post_ticket_number %>
+</p>
+
+<p>
+  <strong>Post ticket sequence:</strong>
+  <%= @account_posting.post_ticket_sequence %>
+</p>
+
+<p>
+  <strong>Post payor id number:</strong>
+  <%= @account_posting.post_payor_id_number %>
+</p>
+
+<p>
+  <strong>Post source:</strong>
+  <%= @account_posting.post_source %>
+</p>
+
+<p>
+  <strong>Post type:</strong>
+  <%= @account_posting.post_type %>
+</p>
+
+<p>
+  <strong>Post description:</strong>
+  <%= @account_posting.post_description %>
+</p>
+
+<p>
+  <strong>Post medical amount:</strong>
+  <%= @account_posting.post_medical_amount %>
+</p>
+
+<p>
+  <strong>Post non medical amount:</strong>
+  <%= @account_posting.post_non_medical_amount %>
+</p>
+
+<p>
+  <strong>Post tax amount:</strong>
+  <%= @account_posting.post_tax_amount %>
+</p>
+
+<%= link_to 'Edit', edit_account_posting_path(@account_posting) %> |
+<%= link_to 'Back', account_postings_path %>

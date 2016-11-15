@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hic4 sequence number:</strong>
+  <%= @clinical_hic4.hic4_sequence_number %>
+</p>
+
+<p>
+  <strong>Hic4 description:</strong>
+  <%= @clinical_hic4.hic4_description %>
+</p>
+
+<p>
+  <strong>Hic4 root:</strong>
+  <%= @clinical_hic4.hic4_root %>
+</p>
+
+<p>
+  <strong>Hic4 hic:</strong>
+  <%= @clinical_hic4.hic4_hic %>
+</p>
+
+<p>
+  <strong>Hic4 salt:</strong>
+  <%= @clinical_hic4.hic4_salt %>
+</p>
+
+<%= link_to 'Edit', edit_clinical_hic4_path(@clinical_hic4) %> |
+<%= link_to 'Back', clinical_hic4s_path %>

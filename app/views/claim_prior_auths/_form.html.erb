@@ -1,0 +1,88 @@
+<%= simple_form_for(@claim_prior_auth) do |f| %>
+  <%= f.error_notification %>
+
+<div class="inputs">   
+	    <%= f.hidden_field :dept_number%>
+    	                 
+    	<div style="block:inline">                          
+					<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+							<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+    							< Customer Name >
+    							</br>   							
+    							< Prescriber Name >
+    							</br>
+    							< Item Name >
+    							</br>
+    				    	<%= f.input :rx_number %>
+    							<%= f.input :rna_plan_id_code %>
+    							<%= f.input :authorization_number %>
+    							<%= f.input :authorization_basis, collection: ClaimPriorAuth.authorization_bases.keys,:selected => ClaimPriorAuth.authorization_bases.keys[@claim_prior_auth[:authorization_basis].to_i] %>
+    							<%= f.input :effective_date %>
+    							<%= f.input :expiration_date %>
+    							</br>
+    							<%= f.input :request_type, collection: ClaimPriorAuth.request_types.keys,:selected => ClaimPriorAuth.request_types.keys[@claim_prior_auth[:request_type].to_i] %>
+    							<%= f.input :representative_first_name %>
+   								<%= f.input :representative_last_name %>
+    							<%= f.input :representative_address %>
+    							<%= f.input :representative_city %>
+    							<%= f.input :representative_state %>
+    							<%= f.input :representative_zip_code %>
+   					    				
+							</div>                                               
+					</div> 
+ 
+ 	<!-- 2nd Group -->                                             
+					<div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+						<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+						    	<%= f.input :supporting_text %>
+						    	</br>
+   								<%= f.input :response_amount_authorized, :label=>"Ampount Authorized" %>
+    							<%= f.input :response_effective_date, :label=>"Effective Date" %>
+    							<%= f.input :response_expiration_date, :label=>"Expiration Date" %>
+    							<%= f.input :refills_authorized %>
+    							<%= f.input :response_processed_date, :label=>"Date Processed" %>
+    							<%= f.input :quantity_authorized, :label=>"Qty Authorized" %>
+    							<%= f.input :quantity_accumulated, :label=>"Qty Accumulated" %>
+
+
+    				</div>
+					</div>
+
+					<div style="float:left; border-style: dotted; border-width: thin;width:390px;">  
+							<div style="float:left; border-style:none; height: 600px; padding-left:15px; padding-top: 5px;">
+      						
+    				
+
+							</div>
+					</div>
+	</div>  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="form-inputs">
+    <%= f.input :response_amount_authorized %>
+    <%= f.input :response_effective_date %>
+    <%= f.input :response_expiration_date %>
+    <%= f.input :refills_authorized %>
+    <%= f.input :response_processed_date %>
+    <%= f.input :quantity_authorized %>
+    <%= f.input :quantity_accumulated %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

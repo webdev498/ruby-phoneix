@@ -1,0 +1,2 @@
+module ClinicalAllergiesHelper
+end

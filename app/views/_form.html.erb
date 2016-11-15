@@ -1,0 +1,643 @@
+<%# prescription form %>
+
+<%= form_for( @prescription ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Prescription Processing
+							<% if @prescription.customer_display_name %>
+								<span style="font-weight:font-weight: bold;bold;" id="prescriptionCustomerName">
+									&nbsp;&nbsp;|&nbsp;&nbsp;<%= @prescription.customer_display_name %>
+						      	</span>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="container-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+<!-- remove the BRs after active flag is in place -->
+
+                    <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                        Prescription Info
+                        </div>
+                        <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+                    </div>
+
+                    <div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="rx_number">RX #</label>
+							<%= f.text_field :rx_number, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="date_written">Date Written</label>
+							<%= f.text_field :date_written, class: 'phx-form-control datepicker' %>
+						</div>
+					</div>
+
+                    <%# prescription id from profile search %>
+                    <%= f.hidden_field :prescription_id %>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="customer_display_name">Customer</label>
+						<%= f.text_field :customer_display_name, class: 'phx-form-control'%>
+						<%= f.hidden_field :customer_id %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="prescriber_display_name">Prescriber</label>
+						<%= f.text_field :prescriber_display_name, class: 'phx-form-control' %>
+						<%= f.hidden_field :prescriber_id  %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="item_display_name">Drug</label>
+						<%= f.text_field :item_display_name, class: 'phx-form-control' %>
+                        <%= f.hidden_field :item_id  %>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="quantity_prescribed">Qty Prescribed</label>
+							<%= f.text_field :quantity_prescribed, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_fill_quantity">Qty Dispensed</label>
+							<%= f.text_field :last_fill_quantity, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="refills_prescribed">Refills</label>
+							<%= f.text_field :refills_prescribed, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="refills_left">Refills Left</label>
+							<%= f.text_field :refills_left, class: 'phx-form-control', readonly: true %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_fill_days_supply">Days Supply</label>
+							<%= f.text_field :last_fill_days_supply, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_fill_days_supply">Daily Qty</label>
+							<%= f.text_field :last_fill_days_supply, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="payment_type">Payment Type</label>
+							<%= f.text_field :payment_type, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="plan_name">Plan Name</label>
+							<%= f.text_field :plan_name, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+							<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="dispense_as_written_code">DAW</label>
+							<%= f.text_field :dispense_as_written_code, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="prescription_price">Price</label>
+							<%= f.text_field :prescription_price, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="directions">Directions</label>
+						<%= f.text_area :directions, class: 'phx-form-control', :rows => "2" %>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="tech">Tech</label>
+							<%= f.text_field :tech, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="rph">Rph</label>
+							<%= f.text_field :rph, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="origin">Origin</label>
+							<%= f.text_field :origin, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="labels">Labels</label>
+							<%= f.text_field :labels, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+                    </br>
+                    <%= phx_yellow_submit_button_for f, "Prescription", [], "update", "phx-btn-model-control-width pull-left", false %>
+
+                    <%= phx_red_submit_button_for f, "Prescription", ["F i l l","R e f i l l"], "fill", "phx-btn-model-control-width pull-right", false %>
+
+                    <div class="field form-group phx-input-control-spacer">&nbsp;
+                    </br>
+					</div>
+
+				</div>
+
+			</div> <!-- end of Primary Info col lg def -->
+
+		</div> <!-- end of container fluid for Primary Info -->
+
+		<!--  -->
+        <div class="col-lg-8">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#prescriptionPanel-general" role="tab" data-toggle="tab">General Info</a></li>
+				<li><a href="#prescriptionPanel-secondary" role="tab" data-toggle="tab">General Info (cont'd)</a></li>
+				<li><a href="#prescriptionPanel-rxImage" role="tab" data-toggle="tab">Prescription</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+
+	          	<div id="prescriptionPanel-general" class="tab-pane active">
+
+	            	<div class="container-fluid">
+                        <row>
+								<!-- First panel, first column -->
+							<div class="container-fluid col-lg-4">
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="facility">Facility</label>
+									<%= f.text_field :facility, class: 'phx-form-control' %>
+								</div>
+
+                                <div class="row phx-two-horizontal-controls">
+                                    <div class="col-md-6 field form-group phx-input-control">
+										<label class="phx-form-control-label" for="customer_age">Age</label>
+										<%= f.text_field :customer_age, class: 'phx-form-control', readonly: true  %>
+									</div>
+                                    <div class="col-md-6 field form-group phx-input-control">
+										<label class="phx-form-control-label" for="customer_age">Gender</label>
+										<%= f.text_field :customer_gender, class: 'phx-form-control', readonly: true  %>
+									</div>
+                                </div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="npi_number">NPI #</label>
+									<%= f.text_field :npi_number, class: 'phx-form-control', readonly: true %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="ndc_number">NDC #</label>
+									<%= f.text_field :ndc_number, class: 'phx-form-control', readonly: true %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="quantity_left">Quantity Left</label>
+									<%= f.text_field :quantity_left, class: 'phx-form-control' %>
+								</div>
+
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="refill_thru_date">Refill Through</label>
+									<%= f.text_field :refill_thru_date, class: 'phx-form-control datepicker'  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="account">Account</label>
+									<%= f.text_field :account, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="awp">AWP</label>
+									<%= f.text_field :awp, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+
+									<div class="field form-group phx-input-control-spacer">
+
+									</div>
+
+									<label class="phx-form-control-label" for="notes">Notes</label>
+									<%= f.text_area :notes, class: 'phx-form-control phx-textarea-limitwidth', :rows => "8" %>
+
+								</div>
+
+							</div> <!-- END OF first panel, first column -->
+
+							<!-- First panel, second column -->
+							<div class="container-fluid col-lg-4">
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="wing">Wing</label>
+									<%= f.text_field :wing, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="customer_birthdate">Birthdate</label>
+									<%= f.text_field :customer_birthdate, class: 'phx-form-control', readonly: true %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="customer_phone">Phone</label>
+									<%= f.text_field :customer_phone, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="schedule">Schedule</label>
+									<%= f.text_field :schedule, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="package_size">Package Size</label>
+									<%= f.text_field :package_size, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="discard_date">Discard Date</label>
+									<%= f.text_field :discard_date, class: 'phx-form-control datepicker', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="balance">Balance</label>
+									<%= f.text_field :balance, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="cost">Cost</label>
+									<%= f.text_field :cost, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control-spacer">
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="counseling">Counseling</label>
+									<%= f.text_area :counseling, class: 'phx-form-control phx-textarea-limitwidth', rows: "8", cols: "32" %>
+								</div>
+
+							</div> <!-- END OF first panel, second column -->
+
+							<!-- First panel, third column -->
+							<div class="container-fluid col-lg-4">
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="room">Room</label>
+									<%= f.text_field :room, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="phone1">Phone 1</label>
+									<%= f.text_field :phone1, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="dea_number">DEA #</label>
+									<%= f.text_field :dea_number, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="last_updated">Last Updated</label>
+									<%= f.text_field :last_updated, class: 'phx-form-control', readonly: true  %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="quantity_on_hand">Quantity On Hand</label>
+									<%= f.text_field :quantity_on_hand, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="past_due">Past Due</label>
+									<%= f.text_field :past_due, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="margin">Margin</label>
+									<%= f.text_field :margin, class: 'phx-form-control' %>
+								</div>
+
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="percentage">Percentage</label>
+									<%= f.text_field :percentage, class: 'phx-form-control' %>
+								</div>
+
+								<div>
+                                    <div class="phx-magnify">
+                                        <div class="phx-magnify-large"></div>
+                						<!-- <%= link_to( image_tag("sample_rx_image.jpg", class: "phx-magnify-small", style: "width: 235px; border:3px solid #d9d8d8;"), {} )  %> -->
+                                    </div>
+								</div>
+
+							</div> <!-- END OF first panel, third column -->
+
+						</row>
+
+					</div> <!-- container-fluid for panel -->
+
+					<div class="field form-group phx-input-control-spacer">
+					</div>
+
+				</div>  <!-- END OF GENERAL INFO PANEL -->
+
+            		<div id="prescriptionPanel-secondary" class="tab-pane">
+
+						<div class="container-fluid">
+							<row>
+
+								<!-- SECOND panel, 1st column -->
+								<div class="container-fluid col-lg-4">
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="lot_number">Lot #</label>
+										<%= f.text_field :lot_number, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="pa_type">Prior Auth #</label>
+										<%= f.text_field :pa_type, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="pa_type">PA Type</label>
+										<%= f.text_field :pa_type, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="diagnosis">Diagnosis</label>
+										<%= f.text_field :diagnosis, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="doc_u_dose">Doc-U-Dose</label>
+										<%= f.text_field :doc_u_dose, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="rx_type">RX Type</label>
+										<%= f.text_field :rx_type, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="auto_fill">Auto fill</label>
+										<%= f.text_field :auto_fill, class: 'phx-form-control' %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="next_fill_date">Next Fill Date</label>
+										<%= f.text_field :next_fill_date, class: 'phx-form-control datepicker' %>
+									</div>
+
+									</br>
+								</div> <!-- END OF SECOND panel, second column -->
+
+								<!-- SECOND panel, 1st column -->
+								<div class="container-fluid col-lg-4">
+								</div> <!-- END OF SECOND panel, second column -->
+
+							</row>
+						</div>  <!-- container-fluid for panel -->
+
+					</div>  <!-- END OF GENERAL SECONDARY PANEL -->
+
+
+            		<div id="prescriptionPanel-rxImage" class="tab-pane">
+
+						<div class="container-fluid">
+
+                            <!-- <div class="pull-left" data-rx-image='<%=image_tag "sample_rx_image.jpg"%>' > -->
+                            <div class="pull-left">
+                            	<!-- <%= image_tag "sample_rx_image.jpg", class: "phx-magnify-small", style: "margin-left: 15px; height: 750px; margin-bottom:20px;"  %> -->
+                            	<%#	<img src="sample_rx_image.jpg" class="phx-magnify-small" style="height: 750px;"> %>
+                            </div>
+
+							<!-- RX IMAGE panel, 1st column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF RX IMAGE panel, second column -->
+
+						</div>  <!-- container-fluid for panel -->
+
+					</div>  <!-- END OF RX IMAGE PANEL -->
+
+
+			</div> <!-- end of col lg 10 -->
+
+		</div>
+
+		<div id="customer_search_modal_partial">
+            <%# below used to be an initial render of the modal template for pre-loading %>
+            <%# now, we only need to specify the div, and then let ajax js load the search if/when needed %>
+            <div id="customerSearchModal">
+            </div>
+		</div>
+
+        <div id="prescriber_search_modal_partial">
+            <%# below used to be an initial render of the modal template for pre-loading %>
+            <%# now, we only need to specify the div, and then let ajax js load the search if/when needed %>
+            <div id="prescriberSearchModal">
+            </div>
+        </div>
+
+        <div id="item_search_modal_partial">
+            <%# below used to be an initial render of the modal template for pre-loading %>
+            <%# now, we only need to specify the div, and then let ajax js load the search if/when needed %>
+            <div id="itemSearchModal">
+            </div>
+        </div>
+
+        <div id="prescription_search_modal_partial">
+            <%# below used to be an initial render of the modal template for pre-loading %>
+            <%# now, we only need to specify the div, and then let ajax js load the search if/when needed %>
+            <div id="prescriptionSearchModal">
+            </div>
+        </div>
+
+    <% end %>
+
+</div>
+
+<script>
+
+    //<%#  *** PRESCRIPTION number ***  %>
+
+	$('#prescription_rx_number').on("keypress", function(e) {
+		var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        rxNumber = $("#prescription_rx_number").val();
+		if(key == 13 && rxNumber ) {
+			window.location.replace( "/prescription/rx_number/" + rxNumber );
+			return false;
+		}
+	});
+
+
+    // Testing the new search helper
+    // TODO: on selection is going to search model instead of back to prescription
+    //<%#  *** PRESCRIBER  *** %>
+    <%= phx_search_caller_javascript "prescriber", "prescription", "display_name", "id", "prescription", false, [ "display_name"] %>
+
+    //<%#  *** ITEMS  *** %>
+    <%= phx_search_caller_javascript "item", "prescription", "display_name", "id", "prescription", false, [ "display_name"] %>
+
+    //<%#  *** CUSTOMER SEARCH - search based on characters entered into the display name field ***  %>
+    <%= phx_search_caller_javascript "customer", "prescription", "display_name", "id", "prescription", false, [ "display_name"] %>
+
+    //<%#  *** PROFILE SEARCH - search based on characters entered into the customer name field ***  %>
+    <%= phx_search_caller_javascript "prescription", "prescription", "display_name", "id", "prescription", true, [ "display_name"] %>
+
+
+    // Track state to profile using a global variable, starting at false
+    // When prescriber or item is searche, set to true
+    // if customer is searched and "blocked" below is still false, get the profile
+    // check "blocked" on the hidden customer_id change event
+    var Phx_Profile_Search_Blocked = false;
+
+    $(document).ready( function() {
+        $("#prescription_prescriber_id").on( "change", function() { Phx_Profile_Search_Blocked = true; }) ;
+        $("#prescription_item_id").on( "change", function() { Phx_Profile_Search_Blocked = true; }) ;
+    });
+
+    $("#prescription_prescriber_id").on( "change", function() { Phx_Profile_Search_Blocked = true; }) ;
+    $("#prescription_item_id").on( "change", function() { Phx_Profile_Search_Blocked = true; }) ;
+
+    $('#customer_search_modal_partial').on('hidden.bs.modal', function (e) {
+
+        if( !Phx_Profile_Search_Blocked ) {
+            Phx_Profile_Search_Blocked = false;
+            profileCustomerId = $('#prescription_customer_id').val();
+            // below url should come from a helper method in future
+            $.get( "/prescription/nextProfile?start="+profileCustomerId,
+               function( data ) {
+               });
+        }
+    });
+
+
+    //<%#  *** MAGNIFIER ***  %>
+// temporarily disabled
+    // var freeze_magnifier = false;
+    //
+    // $(document).ready( function() {
+    //
+    // 	var original_width = 0;
+    // 	var original_height = 0;
+    //
+    // 	$(".phx-magnify").mousemove( function(e) {
+    //
+    // 		if( freeze_magnifier ) return;
+    //
+    // 		if(!original_width && !original_height) {
+    //
+    // 			var image_obj = new Image();
+    // 			image_obj.src = $(".phx-magnify-small").attr("src");
+    // 			original_width = image_obj.width;
+    // 			original_height = image_obj.height;
+    // 			$("#col1").html("orig width=" + original_width + "<br>" + "orig height=" + original_height );
+    //
+    // 		} else {
+    //
+    // 			var magnify_offset = $(this).offset();
+    // 			var mx = e.pageX - magnify_offset.left;
+    // 			var my = e.pageY - magnify_offset.top;
+    // 			$("#col2").html("pagex="+e.pageX +"<br>"+ "pageY="+ e.pageY);
+    // 			$("#col3").html("offset_L=" + magnify_offset.left +"<br>"+"offset_T=" + magnify_offset.top);
+    // 			$("#col4").html("mx="+ mx+"<br>"+"my=" +my);
+    //
+    // 			if(mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0) {
+    //
+    // 				$(".phx-magnify-large").fadeIn(100);
+    //
+    // 			} else {
+    //
+    // 				$(".phx-magnify-large").fadeOut(100);
+    // 			}
+    //
+    // 			if( $(".phx-magnify-large").is( ":visible" ) ) {
+    // 				//The background position of .large will be changed according to the position
+    // 				//of the mouse over the .small image. So we will get the ratio of the pixel
+    // 				//under the mouse pointer with respect to the image and use that to position the
+    // 				//large image inside the magnifying glass
+    // 				var rx = Math.round(mx/$(".phx-magnify-small").width() * original_width - $(".large").width()/2)*-1;
+    // 				var ry = Math.round(my/$(".phx-magnify-small").height() * original_height - $(".large").height()/2)*-1;
+    // 				var bgpos = rx + "px " + ry + "px";
+    //
+    // 				//Time to move the magnifying glass with the mouse
+    // 				var px = mx - $(".phx-magnify-large").width() / 2;
+    // 				var py = my - $(".phx-magnify-large").height() / 2;
+    // 				//Now the glass moves with the mouse
+    // 				//The logic is to deduct half of the glass's width and height from the
+    // 				//mouse coordinates to place it with its center at the mouse coordinates
+    //
+    // 				//If you hover on the image now, you should see the magnifying glass in action
+    // 				$(".phx-magnify-large").css( {left: px, top: py, backgroundPosition: bgpos} );
+    // 			}
+    // 		}
+    //
+    // 	});
+    //
+    // 	// Show the whole prescription
+    // 	$(".phx-magnify").dblclick( function(e) {
+    // 		freeze_magnifier = false;
+    // 		$('a[href=#prescriptionPanel-rxImage]').tab('show');
+    // 		$(".phx-magnify-large").fadeOut(10);
+    // 	});
+    //
+    // 	// Freeze the magnifyer
+    // 	$(".phx-magnify").click( function(e) {
+    // 		freeze_magnifier = !freeze_magnifier;
+    // 		return;
+    // 	});
+    //
+    // });
+    //
+    // // Double click back to the general pane directly from the rx image
+    // $(document).ready( function() {
+    // 		$("#prescriptionPanel-rxImage").dblclick( function(e) {
+    // 			$('a[href=#prescriptionPanel-general]').tab('show');
+    // 		})
+    // });
+    //
+    //<%#  END of MAGNIFIER  %>
+</script>

@@ -1,0 +1,1 @@
+json.extract! @pos_detail, :id, :dept_number, :pos_ticket_number, :rx_number, :fill_number, :category, :quantity, :item_type, :item_number, :item_description, :price, :extended_price, :tax_amount, :medical_item, :price_override, :created_at, :updated_at

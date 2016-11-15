@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @formula.dept_number %>
+</p>
+
+<p>
+  <strong>Rna item id number:</strong>
+  <%= @formula.rna_item_id_number %>
+</p>
+
+<p>
+  <strong>Compound form:</strong>
+  <%= @formula.compound_form %>
+</p>
+
+<p>
+  <strong>Dispensing unit:</strong>
+  <%= @formula.dispensing_unit %>
+</p>
+
+<p>
+  <strong>Route of administration:</strong>
+  <%= @formula.route_of_administration %>
+</p>
+
+<p>
+  <strong>Total acquisition cost:</strong>
+  <%= @formula.total_acquisition_cost %>
+</p>
+
+<p>
+  <strong>Total base cost:</strong>
+  <%= @formula.total_base_cost %>
+</p>
+
+<p>
+  <strong>Qty produced:</strong>
+  <%= @formula.qty_produced %>
+</p>
+
+<p>
+  <strong>Number legend ingredients:</strong>
+  <%= @formula.number_legend_ingredients %>
+</p>
+
+<p>
+  <strong>Number otc ingredients:</strong>
+  <%= @formula.number_otc_ingredients %>
+</p>
+
+<p>
+  <strong>Level of effort code:</strong>
+  <%= @formula.level_of_effort_code %>
+</p>
+
+<p>
+  <strong>Instructions:</strong>
+  <%= @formula.instructions %>
+</p>
+
+<%= link_to 'Edit', edit_formula_path(@formula) %> |
+<%= link_to 'Back', formulas_path %>

@@ -1,0 +1,59 @@
+<%= simple_form_for(@claim_dur) do |f| %>
+  <%= f.error_notification %>
+
+	<div class="inputs">   
+	    <%= f.hidden_field :dept_number%>
+    	                 
+    	<div style="block:inline">                          
+					<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+							<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+    							< Customer Name >
+    							</br>   							
+    							< Prescriber Name >
+    							</br>
+    							< Item Name >
+    							</br>
+
+    				    	<%= f.input :rx_number %>
+    							<%= f.input :rna_plan_id_code %>
+    							<%= f.input :fill_number %>
+    							</br>
+    							<%= f.input :overflow_flag %>
+   							
+							</div>                                               
+					</div> 
+ 
+ 	<!-- 2nd Group -->                                             
+					<div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+							<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+							    <%= f.input :receive_counter %>
+									</br>
+	    						<%= f.input :dur_code %>
+    							<%= f.input :dur_severity %>
+    							<%= f.input :dur_pharmacy %>    							
+   			
+    							<%= f.input :dur_database %>
+   								<%= f.input :dur_prescriber %>
+    							<%= f.input :dur_message %>							
+							</div>
+					</div>
+
+
+					<div style="float:left; border-style: dotted; border-width: thin;width:390px;">  
+							<div style="float:left; border-style:none; height: 600px; padding-left:15px; padding-top: 5px;">
+      						<%= f.input :sent_counter %>
+      						</br>
+    							<%= f.input :reason_for_service %>
+    							<%= f.input :result_code %>
+    							<%= f.input :service_code %>
+    							<%= f.input :level_of_effort %>
+    							<%= f.input :coagent_id %>
+    							<%= f.input :coagent_qualifier %>
+							</div>
+					</div>
+	</div>  
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

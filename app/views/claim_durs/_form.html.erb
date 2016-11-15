@@ -1,0 +1,141 @@
+<%= simple_form_for(@claim_dur) do |f| %>
+  <%= f.error_notification %>
+
+	<div class="inputs">   
+	    <%= f.hidden_field :dept_number%>
+    	                 
+    	<div style="block:inline">                          
+					<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+							<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+    							< Customer Name >
+    							</br>   							
+    							< Prescriber Name >
+    							</br>
+    							< Item Name >
+    							</br>
+
+    				    	<%= f.input :rx_number %>
+    							<%= f.input :rna_plan_id_code %>
+    							<%= f.input :fill_number %>
+    							</br>
+    							<%= f.input :receive_counter %>
+    							<%= f.input :overflow_flag %>
+   							
+							</div>                                               
+					</div> 
+					
+                                             
+					<div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+						<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+						
+									Received DUR Messages
+									</br>
+									</br>
+						    	
+							   DUR Message 1 XX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>          
+							   Date 99/99/9999   Same Pharmacy Y   Severity XXXXXXXXXX
+							   </br> 
+							   Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>
+							   Same Dr Y  Same Chain N
+									</br>
+									</br>
+							   DUR Message 2 XX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>          
+							   Date 99/99/9999   Same Pharmacy Y   Severity XXXXXXXXXX
+							   </br> 
+							   Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>
+							   Same Dr Y  Same Chain N
+									</br>
+									</br>
+								  DUR Message 3 XX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>          
+							   Date 99/99/9999   Same Pharmacy Y   Severity XXXXXXXXXX
+							   </br> 
+							   Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>
+							   Same Dr Y  Same Chain N
+									</br>
+									</br>
+								  DUR Message 4 XX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>          
+							   Date 99/99/9999   Same Pharmacy Y   Severity XXXXXXXXXX
+							   </br> 
+							   Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>
+							   Same Dr Y  Same Chain N
+									</br>
+									</br>
+								  DUR Message 5 XX  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>          
+							   Date 99/99/9999   Same Pharmacy Y   Severity XXXXXXXXXX
+							   </br> 
+							   Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+							   </br>
+							   Same Dr Y  Same Chain N
+									</br>
+									</br>
+								
+    				</div>
+					</div>
+
+					<div style="float:left; border-style: dotted; border-width: thin;width:390px;">  
+							<div style="float:left; border-style:none; height: 600px; padding-left:15px; padding-top: 5px;">
+      						DUR Responses Sent
+    							</br>
+    							</br>
+    	
+							   DUR Code 1 XX    Intervention Code XX    Result Code XX
+							   </br>
+							   Level of Effort XX   Co-Agent Qualifier XX
+							   </br>
+							   Co-Agent ID XXXXXXXXXX    
+									</br>
+									</br>
+									</br>
+							   DUR Code 1 XX    Intervention Code XX    Result Code XX
+							   </br>
+							   Level of Effort XX   Co-Agent Qualifier XX
+							   </br>
+							   Co-Agent ID XXXXXXXXXX    
+									</br>
+									</br>
+									</br>
+							   DUR Code 1 XX    Intervention Code XX    Result Code XX
+							   </br>
+							   Level of Effort XX   Co-Agent Qualifier XX
+							   </br>
+							   Co-Agent ID XXXXXXXXXX    
+									</br>
+									</br>
+									</br>
+							   DUR Code 1 XX    Intervention Code XX    Result Code XX
+							   </br>
+							   Level of Effort XX   Co-Agent Qualifier XX
+							   </br>
+							   Co-Agent ID XXXXXXXXXX    
+									</br>
+									</br>
+									</br>
+							   DUR Code 1 XX    Intervention Code XX    Result Code XX
+							   </br>
+							   Level of Effort XX   Co-Agent Qualifier XX
+							   </br>
+							   Co-Agent ID XXXXXXXXXX    
+									</br>
+									</br>
+									</br>
+							  
+    							
+
+							</div>
+					</div>
+								
+		</div>  
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

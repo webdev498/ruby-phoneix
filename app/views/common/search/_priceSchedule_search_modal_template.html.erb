@@ -1,0 +1,100 @@
+<div class="phx-modal containter-fluid" id="priceScheduleSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Pric Schedule Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+						<th class="phx-search-font"><input type="text" id="priceScheduleSearchModal_Keys1_9" style="width:0.5px;" ></th>
+						<th class="phx-search-font">Number</th>
+						<th class="phx-search-font">Basis</th>
+						<th class="phx-search-font">Name</th>
+						<th class="phx-search-font">Type</th>
+						<th class="phx-search-font">Active</th>
+		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchPriceSchedules.each do |priceSchedule| %>
+
+							<% priceScheduleSearchRowId = "priceScheduleRow" + (choice += 1).to_s %>
+							<tr	id="<%=priceScheduleSearchRowId%>"
+									class="phx-search-row clickable-priceScheduleRow"
+									data-phx-search-priceSchedule-id="<%= priceSchedule.id %>"
+									data-phx-search-priceSchedule-name="<%= priceSchedule.display_name %>"
+									data-phx-search-priceSchedule-ndc-number="<%= priceSchedule.ndc_number %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= priceSchedule.number %> </td>
+								<td class="phx-search-font"> <%= priceSchedule.basis %> </td>
+								<td class="phx-search-font"> <%= priceSchedule.name %> </td>
+								<td class="phx-search-font"> <%= priceSchedule.type %> </td>
+								<td class="phx-search-font"> <%= priceSchedule.flag ? "Yes" : "No" %> </td>
+							</tr>
+						<% end %> <!-- END OF priceSchedule list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchPriceSchedules,
+						params: { controller: "priceSchedules", action: "nextPriceSchedules"} , remote: true  unless searchPriceSchedules.empty? %>
+
+				<%= link_to "New PriceSchedule",
+						priceSchedule_path,
+						id: "createNewPriceScheduleButton",
+						method: "get",
+						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
+				<button id="priceSchedule_modal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+	<script>
+
+		//<%# signal that a search selection has been made, and provide the ID and Name %>
+		//<%# the calling view MUST define the "phx-selected-item" custom event  %>
+		function triggerSearchSelection( selectedSearchPriceSchedule ) {
+			$( document ).trigger( "phx-selected-priceSchedule",
+										[ selectedSearchPriceSchedule.data("phxSearchPriceScheduleId"),
+										  selectedSearchPriceSchedule.data("phxSearchPriceScheduleName"),
+										  selectedSearchPriceSchedule.data("phxSearchPriceScheduleNdcNumber") ] );
+			$('#priceSchedule_modal_close_btn').trigger("click");
+			}
+
+		// handle a click event on any of the search rows
+		$(".clickable-priceScheduleRow").click(function() {
+			// send the jQuery version of "this"
+			triggerSearchSelection( $(this) );
+			});
+
+		// handle a number selection on the search
+		$('#priceScheduleSearchModal_Keys1_9').on("keypress", function(e) {
+				var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+				if( key >= 48 && key <= 57 ) {
+						triggerSearchSelection( $("#priceScheduleRow" + (key-48).toString()) );
+						return false; }
+				if (key == 27) { $("#priceScheduleSearchModal_close_btn").trigger("click"); return false; }
+				if (key == 43) { $("#createNewpriceScheduleButton").trigger("click"); return false; }
+			});
+
+	</script>
+
+</div>

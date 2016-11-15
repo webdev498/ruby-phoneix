@@ -1,0 +1,2 @@
+module ClaimCobResponsesHelper
+end

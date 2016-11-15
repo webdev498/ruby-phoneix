@@ -1,0 +1,109 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @employee.dept_number %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @employee.active_flag %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @employee.last_name %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @employee.first_name %>
+</p>
+
+<p>
+  <strong>Middle name:</strong>
+  <%= @employee.middle_name %>
+</p>
+
+<p>
+  <strong>Initials:</strong>
+  <%= @employee.initials %>
+</p>
+
+<p>
+  <strong>Address1:</strong>
+  <%= @employee.address1 %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @employee.address2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @employee.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @employee.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @employee.zip_code %>
+</p>
+
+<p>
+  <strong>Social security number:</strong>
+  <%= @employee.social_security_number %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @employee.password %>
+</p>
+
+<p>
+  <strong>Date hired:</strong>
+  <%= @employee.date_hired %>
+</p>
+
+<p>
+  <strong>Date left:</strong>
+  <%= @employee.date_left %>
+</p>
+
+<p>
+  <strong>Employee type:</strong>
+  <%= @employee.employee_type %>
+</p>
+
+<p>
+  <strong>Credentials:</strong>
+  <%= @employee.credentials %>
+</p>
+
+<p>
+  <strong>Npi number:</strong>
+  <%= @employee.npi_number %>
+</p>
+
+<p>
+  <strong>License number:</strong>
+  <%= @employee.license_number %>
+</p>
+
+<p>
+  <strong>Employee id number:</strong>
+  <%= @employee.rna_employee_id_number %>
+</p>
+
+<p>
+  <strong>Alternate id number:</strong>
+  <%= @employee.alternate_id_number %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

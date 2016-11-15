@@ -1,0 +1,2 @@
+module ClaimPreferencesHelper
+end

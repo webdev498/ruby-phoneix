@@ -1,0 +1,1 @@
+json.extract! @employee, :id, :dept_number, :id_number, :active, :last_name, :first_name, :middle_name, :initials, :address1, :address2, :city, :state, :zip, :social_security_number, :password, :date_hired, :date_left, :employee_type, :credentials, :npi_number, :license_number, :alternate_id_number, :created_at, :updated_at

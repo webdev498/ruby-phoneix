@@ -1,0 +1,84 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @customer_facility.dept_number %>
+</p>
+
+<p>
+  <strong>Facility id number:</strong>
+  <%= @customer_facility.facility_id_number %>
+</p>
+
+<p>
+  <strong>Wing:</strong>
+  <%= @customer_facility.wing_id %>
+</p>
+
+<p>
+  <strong>Room number:</strong>
+  <%= @customer_facility.room_number %>
+</p>
+
+<p>
+  <strong>Bed number:</strong>
+  <%= @customer_facility.bed_number %>
+</p>
+
+<p>
+  <strong>Rna customer id number:</strong>
+  <%= @customer_facility.rna_customer_id_number %>
+</p>
+
+<p>
+  <strong>Admission date:</strong>
+  <%= @customer_facility.admission_date %>
+</p>
+
+<p>
+  <strong>Discharge date:</strong>
+  <%= @customer_facility.discharge_date %>
+</p>
+
+<p>
+  <strong>Medical record number:</strong>
+  <%= @customer_facility.medical_record_number %>
+</p>
+
+<p>
+  <strong>Level of care:</strong>
+  <%= @customer_facility.level_of_care %>
+</p>
+
+<p>
+  <strong>Rehabilitation potential:</strong>
+  <%= @customer_facility.rehabilitation_potential %>
+</p>
+
+<p>
+  <strong>Last review date:</strong>
+  <%= @customer_facility.last_review_date %>
+</p>
+
+<p>
+  <strong>Diet orders:</strong>
+  <%= @customer_facility.diet_orders %>
+</p>
+
+<p>
+  <strong>Lab orders:</strong>
+  <%= @customer_facility.lab_orders %>
+</p>
+
+<p>
+  <strong>Activity orders:</strong>
+  <%= @customer_facility.activity_orders %>
+</p>
+
+<p>
+  <strong>Diagnosis:</strong>
+  <%= @customer_facility.diagnosis %>
+</p>
+
+<%= link_to 'Edit', edit_customer_facility_path(@customer_facility) %> |
+<%= link_to 'Back', customer_facilities_path %>

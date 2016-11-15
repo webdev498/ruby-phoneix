@@ -1,0 +1,7 @@
+
+$("#alert_modal_partial").html(
+		"<%= escape_javascript(render partial: 'common/search/search_modal_alert_template.html', :locals => { :searchAlerts => @alerts } ) %>");
+$("#searchAlertModal").modal('toggle');
+$("#watchforprescriber1_9").focus();
+$(document).on("click", function(e) { $("#watchforalert1_9").focus(); });
+$("#pageContent").css({ opacity: 0 });

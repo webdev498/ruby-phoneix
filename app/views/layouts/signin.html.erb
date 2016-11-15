@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phoenix by RNA</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="login-background-image" >
+    <div id="feenxRx">
+        <div class="container" style="padding-top:60px;">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-3">
+
+                    <div class="signin-wall">
+
+        				<%= image_tag "phoenix_logo.png", :height => 70, :crop => :scale, :style => "padding-left:50px;"  %>
+
+        				<hr style="margin-top:20px; width:80%;"/>
+
+                        <%= form_tag( sign_in_path, { id: "sign-in-Form", method: "get", class: "form-signin", autocomplete: "off" } ) do %>
+
+        					<div class="form-group phx-input-control">
+        						<label class="phx-form-control-label" for="initials">User Name</label>
+            		  			<%= text_field_tag :initials, nil, :class => "phx-form-control" %>
+        					</div>
+
+        					<div class="form-group phx-input-control">
+        						<label class="phx-form-control-label" for="pword">Password</label>
+            	    			<%= password_field_tag :pword, params[:password], :class => "phx-form-control" %>
+        					</div>
+
+                            <div class="col-md-5 col-md-offset-6" style="margin-top:10px; margin-bottom:20px;">
+        						<%= submit_tag "Sign In", :id => 'signIn', :class => "btn btn-primary btn-md btn-block phx-btn-model-control-red" %>
+        					</div>
+
+        				<% end %>
+
+        				<div style="margin-top:60px; padding:20px 15px 15px 15px; border-top: 2px solid #e1dfdf; background:#f3f3f3; color:#000;">
+        					<p style="font-size:12px; font-weight:bold;">
+        						Terms and Conditions
+        					</p>
+        					<p style="font-size:10px; font-weight:normal;">
+        						This software contains copyrighted material, confidential and proprietary information, and other trade secrets owned by RNA Holdings, LLC (“RNA”).  RNA has agreed to grant this pharmacy site a limited license to use this software solely for this site’s internal business use and for no otherpurpose.  The pharmacy site’s rights in this license may not be transferred, nor may the software system itself be moved off of the pharmacy site, without RNA’s written consent.  As a condition of accessing or using this software, in which this pharmacy site has no title or interest, the pharmacy site hereby agrees to maintain information related to the software in the strictest confidence and forbids its employees and/or authorized users to: (i) allow any third party to obtain the software, (ii) allow any use of the software in any manner which would allow the general public access, (iii) allow any use of the software for the benefit of any third party, (iv) reveal any confidential or copyrighted material to any third party, or (v) disclose any information regarding the software.
+        					</p>
+        					<p style="font-size:10px; font-weight:normal;">
+        						If you do not agree with these terms and conditions, or if you are not a current employee of the pharmacy site, immediately exit the software and do not attempt to use it.
+        					</p>
+        				</div>
+
+                    </div><!-- class signin-wall -->
+
+                </div>
+            </div> <!-- class row -->
+        </div>
+    <div id="feenxRx">
+</body>
+<script>
+;(function($){
+
+    var feenxRx  = document.getElementById('feenxRx');
+    var signin   =  document.getElementById('signIn');
+    var closePhx =  document.getElementById('closePhx');
+
+    // signin.addEventListener('click', function() {
+    //
+    //   if (!feenxRx.fullscreenElement &&    // alternative standard method
+    //       !feenxRx.mozFullScreenElement && !feenxRx.webkitFullscreenElement && !feenxRx.msFullscreenElement ) {  // current working methods
+    //
+    //     if (feenxRx.requestFullscreen) {
+    //             feenxRx.requestFullscreen();
+    //     } else if (feenxRx.msRequestFullscreen) {
+    //             feenxRx.msRequestFullscreen();
+    //     } else if (feenxRx.mozRequestFullScreen) {
+    //             feenxRx.mozRequestFullScreen();
+    //     } else if (feenxRx.webkitRequestFullscreen) {
+    //             feenxRx.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    //     }
+    // }});
+    //
+    // closePhx.addEventListener('click', function() {
+    //     if (feenxRx.exitFullscreen) {
+    //             feenxRx.exitFullscreen();
+    //     } else if (feenxRx.msExitFullscreen) {
+    //             feenxRx.msExitFullscreen();
+    //     } else if (feenxRx.mozCancelFullScreen) {
+    //             feenxRx.mozCancelFullScreen();
+    //     } else if (feenxRx.webkitExitFullscreen) {
+    //             feenxRx.webkitExitFullscreen();
+    //     }
+    //   }
+
+})(jQuery);
+</script>
+</html>

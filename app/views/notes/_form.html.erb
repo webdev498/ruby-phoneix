@@ -1,0 +1,23 @@
+<%= simple_form_for(@note) do |f| %>
+  <%= f.error_notification %>
+  <div class="inputs">   
+	    <%= f.hidden_field :dept_number%>          
+    	<div style="block:inline">                          
+			<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+				<div style="float:left; border-style:none; width:390px; height: 400px; padding-left:15px; padding-top: 5px;">				
+    				<%= f.input :dept_number %>
+    				<%= f.input :note_type %>
+    				<%= f.input :rna_id_number %>
+   					<%= f.input :note_text %>
+    				<%= f.input :active_flag %>
+    				<%= f.input :start_display_date %>
+    				<%= f.input :end_display_date %>
+				</div>                                               
+			</div> 
+		</div>
+	</div>
+  
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

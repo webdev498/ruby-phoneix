@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pharmacy.dept_number %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @pharmacy.active_flag %>
+</p>
+
+<p>
+  <strong>Pharmacy name:</strong>
+  <%= @pharmacy.pharmacy_name %>
+</p>
+
+<p>
+  <strong>Address1:</strong>
+  <%= @pharmacy.address1 %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @pharmacy.address2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @pharmacy.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @pharmacy.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @pharmacy.zip_code %>
+</p>
+
+<p>
+  <strong>Rna acct number:</strong>
+  <%= @pharmacy.rna_acct_number %>
+</p>
+
+<p>
+  <strong>Sys exp date:</strong>
+  <%= @pharmacy.sys_exp_date %>
+</p>
+
+<p>
+  <strong>Dea number:</strong>
+  <%= @pharmacy.dea_number %>
+</p>
+
+<p>
+  <strong>Npi number:</strong>
+  <%= @pharmacy.npi_number %>
+</p>
+
+<p>
+  <strong>Max sessions:</strong>
+  <%= @pharmacy.max_sessions %>
+</p>
+
+<p>
+  <strong>Federal tax:</strong>
+  <%= @pharmacy.federal_tax_id %>
+</p>
+
+<p>
+  <strong>Rx taxable flag:</strong>
+  <%= @pharmacy.rx_taxable_flag %>
+</p>
+
+<p>
+  <strong>Local tax rate:</strong>
+  <%= @pharmacy.local_tax_rate %>
+</p>
+
+<p>
+  <strong>State tax rate:</strong>
+  <%= @pharmacy.state_tax_rate %>
+</p>
+
+<p>
+  <strong>Total tax rate:</strong>
+  <%= @pharmacy.total_tax_rate %>
+</p>
+
+<p>
+  <strong>Pharmacy type:</strong>
+  <%= @pharmacy.pharmacy_type %>
+</p>
+
+<p>
+  <strong>Claimguard counter:</strong>
+  <%= @pharmacy.claimguard_counter %>
+</p>
+
+<p>
+  <strong>Eligibility counter:</strong>
+  <%= @pharmacy.eligibility_counter %>
+</p>
+
+<p>
+  <strong>Us or metric:</strong>
+  <%= @pharmacy.us_or_metric %>
+</p>
+
+<%= link_to 'Edit', edit_pharmacy_path(@pharmacy) %> |
+<%= link_to 'Back', pharmacies_path %>

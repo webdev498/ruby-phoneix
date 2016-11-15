@@ -1,0 +1,73 @@
+I"(function() {
+  $(function() {
+    var assignNextPreviousClickHandlers, cs, fetch_table_data;
+    cs = FEENX.Search.NewSearch('account', {
+      context: '',
+      triggerField: 'customer_full_name',
+      fieldPrefix: '',
+      modalId: 'accountSearchModal',
+      hiddenDivId: 'hidden_fields',
+      refresh: true,
+      refreshTo: '/accounts/'
+    });
+    cs.addAttribute('last_name', false, '', null);
+    cs.addAttribute('display_name', false, '', null);
+    cs.addHiddenFields();
+    cs.dataFormattedAttributes();
+    $(".transaction_start_date").val($("#account_last_statement_date").val());
+    $(".transaction_start_date").datepicker({
+      format: 'mm-dd-yyyy',
+      defaultViewDate: $("#account_last_statement_date").val(),
+      autoclose: true,
+      title: "Select transaction start date"
+    }).on('changeDate', function() {
+      $(".transaction_start_date").focus;
+      return fetch_table_data(1);
+    });
+    fetch_table_data = function(pageNumber) {
+      var account_number, currentPage, transaction_type, transactions_since;
+      account_number = $("#account_account_number").val();
+      transactions_since = $(".transaction_start_date").val();
+      currentPage = $("#account_postings_page_number").val();
+      transaction_type = $(".account-posting-filter-option option:selected").val();
+      return $.get("/accounts/nextAccountPostings?account_number=" + account_number + "&transactions_since=" + transactions_since + "&transaction_type=" + transaction_type + "&page=" + pageNumber, function() {}).done(function(data) {}).fail(function(error) {
+        return console.log("Transaction fetch failed");
+      });
+    };
+    assignNextPreviousClickHandlers = function() {
+      $('#previous-account-postings-page').click(function(e) {
+        var currentPage;
+        e.preventDefault();
+        currentPage = $("#account_postings_page_number").val();
+        return fetch_table_data(parseInt(currentPage) - 1);
+      });
+      return $('#next-account-postings-page').click(function(e) {
+        var currentPage;
+        e.preventDefault();
+        currentPage = $("#account_postings_page_number").val();
+        return fetch_table_data(parseInt(currentPage) + 1);
+      });
+    };
+    assignNextPreviousClickHandlers();
+    $("#account_postings").bind("table-updated", function() {
+      return assignNextPreviousClickHandlers();
+    });
+    $("#account_account_number").keypress(function(e) {
+      var accountNumber, key;
+      accountNumber = $("#account_account_number").val();
+      key = e.keyCode;
+      if (key === 13) {
+        if (accountNumber !== void 0 && accountNumber > 0) {
+          return window.location.replace("/accounts/" + accountNumber);
+        }
+      }
+    });
+    return $(".account-posting-filter-option").change(function() {
+      var transaction_type;
+      transaction_type = $(".account-posting-filter-option option:selected").val();
+      return fetch_table_data(1);
+    });
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,17 @@
+<%= simple_form_for(@license) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <div style="padding-top:10px; maximum:40">
+      <%= f.input :license_title, :label => "Title - " %>
+    </div>
+    <div style="border-style: dotted; width:660px; height: 200px; padding-top: 10px;">
+      <%= f.input :license_text %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

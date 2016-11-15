@@ -1,0 +1,2 @@
+module ClinicalHic4sHelper
+end

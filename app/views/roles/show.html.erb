@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Initials:</strong>
+  <%= @role.name %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @role.resource_id %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @role.resource_type %>
+</p>
+
+<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Back', roles_path %>

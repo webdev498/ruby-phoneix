@@ -1,0 +1,2 @@
+$("#item_search_modal_partial").html(
+    "<%= escape_javascript(render partial: 'common/search/ingredient_search_modal_template', locals: { searchItems: @searchItems, searchController: @searchController } ) %>");

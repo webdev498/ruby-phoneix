@@ -1,0 +1,369 @@
+<%= form_for(@cdb_drug_reference) do |f| %>
+  <% if @cdb_drug_reference.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cdb_drug_reference.errors.count, "error") %> prohibited this cdb_drug_reference from being saved:</h2>
+
+      <ul>
+      <% @cdb_drug_reference.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ndc_number %><br>
+    <%= f.number_field :ndc_number %>
+  </div>
+  <div class="field">
+    <%= f.label :ndc_number10 %><br>
+    <%= f.number_field :ndc_number10 %>
+  </div>
+  <div class="field">
+    <%= f.label :ddid_number %><br>
+    <%= f.number_field :ddid_number %>
+  </div>
+  <div class="field">
+    <%= f.label :kdc_code %><br>
+    <%= f.number_field :kdc_code %>
+  </div>
+  <div class="field">
+    <%= f.label :drug_name %><br>
+    <%= f.text_field :drug_name %>
+  </div>
+  <div class="field">
+    <%= f.label :generic_product_id %><br>
+    <%= f.text_field :generic_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :therapeutic_equivalence_eval_code %><br>
+    <%= f.text_field :therapeutic_equivalence_eval_code %>
+  </div>
+  <div class="field">
+    <%= f.label :dea_schedule %><br>
+    <%= f.text_field :dea_schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :desi_code %><br>
+    <%= f.text_field :desi_code %>
+  </div>
+  <div class="field">
+    <%= f.label :rx_otc_indicator %><br>
+    <%= f.text_field :rx_otc_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :generic_packaging_code %><br>
+    <%= f.text_field :generic_packaging_code %>
+  </div>
+  <div class="field">
+    <%= f.label :previous_ndc_number %><br>
+    <%= f.number_field :previous_ndc_number %>
+  </div>
+  <div class="field">
+    <%= f.label :new_ndc_number %><br>
+    <%= f.number_field :new_ndc_number %>
+  </div>
+  <div class="field">
+    <%= f.label :repackage_code %><br>
+    <%= f.text_field :repackage_code %>
+  </div>
+  <div class="field">
+    <%= f.label :id_number_format %><br>
+    <%= f.text_field :id_number_format %>
+  </div>
+  <div class="field">
+    <%= f.label :package_size %><br>
+    <%= f.text_field :package_size %>
+  </div>
+  <div class="field">
+    <%= f.label :package_size_unit_measure %><br>
+    <%= f.text_field :package_size_unit_measure %>
+  </div>
+  <div class="field">
+    <%= f.label :package_size_quantity %><br>
+    <%= f.number_field :package_size_quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :mfg_name %><br>
+    <%= f.text_field :mfg_name %>
+  </div>
+  <div class="field">
+    <%= f.label :third_party_restriction_code %><br>
+    <%= f.text_field :third_party_restriction_code %>
+  </div>
+  <div class="field">
+    <%= f.label :kdc_flag %><br>
+    <%= f.text_field :kdc_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :labeler_id_number %><br>
+    <%= f.number_field :labeler_id_number %>
+  </div>
+  <div class="field">
+    <%= f.label :multi_source_code %><br>
+    <%= f.text_field :multi_source_code %>
+  </div>
+  <div class="field">
+    <%= f.label :name_type_code %><br>
+    <%= f.text_field :name_type_code %>
+  </div>
+  <div class="field">
+    <%= f.label :item_status_flag %><br>
+    <%= f.text_field :item_status_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :innerpack_code %><br>
+    <%= f.text_field :innerpack_code %>
+  </div>
+  <div class="field">
+    <%= f.label :clinic_pack_code %><br>
+    <%= f.text_field :clinic_pack_code %>
+  </div>
+  <div class="field">
+    <%= f.label :pharmacy_stocked_indicator %><br>
+    <%= f.text_field :pharmacy_stocked_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :hospital_stocked_indicator %><br>
+    <%= f.text_field :hospital_stocked_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :dispensing_unit_code %><br>
+    <%= f.text_field :dispensing_unit_code %>
+  </div>
+  <div class="field">
+    <%= f.label :dollar_rank_code %><br>
+    <%= f.text_field :dollar_rank_code %>
+  </div>
+  <div class="field">
+    <%= f.label :rx_rank_code %><br>
+    <%= f.text_field :rx_rank_code %>
+  </div>
+  <div class="field">
+    <%= f.label :storage_code %><br>
+    <%= f.text_field :storage_code %>
+  </div>
+  <div class="field">
+    <%= f.label :limited_distribution_code %><br>
+    <%= f.text_field :limited_distribution_code %>
+  </div>
+  <div class="field">
+    <%= f.label :old_ndc_effective_date %><br>
+    <%= f.date_select :old_ndc_effective_date %>
+  </div>
+  <div class="field">
+    <%= f.label :new_ndc_effective_date %><br>
+    <%= f.date_select :new_ndc_effective_date %>
+  </div>
+  <div class="field">
+    <%= f.label :next_smaller_ndc %><br>
+    <%= f.text_field :next_smaller_ndc %>
+  </div>
+  <div class="field">
+    <%= f.label :next_larger_ndc %><br>
+    <%= f.text_field :next_larger_ndc %>
+  </div>
+  <div class="field">
+    <%= f.label :last_change_date %><br>
+    <%= f.date_select :last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :awp_unit_price %><br>
+    <%= f.text_field :awp_unit_price %>
+  </div>
+  <div class="field">
+    <%= f.label :awp_package_price %><br>
+    <%= f.text_field :awp_package_price %>
+  </div>
+  <div class="field">
+    <%= f.label :awp_last_change_date %><br>
+    <%= f.date_select :awp_last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :direct_unit_price %><br>
+    <%= f.text_field :direct_unit_price %>
+  </div>
+  <div class="field">
+    <%= f.label :direct_package_price %><br>
+    <%= f.text_field :direct_package_price %>
+  </div>
+  <div class="field">
+    <%= f.label :direct_last_change_date %><br>
+    <%= f.date_select :direct_last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :wac_unit_price %><br>
+    <%= f.text_field :wac_unit_price %>
+  </div>
+  <div class="field">
+    <%= f.label :wac_package_price %><br>
+    <%= f.text_field :wac_package_price %>
+  </div>
+  <div class="field">
+    <%= f.label :wac_last_change_date %><br>
+    <%= f.date_select :wac_last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :federal_mac_unit_price %><br>
+    <%= f.text_field :federal_mac_unit_price %>
+  </div>
+  <div class="field">
+    <%= f.label :federal_mac_last_change_date %><br>
+    <%= f.date_select :federal_mac_last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :federal_mac_unit_dose %><br>
+    <%= f.text_field :federal_mac_unit_dose %>
+  </div>
+  <div class="field">
+    <%= f.label :federal_mac_unitdose_last_change_date %><br>
+    <%= f.date_select :federal_mac_unitdose_last_change_date %>
+  </div>
+  <div class="field">
+    <%= f.label :route_of_admin_code %><br>
+    <%= f.text_field :route_of_admin_code %>
+  </div>
+  <div class="field">
+    <%= f.label :dosage_form %><br>
+    <%= f.text_field :dosage_form %>
+  </div>
+  <div class="field">
+    <%= f.label :drug_strength %><br>
+    <%= f.text_field :drug_strength %>
+  </div>
+  <div class="field">
+    <%= f.label :strength_unit_measure %><br>
+    <%= f.text_field :strength_unit_measure %>
+  </div>
+  <div class="field">
+    <%= f.label :bioequivalence_code %><br>
+    <%= f.text_field :bioequivalence_code %>
+  </div>
+  <div class="field">
+    <%= f.label :controlled_substance_code %><br>
+    <%= f.text_field :controlled_substance_code %>
+  </div>
+  <div class="field">
+    <%= f.label :efficacy_code %><br>
+    <%= f.text_field :efficacy_code %>
+  </div>
+  <div class="field">
+    <%= f.label :legend_indicator %><br>
+    <%= f.text_field :legend_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :brand_name_code %><br>
+    <%= f.text_field :brand_name_code %>
+  </div>
+  <div class="field">
+    <%= f.label :name_source_code %><br>
+    <%= f.text_field :name_source_code %>
+  </div>
+  <div class="field">
+    <%= f.label :new_ddid_number %><br>
+    <%= f.number_field :new_ddid_number %>
+  </div>
+  <div class="field">
+    <%= f.label :screenable_flag %><br>
+    <%= f.text_field :screenable_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :local_systemic_flag %><br>
+    <%= f.text_field :local_systemic_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :maintenance_code %><br>
+    <%= f.text_field :maintenance_code %>
+  </div>
+  <div class="field">
+    <%= f.label :form_type_code %><br>
+    <%= f.text_field :form_type_code %>
+  </div>
+  <div class="field">
+    <%= f.label :internal_external_code %><br>
+    <%= f.text_field :internal_external_code %>
+  </div>
+  <div class="field">
+    <%= f.label :single_combo_code %><br>
+    <%= f.text_field :single_combo_code %>
+  </div>
+  <div class="field">
+    <%= f.label :representative_gpi_flag %><br>
+    <%= f.text_field :representative_gpi_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :representative_kdc_flag %><br>
+    <%= f.text_field :representative_kdc_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :clarity %><br>
+    <%= f.text_field :clarity %>
+  </div>
+  <div class="field">
+    <%= f.label :coating %><br>
+    <%= f.text_field :coating %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.text_field :color %>
+  </div>
+  <div class="field">
+    <%= f.label :flavor %><br>
+    <%= f.text_field :flavor %>
+  </div>
+  <div class="field">
+    <%= f.label :scored %><br>
+    <%= f.text_field :scored %>
+  </div>
+  <div class="field">
+    <%= f.label :shape %><br>
+    <%= f.text_field :shape %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file_name %><br>
+    <%= f.text_field :image_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :side1_imprint %><br>
+    <%= f.text_field :side1_imprint %>
+  </div>
+  <div class="field">
+    <%= f.label :side2_imprint %><br>
+    <%= f.text_field :side2_imprint %>
+  </div>
+  <div class="field">
+    <%= f.label :appearance_text %><br>
+    <%= f.text_area :appearance_text %>
+  </div>
+  <div class="field">
+    <%= f.label :medication_guide_file %><br>
+    <%= f.text_field :medication_guide_file %>
+  </div>
+  <div class="field">
+    <%= f.label :monitoring_program %><br>
+    <%= f.text_field :monitoring_program %>
+  </div>
+  <div class="field">
+    <%= f.label :monitoring_file_name %><br>
+    <%= f.text_field :monitoring_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :monograph_file_name %><br>
+    <%= f.text_field :monograph_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :black_box_file_name %><br>
+    <%= f.text_field :black_box_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :contains_acetaminophen %><br>
+    <%= f.check_box :contains_acetaminophen %>
+  </div>
+  <div class="field">
+    <%= f.label :contains_pseudoephedrine %><br>
+    <%= f.check_box :contains_pseudoephedrine %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pos_payment_method.dept_number %>
+</p>
+
+<p>
+  <strong>Payment method code:</strong>
+  <%= @pos_payment_method.payment_method_code %>
+</p>
+
+<p>
+  <strong>Payment method description:</strong>
+  <%= @pos_payment_method.payment_method_description %>
+</p>
+
+<p>
+  <strong>Payment method processing pct:</strong>
+  <%= @pos_payment_method.payment_method_processing_pct %>
+</p>
+
+<p>
+  <strong>Merchant id number:</strong>
+  <%= @pos_payment_method.merchant_id_number %>
+</p>
+
+<%= link_to 'Edit', edit_pos_payment_method_path(@pos_payment_method) %> |
+<%= link_to 'Back', pos_payment_methods_path %>

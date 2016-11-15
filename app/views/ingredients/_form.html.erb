@@ -1,0 +1,22 @@
+<%= simple_form_for(@ingredient) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rna_item_id_number %>
+    <%= f.input :ndc_number %>
+    <%= f.input :basis_of_cost %>
+    <%= f.input :base_cost %>
+    <%= f.input :acquisition_cost %>
+    <%= f.input :quantity %>
+    <%= f.input :alternate_product_type %>
+    <%= f.input :alternate_product_code %>
+    <%= f.input :modifier_code1 %>
+    <%= f.input :modifier_code2 %>
+    <%= f.input :modifier_code3 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

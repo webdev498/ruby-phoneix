@@ -1,0 +1,17 @@
+<%# claim form %>
+
+<%= form_for contact_point do |f| %>
+
+	<div class="row container-fluid">
+
+		<div class="container-fluid col-lg-4">
+
+      <%= phx_textfield_for f, :contact, "Contact" %>
+
+			<div class="form-group phx-input-control-spacer"></div>
+
+    </div>
+
+  </div>
+
+<% end %>

@@ -1,0 +1,307 @@
+<% phx_subnav_for :m_prescriber %>
+
+<% provide(:prescriber, "active") %>
+
+<%= form_for( @prescriber ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Prescriber Maintenance
+							<% if @prescriber.display_name %>
+								<span style="font-weight:font-weight: bold;bold;" id="prescriberDisplayName">
+									&nbsp;&nbsp;|&nbsp;&nbsp;<%= @prescriber.display_name %>
+						      	</span>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid" style="padding-top:30px;">
+
+			<!-- Primary Info -->
+			<div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+                    <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                        Primary Info
+                        </div>
+                        <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+                    </div>
+
+                    <div class="form-group phx-input-control-spacer" style="margin-bottom: -25px;">&nbsp;</div>
+
+                    <%= f.hidden_field :id %>
+                    <%= f.hidden_field :search_supervisor_id %>
+                    <%= f.hidden_field :search_supervisee_id %>
+
+                    <%= phx_textfield_for f, :last_name, "Last Name" %>
+
+                    <%= phx_textfield_for f, :first_name, "First Name", 0, "", :readonly  %>
+
+                    <%= phx_textfield_for f, :middle_name, "Middle Name", 0, "", :readonly  %>
+
+                    <%= phx_textfield_for f, :address1, "Address1", 0, "", :readonly  %>
+
+                    <%= phx_textfield_for f, :address2, "Address2", 0, "", :readonly %>
+
+                    <%= phx_textfield_for f, :city, "City", 0, "", :readonly %>
+
+					<div class="row phx-two-horizontal-controls">
+
+                        <%= phx_selectfield_for f, :state, "State", phx_us_states(), false, 0, "col-md-6" %>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="zip_code">Postal Code</label>
+							<%= f.text_field :zip_code, class: 'phx-form-control', readonly: true %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="dea_number">DEA #</label>
+							<%= f.text_field :dea_number, class: 'phx-form-control', readonly: true %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="npi_number">NPI #</label>
+							<%= f.text_field :npi_number, class: 'phx-form-control', readonly: true %>
+						</div>
+					</div>
+
+					<%= phx_checkbox_for f, :erx_eligibility , "ERx Eligibility" %>
+                    </br>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="surescripts_erx_id">Surescripts ERx</label>
+							<%= f.text_field :surescripts_erx_id, class: 'phx-form-control', readonly: true %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="emdeon_erx_id">Emdeon ERx</label>
+							<%= f.text_field :emdeon_erx_id, class: 'phx-form-control', readonly: true %>
+						</div>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<%= phx_checkbox_for f, :allowed_to_prescribe_narcotics , "Narcotics Allowed" %>
+
+						<%= phx_checkbox_for f, :allowed_to_prescribe_controlled , "Controlled Is Allowed" %>
+					</div>
+
+					<%= phx_checkbox_for f, :requires_supervisor , "Supervisor Required" %>
+
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+			<div class="col-lg-8">
+
+				<!-- Tab labels -->
+				<ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#prescriberPanel-supervisors" role="tab" data-toggle="tab">Supervisors ( <%= @prescriber.supervisors.size %> )</a></li>
+                    <li><a href="#prescriberPanel-supervisees" role="tab" data-toggle="tab">Supervising ( <%= @prescriber.supervisees.size %> )</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content phx-tab-pane">
+
+					<div class="tab-pane active" id="prescriberPanel-supervisors">
+
+						<div class="row container-fluid">
+
+                            <!-- Supervisors, first column -->
+                            <div class="container-fluid col-md-12">
+                                </br>
+                                    <% choice = 0 %>
+                                    <table class="phx-table phx-search-font">
+                                        <thead class="phx-table-head">
+                                            <tr>
+                                                <th style="background-color:#f9f9fa;" class="col-md-2">Last Name</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-2">First Name</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-3">Address Line 1</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-1">City</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-1">State</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-2">DEA #</th>
+                                                <th style="background-color:#f9f9fa;" class="col-md-1">Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% @prescriber.supervisors.each do |ff| %>
+                                                <%= f.fields_for :superviors, ff do |sup_field| %>
+                                                    <tr class="phx-table-detail" id="supervisor_<%=choice += 1%>">
+                                                        <td style="width:10px;"><%= ff.last_name %></td>
+                                                        <td style="width:10px;"><%= ff.first_name %></td>
+                                                        <td style="width:10px;"><%= ff.address1 %></td>
+                                                        <td style="width:10px;"><%= ff.city %></td>
+                                                        <td style="width:10px;"><%= ff.state %></td>
+                                                        <td style="width:10px;"><%= ff.dea_number %></td>
+                                                        <td><%= sup_field.check_box :remove_supervision,{label:""} %></td>
+                                                    </tr>
+                                                <% end %>
+                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                    </br></br>
+
+                                    <button type="button" id="add_supervisee_button" class="btn btn-sm btn-default phx-btn-model-control-cream col-md-offset-7 phx-btn-model-control-width">Add Supervisor</button>
+                                    <%= phx_red_submit_button_for f, "Remove Supervisor", ["Remove","Remove"], "supervisor-remove", "phx-btn-model-control-width pull-right", false %>
+
+                                    </br></br></br>
+                               </div> <!-- end of panel 1, 1st column -->
+
+                            </div>
+                        </div>
+
+   					<div class="tab-pane" id="prescriberPanel-supervisees">
+
+   						<div class="row container-fluid">
+
+                               <!-- Supervisors, first column -->
+                               <div class="container-fluid col-md-12">
+                                    </br>
+                                       <% choice = 0 %>
+                                       <table class="phx-table phx-search-font">
+                                           <thead class="phx-table-head">
+                                               <tr>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-2">Last Name</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-2">First Name</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-3">Address Line 1</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-1">City</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-1">State</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-2">DEA #</th>
+                                                   <th style="background-color:#f9f9fa;" class="col-md-1">&nbsp;</th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <% @prescriber.supervisees.each do |ff| %>
+                                                   <%= f.fields_for :supervisees, ff do |sup_field| %>
+                                                       <tr class="phx-table-detail" id="supervisee_<%=choice += 1%>">
+                                                           <td style="width:10px;"><%= ff.last_name %></td>
+                                                           <td style="width:10px;"><%= ff.first_name %></td>
+                                                           <td style="width:10px;"><%= ff.address1 %></td>
+                                                           <td style="width:10px;"><%= ff.city %></td>
+                                                           <td style="width:10px;"><%= ff.state %></td>
+                                                           <td style="width:10px;"><%= ff.dea_number %></td>
+                                                           <td><%= sup_field.check_box :remove_supervision,{label:""} %></td>
+                                                       </tr>
+                                                   <% end %>
+                                               <% end %>
+                                           </tbody>
+                                       </table>
+                                    </br></br>
+
+                                    <button type="button" id="add_supervisor_button" class="btn btn-sm btn-default phx-btn-model-control-cream col-md-offset-7 phx-btn-model-control-width">Add Dr. Under Supervision</button>
+                                    <%= phx_red_submit_button_for f, "Remove Supervisee", ["Remove","Remove"], "supervisee-remove", "phx-btn-model-control-width pull-right", false %>
+
+                                    </br></br></br>
+                                    </div> <!-- end of panel 1, 2nd column -->
+							</div> <!-- END OF first panel -->
+
+						</div> <!-- END OF GENERAL INFO panel container-fluid -->
+
+					</div>
+				</div> <!-- end of col lg 10 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="prescriber_search_modal_partial">
+    <div id="prescriberSearchModal">
+    </div>
+</div>
+
+<div id="supervise_prescriber_search_modal_partial">
+    <div id="supervisePrescriberSearchModal">
+    </div>
+</div>
+
+
+<% end %>
+
+<script>
+
+    // -----------------------------
+    // PRESCRIBER: define the search
+    var prescribsrch = FEENX.Search.NewSearch('prescriber',
+        {   context:      '',
+            triggerField: 'last_name',
+            fieldPrefix:  '',
+            modalId:      'prescriberSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/prescribers/' });
+
+    // create the corresponding hidden fields in the form
+    prescribsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    prescribsrch.dataFormattedAttributes();
+
+    // $(document).on("prescriber_search_event:close", function(){
+    //     window.location.replace( "/prescriber/supervisor/" + $("#prescriber_id").val() );
+    //     } );
+
+$("#add_supervisor_button").on("click", function(){
+    $.get( "/prescriber/nextSupervising?start=",
+            function( data ) {
+            });
+        return false;
+    });
+
+$("#add_supervisee_button").on("click", function(){
+    $.get( "/prescriber/nextSupervising?start=",
+            function( data ) {
+            });
+        return false;
+    });
+
+
+$('#prescriber_search_modal_partial').on('hidden.bs.modal', function (e) {
+    window.location.replace( "/prescriber/supervisor/" + $("#prescriber_id").val() );
+    });
+
+
+/////////////////////////////////////////////////////////////////////////
+//////// supervising prescriber search KLUGE until next release of search -- below
+////////
+//////// note: current code below regressed due to last minute bug.
+
+$('#supervise_prescriber_search_modal_partial').on('shown.bs.modal', function () {
+
+$( document ).off( "phx-selected-supervisePrescriber" );
+
+$( document ).on( "phx-selected-supervisePrescriber",
+  function( event, selected_id, selected_display_name ) {
+debugger;
+      $("#supervisePrescriberSearchModal").modal("toggle");
+      //      window.location.replace( "/prescriber/" + $("##{answerIdFieldName}").val() );
+    });
+});
+
+
+</script>

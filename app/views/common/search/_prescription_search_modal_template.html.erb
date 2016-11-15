@@ -1,0 +1,70 @@
+<%# parameters: searchPrescriptions - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="prescriptionSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Profile<%= !searchPrescriptions.empty? ? " for " + searchPrescriptions[0].customer_display_name : ""%></h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+			  		<thead class="phx-search-row-header">
+  				  		<tr>
+							<th class="phx-search-font"><input type="text" id="prescriptionSearchModal_Keys1_9" style="width:0.5px;" ></th>
+							<th class="phx-search-font">Rx #</th>
+							<th class="phx-search-font">Item</th>
+							<th class="phx-search-font">Date</th>
+							<th class="phx-search-font">Refills</th>
+							<th class="phx-search-font">Dispensed</th>
+							<th class="phx-search-font">Pay Type</th>
+							<th class="phx-search-font">Price<th>
+  		  				</tr>
+  					</thead>
+
+			  		<tbody>
+						<% searchPrescriptions.each do |prescription| %>
+							<tr	id="<%= 'prescriptionSearchModal-row' + (choice += 1).to_s %>"
+									class="phx-search-row clickable-prescriptionSearchModal-row"
+									data-phx-search-prescription-id="<%= prescription.id %>"
+									data-phx-search-prescription-display-name="<%= prescription.rx_number %>">
+
+								<td class="phx-search-font col-sm-1"> <%= choice %> </td>
+								<td class="phx-search-font col-md-2"> <%= prescription.rx_number %> </td>
+								<td class="phx-search-font col-md-3"> <%= prescription.dislay_name %> </td>
+								<td class="phx-search-font col-md-2"> <%= prescription.last_fill_date %> </td>
+								<td class="phx-search-font col-md-1"> <%= prescription.refills_left %> </td>
+								<td class="phx-search-font col-md-1"> <%= prescription.last_fill_quantity %> </td>
+								<td class="phx-search-font col-md-1"> <%= prescription.last_fill_primary_paytype %> </td>
+								<td class="phx-search-font col-md-1"> <%= prescription.last_fill_price %> </td>
+							</tr>
+						<% end %> <!-- END OF prescription list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchPrescriptions,
+						params: { controller: "prescriptions", action: "nextPrescriptions"} , remote: true  unless searchPrescriptions.empty? %>
+
+				<button id="prescriptionSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+
+
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+</div>
+<script>
+	$('#prescription_search_modal_partial').trigger('contentchanged');
+</script>

@@ -1,0 +1,1 @@
+json.extract! @claim_dur, :id, :dept_number, :rna_plan_id_code, :rx_number, :fill_number, :overflow_flag, :sent_counter, :reason_for_service, :result_code, :service_code, :level_of_effort, :coagent_id, :coagent_qualifier, :receive_counter, :dur_code, :dur_severity, :dur_pharmacy, :dur_date, :dur_quantity, :dur_database, :dur_prescriber, :dur_message, :created_at, :updated_at

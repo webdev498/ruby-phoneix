@@ -1,0 +1,103 @@
+/* Mobile MedSoft, LLC - 2015 COPYRIGHT and INTELLECTUAL PROPERTY NOTICE:
+ * All rights reserved.
+ *
+ * This source code contains copyrighted material and other confidential and
+ * proprietary information that is wholly owned by Mobile MedSoft, LLC.
+ * This module and the entire contents of the software and/or
+ * Phoenix pharmacy system source code are copyrighted as
+ * a collective work under all applicable United States copyright laws.
+ * No portion of this software, source code or generated runtime code may be reproduced,
+ * modified, published, distributed, transmitted, transferred, sold,reverse engineered,
+ * decompiled, or used to create derivative works
+ * without the express written permission of Mobile MedSoft, LLC.
+ */
+
+
+/*
+ *  Phoenix wide globals
+ *
+ *    - define all system wide styling constants (variables) here
+ *      fonts, typestyles, sizes, etc.
+ *
+ */
+
+// colors - per Art Direction document 3-29-15
+// color names from "name that color" at chir.ag or at name-of-color.com
+
+$white: #ffffff;
+$black: #000000;
+
+$sweet-pink:    #fa9799;  // light pink
+$bittersweet:   #fc696c;  // dark pink
+$munsell:       #f3f3f3;  // off-white
+$bon-jour:      #e1dfdf;  // light grey
+$hoki:          #627c9e;  // light navy blue
+$blue-bayoux:   #505f73;  // dark navy blue
+$carnation:		#fb5256;  // dark pink
+$cream:         #ffffcc;  // light yellow
+$cornflower:    #64B9F3;  // light blue
+
+$tapa:  #777777; // !!!!!!! ?????
+$alto:  #d9d8d8; // !!!!!!! ?????
+
+$silver:        #cdcbcb;  // silver
+$tundora:       #4a4a4a;  // grey
+$athens-grey:   #f9f9fa;  // light grey
+$stack:         #8e8d8d;  // medium grey
+$davys-grey:    #585858;  // dark grey
+$wild-sand:     #f6f6f6;  // light grey
+$carolina-blue: #93b1d8;  // medium light blue
+
+$alabaster:     #f9f9f9;  // very very light grey
+
+// layout colors
+$phx-navbar-top-line:     $carolina-blue;
+$phx-navbar-bottom-line:  $blue-bayoux;
+
+$phx-working-area-background: $munsell;
+
+$phx-subnav-line:  $tundora;
+
+$phx-search-header:         $davys-grey;
+$phx-search-header-bottom:  $carolina-blue;
+
+// controls
+$phx-control-background:	$athens-grey;
+$phx-field:					$stack;
+$phx-field-label:			$davys-grey;
+$phx-ckeckbox-check:		$carnation;
+$phx-errorbox-background:   $cream;
+
+// fonts & font typestyles
+
+// title font sizes
+
+// buttons
+//   - for white buttons
+$phx-btn-model-control-white-background: #f7f7f7;
+$phx-btn-model-control-white-font:       #888888;
+$phx-btn-model-control-white-border:     $alto;
+
+//   - for red buttons
+$phx-btn-model-control-red-background: $carnation;
+$phx-btn-model-control-red-font:       $white;
+$phx-btn-model-control-red-border:     $alto;
+
+//   - for cream buttons
+$phx-btn-model-control-cream-background: $cream;
+$phx-btn-model-control-cream-font:       $tundora;
+$phx-btn-model-control-cream-border:     $alto;
+
+//   - for cream buttons
+$phx-btn-model-control-blue-background: $cornflower;
+$phx-btn-model-control-blue-font:       $white;
+$phx-btn-model-control-blue-border:     $alto;
+
+
+// images
+$phx-image-background: $munsell;
+$phx-image-border: $alto;
+
+
+// font colors
+//$primary-color: black;

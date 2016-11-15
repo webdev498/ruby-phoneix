@@ -1,0 +1,52 @@
+<table class="table table-bordered">
+  <tr class="active">
+    <th>Date</th>
+    <th>Rx/Ticket #</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Amount</th>
+  </tr>
+  <% if @account_records.length == 0 %>
+      <tr>
+        <td>No transactions found</td>
+  <% else %>
+      <% @account_records.each do |record| %>
+          <tr>
+            <td><%= record.post_date %></td>
+            <td><%= record.post_ticket %></td>
+            <td><%= record.post_medical_amount.to_i == 0 ? "Medical" : "Non-Medical" %> </td>
+            <td><%= record.post_description %></td>
+            <td><%= record.post_type_description %> </td>
+            <% if record.is_payment == true %>
+              <td class="phx-payment-text"><b><%= record.post_amount_formatted %></b></td>
+            <% else %>
+                <td><%= record.post_amount_formatted %></td>
+            <% end %>
+          </tr>
+      <% end %>
+  <% end %>
+</table>
+<div class="account-posting-pagination row" >
+  <div class="col-md-2">
+    Page <%= @account_postings_page_number %> of <%= @account_postings_total_pages %>
+    <input type="hidden" id="account_postings_page_number" value="<%= @account_postings_page_number %>"/>
+    </div>
+  <div class="col-md-1">
+    <% if @account_postings_page_number.to_i > 1 %>
+        <a id="previous-account-postings-page">Previous</a>
+    <% else %>
+        Previous
+    <% end %>
+  </div>
+  <div class="col-md-1">
+    <% if @account_postings_page_number.to_i < @account_postings_total_pages.to_i %>
+        <a id="next-account-postings-page">Next</a>
+    <% else %>
+        Next
+    <% end %>
+  </div>
+</div>
+<script>
+  $("#account_postings").trigger("table-updated");
+</script>

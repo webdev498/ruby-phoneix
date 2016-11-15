@@ -1,0 +1,2 @@
+module PosPaymentMethodsHelper
+end

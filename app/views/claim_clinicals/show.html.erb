@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @claim_clinical.dept_number %>
+</p>
+
+<p>
+  <strong>Rx number:</strong>
+  <%= @claim_clinical.rx_number %>
+</p>
+
+<p>
+  <strong>Rna plan id code:</strong>
+  <%= @claim_clinical.rna_plan_id_code %>
+</p>
+
+<p>
+  <strong>Diagnosis counter:</strong>
+  <%= @claim_clinical.diagnosis_counter %>
+</p>
+
+<p>
+  <strong>Diagnosis code qualifier:</strong>
+  <%= @claim_clinical.diagnosis_code_qualifier %>
+</p>
+
+<p>
+  <strong>Diagnosis code:</strong>
+  <%= @claim_clinical.diagnosis_code %>
+</p>
+
+<p>
+  <strong>Clinical counter:</strong>
+  <%= @claim_clinical.clinical_counter %>
+</p>
+
+<p>
+  <strong>Clinical date:</strong>
+  <%= @claim_clinical.clinical_date %>
+</p>
+
+<p>
+  <strong>Clinical dimension:</strong>
+  <%= @claim_clinical.clinical_dimension %>
+</p>
+
+<p>
+  <strong>Clinical time:</strong>
+  <%= @claim_clinical.clinical_time %>
+</p>
+
+<p>
+  <strong>Clinical unit:</strong>
+  <%= @claim_clinical.clinical_unit %>
+</p>
+
+<p>
+  <strong>Clinical value:</strong>
+  <%= @claim_clinical.clinical_value %>
+</p>
+
+<%= link_to 'Edit', edit_claim_clinical_path(@claim_clinical) %> |
+<%= link_to 'Back', claim_clinicals_path %>

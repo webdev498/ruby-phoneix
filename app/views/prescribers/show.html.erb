@@ -1,0 +1,179 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @prescriber.dept_number %>
+</p>
+
+<p>
+  <strong>Rna prescriber id number:</strong>
+  <%= @prescriber.rna_prescriber_id_number %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @prescriber.last_name %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @prescriber.first_name %>
+</p>
+
+<p>
+  <strong>Middle name:</strong>
+  <%= @prescriber.middle_name %>
+</p>
+
+<p>
+  <strong>Dea number:</strong>
+  <%= @prescriber.dea_number %>
+</p>
+
+<p>
+  <strong>Npi number:</strong>
+  <%= @prescriber.npi_number %>
+</p>
+
+<p>
+  <strong>Surescripts erx:</strong>
+  <%= @prescriber.surescripts_erx_id %>
+</p>
+
+<p>
+  <strong>Emdeon erx:</strong>
+  <%= @prescriber.emdeon_erx_id %>
+</p>
+
+<p>
+  <strong>Dr active:</strong>
+  <%= @prescriber.active_flag %>
+</p>
+
+<p>
+  <strong>Elig 340b:</strong>
+  <%= @prescriber.participates_in_340b %>
+</p>
+
+<p>
+  <strong>Location code:</strong>
+  <%= @prescriber.location_code %>
+</p>
+
+<p>
+  <strong>Requires supervisor:</strong>
+  <%= @prescriber.requires_supervisor %>
+</p>
+
+<p>
+  <strong>Address1:</strong>
+  <%= @prescriber.address1 %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @prescriber.address2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @prescriber.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @prescriber.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @prescriber.zip_code %>
+</p>
+
+<p>
+  <strong>Specialty:</strong>
+  <%= @prescriber.specialty %>
+</p>
+
+<p>
+  <strong>Memo:</strong>
+  <%= @prescriber.memo %>
+</p>
+
+<p>
+  <strong>Group code:</strong>
+  <%= @prescriber.group_code %>
+</p>
+
+<p>
+  <strong>Sig default:</strong>
+  <%= @prescriber.sig_default %>
+</p>
+
+<p>
+  <strong>Erx eligibility:</strong>
+  <%= @prescriber.erx_eligibility %>
+</p>
+
+<p>
+  <strong>Remote access:</strong>
+  <%= @prescriber.remote_access %>
+</p>
+
+<p>
+  <strong>Facility number:</strong>
+  <%= @prescriber.facility_number %>
+</p>
+
+<p>
+  <strong>Allowed c2:</strong>
+  <%= @prescriber.allowed_to_prescribe_narcotics %>
+</p>
+
+<p>
+  <strong>Allowed ctrl:</strong>
+  <%= @prescriber.allowed_to_prescribe_controlled %>
+</p>
+
+<p>
+  <strong>Alternate id1 qualifier:</strong>
+  <%= @prescriber.alternate_id1_qualifier %>
+</p>
+
+<p>
+  <strong>Alternate id1:</strong>
+  <%= @prescriber.alternate_id1 %>
+</p>
+
+<p>
+  <strong>Alternate id2 qualifier:</strong>
+  <%= @prescriber.alternate_id2_qualifier %>
+</p>
+
+<p>
+  <strong>Alternate id2:</strong>
+  <%= @prescriber.alternate_id2 %>
+</p>
+
+<p>
+  <strong>Alternate id3 qualifier:</strong>
+  <%= @prescriber.alternate_id3_qualifier %>
+</p>
+
+<p>
+  <strong>Alternate id3:</strong>
+  <%= @prescriber.alternate_id3 %>
+</p>
+
+<p>
+  <strong>Alternate id4 qualifier:</strong>
+  <%= @prescriber.alternate_id4_qualifier %>
+</p>
+
+<p>
+  <strong>Alternate id4:</strong>
+  <%= @prescriber.alternate_id4 %>
+</p>
+
+<%= link_to 'Edit', edit_prescriber_path(@prescriber) %> |
+<%= link_to 'Back', prescribers_path %>

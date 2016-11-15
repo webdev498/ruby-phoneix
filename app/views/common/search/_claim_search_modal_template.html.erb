@@ -1,0 +1,73 @@
+<div class="phx-modal containter-fluid" id="claimSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>claim Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+ 		  			<tr>
+						<th class="phx-search-font"><input type="text" id="claimsSearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font">ID</th>
+						<th class="phx-search-font">RX #</th>
+						<th class="phx-search-font">Fill #</th>
+						<th class="phx-search-font">Transmit Date</th>
+						<th class="phx-search-font">Status</th>
+						<th class="phx-search-font">Customer</th>
+						<th class="phx-search-font">Active</th>
+		  		  </tr>
+  				</thead>
+
+					<tbody>
+						<% searchClaims.each do |claim| %>
+
+							<% claimSearchRowId = "claimRow" + (choice += 1).to_s %>
+							<tr	id="<%=claimSearchRowId%>"
+									class="phx-search-row clickable-claimRow"
+									data-phx-search-claim.id="<%= claim.id %>"
+									data-phx-search-claim-rx-number="<%= claim.rx_number %>"
+									data-phx-search-claim-fill-number="<%= claim.fill_number %>" >
+
+								<td class="phx-search-font" > <%= choice %> </td>
+								<td class="phx-search-font"> <%= claim.rx_number %> </td>
+								<td class="phx-search-font"> <%= claim.fill_number %> </td>
+								<td class="phx-search-font"> <%= claim.transmit_date %> </td>
+								<td class="phx-search-font"> <%= claim.status %> </td>
+								<td class="phx-search-font"> <%= claim.customer_id %> </td>
+								<td class="phx-search-font"> <%= claim.active %> </td>
+							</tr>
+						<% end %> <!-- END OF claim list -->
+					</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%= paginate searchClaims,
+						params: { controller: "claims", action: "nextClaims"} , remote: true  unless searchClaims.empty? %>
+
+				<%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+				<button id="claim_modal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+	<script>
+
+		<%= phx_search_modal_javascript "claim" %>
+
+	</script>
+
+</div>

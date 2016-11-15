@@ -1,0 +1,14 @@
+<%= simple_form_for(@claim_error) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :error_type, collection: ClaimError.error_types.keys,:selected => ClaimError.error_types.keys[@claim_error[:error_type].to_i] %>
+    <%= f.input :error_code %>
+    <%= f.input :error_text %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

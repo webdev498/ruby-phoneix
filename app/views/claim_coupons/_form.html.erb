@@ -1,0 +1,16 @@
+<%= simple_form_for(@claim_coupon) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rx_number %>
+    <%= f.input :rna_plan_id_code %>
+    <%= f.input :coupon_number %>
+    <%= f.input :coupon_type, collection: ClaimCoupon.coupon_types.keys,:selected => ClaimCoupon.coupon_types.keys[@claim_coupon[:coupon_type].to_i] %>
+    <%= f.input :coupon_amount %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+$('.modal-backdrop').remove();
+$("priceSchedule_search_modal_partial").html(
+		"<%= escape_javascript(render partial: 'common/search/priceSchedule_search_modal_template', locals: { searchpriceSchedules: @searchpriceSchedules } ) %>");
+$("#priceScheduleSearchModal").modal('toggle');
+$("#priceScheduleSearchModal_Keys1_9").focus();
+$(document).on("click", function(e) { $("#priceScheduleSearchModal_Keys1_9").focus(); });

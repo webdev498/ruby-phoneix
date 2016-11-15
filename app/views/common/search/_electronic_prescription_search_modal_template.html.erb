@@ -1,0 +1,66 @@
+<div class="phx-modal containter-fluid" id="electronicPrescriptionSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Electronic Prescription Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+ 		  			<tr>
+						<th class="phx-search-font"><input type="text" id="electronicPrescriptionSearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font">Customer</th>
+						<th class="phx-search-font">Prescriber</th>
+						<th class="phx-search-font">Item</th>
+						<th class="phx-search-font">Tx Time</th>
+		  		  </tr>
+  				</thead>
+
+					<tbody>
+						<% searchElectronicPrescriptions.each do |erx| %>
+
+							<tr	id="<%= 'electronicPrescriptionSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-electronicPrescriptionSearchModal-row"
+								data-phx-search-electronic_prescription-id="<%= erx.id %>"
+								data-phx-search-electronic_prescription-received_customer_name="<%= erx.received_customer_name %>"
+								data-phx-search-electronic_prescription-received_prescriber_name="<%= erx.received_prescriber_name %>"
+								data-phx-search-electronic_prescription-received_item_name="<%= erx.received_item_name %>"
+								data-phx-search-electronic_prescription-xml_file_name="<%= erx.xml_file_name %>"
+								data-phx-search-electronic_prescription-profile_trigger="<%= erx.created_at %>" >
+
+								<td class="phx-search-font" > <%= choice %> </td>
+								<td class="phx-search-font"> <%= erx.received_customer_name %> </td>
+								<td class="phx-search-font"> <%= erx.received_prescriber_name %> </td>
+								<td class="phx-search-font"> <%= erx.received_item_name %> </td>
+								<td class="phx-search-font"> <%= erx.created_at.strftime("%m-%d-%Y %I:%M %P") %> </td>
+							</tr>
+						<% end %> <!-- END OF erx list -->
+					</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%= paginate searchElectronicPrescriptions, params: { action: "nextElectronicPrescriptions"} , remote: true  unless searchElectronicPrescriptions.empty? %>
+<!--						params: { controller: "erxs", action: "nextErxs"} , remote: true  unless searchErxs.empty? %> -->
+
+				<button id="erxSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+<script>
+	$('#electronic_prescription_search_modal_partial').trigger('contentchanged');
+</script>

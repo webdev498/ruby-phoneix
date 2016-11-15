@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @sigcode.dept_number %>
+</p>
+
+<p>
+  <strong>Sig type:</strong>
+  <%= @sigcode.sig_type %>
+</p>
+
+<p>
+  <strong>Sig code:</strong>
+  <%= @sigcode.sig_code %>
+</p>
+
+<p>
+  <strong>Active flag:</strong>
+  <%= @sigcode.active_flag %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @sigcode.language %>
+</p>
+
+<p>
+  <strong>Expanded text:</strong>
+  <%= @sigcode.expanded_text %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @sigcode.frequency %>
+</p>
+
+<%= link_to 'Edit', edit_sigcode_path(@sigcode) %> |
+<%= link_to 'Back', sigcodes_path %>

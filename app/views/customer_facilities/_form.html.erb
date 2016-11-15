@@ -1,0 +1,26 @@
+<%= simple_form_for(@customer_facility) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :facility_id_number %>
+    <%= f.input :wing_id %>
+    <%= f.input :room_number %>
+    <%= f.input :bed_number %>
+    <%= f.input :rna_customer_id_number %>
+    <%= f.input :admission_date %>
+    <%= f.input :discharge_date %>
+    <%= f.input :medical_record_number %>
+    <%= f.input :level_of_care %>
+    <%= f.input :rehabilitation_potential %>
+    <%= f.input :last_review_date %>
+    <%= f.input :diet_orders %>
+    <%= f.input :lab_orders %>
+    <%= f.input :activity_orders %>
+    <%= f.input :diagnosis %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

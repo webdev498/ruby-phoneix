@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Allergy code:</strong>
+  <%= @clinical_allergy.allergy_code %>
+</p>
+
+<p>
+  <strong>Allergy description:</strong>
+  <%= @clinical_allergy.allergy_description %>
+</p>
+
+<%= link_to 'Edit', edit_clinical_allergy_path(@clinical_allergy) %> |
+<%= link_to 'Back', clinical_allergies_path %>

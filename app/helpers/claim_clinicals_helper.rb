@@ -1,0 +1,2 @@
+module ClaimClinicalsHelper
+end

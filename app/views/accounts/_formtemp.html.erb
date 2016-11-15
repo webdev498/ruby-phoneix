@@ -1,0 +1,220 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <!-- < @account.dept_number.to_s > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Account number:</strong>
+  <%= @account.account_number %>
+</p>
+
+<p>
+  <strong>Master account number:</strong>
+  <%= @account.master_account_number %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @account.last_name %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @account.first_name %>
+</p>
+
+<p>
+  <strong>Account method:</strong>
+  <%= @account.account_method %>
+</p>
+
+<p>
+  <strong>Payor type:</strong>
+  <%= @account.payor_type %>
+</p>
+
+<p>
+  <strong>Rna customer id number:</strong>
+  <!-- < @account.rna_customer_id_number > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Sponsor id number:</strong>
+  <%= @account.sponsor_id_number %>
+</p>
+
+<p>
+  <strong>Rna plan id code:</strong>
+  <!-- < @account.rna_plan_id_code > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Rna facility id number:</strong>
+  <!-- < @account.rna_facility_id_number > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Allow otc charges:</strong>
+  <%= @account.allow_otc_charges %>
+</p>
+
+<p>
+  <strong>Active flag:</strong>
+  <!-- < @account.active_flag > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Print statement:</strong>
+  <%= @account.print_statement %>
+</p>
+
+<p>
+  <strong>Date opened:</strong>
+  <%= @account.date_opened %>
+</p>
+
+<p>
+  <strong>Last statement date:</strong>
+  <%= @account.last_statement_date %>
+</p>
+
+<p>
+  <strong>Last charge date:</strong>
+  <%= @account.last_charge_date %>
+</p>
+
+<p>
+  <strong>Last payment date:</strong>
+  <%= @account.last_payment_date %>
+</p>
+
+<p>
+  <strong>Last past due date:</strong>
+  <%= @account.last_past_due_date %>
+</p>
+
+<p>
+  <strong>Past due letter sent:</strong>
+  <%= @account.past_due_letter_sent %>
+</p>
+
+<p>
+  <strong>Current period amount:</strong>
+  <%= @account.current_period_amount %>
+</p>
+
+<p>
+  <strong>Last period amount:</strong>
+  <%= @account.last_period_amount %>
+</p>
+
+<p>
+  <strong>High balance amount:</strong>
+  <%= @account.high_balance_amount %>
+</p>
+
+<p>
+  <strong>High past due amount:</strong>
+  <%= @account.high_past_due_amount %>
+</p>
+
+<p>
+  <strong>Over 30 amount:</strong>
+  <%= @account.over_30_amount %>
+</p>
+
+<p>
+  <strong>Over 60 amount:</strong>
+  <%= @account.over_60_amount %>
+</p>
+
+<p>
+  <strong>Over 90 amount:</strong>
+  <%= @account.over_90_amount %>
+</p>
+
+<p>
+  <strong>Number times past 30:</strong>
+  <%= @account.number_times_past_30 %>
+</p>
+
+<p>
+  <strong>Number times past 60:</strong>
+  <%= @account.number_times_past_60 %>
+</p>
+
+<p>
+  <strong>Number times past 90:</strong>
+  <%= @account.number_times_past_90 %>
+</p>
+
+<p>
+  <strong>Last charge amount:</strong>
+  <%= @account.last_charge_amount %>
+</p>
+
+<p>
+  <strong>Last payment amount:</strong>
+  <%= @account.last_payment_amount %>
+</p>
+
+<p>
+  <strong>Last statement balance:</strong>
+  <%= @account.last_statement_balance %>
+</p>
+
+<p>
+  <strong>Tax deductible amount year to date:</strong>
+  <%= @account.tax_deductible_amount_year_to_date %>
+</p>
+
+<p>
+  <strong>Non deductible amount year to date:</strong>
+  <%= @account.non_deductible_amount_year_to_date %>
+</p>
+
+<p>
+  <strong>Finance charges year to date:</strong>
+  <%= @account.finance_charges_year_to_date %>
+</p>
+
+<p>
+  <strong>Tax paid year to date:</strong>
+  <%= @account.tax_paid_year_to_date %>
+</p>
+
+<p>
+  <strong>Credit limit:</strong>
+  <%= @account.credit_limit %>
+</p>
+
+<p>
+  <strong>Finance charge percentage:</strong>
+  <!-- < @account.finance_charge_percentage > -->
+  error: undefined
+</p>
+
+<p>
+  <strong>Memo:</strong>
+  <%= @account.memo %>
+</p>
+
+<p>
+  <strong>Rx charge description:</strong>
+  <%= @account.rx_charge_description %>
+</p>
+
+<p>
+  <strong>Statement type:</strong>
+  <%= @account.statement_type %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

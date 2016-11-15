@@ -1,0 +1,1 @@
+json.extract! @pharmacy, :id, :dept_number, :active, :pharmacy_name, :address1, :address2, :city, :state, :zip, :rna_acct_number, :sys_exp_date, :dea_number, :npi_number, :max_sessions, :federal_tax_id, :rx_taxable_flag, :local_tax_rate, :state_tax_rate, :total_tax_rate, :pharmacy_type, :claimguard_counter, :eligibility_counter, :us_or_metric, :created_at, :updated_at

@@ -1,0 +1,48 @@
+
+<div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :rx_number, "RX #", 0, "col-md-6" %>
+	<%= phx_datefield_for f, :date_written, "Date Written", 0, "col-md-6" %>
+</div>
+
+<%= phx_textsearchfield_for f, :customer_display_name, "Customer" %>
+<%= phx_textsearchfield_for f, :prescriber_display_name, "Prescriber" %>
+<%= phx_textsearchfield_for f, :item_display_name, "Drug" %>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :quantity_prescribed, "Quantity Prescribed", 0, "col-md-6" %>
+	<%= phx_textfield_for f, :last_fill_quantity, "Quantity Dispensed", 0, "col-md-6", :readonly %>
+</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :refills_prescribed, "Refills", 0, "col-md-6" %>
+	<%= phx_textfield_for f, :refills_left, "Refills Left", 0, "col-md-6", :readonly %>
+</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :rxForm_daily_quantity, "Daily Quantity", 0, "col-md-6" %>
+	<%= phx_textfield_for f, :rxForm_days_supply, "Days Supply", 0, "col-md-6", :readonly %>
+</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :payment_type, "Payment Type", 0, "col-md-6", :readonly %>
+	<%= phx_textfield_for f, :plan_name, "Plan Name", 0, "col-md-6", :readonly %>
+</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_selectfield_for f, :dispense_as_written_code, "Dispense as Written", Prescription.dispense_as_written_codes, false, 0, "col-md-6", true %>
+	<%= phx_textfield_for f, :prescription_price, "Price", 0, "col-md-6", :readonly %>
+</div>
+
+<%= phx_textarea_for f, :directions, "Directions", 2 %>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_textfield_for f, :technician_initials, "Technician", 0, "col-md-6" %>
+	<%= phx_textfield_for f, :pharmacist_initials, "Pharmacist", 0, "col-md-6" %>
+</div>
+
+<div class="row phx-two-horizontal-controls">
+	<%= phx_selectfield_for f, :origin_code, "Origin", Prescription.origin_codes, false, 0, "col-md-6", true %>
+	<%= phx_textfield_for f, :labels, "Labels", 0, "col-md-6" %>
+</div>

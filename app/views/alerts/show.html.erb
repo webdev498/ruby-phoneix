@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Alert source:</strong>
+  <%= @alert.alert_source %>
+</p>
+
+<p>
+  <strong>Event type:</strong>
+  <%= @alert.event_type %>
+</p>
+
+<p>
+  <strong>Event time:</strong>
+  <%= @alert.event_time %>
+</p>
+
+<p>
+  <strong>Severity:</strong>
+  <%= @alert.event_severity %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @alert.message %>
+</p>
+
+<p>
+  <strong>Viewed:</strong>
+  <%= @alert.viewed %>
+</p>
+
+<p>
+  <strong>Viewed by:</strong>
+  <%= @alert.viewed_by %>
+</p>
+
+<%= link_to 'Edit', edit_alert_path(@alert) %> |
+<%= link_to 'Back', alerts_path %>

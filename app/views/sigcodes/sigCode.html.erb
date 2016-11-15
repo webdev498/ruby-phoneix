@@ -1,0 +1,102 @@
+<% phx_subnav_for :m_prescription %>
+
+<% provide(:prescription, "active") %>
+
+<%= form_for( @sigcode ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+				      <div class="phx-working-area-title">Sig Code Maintenance
+				      </div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="form-group phx-input-control-spacer">
+					</div>
+
+                    <!-- hidden field div to grab the value from the modal -->
+                    <div id="hidden_fields">
+                    </div>
+
+					<div class="pull-right"; style="margin-right:30px;">
+						<%= phx_checkbox_for f, :active, "Active" %>
+					</div>
+
+                    <div class="field form-group phx-input-control-spacer">
+                    </br></div>
+
+                    <%= phx_textsearchfield_for f, :sig_code, "Code" %>
+
+                    <%= phx_textfield_for f, :language, "Language" %>
+
+                    <%= phx_textarea_for f, :expanded_text, "Expanded Text", 5 %>
+
+                    <%= phx_textfield_for f, :frequency, "Frequency" %>
+
+					<div class="field form-group phx-input-control-spacer">
+					</div>
+                    </br>
+
+                    <%= phx_red_submit_button_for f, "Sig code", [], "", "phx-btn-model-control-width pull-right", false %>
+
+                    <div class="field form-group phx-input-control-spacer">&nbsp;
+					</div>
+
+				</div>
+
+			</div> <!-- end of Primary Info col lg def -->
+
+		</div> <!-- end of container fluid for Primary Info -->
+
+    <div id="sigcode_search_modal_partial">
+        <div id="sigcodeSearchModal"></div>
+    </div>
+
+
+<% end %>
+
+<script>
+
+    // define the search
+    var sigcode_srch = FEENX.Search.NewSearch('sigcode',
+        {   context:      '',
+            triggerField: 'sig_code',
+            fieldPrefix:  '',
+            modalId:      'sigcodeSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/sigcodes/' });
+
+    // additional attributes would be defined
+    sigcode_srch.addAttribute('sig_code', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    sigcode_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    sigcode_srch.dataFormattedAttributes();
+
+</script>

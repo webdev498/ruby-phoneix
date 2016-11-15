@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+<div style="block:inline">
+<div style="float:left">
+
+<h2>
+<%= image_tag "phxlogo.png", size: "200x200" %>
+</h2>
+
+</div>
+</div>
+
+
+
+<div style="block:inline">
+  <div style="float:left; padding-left:100px;">
+    <h2>
+      Brought to you by:  
+      <br>
+      <br>
+                        RNA Holdings, LLC
+      <br>
+                        14800 Landmark Blvd 
+      <br>
+                        Suite #250
+      <br>
+                        Dallas, TX 75254
+      <br>
+                        Phone (800) 736-6275
+      <br>
+      <br>
+                        www.rnahealth.com
+    </h2>
+  </div>
+</div>
+
+<div style="block:inline">
+  <div style="float:left; padding-left:15px;">
+    <h3>
+      <%= @license.license_title %>
+    </h3>
+
+    <p>
+      <%= @license.license_text %>
+    </p>
+  </div>
+</div>
+<%= link_to 'Edit', edit_license_path(@license) %> |
+<%= link_to 'Back', licenses_path %>
+

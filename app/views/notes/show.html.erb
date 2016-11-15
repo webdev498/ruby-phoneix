@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @note.dept_number %>
+</p>
+
+<p>
+  <strong>Note type:</strong>
+  <%= @note.note_type %>
+</p>
+
+<p>
+  <strong>Rna id number:</strong>
+  <%= @note.rna_id_number %>
+</p>
+
+<p>
+  <strong>Note text:</strong>
+  <%= @note.note_text %>
+</p>
+
+<p>
+  <strong>Active flag:</strong>
+  <%= @note.active_flag %>
+</p>
+
+<p>
+  <strong>Start display date:</strong>
+  <%= @note.start_display_date %>
+</p>
+
+<p>
+  <strong>End display date:</strong>
+  <%= @note.end_display_date %>
+</p>
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>

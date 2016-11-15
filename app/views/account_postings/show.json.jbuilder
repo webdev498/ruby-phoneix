@@ -1,0 +1,1 @@
+json.extract! @account_posting, :id, :dept_number, :master_account_number, :account_number, :post_date, :post_ticket_number, :post_ticket_sequence, :post_payor_id_number, :post_source, :post_type, :post_description, :post_medical_amount, :post_non_medical_amount, :post_tax_amount, :created_at, :updated_at

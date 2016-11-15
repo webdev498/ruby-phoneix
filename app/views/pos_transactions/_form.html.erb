@@ -1,0 +1,187 @@
+<% provide(:point_of_sale, "active") %>
+
+<%= form_for( @pos_transaction ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+				      <div class="phx-working-area-title">Point of Sale
+				      </div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="field form-group phx-input-control-ccer"> &nbsp;
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="ticket_number">Ticket Number</label>
+						<%= f.text_field :ticket_number, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="transaction_date">Transaction Date</label>
+						<%= f.text_field :transaction_date, class: 'phx-form-control' %>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="initials">Cashier</label>
+							<%= f.text_field :initials, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="register_number">Register</label>
+							<%= f.text_field :register_number, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="account_number">Account Number</label>
+						<%= f.text_field :account_number, class: 'phx-form-control' %>
+					</div>
+
+						<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="number_items">Number of Items</label>
+						<%= f.text_field :number_items, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="posted_flag">Posted to A/R</label>
+						<%= f.text_field :posted_flag, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="total_tax">Tax</label>
+						<%= f.text_field :total_tax, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="total_amount">Total</label>
+						<%= f.text_field :total_amount, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="primary_payment_method">Method of Payment</label>
+						<%= f.text_field :primary_payment_method, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="primary_payment_amount">Payment Amount</label>
+						<%= f.text_field :primary_payment_amount, class: 'phx-form-control' %>
+					</div>
+
+					<div class="form-group phx-input-control-spacer">
+					</div>
+
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+			<div class="col-lg-7">
+
+				<!-- Tab labels -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">General Info</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content phx-tab-pane">
+
+					<div class="tab-pane active" id="generalPane">
+
+                            <div class="row container-fluid">
+                                <%= f.fields_for PosDetail.new do |ff| %>
+                                    <div class="col-lg-12">
+
+                                        <div class="phx-input-control-spacer"> </div>
+
+                                        <% choice = 0 %>
+                                        <table class="phx-table phx-search-font">
+                                            <thead class="phx-table-head">
+                                                <tr>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-1">Quantity</th>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-1">Category</th>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-2">UPC / PC</th>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-5">Description</th>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-1">Price</th>
+                                                    <th style="background-color:#f9f9fa;" class="col-md-2">Extended Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%# arggggghhh overriding widths below !! %>
+                                                <% @pos_transaction.posDetails.each do |ff| %>
+                                                    <tr class="phx-table-detail" id="pos_detail_<%=choice += 1%>">
+                                                        <td style="width:10px;"><%= ff.quantity %></td>
+                                                        <td style="width:10px;"><%= ff.category %></td>
+                                                        <td style="width:10px;">&nbsp;</td>
+                                                        <td style="width:10px;"><%= ff.item_description %></td>
+                                                        <td style="width:10px;"><%= ff.price %></td>
+                                                        <td style="width:10px;"><%= ff.extended_price %></td>
+                                                    </tr>
+                                                <% end %>
+                                            </tbody>
+                                        </table>
+                                        </br>
+
+                                   </div> <!-- end of panel 3, 2nd column -->
+                                <% end %>
+                            </div>
+
+						</div>
+
+						<div class="tab-pane" id="claimPanel2">
+							<div class="container-fluid">
+								<row>
+									<!-- PLAN panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF SECOND panel, second column -->
+
+									<!-- PLAN panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF PLAN panel, second column -->
+								</row>
+							</div> <!-- END OF PLAN panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel3">
+							<div class="container-fluid">
+								<row>
+									<!-- PLAN CONT'D panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF SECOND panel, second column -->
+
+									<!-- PLAN CONT'D panel, 1st column -->
+									<div class="container-fluid col-lg-4">
+									</div> <!-- END OF PLAN CONT'D panel, second column -->
+								</row>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+					</div>
+				</div>
+	    	</div> <!-- end of col lg 10 -->
+		</div>
+	</div>
+<% end %>

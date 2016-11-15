@@ -1,0 +1,237 @@
+<% provide(:prescription, "active") %>
+
+<%= form_for( @electronic_prescription ) do |f| %>
+
+<div class="col-lg-10 phx-working-area-background">
+
+<%# BEGIN Working Area TITLE and NAV %>
+<div class="row span10 phx-working-area-nav">
+
+      <div class="col-xs-1 phx-hamburger-box">
+        <button class="phx-hamburger">|||</button>
+      </div>
+
+      <%# BEGIN Working Area TITLE %>
+      <div class="phx-working-area-title-info">
+        <row>
+          <div class="col-lg-8">
+              <div class="phx-working-area-title">Electronic Prescription Selection
+              </div>
+          </div>
+          <div class="col-lg-3 phx-working-area-title-buttons">
+          </div>
+        </row>
+      </div> <%# END of Working Area TITLE %>
+
+    </div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="form-group phx-input-control-spacer">
+					</div>
+
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                ERX Search
+                </div>
+            </div>
+
+            <div class="field form-group phx-input-control-spacer">
+            </br></div>
+
+            <%= phx_textsearchfield_for f, :received_customer_name, "View by Customer" %>
+
+            <%= phx_textsearchfield_for f, :received_prescriber_name, "View by Prescriber" %>
+
+            <%= phx_textsearchfield_for f, :received_item_name, "View by Item" %>
+
+            <div class="field form-group phx-input-control-spacer">
+            </div>
+
+            </br>
+
+            <div class="field form-group phx-input-control-spacer">&nbsp;
+
+					</div>
+
+				</div>
+
+			</div> <!-- end of Primary Info col lg def -->
+
+		</div> <!-- end of container fluid for Primary Info -->
+
+    <div class="col-lg-8">
+
+
+    <!-- Tab labels -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#erxPanel-general" role="tab" data-toggle="tab">ERX Data</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content phx-tab-pane">
+
+        <div class="tab-pane active" id="erxPanel-general">
+
+          <div class="container-fluid row">
+
+                        <!-- First panel, first column -->
+                        <div class="container-fluid col-lg-5">
+
+                            <%= phx_textfield_for f, :prescriber_last_name, "Prescriber Last Name" %>
+
+                            <%= phx_textfield_for f, :prescriber_first_name, "Prescriber First Name" %>
+
+                            <%= phx_textfield_for f, :prescriber_middle_name, "Prescriber Middle Name" %>
+
+                            <%= phx_textfield_for f, :clinic_city, "Clinic City" %>
+
+                            <%= phx_textfield_for f, :patient_last_name, "Patient Last Name" %>
+
+                            <%= phx_textfield_for f, :patient_first_name, "Patient First Name" %>
+
+                            <%= phx_textfield_for f, :patient_middle_name, "Patient Middle Name" %>
+
+                            <%= phx_textfield_for f, :item_description, "Item Description" %>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for f, :item_strength, "Item Strength", 0, "col-md-6" %>
+
+                              <%= phx_textfield_for f, :item_dosage_form_code, "Item Dosage Form Code", 0, "col-md-6" %>
+                            </div>
+
+                            <%= phx_textfield_for f, :item_quantity, "Item Quantity" %>
+
+                            <%= phx_textfield_for f, :supervisor_last_name, "Supervisor Last Name" %>
+
+                            <%= phx_textfield_for f, :supervisor_first_name, "Supervisor First Name" %>
+
+                        </div> <!-- END OF first panel, first column -->
+
+                        <!-- First panel, second column -->
+                        <div class="container-fluid col-lg-5">
+
+                            <%= phx_textfield_for f, :patient_matched, "Patient Matched" %>
+
+                            <%= phx_textfield_for f, :prescriber_matched, "Prescriber Matched" %>
+
+                            <%= phx_textfield_for f, :item_matched, "Item Matched" %>
+
+                            <%= phx_textfield_for f, :prescriber_npi_number, "Prescriber NPI Number" %>
+
+                            <%= phx_textfield_for f, :prescriber_phone_number, "Prescriber Phone Number" %>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for f, :patient_gender, "Patient Gender", 0, "col-md-6" %>
+
+                              <%= phx_textfield_for f, :patient_birthdate, "Patient Birthdate", 0, "col-md-6" %>
+                            </div>
+
+                            <%= phx_textfield_for f, :patient_address, "Patient Address" %>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for f, :patient_city, "Patient City", 0, "col-md-6" %>
+
+                              <%= phx_textfield_for f, :patient_phone_number, "Patient Phone Number", 0, "col-md-6" %>
+                            </div>
+
+                            <%= phx_textfield_for f, :item_number, "Item Number" %>
+
+                            <%= phx_textfield_for f, :item_written_date, "Item Date" %>
+
+                            <%= phx_textfield_for f, :item_reference, "Item Reference" %>
+
+                            <div class="row phx-two-horizontal-controls">
+                              <%= phx_textfield_for f, :diagnosis_code, "Diagnosis Code", 0, "col-md-6" %>
+
+                              <%= phx_textfield_for f, :diagnosis_qualifier, "Diagnosis Qualifier", 0, "col-md-6" %>
+                            </div>
+
+                            <%= phx_textfield_for f, :supervisor_npi_number, "Supervisor NPI Number" %>
+
+                        </br>
+
+                    </div> <!-- END OF first panel, second column -->
+                    <!-- Spans 2 columns in the 1st panel -->
+
+            </div>
+
+            <div class="form-group phx-input-control-spacer">
+            </div>
+
+        </div>
+
+    <div id="electronic_prescription_search_modal_partial">
+        <div id="electronicPrescriptionSearchModal"></div>
+    </div>
+
+<% end %>
+
+<script>
+
+    // define the search
+    var erx_viaCustomer_srch = FEENX.Search.NewSearch('electronic_prescription',
+        {   context:      '',
+            triggerField: 'received_customer_name',
+            fieldPrefix:  '',
+            modalId:      'electronicPrescriptionSearchModal',
+            hiddenDivId:  'hidden_fields',
+            nextMethod:   '/nextElectronicPrescriptionsByCustomer',
+            refresh:      true,
+            refreshTo:    '/electronic_prescriptions/' });
+
+    // additional attributes would be defined
+    erx_viaCustomer_srch.addAttribute('received_customer_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    erx_viaCustomer_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    erx_viaCustomer_srch.dataFormattedAttributes();
+
+    // define the search
+    var erx_viaPrescriber_srch = FEENX.Search.NewSearch('electronic_prescription',
+        {   context:      '',
+            triggerField: 'received_prescriber_name',
+            fieldPrefix:  '',
+            modalId:      'electronicPrescriptionSearchModal',
+            hiddenDivId:  'hidden_fields',
+            nextMethod:   '/nextElectronicPrescriptionsByPrescriber',
+            refresh:      true,
+            refreshTo:    '/electronic_prescriptions/' });
+
+    // additional attributes would be defined
+    erx_viaPrescriber_srch.addAttribute('received_customer_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    erx_viaPrescriber_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    erx_viaPrescriber_srch.dataFormattedAttributes();
+
+    var erx_viaItem_srch = FEENX.Search.NewSearch('electronic_prescription',
+        {   context:      '',
+            triggerField: 'received_item_name',
+            fieldPrefix:  '',
+            modalId:      'electronicPrescriptionSearchModal',
+            hiddenDivId:  'hidden_fields',
+            nextMethod:   '/nextElectronicPrescriptionsByItem',
+            refresh:      true,
+            refreshTo:    '/electronic_prescriptions/' });
+
+    // additional attributes would be defined
+    erx_viaItem_srch.addAttribute('received_customer_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    erx_viaItem_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    erx_viaItem_srch.dataFormattedAttributes();
+
+</script>

@@ -1,0 +1,3 @@
+$("#ingredient-list").html("<%= escape_javascript(render partial: 'formulas/ingredients_table.html', locals: { ingredients: @ingredients } ) %>");
+setIngredientRowHandlers();
+updateFormulaData();

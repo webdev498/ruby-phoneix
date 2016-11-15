@@ -1,0 +1,84 @@
+<div class="phx-modal containter-fluid" id="customerSearchModal" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog" style="width:670px;">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Customer Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+ 		  			<tr>
+						<th class="phx-search-font"><input type="text" id="customerSearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font">Last Name</th>
+						<th class="phx-search-font">First Name</th>
+						<th class="phx-search-font">Middle Name</th>
+						<th class="phx-search-font">Active</th>
+						<th class="phx-search-font">Birthdate</th>
+						<th class="phx-search-font">Phone</th>
+						<th class="phx-search-font">Gender</th>
+						<th class="phx-search-font">Facility</th>
+						<th class="phx-search-font">Postal<th>
+		  		  </tr>
+  				</thead>
+
+					<tbody>
+						<% searchCustomers.each do |customer| %>
+
+							<tr	id="<%= 'customerSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-customerSearchModal-row"
+								data-phx-search-customer-id="<%= customer.id %>"
+								data-phx-search-customer-last_name="<%= customer.last_name %>"
+								data-phx-search-customer-display_name="<%= customer.display_name %>"
+								data-phx-search-customer-age="<%= customer.age %>"
+								data-phx-search-customer-gender="<%= customer.gender %>"
+								data-phx-search-customer-birthdate="<%= customer.birthdate %>"
+								data-phx-search-customer-profile_trigger="<%= customer.id %>" >
+
+							<td class="phx-search-font" > <%= choice %> </td>
+								<td class="phx-search-font"> <%= customer.last_name %> </td>
+								<td class="phx-search-font"> <%= customer.first_name %> </td>
+								<td class="phx-search-font"> <%= customer.middle_name %> </td>
+								<td class="phx-search-font"> <%= customer.active ? "Yes" : "No" %> </td>
+								<td class="phx-search-font"> <%= (customer.birthdate != nil) ? customer.birthdate.strftime('%m/%d/%Y') : " " %> </td>
+								<td class="phx-search-font"> <%= customer.phone_number %> </td>
+		 						<td class="phx-search-font"> <%= customer.gender %> </td>
+								<td class="phx-search-font"> <%= customer.facility_id %> </td>
+								<td class="phx-search-font"> <%= customer.zip_code %> </td>
+							</tr>
+						<% end %> <!-- END OF customer list -->
+					</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchCustomers,
+						params: { controller: (searchController.nil? ? "customers" : searchController),
+							 				action: "nextCustomers"} , remote: true  unless searchCustomers.empty? %>
+
+				<%= link_to "New Customer",
+						menu_customer_path,
+						id: "createNewCustomerButton",
+						method: "get",
+						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
+				<button id="customerSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">
+						Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+<script>
+	$('#customer_search_modal_partial').trigger('contentchanged');
+</script>

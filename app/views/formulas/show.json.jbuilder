@@ -1,0 +1,1 @@
+json.extract! @formula, :id, :dept_number, :rna_item_id_number, :compound_form, :dispensing_unit, :route_of_administration, :total_acquisition_cost, :total_base_cost, :qty_produced, :number_legend_ingredients, :number_otc_ingredients, :level_of_effort_code, :instructions, :created_at, :updated_at

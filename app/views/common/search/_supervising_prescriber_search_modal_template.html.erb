@@ -1,0 +1,100 @@
+<%# parameters: searchSupervisePrescribers - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="supervisePrescriberSearchModal" role="dialog" aria-hidden="true">
+
+	<div>  <%# every search has the standard hidden search fields relevant to that particular search %>
+		<input type="hidden" name="search_supervise_prescriber_id" id="search_supervise_prescriber_id">
+		<input type="hidden" name="search_supervise_prescriber_name" id="search_supervise_prescriber_name">
+	</div>
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Item Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table table-condensed table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font"><input type="text" id="supervisePrescriberSearchModal_Keys1_9" style="width:0.5px;" ></th></th>
+							<th class="phx-search-font">Active</th>
+							<th class="phx-search-font">Last Name</th>
+							<th class="phx-search-font">First Name</th>
+							<th class="phx-search-font">Middle Name</th>
+							<th class="phx-search-font">NPI Number</th>
+							<th class="phx-search-font">DEA</th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchSupervisePrescribers.each do |supervise| %>
+							<% supervisePrescriberSearchRowId = "supervisePrescriberRow" + (choice += 1).to_s %>
+							<tr	id="<%=supervisePrescriberSearchRowId%>"
+									class="phx-search-row clickable-supervisePrescriberRow"
+									data-phx-search-supervise-prescriber-id="<%= supervise.id %>"
+									data-phx-search-supervise-prescriber-display-name="<%= supervise.display_name %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= supervise.active ? "Y" : "N" %> </td>
+								<td class="phx-search-font"> <%= supervise.last_name %> </td>
+								<td class="phx-search-font"> <%= supervise.first_name %> </td>
+								<td class="phx-search-font"> <%= supervise.middle_name %> </td>
+								<td class="phx-search-font"> <%= supervise.npi_number %> </td>
+								<td class="phx-search-font"> <%= supervise.dea_number %> </td>
+							</tr>
+						<% end %> <!-- END OF item list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchSupervisePrescribers,
+						params: { controller: "prescribers", action: "nextSupervisePrescribers"} , remote: true  unless searchSupervisePrescribers.empty? %>
+
+				<button id="supervisePrescriberSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+<script>
+
+// bootstrap bug fix below
+$(".modal-backdrop").remove();
+
+// light up the modal; focus for 0-9 input; trigger search open event
+$("#supervisePrescriberSearchModal").modal("toggle");
+$("#supervisePrescriberSearchModal_Keys1_9").focus();
+
+function triggerSearchSelection( selectedSearchItem ) {
+	$( document ).trigger( "phx-selected-supervisePrescriber",
+	                      [ selectedSearchItem.data("phxSearchSupervisePrescriberId"),
+	                        selectedSearchItem.data("phxSearchSupervisePrescriberDisplayName")] );
+	$("#supervise_prescriber_modal_close_btn").trigger("click");
+	}
+
+$(".clickable-supervisePrescriberRow").click( function() {
+    triggerSearchSelection( $(this) );
+    });
+
+$("#supervisePrescriberSearchModal_Keys1_9").on("keypress", function(e) {
+    var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+    if( key >= 48 && key <= 57 ) {
+          triggerSearchSelection( $("#supervisePrescriberRow" + (key-48).toString()) );
+          return false; }
+    if (key == 27) { $("#supervisePrescriberSearchModal_close_btn").trigger("click");
+      return false; }
+});
+
+</script>
+
+</div>

@@ -1,0 +1,10 @@
+I"Ó(function() {
+  $(function() {
+    return $("#prescription_dispense_as_written_code").on("keypress", function(evt) {
+      console.log("Pressed", evt.charCode);
+      return false;
+    });
+  });
+
+}).call(this);
+:ET

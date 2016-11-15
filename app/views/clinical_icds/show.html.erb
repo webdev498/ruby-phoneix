@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Diagnosis code:</strong>
+  <%= @clinical_icd.diagnosis_code %>
+</p>
+
+<p>
+  <strong>Diagnosis description:</strong>
+  <%= @clinical_icd.diagnosis_description %>
+</p>
+
+<p>
+  <strong>Diagnosis icd10:</strong>
+  <%= @clinical_icd.diagnosis_icd10 %>
+</p>
+
+<p>
+  <strong>Diagnosis type:</strong>
+  <%= @clinical_icd.diagnosis_type %>
+</p>
+
+<p>
+  <strong>Diagnosis source:</strong>
+  <%= @clinical_icd.diagnosis_source %>
+</p>
+
+<p>
+  <strong>Diagnosis start date:</strong>
+  <%= @clinical_icd.diagnosis_start_date %>
+</p>
+
+<p>
+  <strong>Diagnosis end date:</strong>
+  <%= @clinical_icd.diagnosis_end_date %>
+</p>
+
+<%= link_to 'Edit', edit_clinical_icd_path(@clinical_icd) %> |
+<%= link_to 'Back', clinical_icds_path %>

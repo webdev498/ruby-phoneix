@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pos_tax.dept_number %>
+</p>
+
+<p>
+  <strong>Tax code:</strong>
+  <%= @pos_tax.tax_code %>
+</p>
+
+<p>
+  <strong>Tax description:</strong>
+  <%= @pos_tax.tax_description %>
+</p>
+
+<p>
+  <strong>Tax rate:</strong>
+  <%= @pos_tax.tax_rate %>
+</p>
+
+<%= link_to 'Edit', edit_pos_tax_path(@pos_tax) %> |
+<%= link_to 'Back', pos_taxes_path %>

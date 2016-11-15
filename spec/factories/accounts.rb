@@ -1,0 +1,53 @@
+FactoryGirl.define do
+  factory :account do
+    company_id 1
+pharmacy_id 1
+plan_id_code 1
+facility_id 1
+account_payor_id 1
+account_sponsor_id 1
+account_number 1
+master_account_number 1
+accounting_method 1
+payor_type 1
+legacy_customer_id_number 1
+legacy_sponsor_id_number 1
+allow_otc_charges false
+active false
+print_statement 1
+date_opened "2016-10-11"
+last_statement_date "2016-10-11"
+last_charge_date "2016-10-11"
+last_payment_date "2016-10-11"
+last_past_due_date "2016-10-11"
+past_due_letter_sent "2016-10-11"
+current_period_amount "9.99"
+last_period_amount "9.99"
+high_balance_amount "9.99"
+high_past_due_amount "9.99"
+over_30_amount "9.99"
+over_60_amount "9.99"
+over_90_amount "9.99"
+number_times_past_30 1
+number_times_past_60 1
+number_times_past_90 1
+last_charge_amount "9.99"
+last_payment_amount "9.99"
+last_statement_balance "9.99"
+tax_deductible_amount_year_to_date "9.99"
+non_deductible_amount_year_to_date "9.99"
+finance_charges_year_to_date "9.99"
+tax_paid_year_to_date "9.99"
+credit_limit "9.99"
+finance_charge_percentage1 "9.99"
+finance_charge_percentage2 "9.99"
+finance_percentage1_limit "9.99"
+terms_rate "9.99"
+terms_amount "9.99"
+memo "MyString"
+notes "MyText"
+rx_charge_description 1
+statement_type 1
+  end
+
+end

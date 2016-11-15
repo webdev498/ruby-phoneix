@@ -1,0 +1,17 @@
+/* fonts */
+
+@font-face {
+	font-family: 'Lato-Bold';
+	src: asset-url('Lato-Bold.ttf')) format('truetype');
+	font-weight: bold;
+	font-style: bold;
+}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src:	font-path('glyphicons-halflings-regular.eot');
+  src:	font-path('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+  		font-path('glyphicons-halflings-regular.woff') format('woff'),
+		font-path('glyphicons-halflings-regular.ttf') format('truetype'),
+		font-path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}

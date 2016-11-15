@@ -1,0 +1,2 @@
+module CdbDrugReferencesHelper
+end

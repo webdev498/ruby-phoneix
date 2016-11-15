@@ -1,0 +1,63 @@
+<%= simple_form_for(@dispense) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rx_number %>
+    <%= f.input :fill_number %>
+    <%= f.input :rna_customer_id_number %>
+    <%= f.input :fill_date %>
+    <%= f.input :rna_item_id_number %>
+    <%= f.input :active_flag %>
+    <%= f.input :refill_type, collection: Dispense.refill_types.keys,:selected => Dispense.refill_types.keys[@dispense[:refill_type].to_i] %>
+    <%= f.input :refill_status, collection: Dispense.refill_statuses.keys,:selected => Dispense.refill_statuses.keys[@dispense[:refill_status].to_i] %>
+    <%= f.input :split_bill_rx %>
+    <%= f.input :billing_complete %>
+    <%= f.input :pharmacist_initials %>
+    <%= f.input :technician_initials %>
+    <%= f.input :fill_time %>
+    <%= f.input :fill_quantity %>
+    <%= f.input :fill_days_supply %>
+    <%= f.input :route_of_delivery %>
+    <%= f.input :lot_number %>
+    <%= f.input :discard_date %>
+    <%= f.input :fill_price %>
+    <%= f.input :base_cost %>
+    <%= f.input :actual_cost %>
+    <%= f.input :fill_fee %>
+    <%= f.input :copay %>
+    <%= f.input :discount %>
+    <%= f.input :tax %>
+    <%= f.input :ancillary_fee %>
+    <%= f.input :professional_service_fee %>
+    <%= f.input :cost_basis %>
+    <%= f.input :other_coverage_code %>
+    <%= f.input :other_amount %>
+    <%= f.input :other_amount_type %>
+    <%= f.input :prior_auth_type %>
+    <%= f.input :reason_for_delay %>
+    <%= f.input :denial_override_code %>
+    <%= f.input :dispense_status %>
+    <%= f.input :charge_amount %>
+    <%= f.input :posted_flag, collection: Dispense.posted_flags.keys,:selected => Dispense.posted_flags.keys[@dispense[:posted_flag].to_i] %>
+    <%= f.input :primary_paytype %>
+    <%= f.input :primary_paytype_amount %>
+    <%= f.input :primary_paytype_billed %>
+    <%= f.input :secondary_paytype %>
+    <%= f.input :secondary_paytype_amount %>
+    <%= f.input :secondary_paytype_billed %>
+    <%= f.input :tertiary_paytype %>
+    <%= f.input :tertiary_paytype_amount %>
+    <%= f.input :tertiary_paytype_billed %>
+    <%= f.input :fourth_paytype %>
+    <%= f.input :fourth_paytype_amount %>
+    <%= f.input :fourth_paytype_billed %>
+    <%= f.input :fifth_paytype %>
+    <%= f.input :fifth_paytype_amount %>
+    <%= f.input :fifth_paytype_billed %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

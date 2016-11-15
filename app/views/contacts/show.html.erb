@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @contact.dept_number %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @contact.entity %>
+</p>
+
+<p>
+  <strong>Entity rna id number:</strong>
+  <%= @contact.entity_rna_id_number %>
+</p>
+
+<p>
+  <strong>Contact type:</strong>
+  <%= @contact.contact_type %>
+</p>
+
+<p>
+  <strong>Entity data:</strong>
+  <%= @contact.entity_data %>
+</p>
+
+<p>
+  <strong>Phone long distance:</strong>
+  <%= @contact.phone_long_distance %>
+</p>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

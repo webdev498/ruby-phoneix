@@ -1,0 +1,72 @@
+<% phx_subnav_for :m_pos %>
+
+<% provide(:point_of_sale, "active") %>
+
+<%= form_for( @pos_payment_method ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+				      <div class="phx-working-area-title">POS Method of Payment
+				      </div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="field form-group phx-input-control-spacer">
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="dept_number">Department</label>
+						<%= f.text_field :dept_number, class: 'phx-form-control' %>
+					</div>
+					
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="payment_method_code">Payment Code</label>
+						<%= f.text_field :payment_method_code, class: 'phx-form-control' %>
+					</div>
+					
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="payment_method_description">Description</label>
+						<%= f.text_field :payment_method_description, class: 'phx-form-control' %>
+					</div>
+					
+					<%= phx_checkbox_for f, :payment_method_processing_pct, "Processing %" %>
+</br>
+					<%= phx_checkbox_for f, :merchant_id_number, "Merchant ID" %>
+
+					<div class="field form-group phx-input-control-spacer">
+					</div>
+
+				</div>
+
+			</div> <!-- end of Primary Info col lg def -->
+
+		</div> <!-- end of container fluid for Primary Info -->
+
+<% end %>

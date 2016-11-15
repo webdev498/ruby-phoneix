@@ -1,0 +1,201 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Cdb Drug References</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ndc number</th>
+      <th>Ndc number10</th>
+      <th>Ddid number</th>
+      <th>Kdc code</th>
+      <th>Drug name</th>
+      <th>Generic product</th>
+      <th>Therapeutic equivalence eval code</th>
+      <th>Dea schedule</th>
+      <th>Desi code</th>
+      <th>Rx otc indicator</th>
+      <th>Generic packaging code</th>
+      <th>Previous ndc number</th>
+      <th>New ndc number</th>
+      <th>Repackage code</th>
+      <th>Id number format</th>
+      <th>Package size</th>
+      <th>Package size unit measure</th>
+      <th>Package size quantity</th>
+      <th>Mfg name</th>
+      <th>Third party restriction code</th>
+      <th>Kdc flag</th>
+      <th>Labeler id number</th>
+      <th>Multi source code</th>
+      <th>Name type code</th>
+      <th>Item status flag</th>
+      <th>Innerpack code</th>
+      <th>Clinic pack code</th>
+      <th>Pharmacy stocked indicator</th>
+      <th>Hospital stocked indicator</th>
+      <th>Dispensing unit code</th>
+      <th>Dollar rank code</th>
+      <th>Rx rank code</th>
+      <th>Storage code</th>
+      <th>Limited distribution code</th>
+      <th>Old ndc effective date</th>
+      <th>New ndc effective date</th>
+      <th>Next smaller ndc</th>
+      <th>Next larger ndc</th>
+      <th>Last change date</th>
+      <th>Awp unit price</th>
+      <th>Awp package price</th>
+      <th>Awp last change date</th>
+      <th>Direct unit price</th>
+      <th>Direct package price</th>
+      <th>Direct last change date</th>
+      <th>Wac unit price</th>
+      <th>Wac package price</th>
+      <th>Wac last change date</th>
+      <th>Federal mac unit price</th>
+      <th>Federal mac last change date</th>
+      <th>Federal mac unit dose</th>
+      <th>Federal mac unitdose last change date</th>
+      <th>Route of admin code</th>
+      <th>Dosage form</th>
+      <th>Drug strength</th>
+      <th>Strength unit measure</th>
+      <th>Bioequivalence code</th>
+      <th>Controlled substance code</th>
+      <th>Efficacy code</th>
+      <th>Legend indicator</th>
+      <th>Brand name code</th>
+      <th>Name source code</th>
+      <th>New ddid number</th>
+      <th>Screenable flag</th>
+      <th>Local systemic flag</th>
+      <th>Maintenance code</th>
+      <th>Form type code</th>
+      <th>Internal external code</th>
+      <th>Single combo code</th>
+      <th>Representative gpi flag</th>
+      <th>Representative kdc flag</th>
+      <th>Clarity</th>
+      <th>Coating</th>
+      <th>Color</th>
+      <th>Flavor</th>
+      <th>Scored</th>
+      <th>Shape</th>
+      <th>Image file name</th>
+      <th>Side1 imprint</th>
+      <th>Side2 imprint</th>
+      <th>Appearance text</th>
+      <th>Medication guide file</th>
+      <th>Monitoring program</th>
+      <th>Monitoring file name</th>
+      <th>Monograph file name</th>
+      <th>Black box file name</th>
+      <th>Contains acetaminophen</th>
+      <th>Contains pseudoephedrine</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cdb_drug_references.each do |cdb_drug_reference| %>
+      <tr>
+        <td><%= cdb_drug_reference.ndc_number %></td>
+        <td><%= cdb_drug_reference.ndc_number10 %></td>
+        <td><%= cdb_drug_reference.ddid_number %></td>
+        <td><%= cdb_drug_reference.kdc_code %></td>
+        <td><%= cdb_drug_reference.drug_name %></td>
+        <td><%= cdb_drug_reference.generic_product_id %></td>
+        <td><%= cdb_drug_reference.therapeutic_equivalence_eval_code %></td>
+        <td><%= cdb_drug_reference.dea_schedule %></td>
+        <td><%= cdb_drug_reference.desi_code %></td>
+        <td><%= cdb_drug_reference.rx_otc_indicator %></td>
+        <td><%= cdb_drug_reference.generic_packaging_code %></td>
+        <td><%= cdb_drug_reference.previous_ndc_number %></td>
+        <td><%= cdb_drug_reference.new_ndc_number %></td>
+        <td><%= cdb_drug_reference.repackage_code %></td>
+        <td><%= cdb_drug_reference.id_number_format %></td>
+        <td><%= cdb_drug_reference.package_size %></td>
+        <td><%= cdb_drug_reference.package_size_unit_measure %></td>
+        <td><%= cdb_drug_reference.package_size_quantity %></td>
+        <td><%= cdb_drug_reference.mfg_name %></td>
+        <td><%= cdb_drug_reference.third_party_restriction_code %></td>
+        <td><%= cdb_drug_reference.kdc_flag %></td>
+        <td><%= cdb_drug_reference.labeler_id_number %></td>
+        <td><%= cdb_drug_reference.multi_source_code %></td>
+        <td><%= cdb_drug_reference.name_type_code %></td>
+        <td><%= cdb_drug_reference.item_status_flag %></td>
+        <td><%= cdb_drug_reference.innerpack_code %></td>
+        <td><%= cdb_drug_reference.clinic_pack_code %></td>
+        <td><%= cdb_drug_reference.pharmacy_stocked_indicator %></td>
+        <td><%= cdb_drug_reference.hospital_stocked_indicator %></td>
+        <td><%= cdb_drug_reference.dispensing_unit_code %></td>
+        <td><%= cdb_drug_reference.dollar_rank_code %></td>
+        <td><%= cdb_drug_reference.rx_rank_code %></td>
+        <td><%= cdb_drug_reference.storage_code %></td>
+        <td><%= cdb_drug_reference.limited_distribution_code %></td>
+        <td><%= cdb_drug_reference.old_ndc_effective_date %></td>
+        <td><%= cdb_drug_reference.new_ndc_effective_date %></td>
+        <td><%= cdb_drug_reference.next_smaller_ndc %></td>
+        <td><%= cdb_drug_reference.next_larger_ndc %></td>
+        <td><%= cdb_drug_reference.last_change_date %></td>
+        <td><%= cdb_drug_reference.awp_unit_price %></td>
+        <td><%= cdb_drug_reference.awp_package_price %></td>
+        <td><%= cdb_drug_reference.awp_last_change_date %></td>
+        <td><%= cdb_drug_reference.direct_unit_price %></td>
+        <td><%= cdb_drug_reference.direct_package_price %></td>
+        <td><%= cdb_drug_reference.direct_last_change_date %></td>
+        <td><%= cdb_drug_reference.wac_unit_price %></td>
+        <td><%= cdb_drug_reference.wac_package_price %></td>
+        <td><%= cdb_drug_reference.wac_last_change_date %></td>
+        <td><%= cdb_drug_reference.federal_mac_unit_price %></td>
+        <td><%= cdb_drug_reference.federal_mac_last_change_date %></td>
+        <td><%= cdb_drug_reference.federal_mac_unit_dose %></td>
+        <td><%= cdb_drug_reference.federal_mac_unitdose_last_change_date %></td>
+        <td><%= cdb_drug_reference.route_of_admin_code %></td>
+        <td><%= cdb_drug_reference.dosage_form %></td>
+        <td><%= cdb_drug_reference.drug_strength %></td>
+        <td><%= cdb_drug_reference.strength_unit_measure %></td>
+        <td><%= cdb_drug_reference.bioequivalence_code %></td>
+        <td><%= cdb_drug_reference.controlled_substance_code %></td>
+        <td><%= cdb_drug_reference.efficacy_code %></td>
+        <td><%= cdb_drug_reference.legend_indicator %></td>
+        <td><%= cdb_drug_reference.brand_name_code %></td>
+        <td><%= cdb_drug_reference.name_source_code %></td>
+        <td><%= cdb_drug_reference.new_ddid_number %></td>
+        <td><%= cdb_drug_reference.screenable_flag %></td>
+        <td><%= cdb_drug_reference.local_systemic_flag %></td>
+        <td><%= cdb_drug_reference.maintenance_code %></td>
+        <td><%= cdb_drug_reference.form_type_code %></td>
+        <td><%= cdb_drug_reference.internal_external_code %></td>
+        <td><%= cdb_drug_reference.single_combo_code %></td>
+        <td><%= cdb_drug_reference.representative_gpi_flag %></td>
+        <td><%= cdb_drug_reference.representative_kdc_flag %></td>
+        <td><%= cdb_drug_reference.clarity %></td>
+        <td><%= cdb_drug_reference.coating %></td>
+        <td><%= cdb_drug_reference.color %></td>
+        <td><%= cdb_drug_reference.flavor %></td>
+        <td><%= cdb_drug_reference.scored %></td>
+        <td><%= cdb_drug_reference.shape %></td>
+        <td><%= cdb_drug_reference.image_file_name %></td>
+        <td><%= cdb_drug_reference.side1_imprint %></td>
+        <td><%= cdb_drug_reference.side2_imprint %></td>
+        <td><%= cdb_drug_reference.appearance_text %></td>
+        <td><%= cdb_drug_reference.medication_guide_file %></td>
+        <td><%= cdb_drug_reference.monitoring_program %></td>
+        <td><%= cdb_drug_reference.monitoring_file_name %></td>
+        <td><%= cdb_drug_reference.monograph_file_name %></td>
+        <td><%= cdb_drug_reference.black_box_file_name %></td>
+        <td><%= cdb_drug_reference.contains_acetaminophen %></td>
+        <td><%= cdb_drug_reference.contains_pseudoephedrine %></td>
+        <td><%= link_to 'Show', cdb_drug_reference %></td>
+        <td><%= link_to 'Edit', edit_cdb_drug_reference_path(cdb_drug_reference) %></td>
+        <td><%= link_to 'Destroy', cdb_drug_reference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cdb drug reference', new_cdb_drug_reference_path %>

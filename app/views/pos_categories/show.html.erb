@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pos_category.dept_number %>
+</p>
+
+<p>
+  <strong>Category abbreviation:</strong>
+  <%= @pos_category.category_abbreviation %>
+</p>
+
+<p>
+  <strong>Category description:</strong>
+  <%= @pos_category.category_description %>
+</p>
+
+<p>
+  <strong>Taxable:</strong>
+  <%= @pos_category.taxable %>
+</p>
+
+<p>
+  <strong>Medical:</strong>
+  <%= @pos_category.medical %>
+</p>
+
+<%= link_to 'Edit', edit_pos_category_path(@pos_category) %> |
+<%= link_to 'Back', pos_categories_path %>

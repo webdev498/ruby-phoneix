@@ -1,0 +1,741 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ */
+
+
+/* phx css3 file intended to be used by the 'require' directive in
+ * the application.css.scss manifest
+ */
+
+@import '_globals.scss';
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "datepicker";
+
+/* @import "phx-toggle-slider";
+*/
+
+/* CSS used here will be applied after bootstrap.css */
+
+.body{
+  margin-top: 50px;
+}
+
+.affix {
+  top: 50px;
+  width:100%;
+}
+
+.filler{
+  min-height: 2000px;
+}
+
+.navbar-form {
+   padding-left: 0;
+}
+
+.navbar-collapse{
+   padding-left:0;
+}
+
+.navbar-custom-topline {
+	color: $black;
+	font-family: 'Arial';
+	font-size: 12px;
+	background-color: $bon-jour;
+	min-height: 60px !important;
+	max-height: 60px !important;
+}
+
+.navbar-custom {
+	background-color: $hoki;
+}
+
+.navbar-default
+{
+	background-image: none;
+	color: $white;
+	font-family: 'Lato-Bold';
+	font-size: 15px;
+	min-height: 70px !important;
+	max-height: 70px !important;
+	border-top: 1px solid $phx-navbar-top-line;
+	border-bottom: 2px solid $phx-navbar-bottom-line;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: $white;
+	font-family: 'Lato-Bold';
+	padding-top: 24px;
+}
+
+ .navbar-default .navbar-nav > .active > a,
+ .navbar-default .navbar-nav > .active > a:hover,
+ .navbar-default .navbar-nav > .active > a:focus {
+	color: $white;
+	background: $phx-navbar-bottom-line;
+	box-shadow: inset 0px 1px 0px $phx-navbar-top-line;
+	min-height: 68px !important;
+	max-height: 68px !important;
+ }
+
+/*  might not be used
+ * .navbar-custom-topline > li {
+ *     color: $black;
+ * }
+ */
+
+
+.phx-badge {
+	@extend .badge;
+	background-color: $phx-btn-model-control-red-background;
+}
+
+/*
+ *  Subnav - menu item formatting
+ */
+
+.phx-subnav-line {
+	height: 30px;
+	font-size: 14px;
+	color: $tundora;
+	border-bottom: 1px solid $silver;
+	padding-top: 4px;
+
+  &:hover {
+    background-color: $white;
+    text-decoration: none;
+  }
+
+}
+
+/*
+ *  Subnav - MedSoft logo
+ */
+
+.phx-subnav-medsoft-logo {
+	position:absolute;
+	position:fixed;
+	bottom: 50px;
+	padding-left:25px;
+}
+
+
+/*
+ * field input controls, etc.
+ */
+
+.input-group-lg > .form-control, .input-group-lg > .input-group-addon {
+	height: 10px;
+	font-size: 10px;
+}
+
+.phx-form-group {
+    @extend .form-group
+}
+
+.phx-input-control {
+	padding: 0 0 0 20px;
+	margin: 0 0 15px 0;
+}
+
+.phx-input-control-spacer {
+	padding: 0 0 20px 0;
+}
+
+
+.phx-textarea-limitwidth {
+	resize: vertical;
+}
+
+
+.phx-checkbox{
+    margin: 0 0 0 5px;
+    -moz-transform:    scale(1.5,1.5);
+    -webkit-transform: scale(1.2,1.2);
+}
+
+
+.phx-checkbox-label {
+	font-family: "arial";
+	font-size: 14px;
+	color: $phx-field-label;
+	font-weight: normal;
+	padding: 0;
+	margin: 5px 0 0 13px;
+}
+
+
+.phx-form-control {
+	@extend .form-control;
+	height: 24px;
+	font-family: "arial";
+	font-size: 13px;
+/*	padding: -10px 0 15px 0px;  /* -10 kludge to get the text to vertically align center */
+	padding: 0 0 0 10px;
+	margin: 0 0 -5px -10px;
+	color: $phx-field;
+	background-color: $phx-control-background;
+    border-radius: 2.5px;
+}
+
+.phx-form-control-search {
+	@extend .phx-form-control;
+    border-color: $cornflower;
+    border-style: solid;
+    border-width: 2.0px;
+}
+
+.phx-form-control-label {
+    @extend .control-label;
+	font-family: "arial";
+	font-size: 14px;
+	color: $phx-field-label;
+	font-weight: normal;
+	padding: 0;
+	margin: 0 0 0 -10px;
+}
+
+.phx-form-control-error {
+	background:   $cream;
+	color:        $tundora;
+	border:       1px solid $tundora;
+	margin:       0 12px 2px 0;
+	padding:      1px 8px 1px 10px;
+}
+
+.phx-form-control-inline {
+	@extend .form-inline;
+	height: 24px;
+	font-size: 13px;
+	padding: 0 0 0 10px;
+	margin: 0 0 -5px -10px;
+	color: $stack;
+	background-color: $phx-control-background;
+}
+
+.phx-form-control:focus {
+  border-color: $tapa;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+ }
+
+.phx-datepicker {
+	@extend .datepicker;
+}
+
+.phx-two-horizontal-controls {
+	padding-left:15px;
+	padding-right:15px;
+}
+
+.phx-btn-model-control-width {
+	min-width:     120px;
+}
+
+.phx-btn-model-control-white {
+	margin-right:  10px;
+	background:    $phx-btn-model-control-white-background;
+	color:         $phx-btn-model-control-white-font;
+	border:        2px solid $phx-btn-model-control-white-border;
+}
+
+.phx-btn-model-control-red {
+	margin-right: 10px;
+	background:   $phx-btn-model-control-red-background;
+	color:        $phx-btn-model-control-red-font;
+	border:       2px solid $phx-btn-model-control-red-border;
+}
+
+.phx-btn-model-control-cream {
+	margin-right: 10px;
+	background:   $phx-btn-model-control-cream-background;
+	color:        $phx-btn-model-control-cream-font;
+	border:       2px solid $phx-btn-model-control-cream-border;
+}
+
+.phx-btn-model-control-blue {
+	margin-right: 10px;
+	background:   $phx-btn-model-control-blue-background;
+	color:        $phx-btn-model-control-blue-font;
+	border:       2px solid $phx-btn-model-control-blue-border;
+}
+
+.phx-working-area-background {
+    padding-top: 50px;
+	background-color: $phx-working-area-background;
+}
+
+.phx-working-area-position {
+	padding-top: 30px;
+}
+
+.phx-working-area-nav {
+	height: 50px;
+	background-color: $alabaster;
+	border-bottom: 2px solid #d9d8d8;
+}
+
+.phx-working-area-title {
+	font-family: 'Arial';
+	font-size:   18px;
+	padding-top: 14px;
+}
+
+.phx-working-area-title-info {
+	height: 50px;
+}
+
+.phx-working-area-title-displayName {
+  font-weight: bold;
+}
+
+.phx-working-area-title-buttons {
+	@extend .btn-group;
+	padding-left: 70px;
+	font-family:  'Arial';
+	font-size:    13px;
+	padding-top:  9px;
+}
+
+.phx-primary-info-column-background {
+	background-color: #f3f3f3;
+}
+
+.phx-primary-info-column {
+	@extend .container-fluid;
+	padding-left:  15px;
+	padding-right: 15px;
+	width:         455px;
+	background:    $white;
+	border:        1px solid #d9d8d8;
+}
+
+.phx-primary-info-image {
+	margin:  20px 0 20px 0;
+	height:  180px;
+	width:   275px;
+	background: $phx-image-background;
+	border:     1px solid $phx-image-border;
+}
+
+.phx-rx-thumb-image {
+	margin:  20px 0 20px 0;
+	height:  250px;
+	width:   235px;
+	background: $phx-image-background;
+	border:     1px solid $phx-image-border;
+}
+
+
+.phx-tab-pane {
+	@extend .tab-content;
+	padding-top:  30px;
+	background:   $white;
+	border:       1px solid $alto;
+}
+
+.phx-hamburger {
+	padding: 0;
+	margin:  0;
+	border:  0;
+	background-color: transparent;
+	font-size:  25px;
+	letter-spacing: 1px;
+	color:      $bittersweet;
+	font-weight: bold;
+	font-style: normal;
+	-webkit-transform: rotate(-90.0deg);
+}
+
+.phx-hamburger-box {
+	width:   52px;
+	height:  50px;
+	padding-top:  6px;
+	padding-left: 22px;
+	border-right: 2px solid $alto;
+}
+
+/*
+ *	working area tables
+ *
+ */
+
+/* bordered */
+
+.phx-table {
+	@extend .table;
+	font-family: 'Arial';
+	size: 13px;
+	border: 1px solid $alto;
+}
+
+tr.phx-table-head > th {
+	@extend .table;
+	background-color: $athens-grey;
+	border: 1px solid $alto;
+	border-bottom: none;
+}
+
+tr.phx-table-detail > td {
+	@extend .table;
+	border: 1px solid $alto;
+}
+
+/* borderless */
+
+.phx-table-borderless {
+	@extend .phx-table;
+	border: none;
+}
+
+tr.phx-table-head-borderless > th {
+	@extend tr.phx-table-head;
+	border: none;
+}
+
+tr.phx-table-detail-borderless > td {
+	@extend tr.phx-table-detail;
+	border: none;
+}
+
+/*
+ *	search scss
+ *
+ */
+
+
+.phx-modal {
+	@extend .modal;
+	left:25%;
+	top:20%;
+	}
+
+.phx-search-font {
+	font-family:  'Arial';
+	font-size:    12px;
+	color:        $stack;
+	padding:      5px 5px 15px 5px;
+	margin:       5px 5px 15px 5px;
+}
+
+.phx-search-row-header {
+	font-size: 14px;
+	color:     $phx-search-header;
+	padding:   5px;
+	margin:    5px 0 0 15px;
+	border-bottom: 1px solid $phx-search-header-bottom;
+}
+
+.phx-search-row {
+	height:           24px;
+	background-color: $phx-control-background;
+	border-bottom:    1px solid $carolina-blue;
+}
+
+/*
+ *  login scss from here on
+ */
+
+.form-signin {
+    max-width: 330px;
+    padding:   15px;
+    margin:    0 auto;
+}
+
+
+.form-signin {
+    position:   relative;
+    font-size:  16px;
+    height:     auto;
+    padding:    10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.signin-wall {
+    margin-top:  20px;
+    padding:     40px 0px 20px 0px;
+    background-color:   $white;
+    -moz-box-shadow:    0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow:         0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius:      8px;
+}
+
+.login-title {
+    color:       #555;
+    font-size:   18px;
+    font-weight: 400;
+    display:     block;
+}
+
+.profile-img {
+    width:  96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius:    50%;
+    -webkit-border-radius: 50%;
+    border-radius:         50%;
+}
+
+.phx-ingredient-cost-basis-select {
+  width:  110px !important;
+}
+
+.phx-ingredient-cost {
+  width:  40px !important;
+}
+
+.phx-ingredient-quantity {
+  width:  40px !important;
+}
+
+.login-background-image {
+	background-image:  url('login-bkg.png');
+	background-repeat: no-repeat;
+	background-size:   100%;
+}
+
+
+/* on-off slider switch */
+
+$phx-switchWidth-default: 84px;
+
+.onoffswitch {
+	position: relative;
+	width:    $phx-switchWidth-default;  /* calc below @ 50% of width */
+	-webkit-user-select: none;
+	-moz-user-select:    none;
+	-ms-user-select:     none;
+	}
+
+.onoffswitch-checkbox {
+    display: none;
+    }
+
+.phx-sliderswitch-label {
+	display:  block;
+	overflow: hidden;
+	cursor:   pointer;
+	color:    $stack;
+	border:   2px solid #cdcbcb;
+	border-radius: 18px;
+	}
+
+.onoffswitch-inner {
+	display: block; width: 200%; margin-left: -100%;
+	-moz-transition:    margin 0.1s linear;
+	-webkit-transition: margin 0.1s linear;
+	-o-transition:      margin 0.1s linear;
+	transition:         margin 0.1s linear;
+	}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+	display: block;
+	float:   left;
+	width:   50%;
+	height:  22px;
+	line-height: 24px;
+	-moz-box-sizing:    border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing:         border-box;
+	}
+
+/* active state */
+.onoffswitch-inner:before {
+	content:           attr(data-switch-on);
+	padding-left:      6px;
+	background-color:  $phx-control-background;
+	color:             $stack;
+	text-align:        left;
+	}
+
+/* inactive state */
+.onoffswitch-inner:after {
+	content:           attr(data-switch-off);
+	padding-right:     5px;
+	background-color:  $wild-sand;
+	color:             $stack;
+	text-align:        right;
+    }
+
+/* slider */
+.phx-sliderswitch-switch {
+    display:       block;
+    background:    $sweet-pink;
+    border:        2px solid  $silver;
+    width:         18px;
+    border-radius: 16px;  /* turn 18px into a circle */
+    margin:        4px;
+    position:      absolute;
+    top: 0; bottom: 0;
+    right:  $phx-switchWidth-default * 0.68;  /* 56 px - magic # places "o" when off */
+    -moz-transition:    all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    -o-transition:      all 0.1s linear;
+    transition:         all 0.1s linear;
+    }
+
+.onoffswitch-checkbox:checked + .phx-sliderswitch-label .onoffswitch-inner {
+    margin-left: 0;
+    }
+
+.onoffswitch-checkbox:checked + .phx-sliderswitch-label .phx-sliderswitch-switch {
+    right: 0px;
+    }
+
+
+
+/* phx checkbox */
+
+.phx-checkbox {
+	width: 20px;
+	margin-left: -10px;
+	margin-right: 15px;
+	position: relative; /* forces relative within containing div */
+}
+
+.phx-adjust-checkbox {
+	margin-left: -10px;
+}
+
+/* hide the browser's checkbox */
+.phx-checkbox input[type=checkbox] {
+	visibility: hidden;
+}
+
+
+/*  check box  */
+.phx-checkbox label {
+	cursor: pointer;
+	position: absolute;  /* forces relative within containing div */
+	width: 17px;
+	height: 17px;
+	top: 10px;
+	border-radius: 4px;
+
+	-webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	background: #e1dfdf;
+
+	background: linear-gradient(top, #e1dfdf 0%, #f3f3f3 80%);
+	background: -webkit-linear-gradient(top, #e1dfdf 0%, #f3f3f3 80%);
+	background: -moz-linear-gradient(top, #e1dfdf 0%, #f3f3f3 80%);
+	background: -o-linear-gradient(top, #e1dfdf 0%, #f3f3f3 80%);
+	background: -ms-linear-gradient(top, #e1dfdf 0%, #f3f3f3 80%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1dfdf', endColorstr='#f3f3f3',GradientType=0 );
+}
+
+/*  check mark  */
+.phx-checkbox label:after {
+	opacity: 0;
+	content: '';
+	position: absolute;  /* forces relative within containing div */
+	width: 13px;
+	height: 7px;
+	top: 3px;
+	left: 4px;
+	background: transparent;
+	border: 3px solid $phx-ckeckbox-check;
+	border-top: none;
+	border-right: none;
+
+	transform: rotate(-55deg);
+	-webkit-transform: rotate(-55deg);
+	-moz-transform: rotate(-55deg);
+	-o-transform: rotate(-55deg);
+	-ms-transform: rotate(-55deg);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
+.phx-checkbox label:hover::after {
+	filter: alpha(opacity=30);
+	opacity: 0.4;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+}
+
+.phx-checkbox input[type=checkbox]:checked + label:after {
+	filter: alpha(opacity=80);
+	opacity: 40;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+
+/* magnifier test code */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+.phx-magnify {
+	width: 275px;
+	margin: 50px auto;
+	position: relative;
+}
+
+/* Lets create the magnifying glass */
+.phx-magnify-large {
+	width: 320px;
+	height: 200px;
+	position: absolute;
+	border-radius: 20%;
+	/* Multiple box shadows to achieve the glass effect */
+	box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85),  0 0 7px 7px rgba(0, 0, 0, 0.25),  inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+
+	/* Lets load up the large image first */
+	background: url('sample_rx_image.jpg') no-repeat;
+/*	background: url( data-rx-image url ) no-repeat;  */
+
+/*border:3px solid $alto;*/
+
+	/* hide the glass by default */
+	display: none;
+}
+
+/*To solve overlap bug at the edges during magnification */
+
+.phx-magnify-small {
+	display: block;
+}
+
+#col1, #col2, #col3, #col4 {
+	float: left;
+	width: 25%;
+}
+
+/* charting styles */
+
+.phx-small-chart {
+    background-color: #e1e1e8;
+    padding: 10px 20px;
+}
+
+.phx-payment-text {
+  color: limegreen;
+
+}
+
+.phx-cost-basis {
+  width: 200px;
+  color: limegreen;
+}

@@ -1,0 +1,24 @@
+<%= simple_form_for(@pos_detail) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :pos_ticket_number %>
+    <%= f.input :rx_number %>
+    <%= f.input :fill_number %>
+    <%= f.input :category %>
+    <%= f.input :quantity %>
+    <%= f.input :item_type %>
+    <%= f.input :item_number %>
+    <%= f.input :item_description %>
+    <%= f.input :price %>
+    <%= f.input :extended_price %>
+    <%= f.input :tax_amount %>
+    <%= f.input :medical_item %>
+    <%= f.input :price_override %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

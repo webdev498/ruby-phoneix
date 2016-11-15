@@ -1,0 +1,35 @@
+<h1>Listing pricebreaks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dept number</th>
+      <th>Schedule number</th>
+      <th>Pct or amount</th>
+      <th>Break limit</th>
+      <th>Markup pct</th>
+      <th>Markup amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pricebreaks.each do |pricebreak| %>
+      <tr>
+        <td><%= pricebreak.dept_number %></td>
+        <td><%= pricebreak.schedule_number %></td>
+        <td><%= pricebreak.pct_or_amount %></td>
+        <td><%= pricebreak.break_limit %></td>
+        <td><%= pricebreak.markup_pct %></td>
+        <td><%= pricebreak.markup_amount %></td>
+        <td><%= link_to 'Show', pricebreak %></td>
+        <td><%= link_to 'Edit', edit_pricebreak_path(pricebreak) %></td>
+        <td><%= link_to 'Destroy', pricebreak, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pricebreak', new_pricebreak_path %>

@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @ingredient.dept_number %>
+</p>
+
+<p>
+  <strong>Rna item id number:</strong>
+  <%= @ingredient.rna_item_id_number %>
+</p>
+
+<p>
+  <strong>Ndc number:</strong>
+  <%= @ingredient.ndc_number %>
+</p>
+
+<p>
+  <strong>Basis of cost:</strong>
+  <%= @ingredient.basis_of_cost %>
+</p>
+
+<p>
+  <strong>Base cost:</strong>
+  <%= @ingredient.base_cost %>
+</p>
+
+<p>
+  <strong>Acquisition cost:</strong>
+  <%= @ingredient.acquisition_cost %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @ingredient.quantity %>
+</p>
+
+<p>
+  <strong>Alternate product type:</strong>
+  <%= @ingredient.alternate_product_type %>
+</p>
+
+<p>
+  <strong>Alternate product code:</strong>
+  <%= @ingredient.alternate_product_code %>
+</p>
+
+<p>
+  <strong>Modifier code1:</strong>
+  <%= @ingredient.modifier_code1 %>
+</p>
+
+<p>
+  <strong>Modifier code2:</strong>
+  <%= @ingredient.modifier_code2 %>
+</p>
+
+<p>
+  <strong>Modifier code3:</strong>
+  <%= @ingredient.modifier_code3 %>
+</p>
+
+<%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
+<%= link_to 'Back', ingredients_path %>

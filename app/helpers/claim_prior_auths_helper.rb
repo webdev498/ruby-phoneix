@@ -1,0 +1,2 @@
+module ClaimPriorAuthsHelper
+end

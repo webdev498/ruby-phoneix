@@ -1,0 +1,2 @@
+module ClaimCouponsHelper
+end

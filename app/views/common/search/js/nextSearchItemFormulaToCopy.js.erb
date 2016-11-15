@@ -1,0 +1,5 @@
+var data =  "<%= escape_javascript(render partial: 'common/search/item_formula_to_copy_search_modal_template', locals: { searchItems: @searchItems, searchController: @searchController } ) %>";
+var pagination_control =  "<%= escape_javascript(render partial: 'common/search/item_formula_to_copy_search_pagination_template', locals: { searchItems: @searchItems, searchController: @searchController } ) %>";
+
+$("#item_formula_to_copy_search_pagination_control").html(pagination_control);
+$("#item_formula_to_copy_search_results").html(data);

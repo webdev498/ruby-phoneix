@@ -1,0 +1,14 @@
+<%= simple_form_for(@pos_tax) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :tax_code %>
+    <%= f.input :tax_description %>
+    <%= f.input :tax_rate %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,297 @@
+<% phx_subnav_for :m_receivables %>
+
+<% provide(:account, "active") %>
+
+<%= form_for( @account ) do |f| %>
+
+	<div class="col-lg-10 phx-working-area-background">
+
+	    <!-- working area title and nav -->
+	    <div class="row span10 phx-working-area-nav">
+
+	        <%# temporarily disable hamburger  with  type="button" %>
+	        <div class="col-xs-1 phx-hamburger-box">
+	            <button type="button" class="phx-hamburger">|||</button>
+	        </div>
+
+	        <div class="phx-working-area-nav">
+	            <row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Accounts Receivable&nbsp;&nbsp;|&nbsp;&nbsp;
+							<span style="font-weight:font-weight: bold;bold;" id="prescriptionCustomerName">
+								<%= @account.display_name %>
+							</span>
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+			<div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="form-group phx-input-control-spacer">
+					</div>
+
+					<div class="pull-right"; style="margin-right:30px;">
+						<%= phx_checkbox_for f, :active, "Active" %>
+					</div>
+</br>
+</br>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="account_number">Account Number</label>
+						<%= f.text_field :account_number, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="master_account_number">Master Account Number</label>
+						<%= f.text_field :master_account_number, class: 'phx-form-control' %>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_name">Last Name</label>
+							<%= f.text_field :last_name, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="first_name">First Name</label>
+							<%= f.text_field :first_name, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="account_method">Account Method</label>
+						<%= f.text_field :account_method, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="payor_type">Payor Type</label>
+						<%= f.text_field :payor_type, class: 'phx-form-control' %>
+					</div>
+
+
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="plan_id_code">Plan Number</label>
+							<%= f.text_field :plan_id_code, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="facility_id_number">Facility Number</label>
+							<%= f.text_field :facility_id_number, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="date_opened">Date Opened</label>
+						<%= f.text_field :date_opened, class: 'phx-form-control' %>
+					</div>
+
+
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_statement_date">Last Statement Date</label>
+							<%= f.text_field :last_statement_date, class: 'phx-form-control' %>
+						</div>
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="last_statement_balance">Last Statement Balance</label>
+							<%= f.text_field :last_statement_balance, class: 'phx-form-control' %>
+						</div>
+
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="current_period_amount">Current Period Amount</label>
+						<%= f.text_field :current_period_amount, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="last_period_amount">Last Period Amount</label>
+						<%= f.text_field :last_period_amount, class: 'phx-form-control' %>
+					</div>
+
+					<div class="row phx-two-horizontal-controls">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="over_30_amount">Over 30 Amount</label>
+							<%= f.text_field :over_30_amount, class: 'phx-form-control' %>
+						</div>
+
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="over_60_amount">Over 60 Amount</label>
+							<%= f.text_field :over_60_amount, class: 'phx-form-control' %>
+						</div>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="over_90_amount">Over 90 Amountt</label>
+						<%= f.text_field :over_90_amount, class: 'phx-form-control' %>
+					</div>
+
+					<div class="form-group phx-input-control-spacer">
+					</div>
+
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-7">
+
+		<!-- Tab labels -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">General Info</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content phx-tab-pane">
+
+					<div class="tab-pane active" id="generalPane">
+
+						<div class="container-fluid">
+
+							<row>
+
+								<!-- GENERAL INFO, first column -->
+								<div class="container-fluid col-lg-4">
+
+									<%= phx_checkbox_for f, :print_statement , "Print Statement?" %>
+</br>
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="last_charge_amount">Last Charge Amount</label>
+											<%= f.text_field :last_charge_amount, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="last_statement_date">Last Statement Date</label>
+											<%= f.text_field :last_statement_date, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="last_past_due_date">Last Past Due Date</label>
+											<%= f.text_field :last_past_due_date, class: 'phx-form-control'  %>
+									</div>
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="high_balance_amount">High Balance Amount</label>
+											<%= f.text_field :high_balance_amount, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="tax_deductible_amount_year_to_date">Total Medical YTD</label>
+											<%= f.text_field :tax_deductible_amount_year_to_date, class: 'phx-form-control'  %>
+									</div>
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="finance_charges_year_to_date">Finance Charges YTD</label>
+											<%= f.text_field :finance_charges_year_to_date, class: 'phx-form-control'  %>
+									</div>
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="credit_limit">Credit Limit</label>
+											<%= f.text_field :credit_limit, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="rx_charge_description">Rx Charge Description</label>
+											<%= f.text_field :rx_charge_description, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="number_times_past_30">Number Times Past 30</label>
+											<%= f.text_field :number_times_past_30, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="number_times_past_90">Number Times Past 90</label>
+											<%= f.text_field :number_times_past_90, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="memo">Memo</label>
+											<%= f.text_field :memo, class: 'phx-form-control'  %>
+
+									<div class="form-group phx-input-control-spacer">
+									</div>
+
+									</div>
+							</div> <!-- END OF first panel, first column -->
+
+								<!-- GENERAL INFO panel, second column -->
+								<div class="container-fluid col-lg-4">
+
+									<%= phx_checkbox_for f, :allow_otc_charges , "Allow OTC Charges" %>
+</br>
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="last_payment_amount">Last Payment Amount</label>
+											<%= f.text_field :last_payment_amount, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="last_payment_date">Last Payment Dates</label>
+											<%= f.text_field :last_payment_date, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="past_due_letter_sent">Past Due Letter Sent</label>
+											<%= f.text_field :past_due_letter_sent, class: 'phx-form-control'  %>
+									</div>
+
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="high_past_due_amount">High Past Due Amount</label>
+											<%= f.text_field :high_past_due_amount, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="non_deductible_amount_year_to_date">Total Non-Medical YTD</label>
+											<%= f.text_field :non_deductible_amount_year_to_date, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="tax_paid_year_to_date">Total Tax YTD</label>
+											<%= f.text_field :tax_paid_year_to_date, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="finance_charge_percentage1">Interest Rate</label>
+											<%= f.text_field :finance_charge_percentage1, class: 'phx-form-control'  %>
+									</div>
+
+
+										<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="statement_type">Statement Type</label>
+											<%= f.text_field :statement_type, class: 'phx-form-control'  %>
+									</div>
+
+									<div class="field form-group phx-input-control">
+											<label class="phx-form-control-label" for="number_times_past_60">Number Times Past 60</label>
+											<%= f.text_field :number_times_past_60, class: 'phx-form-control'  %>
+									</div>
+
+								</div> <!-- END OF GENERAL INFO panel, second column -->
+
+							<!-- GENERAL INFO panel, 3rd column -->
+								<div class="container-fluid col-lg-4">
+
+
+								</div> <!-- END OF GENERAL INFO panel, 3rd column -->
+
+							</row>
+						</div> <!-- END OF GENERAL INFO panel container-fluid -->
+					</div>
+
+    	</div> <!-- end of col lg 10 -->
+
+<% end %>

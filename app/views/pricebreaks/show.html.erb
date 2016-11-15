@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @pricebreak.dept_number %>
+</p>
+
+<p>
+  <strong>Schedule number:</strong>
+  <%= @pricebreak.schedule_number %>
+</p>
+
+<p>
+  <strong>Pct or amount:</strong>
+  <%= @pricebreak.pct_or_amount %>
+</p>
+
+<p>
+  <strong>Break limit:</strong>
+  <%= @pricebreak.break_limit %>
+</p>
+
+<p>
+  <strong>Markup pct:</strong>
+  <%= @pricebreak.markup_pct %>
+</p>
+
+<p>
+  <strong>Markup amount:</strong>
+  <%= @pricebreak.markup_amount %>
+</p>
+
+<%= link_to 'Edit', edit_pricebreak_path(@pricebreak) %> |
+<%= link_to 'Back', pricebreaks_path %>

@@ -1,0 +1,1 @@
+json.extract! @claim_preference, :id, :dept_number, :rna_plan_id_code, :rx_number, :fill_number, :product_count, :product_copay_incentive, :product_incentive, :product_name, :product_id_number, :product_qualifier, :created_at, :updated_at

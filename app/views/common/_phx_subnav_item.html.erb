@@ -1,0 +1,19 @@
+<% content_for :phx_subnav do %>
+
+	<div class="phx-subnav-line">
+		&nbsp;
+	</div>
+
+	<% PhxMenu.phx_menus[:m_item].each do |submenu| %>
+		<% if policy(submenu).authorized? %>
+			<div class="phx-subnav-line">
+				<%= link_to submenu.text, submenu.success_path %>
+			</div>
+		<% else %>
+			<div class="phx-subnav-line">
+				<%= submenu.text %>
+			</div>
+		<% end %>
+	<% end %>
+
+<% end %>

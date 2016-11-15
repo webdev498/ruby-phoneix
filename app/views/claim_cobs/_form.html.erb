@@ -1,0 +1,92 @@
+<%= simple_form_for(@claim_cob) do |f| %>
+  <%= f.error_notification %>
+	<div class="inputs">   
+	    <%= f.hidden_field :dept_number%>
+    	                 
+    	<div style="block:inline">                          
+					<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+							<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+    							< Customer Name >
+    							</br>   							
+    							< Prescriber Name >
+    							</br>
+    							< Item Name >
+    							</br>
+    				    	<%= f.input :rx_number %>
+    				    	<%= f.input :fill_number %>
+    							<%= f.input :rna_plan_id_code %>
+    							</br>
+    							<%= f.input :other_payor_count %>  
+    							</br>
+    							Primary Payor
+    							</br>
+    							</br>
+     							<%= f.input :primary_payor_coverage_type, :label=>"Coverage Type" %>
+    							<%= f.input :primary_payor_id_qualifier, :label=>"Payor Qualifier" %>
+    							<%= f.input :primary_payor_id, :label=>"Payor ID" %>
+    							<%= f.input :primary_payor_date, :label=>"Payor date" %>
+    							<%= f.input :primary_payor_reject_count, :label=>"Reject Count" %>
+    							<%= f.input :primary_payor_reject_code, :label=>"Reject Codes" %>
+    							<%= f.input :primary_payor_paid_count, :label=>"Paid Count" %>
+    							<%= f.input :primary_payor_paid_qualifier, :label=>"Paid Qualifier" %>
+   								<%= f.input :primary_payor_amount_paid, :label=>"Paid Amount" %>
+    							<%= f.input :primary_patient_amount_qualifier, :label=>"Patient Qualifier" %>
+    							<%= f.input :primary_patient_amount, :label=>"Patient Amount" %>
+    							<%= f.input :primary_benefit_qualifier, :label=>"Benefit Qualifier" %>
+    							<%= f.input :primary_benefit_amount, :label=>"Benefit Amount" %>
+   						 		<%= f.input :primary_control_number, :label=>"Control number" %>
+   							 							
+							</div>                                               
+					</div> 
+					
+                                             
+					<div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+						<div style="float:left; border-style:none; width:390px; height: 600px; padding-left:15px; padding-top: 5px;">
+								Secondary Payor
+								</br></br>
+    						<%= f.input :secondary_payor_coverage_type, :label=>"Coverage Type" %>
+    						<%= f.input :secondary_payor_id_qualifier, :label=>"Payor Qualifier" %>
+    						<%= f.input :secondary_payor_id, :label=>"Payor ID" %>
+    						<%= f.input :secondary_payor_date, :label=>"Payor date" %>
+    						<%= f.input :secondary_payor_reject_count, :label=>"Reject Count" %>
+    						<%= f.input :secondary_payor_reject_code, :label=>"Reject Codes" %>
+    						<%= f.input :secondary_payor_paid_count, :label=>"Paid Count" %>
+    						<%= f.input :secondary_payor_paid_qualifier, :label=>"Paid Qualifier" %>
+   							<%= f.input :secondary_payor_amount_paid, :label=>"Paid Amount" %>
+    						<%= f.input :secondary_patient_amount_qualifier, :label=>"Patient Qualifier" %>
+    						<%= f.input :secondary_patient_amount, :label=>"Patient Amount" %>
+    						<%= f.input :secondary_benefit_qualifier, :label=>"Benefit Qualifier" %>
+    						<%= f.input :secondary_benefit_amount, :label=>"Benefit Amount" %>
+   						 	<%= f.input :secondary_control_number, :label=>"Control number" %>
+								
+    			</div>
+				</div>
+
+					<div style="float:left; border-style: dotted; border-width: thin;width:390px;">  
+							<div style="float:left; border-style:none; height: 600px; padding-left:15px; padding-top: 5px;">
+							
+								Tertiary Payor
+								</br></br>
+    						<%= f.input :tertiary_payor_coverage_type, :label=>"Coverage Type" %>
+    						<%= f.input :tertiary_payor_id_qualifier, :label=>"Payor Qualifier" %>
+    						<%= f.input :tertiary_payor_id, :label=>"Payor ID" %>
+    						<%= f.input :tertiary_payor_date, :label=>"Payor date" %>
+    						<%= f.input :tertiary_payor_reject_count, :label=>"Reject Count" %>
+    						<%= f.input :tertiary_payor_reject_code, :label=>"Reject Codes" %>
+    						<%= f.input :tertiary_payor_paid_count, :label=>"Paid Count" %>
+    						<%= f.input :tertiary_payor_paid_qualifier, :label=>"Paid Qualifier" %>
+   							<%= f.input :tertiary_payor_amount_paid, :label=>"Paid Amount" %>
+    						<%= f.input :tertiary_patient_amount_qualifier, :label=>"Patient Qualifier" %>
+    						<%= f.input :tertiary_patient_amount, :label=>"Patient Amount" %>
+    						<%= f.input :tertiary_benefit_qualifier, :label=>"Benefit Qualifier" %>
+    						<%= f.input :tertiary_benefit_amount, :label=>"Benefit Amount" %>
+   						 	<%= f.input :tertiary_control_number, :label=>"Control number" %>
+							</div>
+					</div>
+								
+		</div>  
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

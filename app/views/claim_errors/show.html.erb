@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept number:</strong>
+  <%= @claim_error.dept_number %>
+</p>
+
+<p>
+  <strong>Error type:</strong>
+  <%= @claim_error.error_type %>
+</p>
+
+<p>
+  <strong>Error code:</strong>
+  <%= @claim_error.error_code %>
+</p>
+
+<p>
+  <strong>Error text:</strong>
+  <%= @claim_error.error_text %>
+</p>
+
+<%= link_to 'Edit', edit_claim_error_path(@claim_error) %> |
+<%= link_to 'Back', claim_errors_path %>

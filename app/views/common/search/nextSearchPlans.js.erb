@@ -1,0 +1,6 @@
+$('.modal-backdrop').remove();
+$("#item_search_modal_partial").html(
+		"<%= escape_javascript(render partial: 'common/search/item_search_modal_template', locals: { searchItems: @searchItems } ) %>");
+$("#itemSearchModal").modal('toggle');
+$("#itemSearchModal_Keys1_9").focus();
+$(document).on("click", function(e) { $("#itemSearchModal_Keys1_9").focus(); });

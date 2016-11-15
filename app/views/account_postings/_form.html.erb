@@ -1,0 +1,23 @@
+<%= simple_form_for(@account_posting) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :master_account_number %>
+    <%= f.input :account_number %>
+    <%= f.input :post_date %>
+    <%= f.input :post_ticket_number %>
+    <%= f.input :post_ticket_sequence %>
+    <%= f.input :post_payor_id_number %>
+    <%= f.input :post_source, collection: AccountPosting.post_sources.keys,:selected => AccountPosting.post_sources.keys[@account_posting[:post_source].to_i] %>
+    <%= f.input :post_type, collection: AccountPosting.post_types.keys,:selected => AccountPosting.post_types.keys[@account_posting[:post_type].to_i] %>
+    <%= f.input :post_description %>
+    <%= f.input :post_medical_amount %>
+    <%= f.input :post_non_medical_amount %>
+    <%= f.input :post_tax_amount %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

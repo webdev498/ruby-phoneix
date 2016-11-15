@@ -1,0 +1,75 @@
+<%# parameters: searchPharamacies - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="pharmaciesSearchModal" role="dialog" aria-hidden="true">
+
+	<div>  <%# every search has the standard hidden search fields relevant to that particular search %>
+		<input type="hidden" name="search_pharmacy_id" id="search_pharmacy_id">
+		<input type="hidden" name="search_pharmacy_name" id="search_pharmacy_name">
+	</div>
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Item Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table table-condensed table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font"><input type="text" id="pharmaciesearchModal_Keys1_9" style="width:0.5px;" ></th></th>
+							<th class="phx-search-font">Active</th>
+							<th class="phx-search-font">Name</th>
+							<th class="phx-search-font">Address</th>
+							<th class="phx-search-font">City</th>
+							<th class="phx-search-font">State</th>
+							<th class="phx-search-font">NPI Number</th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchPharmacies.each do |pharmacy| %>
+							<% pharmaciesearchRowId = "pharmacyRow" + (choice += 1).to_s %>
+							<tr	id="<%=pharmaciesearchRowId%>"
+									class="phx-search-row clickable-pharmacyRow"
+									data-phx-search-pharmacy-id="<%= pharmacy.id %>"
+									data-phx-search-pharmacy-name="<%= pharmacy.display_name %>" >
+
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= pharmacy.active_flag ? "Y" : "N" %> </td>
+								<td class="phx-search-font"> <%= pharmacy.pharmacy_name %> </td>
+								<td class="phx-search-font"> <%= pharmacy.address1 %> </td>
+								<td class="phx-search-font"> <%= pharmacy.city %> </td>
+								<td class="phx-search-font"> <%= pharmacy.state %> </td>
+								<td class="phx-search-font"> <%= pharmacy.npi_number %> </td>
+							</tr>
+						<% end %> <!-- END OF item list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchPharmacies,
+						params: { controller: "pharmacies", action: "nextPharmacies"} , remote: true  unless searchPharmacies.empty? %>
+
+				<button id="pharmaciesearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+	<script>
+
+		<%= phx_search_modal_javascript "pharmacy" %>
+
+	</script>
+
+</div>

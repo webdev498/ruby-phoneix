@@ -1,0 +1,108 @@
+
+<%= form_for( @role ) do |f| %>
+
+<div class="col-lg-10">
+
+	<!-- working area title and nav -->
+	<div class="row span10 phx-working-area-nav">
+		<div class="col-xs-1 phx-hamburger-box">
+			<button class="phx-hamburger">|||</button>
+		</div>
+
+		<div style="height:50px;">
+			<row>
+				<div class="col-lg-8">
+					<div class="phx-working-area-title">Role Maintenance
+					</div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+					<p>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+					</p>
+				</div>
+			</row>
+		</div>
+
+		<!-- working area -->
+		<div class="containter-fluid" style="padding-top:30px;">
+
+			<!-- Primary Info -->
+			<div class="col-lg-4" style="background-color:#f9f9fa;">
+
+				<div class="phx-primary-info-column">
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="active">Name</label>
+						<%= f.text_field :name, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="initials">Resource Id</label>
+						<%= f.text_field :resource_id, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="password">Resource Type</label>
+						<%= f.text_field :resource_type, class: 'phx-form-control' %>
+					</div>
+				</div>
+
+				<div class="actions"><%= f.submit %>
+				</div>
+
+			</div> <!-- end of container fluid for Primary Info -->
+
+		</div> <!-- end of Primary Info col lg def -->
+
+		<div class="col-lg-8" style="background-color:#f9f9fa;">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">General Info</a></li>
+				<li><a href="#secondary" role="tab" data-toggle="tab">Secondary Info</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content" style="padding-top:30px; background:#ffffff">
+
+				<div class="tab-pane active" id="generalPane">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- First panel, first column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF first panel, first column -->
+
+							<!-- First panel, second column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF first panel, second column -->
+
+						</row>
+
+					</div> <!-- panel container-fluid -->
+
+				</div>
+
+				<div class="tab-pane" id="secondary">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- SECOND panel, 1st column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF SECOND panel, second column -->
+
+							<!-- SECOND panel, 1st column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF SECOND panel, second column -->
+
+						</row>
+
+					</div>
+
+				</div>
+			</div> <!-- end of col lg 10 -->
+
+			<% end %>

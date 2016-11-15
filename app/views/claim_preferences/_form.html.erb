@@ -1,0 +1,20 @@
+<%= simple_form_for(@claim_preference) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rna_plan_id_code %>
+    <%= f.input :rx_number %>
+    <%= f.input :fill_number %>
+    <%= f.input :product_count %>
+    <%= f.input :product_copay_incentive %>
+    <%= f.input :product_incentive %>
+    <%= f.input :product_name %>
+    <%= f.input :product_id_number %>
+    <%= f.input :product_qualifier %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

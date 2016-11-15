@@ -1,0 +1,87 @@
+<%= simple_form_for(@customer_plan) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.hidden_field :dept_number %>
+    <%= f.hidden_field :rna_customer_id_number %>
+    
+    <div style="block:inline">                          
+        <div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+           <div style="float:left; border-style:none; width:390px; height: 540px; padding-left:15px; padding-top: 5px;">
+                <h3>Plan Information</h3> 
+             <%= f.input :active_flag %>                  
+                <%= f.input :rna_plan_id_code %>
+                <%= f.input :sequence_number %>
+                <%= f.input :plan_type, collection: CustomerPlan.plan_types.keys,:selected => CustomerPlan.plan_types.keys[@customer_plan[:plan_type].to_i] %>
+                <%= f.input :plan_abb_name, label:"Plan Abbreviation" %>
+                </br>
+                <%= f.input :plan_first_name, label:"First Name" %>
+                <%= f.input :plan_last_name, label:"Last Name" %>
+                <%= f.input :plan_card_number, label:"Card ID Number" %>
+                <%= f.input :plan_group_number, label:"Group Number" %>                
+                <%= f.input :plan_number, label:"Plan Number" %>
+                <%= f.input :plan_person_code, label:"Person Code" %>
+                <%= f.input :plan_relationship_code, collection: CustomerPlan.plan_relationship_codes.keys,:selected => CustomerPlan.plan_relationship_codes.keys[@customer_plan[:plan_relationship_code].to_i] %>
+                <%= f.input :plan_other_insurance_code, label:"Other Insurance" %>
+                </br>
+                <%= f.input :plan_cardholder_first_name, label:"Cardholder First Name" %>
+                <%= f.input :plan_cardholder_last_name, label:"Cardholder Last Name" %>
+                <%= f.input :plan_start_date, lable:"Start Date" %>
+                <%= f.input :plan_end_date, label:"End Date" %>
+                <%= f.input :plan_date_of_injury, label:"Date of Injury" %>
+           </div>
+       </div>
+ 
+     <div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+         <div style="border-style:none; width:390px; height: 540px; padding-left:15px; padding-top: 5px;">			
+             <%= f.input :plan_assist_drug_ndc, label:"Copay Assistance NDC" %>
+             <%= f.input :plan_prior_authorization, label:"Prior Authorization #" %>
+             <%= f.input :plan_prior_authorization_type, label:"Prior Authorization Type", collection: CustomerPlan.plan_prior_authorization_types.keys,:selected => CustomerPlan.plan_prior_authorization_types.keys[@customer_plan[:plan_prior_authorization_type].to_i] %>
+             <%= f.input :plan_facility_id, label:"Facility ID" %>
+             <%= f.input :plan_location_code, label:"location_code" %>
+             <%= f.input :plan_home_plan, label:"Home Plan" %>
+             <%= f.input :plan_eligibility_code, label:"Eligibility Code" %>
+             <%= f.input :plan_employee_id, label:"Employee ID" %>
+             <%= f.input :plan_universal_id, label:"Universal ID Number" %>
+             <%= f.input :plan_universal_id_type, label:"Universal ID Type" %>
+             </br>
+             <%= f.input :plan_limit_of_rx %>
+             <%= f.input :plan_current_number_rx %>
+             <%= f.input :plan_current_amount %>
+             <%= f.input :plan_ytd_number_rx %>
+             <%= f.input :plan_ytd_amount %>
+             <%= f.input :plan_medigap_id %>
+             <%= f.input :plan_state_medicaid %>
+             <%= f.input :plan_medicaid_id %>          
+         </div>
+     </div>
+     <div style="float:left; border-style: dotted; border-width: thin; width:400px;">
+         <div style="border-style:none; width:390px; height: 540px; padding-left:15px; padding-top: 5px;">
+             <%= f.input :plan_employer_name, label:"Employer Name" %>
+             <%= f.input :plan_employer_address, label:"Employer Address" %>
+             <%= f.input :plan_employer_city, label:"Employer City" %>
+             <%= f.input :plan_employer_state, label:"Employer State" %>
+             <%= f.input :plan_employer_zip_code, label:"Employer Zip Code" %>
+             <%= f.input :plan_employer_phone, label:"Employer Phone" %>
+             <%= f.input :plan_employer_contact, label:"Employer Contact" %>
+             <%= f.input :plan_employer_carrier_id, label:"Employer Carrier" %>
+             <%= f.input :plan_employer_claim_number, label:"Employer Claim Number" %>
+             <%= f.input :plan_carrier_id_number, label:"Carrier ID Number" %>
+             </br>    
+             <%= f.input :plan_brand_name_copay, label:"Brand Fixed Copay" %>
+             <%= f.input :plan_generic_drug_copay, label:"Generic Fixed Copay" %>
+             <%= f.input :plan_brand_name_copay_pct, label:"Brand Fixed Copay Pct" %>
+             <%= f.input :plan_generic_copay_pct, label:"Generic Fixed Copay Pct" %>
+             <%= f.input :plan_ytd_copay, label:"Year-To-Date Copay" %>
+             <%= f.input :plan_ytd_copay_limit, label:"Year-to-Date Copay Limit" %>
+             <%= f.input :plan_fixed_copay, label:"Fixed Copay" %>
+             <%= f.input :plan_higher_copay, label:"Higher Copay" %>
+             <%= f.input :plan_begin_range, label:"Higher Copay Begins at" %>
+         </div>
+     </div>
+  </div>
+</div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+<%= simple_form_for(@claim_authorization) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rx_number %>
+    <%= f.input :fill_number %>
+    <%= f.input :rna_plan_id_code %>
+    <%= f.input :claim_type, collection: ClaimAuthorization.claim_types.keys,:selected => ClaimAuthorization.claim_types.keys[@claim_authorization[:claim_type].to_i] %>
+    <%= f.input :authorization_number %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

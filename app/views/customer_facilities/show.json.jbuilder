@@ -1,0 +1,1 @@
+json.extract! @customer_facility, :id, :dept_number, :facility_id_number, :wing_id, :room_number, :bed_number, :rna_customer_id_number, :admission_date, :discharge_date, :medical_record_number, :level_of_care, :rehabilitation_potential, :last_review_date, :diet_orders, :lab_orders, :activity_orders, :diagnosis, :created_at, :updated_at

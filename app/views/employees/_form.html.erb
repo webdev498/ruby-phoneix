@@ -1,0 +1,157 @@
+<%# employee form %>
+
+<%= form_for @employee do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+            <%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info row">
+				<div class="col-lg-8">
+					<div class="phx-working-area-title">Employee Maintenance
+						<% if @employee.display_name %>
+							<span style="font-weight:font-weight: bold;bold;" id="employee_display_name">
+								&nbsp;&nbsp;|&nbsp;&nbsp;<%= @employee.display_name %>
+					      	</span>
+						<% end %>
+					</div>
+				</div>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+                    <!-- hidden field div to grab the value from the modal -->
+                    <div id="hidden_fields">
+                    </div>
+
+					<div style="margin: 20px;" class="pull-right">
+						<%= phx_toggle_slider f, :active, 'Active', 'Inactive' %>
+					</div>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+					<%= phx_textfield_for f, :employee_id, "Employee Id" %>
+
+                    <%= phx_textsearchfield_for f, :last_name, "Last Name" %>
+
+                    <%= phx_textfield_for f, :first_name, "First Name" %>
+
+					<%= phx_textfield_for f, :middle_name, "Middle Name" %>
+
+                    <%= phx_textfield_for f, :initials, "Initials" %>
+
+					<%= phx_textfield_for f, :social_security_number, "Social Security Number" %>
+
+					<%= phx_textfield_for f, :employee_title, "Title" %>
+
+					<%= phx_textfield_for f, :credentials, "Credentials" %>
+
+					<%= phx_textfield_for f, :license_number, "License Number" %>
+
+					<%= phx_textfield_for f, :npi_number, "NPI Number" %>
+
+					<%= phx_datefield_for f, :date_hired, "Date Hired" %>
+
+					<%= phx_datefield_for f, :date_left, "Date Left" %>
+
+                    <div class="phx-input-control-spacer"></div>
+
+                    <%# use the same "persisted?" method & mechanism as rails to change the submit button's label %>
+					<button type="submit" class="btn btn-sm btn-default phx-btn-model-control-red pull-right">
+                        <%= @employee.persisted? ? "Update " : "Create " %>  Employee
+                    </button>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+				</div>
+
+			</div> <!-- end of container fluid for Primary Info -->
+
+		</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-6">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">Address</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+
+				<div class="tab-pane active" id="generalPane">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- First panel, first column -->
+							<div class="container-fluid col-lg-5">
+
+								<%= phx_textfield_for f, :address1, "Address" %>
+								<%= phx_textfield_for f, :address2, "" %>
+
+								<%= phx_textfield_for f, :city, "City" %>
+
+								<%= phx_textfield_for f, :state, "State" %>
+
+								<%= phx_textfield_for f, :zip_code, "Zip Code" %>
+
+								<div class="phx-input-control-spacer">&nbsp;</div>
+
+							</div> <!-- END OF first panel, second column -->
+						</row>
+
+					</div> <!-- panel container-fluid -->
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div> <!-- end of col lg 10 -->
+
+
+    <div id="employee_search_modal_partial">
+        <div id="employeeSearchModal"></div>
+    </div>
+
+<% end %>
+
+<script>
+
+    // define the search
+    var employee_srch = FEENX.Search.NewSearch('employee',
+        {   context:      '',
+            triggerField: 'last_name',
+            fieldPrefix:  '',
+            modalId:      'employeeSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/employees/' });
+
+    // additional attributes would be defined
+    employee_srch.addAttribute('last_name', false, '', null);
+    employee_srch.addAttribute('display_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    employee_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    employee_srch.dataFormattedAttributes();
+
+</script>

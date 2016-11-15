@@ -1,0 +1,2 @@
+module ClaimcobsHelper
+end

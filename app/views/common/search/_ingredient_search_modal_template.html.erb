@@ -1,0 +1,71 @@
+<div class="phx-modal container-fluid" id="itemSearchModal" role="dialog" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Item Search</h3>
+      </div>
+
+      <div class="modal-body">
+        <% choice = 0 %>
+        <table class="table">
+          <thead class="phx-search-row-header">
+          <tr>
+            <th class="phx-search-font"><input type="text" id="itemSearchModal_Keys1_9" style="width:0.5px;" ></th>
+            <th class="phx-search-font">NDC</th>
+            <th class="phx-search-font">GNC</th>
+            <th class="phx-search-font">Synonym</th>
+            <th class="phx-search-font">Item Name</th>
+            <th class="phx-search-font">Active</th>
+            <th class="phx-search-font">DEA Schedule<th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% searchItems.each do |item| %>
+              <tr	id="<%= 'itemSearchModal-row' + (choice += 1).to_s %>"
+                   class="phx-search-row clickable-itemSearchModal-row"
+                   data-phx-search-item-id="<%= item.id %>"
+                   data-phx-search-item-display_name="<%= item.display_name %>"
+                   data-phx-search-item-ndc_number="<%= item.ndc_number %>"
+                   data-phx-search-item-schedule="UNKNOWN SCHEDULE NUMBER IN DB"
+                   data-phx-search-item-package_size="<%= item.package_size %>"
+                   data-phx-search-item-last_awp_update_date="<%= item.last_awp_update_date %>" >
+
+                <td class="phx-search-font"> <%= choice %> </td>
+                <td class="phx-search-font"> <%= item.ndc_number %> </td>
+                <td class="phx-search-font"> &nbsp; </td>
+                <td class="phx-search-font"> <%= item.synonym %> </td>
+                <td class="phx-search-font"> <%= item.item_name %> </td>
+                <td class="phx-search-font"> <%= item.active ? "Yes" : "No" %> </td>
+                <td class="phx-search-font"> <%= item.dea_schedule%> </td>
+              </tr>
+          <% end %> <!-- END OF item list -->
+          </tbody>
+        </table>
+      </div> <!-- end of modal-body -->
+
+      </br>
+
+      <div class="modal-footer">
+        <%=	paginate searchItems,
+                      params: { controller: (searchController.nil? ? "items" : searchController),
+                                action: "nextIngredients"} , remote: true  unless searchItems.empty? %>
+
+        <button id="itemSearchModal_close_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                data-dismiss="modal"
+                aria-hidden="true">
+          Close</button>
+      </div>
+
+    </div>  <!-- end of modal-content -->
+
+  </div>  <!-- end of modal-dialog -->
+
+</div>
+
+<script>
+  $('#item_search_modal_partial').trigger('ingredientscontentchanged');
+</script>

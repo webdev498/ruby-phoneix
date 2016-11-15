@@ -1,0 +1,70 @@
+<!--  <a href="#alertsModal" data-toggle="modal">Alerts</a>    -->
+
+<div class="modal containter-fluid" id="searchAlertModal" role="dialog" aria-hidden="true"
+style="left:25%;top:20%;">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Alerts</h3>
+			</div>
+
+			<div class="modal-body">
+				<% @choice = 0 %>
+				<table class="table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font">&nbsp;</th>
+							<th class="phx-search-font">Time</th>
+							<th class="phx-search-font">Viewed</th>
+							<th class="phx-search-font">Viewed By</th>
+							<th class="phx-search-font">Type</th>
+							<th class="phx-search-font">Severity</th>
+							<th class="phx-search-font">Source</th>
+							<th class="phx-search-font">Message<th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% @alerts.each do |alert| %>    	
+							<tr id="alertRow<%= @choice += 1 %>" class="phx-search-row clickable-alertRow" data-alert_id="<%= alert.id %>" data-uuid="<%= alert.uuid %>">
+								<td class="phx-search-font"> <%= @choice %> </td>
+								<td class="phx-search-font"> <%= alert.event_time.strftime("%c") %> </td>
+								<td class="phx-search-font"> <%= yesno alert.viewed %> </td>
+								<td class="phx-search-font"> <%= alert.viewed_by %> </td>
+								<td class="phx-search-font"> <%= alert.event_type %> </td>
+								<td class="phx-search-font"> <%= alert.event_severity.to_s %> </td>
+								<td class="phx-search-font"> <%= alert.alert_source.to_s %> </td>
+								<td class="phx-search-font"> <%= alert.message %> </td>
+							</tr>      			
+						<% end %> <!-- END OF alert list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<button id="alert_modal_close_btn" class="btn btn-sm btn-default phx-btn-model-control-red" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+<script>
+
+	// save alert chosen from search modal
+	jQuery(document).ready(function($) {
+	    $(".clickable-alertRow").click(function() {
+//  	      $('#prescription_item_id').val( this.dataset.item_id );
+//    	    $('#prescription_item_display_name').val( this.dataset.item_name );
+//    	    $('#item_modal_close_btn').trigger("click");
+   		 });
+		});
+
+</script>
+
+</div>
+

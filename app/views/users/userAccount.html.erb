@@ -1,0 +1,223 @@
+<% phx_subnav_for :m_pharmacy %>
+
+<% provide(:pharmacy, "active") %>
+
+<%= form_for( @user ) do |user| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+            <%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info row">
+				<div class="col-lg-8">
+					<div class="phx-working-area-title">User Account  Maintenance
+						<% if @user.display_name %>
+							<span style="font-weight:font-weight: bold;bold;" id="user_display_name">
+								&nbsp;&nbsp;|&nbsp;&nbsp;<%= @user.display_name %>
+					      	</span>
+						<% end %>
+					</div>
+				</div>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+                    <div id="hidden_fields">
+                    </div>
+
+					<div style="margin: 20px;" class="pull-right">
+						<%= phx_toggle_slider user, :active, 'Active', 'Inactive' %>
+					</div>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+                    <%= phx_textsearchfield_for user, :last_name, "Last Name" %>
+
+                    <%= phx_textfield_for user, :first_name, "First Name" %>
+
+                    <%= phx_textfield_for user, :initials, "Initials" %>
+
+                    <%= phx_textfield_for user, :username, "Username" %>
+
+                    <%= phx_textfield_for user, :password, "Password" %>
+
+                    <%= phx_textfield_for user, :password_confirmation, "Password Confirmation" %>
+
+                    <%= phx_textarea_for user, :notes, "Notes", 3 %>
+
+                    <div class="phx-input-control-spacer"></div>
+
+					<button type="button" class="btn btn-sm btn-default phx-btn-model-control-red pull-right">Update User</button>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+				</div>
+
+			</div> <!-- end of container fluid for Primary Info -->
+
+		</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-6">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">Roles</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+
+				<div class="tab-pane active" id="generalPane">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- First panel, first column -->
+							<div class="container-fluid col-lg-5">
+
+
+	<%# need to change the br's %>
+<div class="row">
+	<div class="pull-left col-md-2"> Employee: </div>
+    <button onclick="get_employees( $('#user_employee_attributes_last_name').val() );" type="button" class="btn btn-sm btn-default phx-btn-model-control-white pull-right">Find Employee</button>
+</div>
+</br>
+								<%= user.fields_for :employee, :url => userChangeEmployee_path( @user,@user.employee ), action: "changeEmployee" do | employee| %>
+
+                                    <%= phx_textfield_for employee, :last_name, "Last Name" %>
+
+                                    <%= phx_textfield_for employee, :first_name, "First Name" %>
+
+                                    <div class="form-group phx-input-control-spacer"></div>
+    </br>
+                                    <%= employee.submit "Change Employee", value: "changeEmployee", class: "btn btn-sm btn-default phx-btn-model-control-red pull-right"  %>
+
+                                <% end %>
+
+							</div> <!-- END OF first panel, first column -->
+
+							<div class="container-fluid col-lg-1">
+							</div>
+
+							<!-- First panel, second column -->
+							<div class="container-fluid col-lg-6">
+								<% choice = 0 %>
+                                <table class="phx-table-borderless">
+                                    <thead>
+ 										<tr>
+                                            <th class="phx-table-head-borderless col-sm-11">Permissions
+												<button type="button" value="changePermissions" class="btn btn-sm btn-default phx-btn-model-control-red pull-right">Change Permissions</button>
+                                            </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+		                                <% Role.phx_roles.each do |k,v| %>
+		                                    <tr id="role_<%=choice += 1%>">
+												<td class="phx-table-detail-borderless" style="float: left; border-top: none !important;">
+                                                    <div class='form-inline phx-adjust-checkbox'>
+                                                        <div class="form-group phx-input-control">
+                                                            <div class="phx-checkbox form-control-static">
+                                                                <%= check_box_tag "user[roles][#{v.name}]", v.name, @user.role_names.include?(v.name) %>
+                                                                <label for="user_roles_<%=v.name%>"></label>
+                                                            </div>
+                                                            <label class="phx-checkbox-label" for="user_roles_<%=v.name%>"><%=v.description%></label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+		                                    </tr>
+		                                <% end %>
+                                    </tbody>
+                                </table>
+							</div> <!-- END OF first panel, second column -->
+	</br>
+						</row>
+
+					</div> <!-- panel container-fluid -->
+
+				</div>
+	            <div class="tab-pane" id="secondary">
+					<div class="container-fluid">
+	                   <row>
+							<!-- SECOND panel, 1st column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF SECOND panel, second column -->
+
+							<!-- SECOND panel, 1st column -->
+							<div class="container-fluid col-lg-4">
+							</div> <!-- END OF SECOND panel, second column -->
+	                   </row>
+					</div>
+				</div>
+
+			</div> <!-- end of col lg 10 -->
+
+
+    <div id="user_search_modal_partial">
+        <div id="userSearchModal">
+        </div>
+    </div>
+
+    <div id="employee_search_modal_partial">
+        <div id="employeeSearchModal">
+        </div>
+    </div>
+
+<% end %>
+
+<script>
+
+    // define the search
+    var user_srch = FEENX.Search.NewSearch('user',
+        {   context:      '',
+            triggerField: 'last_name',
+            fieldPrefix:  '',
+            modalId:      'userSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/users/' });
+
+    // additional attributes would be defined
+    user_srch.addAttribute('last_name', false, '', null);
+    user_srch.addAttribute('display_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    user_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    user_srch.dataFormattedAttributes();
+
+
+    // define the search
+    var employee_srch = FEENX.Search.NewSearch('user',
+        {   context:      '',
+            triggerField: '',
+            fieldPrefix:  '',
+            modalId:      'employeeSearchModal',
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/employees/' });
+
+    // additional attributes would be defined
+    employee_srch.addAttribute('last_name', false, '', null);
+
+    // create the corresponding hidden fields in the form
+    employee_srch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    employee_srch.dataFormattedAttributes();
+
+
+</script>

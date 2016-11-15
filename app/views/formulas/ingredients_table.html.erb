@@ -1,0 +1,23 @@
+<thead class="">
+<tr class="">
+  <th style="background-color:#f9f9fa;" >Ingredient</th>
+  <th style="background-color:#f9f9fa;">Basis</th>
+  <th style="background-color:#f9f9fa;">Quantity</th>
+  <th style="background-color:#f9f9fa;">Cost</th>
+  <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+</tr>
+</thead>
+<tbody>
+  <% @ingredients.each do |fff| %>
+    <tr class="" id="compound_ingredient_<%= fff.id %>">
+      <td><input id="ingredient-name-<%= fff.id %>" class="existing-ingredient-name" value="<%=fff.name %>" tabindex="0" type="text" autocomplete="off"/></td>
+      <td <%= fff.id %>"><%= @item.price_basis.humanize %></td>
+      <td ><input class="existing-ingredient-quantity" id="ingredient-quantity-<%= fff.id %>" tabindex="0" type="text" value="<%=fff.quantity%>" autocomplete="off"/></td>
+      <td id="ingredient-base-cost-<%= fff.id %>"><%= fff.base_cost %></td>
+      <td>
+        <span role="button" type="button" id="ingredient-delete-<%= fff.id %>" class="btn btn-danger button button-danger ingredient-delete" tabindex="0">-</span>
+        <!-- link_to "-", "/formulas/removeIngredient/#{fff.id}", method: "delete", class: "button button-danger btn btn-xs btn-default phx-btn-model-control-red", remote: true -->
+      </td>
+    </tr>
+  <% end %>
+</tbody>

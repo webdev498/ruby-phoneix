@@ -1,0 +1,67 @@
+<%= simple_form_for(@customer_plan) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :dept_number %>
+    <%= f.input :rna_customer_id_number %>
+    <%= f.input :rna_plan_id_code %>
+    <%= f.input :sequence_number %>
+    <%= f.input :plan_type %>
+    <%= f.input :plan_abb_name %>
+    <%= f.input :active_flag %>
+    <%= f.input :plan_start_date %>
+    <%= f.input :plan_end_date %>
+    <%= f.input :plan_prior_authorization %>
+    <%= f.input :plan_prior_authorization_type %>
+    <%= f.input :plan_first_name %>
+    <%= f.input :plan_last_name %>
+    <%= f.input :plan_card_number %>
+    <%= f.input :plan_number %>
+    <%= f.input :plan_group_number %>
+    <%= f.input :plan_person_code %>
+    <%= f.input :plan_relationship_code %>
+    <%= f.input :plan_other_insurance_code %>
+    <%= f.input :plan_home_plan %>
+    <%= f.input :plan_eligibility_code %>
+    <%= f.input :plan_employee_id %>
+    <%= f.input :plan_universal_id %>
+    <%= f.input :plan_universal_id_type %>
+    <%= f.input :plan_cardholder_first_name %>
+    <%= f.input :plan_cardholder_last_name %>
+    <%= f.input :plan_facility_id %>
+    <%= f.input :plan_location_code %>
+    <%= f.input :plan_limit_of_rx %>
+    <%= f.input :plan_current_number_rx %>
+    <%= f.input :plan_current_amount %>
+    <%= f.input :plan_ytd_number_rx %>
+    <%= f.input :plan_ytd_amount %>
+    <%= f.input :plan_date_of_injury %>
+    <%= f.input :plan_medigap_id %>
+    <%= f.input :plan_state_medicaid %>
+    <%= f.input :plan_medicaid_id %>
+    <%= f.input :plan_employer_name %>
+    <%= f.input :plan_employer_address %>
+    <%= f.input :plan_employer_city %>
+    <%= f.input :plan_employer_state %>
+    <%= f.input :plan_employer_zip_code %>
+    <%= f.input :plan_employer_phone %>
+    <%= f.input :plan_employer_contact %>
+    <%= f.input :plan_employer_carrier_id %>
+    <%= f.input :plan_employer_claim_number %>
+    <%= f.input :plan_carrier_id_number %>
+    <%= f.input :plan_assist_drug_ndc %>
+    <%= f.input :plan_brand_name_copay %>
+    <%= f.input :plan_generic_drug_copay %>
+    <%= f.input :plan_brand_name_copay_pct %>
+    <%= f.input :plan_generic_copay_pct %>
+    <%= f.input :plan_ytd_copay %>
+    <%= f.input :plan_ytd_copay_limit %>
+    <%= f.input :plan_fixed_copay %>
+    <%= f.input :plan_higher_copay %>
+    <%= f.input :plan_begin_range %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

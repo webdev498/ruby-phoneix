@@ -1,0 +1,73 @@
+<%# parameters: searchUsers - collection/scope for searching %>
+
+<div class="phx-modal containter-fluid" id="userSearchModal" role="dialog" aria-hidden="true">
+
+	<div>  <%# every search has the standard hidden search fields relevant to that particular search %>
+		<input type="hidden" name="search_user_id" id="search_user_id">
+		<input type="hidden" name="search_user_name" id="search_user_name">
+	</div>
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h3>Item Search</h3>
+			</div>
+
+			<div class="modal-body">
+				<% choice = 0 %>
+				<table class="table table-condensed table-hover">
+		  		<thead class="phx-search-row-header">
+  		  		<tr>
+							<th class="phx-search-font"><input type="text" id="userSearchModal_Keys1_9" style="width:0.5px;" ></th></th>
+							<th class="phx-search-font">Active</th>
+							<th class="phx-search-font">Last Name</th>
+							<th class="phx-search-font">First Name</th>
+							<th class="phx-search-font">Initials</th>
+							<th class="phx-search-font">Username</th>
+							<th class="phx-search-font">ID</th>
+							<th class="phx-search-font">Updated</th>
+  		  		</tr>
+  				</thead>
+
+		  		<tbody>
+						<% searchUsers.each do |user| %>
+							<tr	id="<%= 'userSearchModal-row' + (choice += 1).to_s %>"
+								class="phx-search-row clickable-userSearchModal-row"
+									data-phx-search-user-id="<%= user.id %>"
+									data-phx-search-user_name="<%= user.display_name %>" >
+								<td class="phx-search-font"> <%= choice %> </td>
+								<td class="phx-search-font"> <%= user.active ? "Y" : "N" %> </td>
+								<td class="phx-search-font"> <%= user.last_name %> </td>
+								<td class="phx-search-font"> <%= user.first_name %> </td>
+								<td class="phx-search-font"> <%= user.initials %> </td>
+								<td class="phx-search-font"> <%= user.username %> </td>
+								<td class="phx-search-font"> <%= user.employee_id %> </td>
+								<td class="phx-search-font"> <%= user.updated_at %> </td>
+							</tr>
+						<% end %> <!-- END OF item list -->
+ 			 		</tbody>
+				</table>
+			</div> <!-- end of modal-body -->
+
+			</br>
+
+			<div class="modal-footer">
+				<%=	paginate searchUsers,
+						params: { controller: "users", action: "nextUsers"} , remote: true  unless searchUsers.empty? %>
+
+				<button id="userSearchModal_close_btn"
+						class="btn btn-sm btn-default phx-btn-model-control-red"
+						data-dismiss="modal"
+						aria-hidden="true">Close</button>
+			</div>
+
+		</div>  <!-- end of modal-content -->
+
+	</div>  <!-- end of modal-dialog -->
+
+</div>
+
+<script>
+	$('#user_search_modal_partial').trigger('contentchanged');
+</script>

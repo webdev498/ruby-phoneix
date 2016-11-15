@@ -1,0 +1,2 @@
+$("#customer_search_modal_partial").html(
+		"<%= escape_javascript(render partial: 'common/search/customer_search_modal_template', locals: { searchCustomers: @searchCustomers, searchController: @searchController } ) %>");

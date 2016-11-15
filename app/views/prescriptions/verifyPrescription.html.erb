@@ -1,0 +1,141 @@
+<% phx_subnav_for :m_prescription %>
+
+<% provide(:prescription, "active") %>
+
+<%= form_tag( rxVerification_path, { id: "rxVerification-form", method: "get" } ) do %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Prescription Verification
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+                    <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                        Rx Verification
+                        </div>
+                    </div>
+
+                    <div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+                    <div class="form-group phx-input-control-spacer" style="margin-bottom:-20px;">&nbsp;</div>
+
+                    <div class="form-group phx-input-control">
+						<label class="phx-form-control-label" for="rx_number">Prescription Number</label>
+                        <%= text_field_tag :rx_number, nil, :class => "phx-form-control" %>
+					</div>
+
+                    <div class="form-group phx-input-control">
+						<label class="phx-form-control-label" for="dispensed_item">Dispensed Item</label>
+                        <%= text_field_tag :dispensed_item, nil, :class => "phx-form-control" %>
+                        <%= hidden_field_tag :dispensed_item_id, nil %>
+					</div>
+
+                    <div class="form-group phx-input-control">
+						<label class="phx-form-control-label" for="dispensed_item_name">Dispensed Item Name</label>
+                        <%= text_field_tag :dispensed_item_name, nil, :class => "phx-form-control", readonly: true %>
+					</div>
+
+                    <div class="form-group phx-input-control">
+						<label class="phx-form-control-label" for="match_status">&nbsp;</label>
+                        <%= text_field_tag :match_status, @match_status, :class => "phx-form-control", readonly: true %>
+					</div>
+
+                    </br>
+                    <button type="submit" class="btn btn-sm btn-default phx-btn-model-control-red col-md-3 col-md-offset-7">Verify</button>
+
+                    <div class="field form-group phx-input-control-spacer">&nbsp;
+					</div>
+
+				</div>
+
+			</div> <!-- end of Primary Info col lg def -->
+
+		</div> <!-- end of container fluid for Primary Info -->
+
+		<!--  -->
+        <div class="col-lg-8">
+		</div>
+
+        <div id="item_search_modal_partial">
+            <div id="itemSearchModal">
+            </div>
+        </div>
+
+<% end %>
+
+<script>
+
+
+    //<%#  *** ITEMS  *** %>
+
+	$(function() {
+		$("#item_modal_partial .pagination a").on("click", function() {
+			$.getScript(this.href);
+			return false;
+		});
+	});
+
+
+	$('#dispensed_item').on("keypress", function(e) {
+		var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+		if(key == 13) {
+			$.get( "/prescription/nextItems?start="+$('#dispensed_item').val(),
+				 function( data ) {
+				 	// register the callback to save the information based
+				 	// on the change to search item id
+			        // $('#search_item_id').change( function(e) {
+					// 	$('#hidden_item_id').val( $('#search_item_id').val() );
+					// 	$('#hidden_item_name').val( $('#search_item_name').val() );
+					// 	$('#prescription_item_display_name').val( $('#search_item_name').val() );
+					// 	$('#prescription_item_id').val( $('#search_item_id').val() );
+					// 	});
+					});
+		        return false;
+		 }
+	});
+
+
+    //<%# bind selection event in the search back to a handler here %>
+    $('#item_search_modal_partial').on('shown.bs.modal', function () {
+        // unbind any prior search events - prevents multiple handlers for the same search modal
+        $( document ).off( "phx-selected-item" );
+
+        // bind the handler to the custom event
+        $( document ).on( "phx-selected-item",
+            function( event, selected_id, selected_name, selected_ndc_number ) {
+                $('#dispensed_item_name').val( selected_name );
+                $('#dispensed_item').val( selected_ndc_number );
+                $('#dispensed_item_id').val( selected_id );
+        });
+    })
+
+
+</script>

@@ -1,0 +1,1 @@
+json.extract! @ingredient, :id, :dept_number, :rna_item_id_number, :ndc_number, :basis_of_cost, :base_cost, :acquisition_cost, :quantity, :alternate_product_type, :alternate_product_code, :modifier_code1, :modifier_code2, :modifier_code3, :created_at, :updated_at

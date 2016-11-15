@@ -1,0 +1,257 @@
+<% phx_subnav_for :m_pharmacy %>
+
+<% provide(:rxoption, "active") %>
+
+<%= form_for( @rxoption ) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">System Parameters
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+				        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+        <div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+				<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<div class="field form-group phx-input-control-ccer"> &nbsp;
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="dept_number">Department</label>
+						<%= f.text_field :dept_number, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="days_until_expiration">Rx Default Expiration</label>
+						<%= f.text_field :days_until_expiration, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="last_new_rx_number">Last New Rx Number</label>
+						<%= f.text_field :last_new_rx_number, class: 'phx-form-control' %>
+					</div>
+
+					<%= phx_checkbox_for f, :require_date_written_entry, "Require Date Written" %>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="switch_type">Claims Switch</label>
+						<%= f.text_field :switch_type, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="system_type">System Type</label>
+						<%= f.text_field :system_type, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="system_network_type">Network Type</label>
+						<%= f.text_field :system_network_type, class: 'phx-form-control' %>
+					</div>
+
+					<div class="field form-group phx-input-control">
+						<label class="phx-form-control-label" for="cost_report_option">Cost to Use on Reports</label>
+						<%= f.text_field :cost_report_option, class: 'phx-form-control' %>
+					</div>
+
+					<%= phx_checkbox_for f, :erx_interface , "Electronic Prescribing" %>
+</br>
+					<%= phx_checkbox_for f, :use_erx_refill_authorization , "Electronic Refills" %>
+</br>
+					<%= phx_checkbox_for f, :print_erx_hard_copy , "Print Erx Hard Copy" %>
+</br>
+					<%= phx_checkbox_for f, :use_privacy_warning , "HIPPA Privacy Warning" %>
+</br>
+					<%= phx_checkbox_for f, :allow_rx_charge_account , "Allow Charge Accounts" %>
+</br>
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-6">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#generalPane" role="tab" data-toggle="tab">Processing</a></li>
+				<li><a href="#claimPanel2" role="tab" data-toggle="tab">Label</a></li>
+				<li><a href="#claimPanel3" role="tab" data-toggle="tab">Rx Filling</a></li>
+				<li><a href="#claimPanel4" role="tab" data-toggle="tab">Modules</a></li>
+				<li><a href="#claimPanel5" role="tab" data-toggle="tab">Interfaces</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+
+				<div class="tab-pane active" id="generalPane">
+					<div class="container-fluid">
+						<row>
+							<!-- GENERAL INFO, first column -->
+							<div class="container-fluid col-lg-5">
+
+									<%= phx_checkbox_for f, :use_split_billing, "Split Bill Rx's" %>
+</br>
+									<%= phx_checkbox_for f, :process_internet_claims, "Process Internet Claims" %>
+</br>
+									<%= phx_checkbox_for f, :use_realtime_drug_reporting, "Realtime PMP Reporting" %>
+</br>
+									<%= phx_checkbox_for f, :display_rx_profile, "Auto Display of Profile" %>
+</br>
+									<%= phx_checkbox_for f, :use_refill_thru, "Refill Thru Date" %>
+</br>
+									<%= phx_checkbox_for f, :use_daily_quantity, "Daily Quantity" %>
+</br>
+									<%= phx_checkbox_for f, :use_lot_number, "Lot Number" %>
+</br>
+									<%= phx_checkbox_for f, :use_expiration_date, "Use Drug Expiration Date" %>
+</br>
+									<%= phx_checkbox_for f, :use_dea_documentation, "Additional DEA Documentation" %>
+</br>
+									<%= phx_checkbox_for f, :submit_cash_rx, "Submit Cash Rx" %>
+</br>
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="submit_cash_paytype">Submit Cash Paytype</label>
+										<%= f.text_field :submit_cash_paytype, class: 'phx-form-control' %>
+									</div>
+</br>
+				                 </div> <!-- END OF first panel, first column -->
+
+							</div> <!-- END OF GENERAL INFO panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel2">
+							<div class="container-fluid">
+								<row>
+								<!-- PLAN panel, 1st column -->
+								<div class="container-fluid col-lg-4">
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="label_type">Label Type</label>
+										<%= f.text_field :label_type, class: 'phx-form-control' %>
+									</div>
+
+									<%= phx_checkbox_for f, :print_barcode_on_label, "Print Barcode on Label" %>
+</br>
+									<%= phx_checkbox_for f, :print_barcode_on_receipt, "Print Barcode on Receipt" %>
+</br>
+									<%= phx_checkbox_for f, :print_discount_on_label, "Print Discount on Label" %>
+</br>
+									<%= phx_checkbox_for f, :print_store_heading, "Print Store Heading" %>
+</br>
+									<%= phx_checkbox_for f, :print_pharmex_labels, "Print Warning Labels" %>
+</br>
+									<div class="field form-group phx-input-control-ccer"> &nbsp;
+									</div>
+
+								</div> <!-- END OF SECOND panel, second column -->
+								</row>
+							</div> <!-- END OF PLAN panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel3">
+							<div class="container-fluid">
+								<row>
+								<!-- PLAN panel, 1st column -->
+								<div class="container-fluid col-lg-4">
+									<%= phx_checkbox_for f, :display_customer_note, "Require Drug Pedigree" %>
+</br>
+									<%= phx_checkbox_for f, :display_customer_note, "Display Customer Note" %>
+</br>
+									<%= phx_checkbox_for f, :display_prescriber_note, "Display Prescriber Note" %>
+</br>
+									<%= phx_checkbox_for f, :display_rx_note, "Display Item Note" %>
+</br>
+									<%= phx_checkbox_for f, :display_item_note, "Display Rx Note" %>
+</br>
+									<%= phx_checkbox_for f, :use_discard_date, "Discard Date" %>
+</br>
+									<%= phx_checkbox_for f, :use_delivery_route, "Delivery Route" %>
+</br>
+									<%= phx_checkbox_for f, :use_route_of_administration, "Route of Administration" %>
+</br>
+									<%= phx_checkbox_for f, :use_manual_counseling, "Manual Counseling" %>
+</br>
+
+									<div class="field form-group phx-input-control">
+										<label class="phx-form-control-label" for="default_paytype_option">Default Paytype</label>
+										<%= f.text_field :default_paytype_option, class: 'phx-form-control' %>
+									</div>
+</br>
+								</div> <!-- END OF SECOND panel, second column -->
+								</row>
+							</div> <!-- END OF PLAN panel container-fluid -->
+						</div>
+
+						<div class="tab-pane" id="claimPanel4">
+							<div class="container-fluid">
+								<%= phx_checkbox_for f, :use_nursing_home, "Nursing Home Pkg" %>
+</br>
+								<%= phx_checkbox_for f, :use_text_message, "Send Text Messages" %>
+</br>
+								<%= phx_checkbox_for f, :use_rna_web_portal, "Web Portal" %>
+</br>
+								<%= phx_checkbox_for f, :use_doc_u_dose, "Doc-U-Dose" %>
+</br>
+								<%= phx_checkbox_for f, :use_workflow, "Workflow" %>
+</br>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="claimPanel5">
+							<div class="container-fluid">
+								<%= phx_checkbox_for f, :display_customer_note, "MedTablet Interface" %>
+</br>
+								<%= phx_checkbox_for f, :remote_prescriber_interface, "Remote Prescriber Interface" %>
+</br>
+								<%= phx_checkbox_for f, :remote_customer_interface, "Remote Customer Interface" %>
+</br>
+								<%= phx_checkbox_for f, :use_fax_interface, "Fax Interface" %>
+</br>
+								<%= phx_checkbox_for f, :customer_wellness, "Customer Wellness" %>
+</br>
+								<%= phx_checkbox_for f, :cover_my_meds_interface, "Cover My Meds" %>
+</br>
+								<%= phx_checkbox_for f, :prescribe_wellness_interface, "Prescribe Wellness" %>
+</br>
+								<%= phx_checkbox_for f, :script_ability_interface, "Script Ability" %>
+</br>
+								<%= phx_checkbox_for f, :netrx_interface, "NetRx" %>
+</br>
+								<%= phx_checkbox_for f, :display_customer_note, "I-Medicare" %>
+</br>
+								<%= phx_checkbox_for f, :ivr_interface, "IVR Interface" %>
+</br>
+								<div class="field form-group phx-input-control">
+									<label class="phx-form-control-label" for="robotic_interface">Robotic Interface</label>
+									<%= f.text_field :robotic_interface, class: 'phx-form-control' %>
+								</div>
+</br>
+							</div> <!-- END OF PLAN CONT'D panel container-fluid -->
+						</div>
+
+    	</div> <!-- end of col lg 10 -->
+
+<% end %>

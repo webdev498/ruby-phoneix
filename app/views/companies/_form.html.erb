@@ -1,0 +1,145 @@
+<%# company form %>
+
+<%= form_for @company do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+		<%# BEGIN Working Area TITLE and NAV %>
+		<div class="row span10 phx-working-area-nav">
+
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
+
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Company Maintenance
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+						<%= link_to "Show", user_path("1"), :method => "get", :class => "btn btn-sm btn-default phx-btn-model-control-white" %>
+						<button type="button" class="btn btn-sm btn-default phx-btn-model-control-red">Update</button>
+						<input type="submit" name="commit" value="Create" class="btn btn-sm btn-default phx-btn-model-control-red">
+					</div>
+				</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+			<!-- Primary Info -->
+	        <div class="col-lg-4">
+
+				<div class="phx-primary-info-column">
+
+					<%= f.hidden_field :id %>
+
+					<div style="margin: 20px;" class="pull-right">
+						<%= phx_toggle_slider f, :active, 'Active', 'Inactive' %>
+					</div>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+					<%= phx_textfield_for f, :number, "Company Number" %>
+
+					<%= phx_textfield_for f, :name, "Name" %>
+
+                    <%= phx_textfield_for f, :description, "Description" %>
+
+					<%= phx_textfield_for f, :account_number, "Account Number" %>
+
+                    <%= phx_textarea_for f, :memo, "Memo", 3 %>
+
+                    <div class="phx-input-control-spacer"></div>
+
+                    <%# use the same "persisted?" method & mechanism as rails to change the submit button's label %>
+					<button type="submit" class="btn btn-sm btn-default phx-btn-model-control-red pull-right">
+                        <%= @company.persisted? ? "Update " : "Create " %>  Company
+                    </button>
+
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+                    <div class="phx-input-control-spacer">&nbsp;</div>
+
+				</div>
+
+			</div> <!-- end of container fluid for Primary Info -->
+
+		</div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-6">
+
+			<!-- Tab labels -->
+			<ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#generalPane" role="tab" data-toggle="tab">Address</a></li>
+                <li><a href="#licensePane" role="tab" data-toggle="tab">License</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content phx-tab-pane">
+
+                <div class="tab-pane active" id="generalPane">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- First panel, first column -->
+							<div class="container-fluid col-lg-5">
+
+								<%= phx_textfield_for f, :address1, "Address" %>
+								<%= phx_textfield_for f, :address2, "" %>
+
+								<%= phx_textfield_for f, :city, "City" %>
+
+								<%= phx_textfield_for f, :state, "State" %>
+
+								<%= phx_textfield_for f, :zip_code, "Zip Code" %>
+
+								<div class="phx-input-control-spacer">&nbsp;</div>
+
+							</div> <!-- END OF first panel, second column -->
+						</row>
+
+					</div> <!-- panel container-fluid -->
+
+				</div>
+
+                <div class="tab-pane" id="licensePane">
+
+					<div class="container-fluid">
+
+						<row>
+							<!-- First panel, first column -->
+							<div class="container-fluid col-lg-5">
+
+                                LICENSE management
+								<div class="phx-input-control-spacer">&nbsp;</div>
+
+							</div> <!-- END OF first panel, second column -->
+						</row>
+
+					</div> <!-- panel container-fluid -->
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div> <!-- end of col lg 10 -->
+
+
+    <div id="company_search_modal_partial">
+        <div id="companySearchModal"></div>
+    </div>
+
+<% end %>
+
+<script>
+
+    <%= phx_search_form_javascript "company", "name" %>
+
+</script>
