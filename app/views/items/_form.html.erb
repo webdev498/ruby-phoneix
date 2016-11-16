@@ -55,17 +55,43 @@
 
             <%= phx_textsearchfield_for f, :item_name, "Item Name" %>
 
-            <%= phx_textfield_for f, :ndc_number, "NDC Number" %>
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :ndc_number, "NDC Number", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :synonym, "Synonym", 0, "col-md-6" %>
+            </div>
 
-            <%= phx_textfield_for f, :synonym, "Synonym" %>
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :brand_generic_compound, "Brand / Generic / Compound", 0, "col-md-6", Item.brand_generic_compounds, false %>
+                <%= phx_textfield_for f, :dea_schedule, "DEA Schedule", 0, "col-md-6", Item.dea_schedules, false %>
+            </div>
 
-            <%= phx_textfield_for f, :strength, "Strength" %>
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :strength, "Strength", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :strength_unit_measure_code, "Stength Unit Measure", 0, "col-md-6" %>
+            </div>
 
-            <%= phx_selectfield_for f, :brand_generic_compound, "Brand / Generic / Compound", Item.brand_generic_compounds, false %>
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :dosage_form, "Dosage Form", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :dosage_form_code, "Dosage Form Code", 0, "col-md-6" %>
+            </div>
 
-            <%= phx_selectfield_for f, :dea_schedule, "DEA Schedule", Item.dea_schedules, false %>
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :package_size, "Package Size", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :package_size_unit_measure, "Pkg Size Unit Measure", 0, "col-md-6" %>
+            </div>
 
-            <%= phx_textfield_for f, :package_size, "Package Size" %>
+            <%= phx_textfield_for f, :mfg_name, "Mfg Description" %>
+            <%= phx_textfield_for f, :brand_generic_xref, "Assigned Brand/Generic" %>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :drug_class, "Drug Class", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :dispensing_unit, "Dispense Unit", 0, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_checkbox_for f, :item_taxable, "Taxable", 0, "col-md-6" %>
+                <%= phx_checkbox_for f, :inventory, "Inventory", 0, "col-md-6" %>
+            </div>
 
             </br>
 
@@ -83,16 +109,13 @@
 
           <!-- Tab labels -->
           <ul class="nav nav-tabs" role="tablist">
-            <li
-            <% if !@item.compound? %> class="active"
-            <% end %> >
-              <a href="#itemPanel-general" role="tab" data-toggle="tab">Price & General Info</a></li>
-            <li
-            <% if @item.compound? %> class="active"
-            <% end %> >
-              <a href="#itemPanel-compound" role="tab" data-toggle="tab">Compounding</a></li>
-            <li><a href="#itemPanel-inventory" role="tab" data-toggle="tab">Inventory</a></li>
-            <li><a href="#itemPanel-pedigree" role="tab" data-toggle="tab">Pedigree</a></li>
+              <li  <%if !@item.compound? %> class="active"  <%end%> >
+                  <a href="#itemPanel-general" role="tab" data-toggle="tab">Price & General Info</a></li>
+              <li><a href="#itemPanel-clinical" role="tab" data-toggle="tab">Clinical</a></li>
+              <li  <%if @item.compound? %> class="active"  <%end%> >
+                  <a href="#itemPanel-compound" role="tab" data-toggle="tab">Compounding</a></li>
+              <li><a href="#itemPanel-inventory" role="tab" data-toggle="tab">Inventory</a></li>
+              <li><a href="#itemPanel-pedigree" role="tab" data-toggle="tab">Pedigree</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -108,51 +131,119 @@
                   <!-- First panel, first column -->
                   <div class="container-fluid col-lg-6">
 
-                    <%= phx_textfield_for f, :awp_unit_price, "AWP" %>
-
-                    <%= phx_textfield_for f, :mac_unit_price, "MAC" %>
-
-                    <%= phx_textfield_for f, :act_unit_price, "ACT" %>
-
-                    <%= phx_textfield_for f, :wac_unit_price, "WAC" %>
-
-                    <%= phx_textfield_for f, :govt_340b_unit_price, "340B" %>
-
-                    <%= phx_textfield_for f, :custom_unit_price, "Custom" %>
-
-                    <%= phx_textfield_for f, :last_awp_update_date, "Date of AWP Update" %>
-                    <div class=" field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="item_custom_unit_price">Undefined Schedule Number in
-                        DB</label><input class="phx-form-control" name="item[custom_unit_price]" id="item_custom_unit_price" type="text">
-                    </div>
-                    <div class=" field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="item_custom_unit_price">Undefined Quantity Schedule
-                        Number in
-                        DB</label><input class="phx-form-control" name="item[custom_unit_price]" id="item_custom_unit_price" type="text">
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :price_based_pricing_schedule, "Regular Price Schedule", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :quantity_based_pricing_schedule, "Qty Based Price Schedule", 0, "col-md-6" %>
                     </div>
 
-                    <%= phx_textfield_for f, :fed_tax, "Federal Tax" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :discard_age_days, "Discard Days", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :fed_tax, "Federal Tax", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :awp_unit_price, "AWP Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_awp_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :mac_unit_price, "MAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_mac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :act_unit_price, "Acquistion Cost Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_act_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :wac_unit_price, "WAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_wac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :govt_340b_unit_price, "340b Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_340b_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :contract_unit_price, "Contract Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_contract_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :nadac_unit_price, "NADAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_nadac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :custom_unit_price, "Custom Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_custom_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :on_contract, "On Contract", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :gpo_drug, "GPO Item", 0, "col-md-6" %>
+                    </div>
+
+                    </br>
+
+                    <%= "                     Price Update History" %>
 
                   </div> <!-- END OF first panel, first column -->
 
                   <!-- First panel, second column -->
                   <div class="container-fluid col-lg-6">
 
-                    <%= phx_textfield_for f, :quantity_on_hand, "Quantity on Hand" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :scanned_ndc_number, "Scanned NDC Number", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :quantity_on_hand, "Quantity on Hand", 0, "col-md-6" %>
+                    </div>
 
-                    <%= phx_textfield_for f, :drug_class, "* Drug Class" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :route_of_administration_code, "Route of Administration", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :mfg_name, "Manufacturer", 0, "col-md-6" %>
+                    </div>
 
-                    <%= phx_textfield_for f, :dispensing_unit, "Dispensing Unit" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :unit_of_measure, "Unit of Measure", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :potency_code, "Potency Code", 0, "col-md-6" %>
+                    </div>
 
-                    <%= phx_textfield_for f, :unit_of_measure, "Unit of Measure" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :state_billing_code, "State Billing Code", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :maintenance_code, "Maintenance Drug", 0, "col-md-6", Item.maintenance_codes, false %>
+                    </div>
 
-                    <%= phx_textfield_for f, :unit_of_measure, "ERX Unit of Measure" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :alternate_product_code, "Alternate Product Code", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :alternate_product_qualifier, "Type of Alternate Code", 0, "col-md-6" %>
+                    </div>
 
-                    <%= phx_textfield_for f, :counseling_code1, "Counseling Codes 1" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :upc_product_number, "UPC Number", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :upc_category, "POS Category", 0, "col-md-6" %>
+                    </div>
 
-                    <%= phx_textfield_for f, :counseling_code2, "Counseling Codes 2" %>
 
-                    <%= phx_textfield_for f, :counseling_code3, "Counseling Codes 3" %>
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :doc_u_dose, "Doc-U-Dose Item", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :remote_dispensing, "Remote Dispense", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :limited_distribution, "Limited Distribution", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :wellness_tracking, "Wellness Tracking", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :active_ingredient, "Active Ingredient", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :retest_date, "Re-Test Date", 0, "col-md-6" %>
+                    </div>
+
+                    <%= phx_textfield_for f, :memo, "Item Memo" %>
+                    <%= phx_textarea_for f, :notes, "Notes", 5 %>
+                    <%= phx_textarea_for f, :counseling_notes, "Counseling Notes", 4 %>
 
                     </br>
 
@@ -167,6 +258,46 @@
               </div>
 
             </div>
+
+            <div class="tab-pane" id="itemPanel-clinical">
+
+                 <div class="container-fluid">
+                     <row>
+                     <!-- Panel 2, 1st column -->
+                     <div class="container-fluid col-lg-5">
+
+
+                         <%= phx_checkbox_for f, :contains_acetaminophen, "Contains Acetaminophen" %>
+                         <%= phx_checkbox_for f, :contains_pseudoephedrine, "Contains Pseudoephedrine" %>
+                         <%= phx_textfield_for f, :imprint_side1, "Imprint Side 1" %>
+                         <%= phx_textfield_for f, :imprint_side2, "Imprint Side 2" %>
+                         <%= phx_textfield_for f, :color, "Color" %>
+                         <%= phx_textfield_for f, :coating, "Coating" %>
+                         <%= phx_textfield_for f, :clarity, "Clarity" %>
+                         <%= phx_textfield_for f, :flavor, "Flavor" %>
+                         <%= phx_textfield_for f, :shape, "Shape" %>
+                         <%= phx_textfield_for f, :scored, "scored" %>
+                         <%= phx_textfield_for f, :appearance_text, "Appearance" %>
+                         <%= phx_textfield_for f, :label_warnings, "Label Warnings" %>
+
+                       </br>
+
+                     </div>
+
+                     <div class="col-lg-7">
+                         <div class="phx-input-control-spacer">
+                         </div>
+                         <%= phx_textfield_for f, :black_box_file_name, "Black Box File" %>
+                         <%= phx_textfield_for f, :monitoring_program, "Monitoring Program" %>
+                         <%= phx_textfield_for f, :monitoring_file_name, "Monitoring File" %>
+                         <%= phx_textfield_for f, :monograph_file_name, "Monograph" %>
+                         <%= phx_textfield_for f, :medication_guide_file_name, "Medication Guide" %>
+                     </div>
+
+                 </div> <!-- END OF Panel 2 -->
+             </div>
+
+
 
             <div class="tab-pane
               <% if f.object.compound? %> active
