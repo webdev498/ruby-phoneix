@@ -22,8 +22,50 @@
  */
 var FEENX = FEENX || {};
 
+function openSelectionModal(caption,tblHtml,dtUrl, rowSelHandler) {
+
+    $.get( dtUrl, function( data ) {
+        var res ='';
+        // $('#myModal').keydown(function(event){
+        //     var keycode = event.which;
+        //     if (keycode >= 49 && keycode < 58 )
+        //     {
+        //         var id = data[keycode-49]['id'];
+        //         $('#myModal').modal('hide');
+        //         location.href= id + '/edit';
+        //         $('#myModal').unbind("keydown");
+        //     }
+        // });
+        var rNo = 1;
+        data.forEach(function(item) {
+            res+='<tr>';
+            res+='<td>'+rNo+'</td>'
+            for (prop in item) {
+                if (prop == 'id')
+                    continue;
+                if(item[prop] == null)
+                    item[prop]='';
+                res += '<td>' + item[prop] + '</td>';
+            }
+            rNo++;
+            res+='</tr>';
+        });
+
+        $('#modal_table').html(tblHtml);
+        $('#myModalLabel').html(caption);
+        $('#modal_table').append(res);
+        $('#modal_table tr').click(function() {
+            var id = data[$(this).index()]['id'];
+            rowSelHandler( id );
+            $('#modal_table_tr').unbind("click")
+        });
+        $('#myModal').modal('show');
+    });
+}
+
 
 $(document).ready(function() {
+
     $('.float-dollar > input').each(function(index){
         var break_type = $('#price_schedule_break_type').val();
         var precision = 3;
@@ -109,11 +151,11 @@ $(document).ready(function() {
                             res += '<td>' + item['rx_number'] + '</td>';
                             res += '<td>' + item['fill_number'] + '</td>';
                             res += '<td>' + item['plan_id_code'] + '</td>';
-                            res += '<td> </td>';
+                            res += '<td>'+ item['last_name'] +  '</td>';
                             res += '<td>'+ item['date_filled'] +  '</td>';
                             res += '<td> </td>';
                             res += '<td>' + item['status'] + '</td>';
-                            res += '<td></td>';
+                            res += '<td>' +  Math.abs(item['total_submitted']*1.0 - item['cost_submitted']).toFixed(2) + '</td>';
                             res+='</tr>';
                             seq++;
                         });
@@ -127,7 +169,7 @@ $(document).ready(function() {
                             <th style='background-color:#f9f9fa;' >Date Filled</th> \
                             <th style='background-color:#f9f9fa;' >Truncated Drug Name</th> \
                             <th style='background-color:#f9f9fa;' >Status</th> \
-                            <th style='background-color:#f9f9fa;' >Difference between Total Submitted and Total Reimbursed</th>\
+                            <th style='background-color:#f9f9fa;' >Diff </th>\
                         </tr>\
                         </thead>\
                         <tbody>\
@@ -151,6 +193,7 @@ $(document).ready(function() {
                 });
                 $('#myModal').modal('show');
             });
+            return false;
         }
     });
 
@@ -236,11 +279,11 @@ $(document).ready(function() {
                             res += '<td>' + item['rx_number'] + '</td>';
                             res += '<td>' + item['fill_number'] + '</td>';
                             res += '<td>' + item['plan_id_code'] + '</td>';
-                            res += '<td> </td>';
+                            res += '<td>'+ item['last_name'] +  '</td>';
                             res += '<td>'+ item['date_filled'] +  '</td>';
                             res += '<td> </td>';
                             res += '<td>' + item['status'] + '</td>';
-                            res += '<td></td>';
+                            res += '<td>' +  Math.abs(item['total_submitted']*1.0 - item['cost_submitted']).toFixed(2) + '</td>';
                             res+='</tr>';
                             seq++;
                         });
@@ -254,7 +297,7 @@ $(document).ready(function() {
                             <th style='background-color:#f9f9fa;' >Date Filled</th> \
                             <th style='background-color:#f9f9fa;' >Truncated Drug Name</th> \
                             <th style='background-color:#f9f9fa;' >Status</th> \
-                            <th style='background-color:#f9f9fa;' >Difference between Total Submitted and Total Reimbursed</th>\
+                            <th style='background-color:#f9f9fa;' > Diff</th>\
                         </tr>\
                         </thead>\
                         <tbody>\
@@ -278,6 +321,7 @@ $(document).ready(function() {
                 });
                 $('#myModal').modal('show');
             });
+            return false;
         }
     });
 
@@ -309,11 +353,11 @@ $(document).ready(function() {
                     res += '<td>' + item['rx_number'] + '</td>';
                     res += '<td>' + item['fill_number'] + '</td>';
                     res += '<td>' + item['plan_id_code'] + '</td>';
-                    res += '<td> </td>';
+                    res += '<td>'+ item['last_name'] +  '</td>';
                     res += '<td>'+ item['date_filled'] +  '</td>';
                     res += '<td> </td>';
                     res += '<td>' + item['status'] + '</td>';
-                    res += '<td></td>';
+                    res += '<td>' +  Math.abs(item['total_submitted']*1.0 - item['cost_submitted']).toFixed(2) + '</td>';
                     res+='</tr>';
                     seq++;
                 });
@@ -327,7 +371,7 @@ $(document).ready(function() {
                         <th style='background-color:#f9f9fa;' >Date Filled</th> \
                         <th style='background-color:#f9f9fa;' >Truncated Drug Name</th> \
                         <th style='background-color:#f9f9fa;' >Status</th> \
-                        <th style='background-color:#f9f9fa;' >Difference between Total Submitted and Total Reimbursed</th>\
+                        <th style='background-color:#f9f9fa;' >Diff</th>\
                     </tr>\
                     </thead>\
                     <tbody>\
@@ -378,11 +422,11 @@ $(document).ready(function() {
                     res += '<td>' + item['rx_number'] + '</td>';
                     res += '<td>' + item['fill_number'] + '</td>';
                     res += '<td>' + item['plan_id_code'] + '</td>';
-                    res += '<td> </td>';
+                    res += '<td>'+ item['last_name'] +  '</td>';
                     res += '<td>'+ item['date_filled'] +  '</td>';
                     res += '<td> </td>';
                     res += '<td>' + item['status'] + '</td>';
-                    res += '<td></td>';
+                    res += '<td>' +  Math.abs(item['total_submitted']*1.0 - item['cost_submitted']).toFixed(2) + '</td>';
                     res+='</tr>';
                     seq++;
                 });
@@ -396,7 +440,7 @@ $(document).ready(function() {
                         <th style='background-color:#f9f9fa;' >Date Filled</th> \
                         <th style='background-color:#f9f9fa;' >Truncated Drug Name</th> \
                         <th style='background-color:#f9f9fa;' >Status</th> \
-                        <th style='background-color:#f9f9fa;' >Difference between Total Submitted and Total Reimbursed</th>\
+                        <th style='background-color:#f9f9fa;' >Diff</th>\
                     </tr>\
                     </thead>\
                     <tbody>\
@@ -416,6 +460,7 @@ $(document).ready(function() {
                 });
                 $('#myModal').modal('show');
             });
+            return false;
         }
     });
 
@@ -507,7 +552,7 @@ $(document).ready(function() {
                });
                data.forEach(function(item) {
 
-
+    
                    res+='<tr>';
                    for (prop in item) {
                        if(item[prop]== null)
@@ -517,7 +562,7 @@ $(document).ready(function() {
                    res += '<td>' + item['abbreviated_name'] + '</td>';
                    res += '<td>' + item['bin_number'] + '</td>';
                    res += '<td>' + item['plan_type'] + '</td>';
-
+    
                    res+='</tr>';
                });
                var tbl_html = "<thead>\
@@ -531,7 +576,7 @@ $(document).ready(function() {
                     <tbody>\
                     </tbody>";
                $('#modal_table').html(tbl_html);
-
+    
                $('#modal_table').append(res);
                $('#modal_table tr').click(function() {
                    var plan_id_code = data[$(this).index()]['plan_id_code'];
@@ -545,6 +590,7 @@ $(document).ready(function() {
        }
     });
     // $("#tabs > li:nth-child(5)").addClass('disabled');
+
     $("#tabs > li").click(function(){
         if($(this).hasClass("disabled"))
             return false;
@@ -610,3 +656,6 @@ function modal_click() {
         $('#myModal').modal('show');
     });
 }
+
+
+
