@@ -36,166 +36,183 @@
 
           <div class="phx-primary-info-column">
 
-            <!-- hidden field div to grab the value from the modal -->
-            <div id="hidden_fields">
-            </div>
+            <!--<div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>-->
 
-            <div class="form-group phx-input-control-spacer" style="margin-bottom: -25px;">&nbsp;</div>
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Primary Info
+              </div>
+            </div>
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+
+            <!--<div class="form-group phx-input-control-spacer" style="margin-bottom: -25px;">&nbsp;</div>-->
 
             <div class="row phx-two-horizontal-controls">
               <%= phx_textfield_for f, :initials, "Cashier", 0, "col-md-6" %>
               <%= phx_textfield_for f, :register_number, "Register Number", 0, "col-md-6" %>
             </div>
 
-            <div class="row ">
-              <%= phx_textfield_for f, :transaction_date, "Transaction Date", 0, "col-md-12" %>
+            <div class="row phx-two-horizontal-controls">
+              <%= phx_textfield_for f, :transaction_date, "Transaction Date", 0, "col-md-6" %>
             </div>
-            <div class="field form-group phx-input-control-spacer">&nbsp;
-              </br>
+          </div>
+          <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+          <div class="phx-primary-info-column">
+            <!--<div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>-->
+
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Cost Breakdown
+              </div>
             </div>
-            <div class="row ">
-              Cost Breakdown
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+
+            <div class="row phx-two-horizontal-controls">
+              <%= phx_textfield_for f, :medical_amount, "Medical", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :medical_tax, "Tax", 0, "col-md-6" %>
+
             </div>
             <div class="row phx-two-horizontal-controls">
-              <div class=col-md-6">Medical <span class="medicalcost"></span></div>
-              <div class=col-md-6">Non Medical <span class="non_medicalcost"></span></div>
+              <%= phx_textfield_for f, :non_medical_amount, "Non Medical", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :non_medical_tax, "Tax", 0, "col-md-6" %>
             </div>
             <div class="row phx-two-horizontal-controls">
-              <div class=col-md-6">Tax <span class="medical_tax"></span></div>
-              <div class=col-md-6">Tax <span class="non_medical_tax"></span></div>
+              <%= phx_textfield_for f, :medical_total, "Medical Sub-Total", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :non_medical_total, "Non Medical Sub-Total", 0, "col-md-6" %>
             </div>
             <div class="row phx-two-horizontal-controls">
-              <div class=col-md-6">Sub-Total <span class="medical_sub_total"></span></div>
-              <div class=col-md-6">Sub-Total <span class="non_medical_subtotal"></span></div>
+              <%= phx_textfield_for f, :total_amount, "Total Due", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :total_tax, "Tax", 0, "col-md-6" %>
             </div>
-            <div class="row">
-              <div>Total Due <span class="total_due"></span></div>
+          </div>
+          <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+          <div class="phx-primary-info-column">
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Payment
+              </div>
             </div>
-            <div class="field form-group phx-input-control-spacer">&nbsp;
-              </br>
-            </div>
-            <div class="row ">
-              Payment
-            </div>
-            </br>
-            <div class="row">Payment Type 1:</div>
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+
             <div class="row phx-two-horizontal-controls">
-              <%= phx_textfield_for f, :primary_payment_method, "Payment Type", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :primary_payment_method, "Payment Type 1", 0, "col-md-6" %>
               <%= phx_textfield_for f, :primary_payment_amount, "Amount", 0, "col-md-6" %>
             </div>
-            <div class="row">Payment Type 2:</div>
             <div class="row phx-two-horizontal-controls">
-              <%= phx_textfield_for f, :secondary_payment_method, "Payment Type", 0, "col-md-6" %>
+              <%= phx_textfield_for f, :secondary_payment_method, "Payment Type 2", 0, "col-md-6" %>
               <%= phx_textfield_for f, :secondary_payment_amount, "Amount", 0, "col-md-6" %>
             </div>
-            <div class="row">Total Paid: <span class="total_paid"></span></div>
-            <div class="row">Change Due: <span class="change_due"></span></div>
-            <%= phx_red_submit_button_for f, "Item", [], "", "phx-btn-model-control-width pull-right", false %>
-
+            <div class="row phx-two-horizontal-controls">
+              <div class="col-md-6">Total Paid: <span class="total_paid"></span></div>
+              <div class="col-md-6">Change Due: <span class="change_due"></span></div>
+            </div>
             <div class="field form-group phx-input-control-spacer">&nbsp;
-              </br>
+            </div>
+            <%= phx_blue_submit_button_for f, "Item", [], "", "phx-btn-model-control-width pull-right", false, false, nil, "Print Receipt" %>
+            <div class="field form-group phx-input-control-spacer">&nbsp;
             </div>
 
-          </div> <!-- end of container fluid for Primary Info -->
+          </div>
 
-        </div> <!-- end of Primary Info col lg def -->
+        </div> <!-- end of container fluid for Primary Info -->
 
-        <div class="col-lg-8  ">
+      </div> <!-- end of Primary Info col lg def -->
 
-          <!-- Tab labels -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="active">Point of Sale Register</li>
-          </ul>
+      <div class="col-lg-8  ">
 
-          <!-- Tab panes -->
-          <div class="tab-content phx-tab-pane">
-
-
-            <div class="tab-pane active" id="posPanel-register">
-              <div class="container-fluid">
-                <div class="row">
-                  <%= f.fields_for :pos do |ff| %>
-                      <div class="col-lg-12">
-                        <div class="phx-input-control-spacer">
-                        </div>
-                        <% choice = 0 %>
-                        <table class="phx-search-font table table-bordered">
-                          <thead class="">
-                          <tr class="">
-                            <th style="background-color:#f9f9fa;">Qty</th>
-                            <th style="background-color:#f9f9fa;">Type</th>
-                            <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
-                            <th style="background-color:#f9f9fa;">Med</th>
-                            <th style="background-color:#f9f9fa;">Description</th>
-                            <th style="background-color:#f9f9fa;">Each</th>
-                            <th style="background-color:#f9f9fa;">Total</th>
-                            <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr id="new-compound-search" class="">
-                            <td><input type="text" id="new-pos-qty" placeholder=""/></td>
-                            <td><input type="text" id="new-pos-type" placeholder=""></td>
-                            <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
-                            <td><input type="text" id="new-pos-med" disabled="true"/></td>
-                            <td><input type="text" id="new-pos-desc" disabled="true"/></td>
-                            <td><input type="text" id="new-pos-each" disabled="true"/></td>
-                            <td><input type="text" id="new-pos-total" disabled="true"/></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!--<button tabindex="9" role="button" type="button" id="item-add-compound-button" class="btn btn-md btn-default phx-btn-model-control-blue pull-right">Add-->
-                        <!--Ingredient-->
-                        <!--</button>-->
-                        <div class="row">
+        <!-- Tab labels -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#posRegister" role="tab" data-toggle="tab">Point of Sale Register</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content phx-tab-pane">
+          <div class="tab-pane active" id="posPanel-register">
+            <div class="container-fluid">
+              <div class="row">
+                <%= f.fields_for :pos do |ff| %>
+                    <div class="col-lg-12">
+                      <% choice = 0 %>
+                      <table class="phx-search-font table table-bordered">
+                        <thead class="">
+                        <tr class="">
+                          <th style="background-color:#f9f9fa;">Qty</th>
+                          <th style="background-color:#f9f9fa;">Type</th>
+                          <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
+                          <th style="background-color:#f9f9fa;">Med</th>
+                          <th style="background-color:#f9f9fa;">Description</th>
+                          <th style="background-color:#f9f9fa;">Each</th>
+                          <th style="background-color:#f9f9fa;">Total</th>
+                          <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="new-compound-search" class="">
+                          <td><input type="text" id="new-pos-qty" placeholder=""/></td>
+                          <td><input type="text" id="new-pos-type" placeholder=""></td>
+                          <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
+                          <td><input type="text" id="new-pos-med" disabled="true"/></td>
+                          <td><input type="text" id="new-pos-desc" disabled="true"/></td>
+                          <td><input type="text" id="new-pos-each" disabled="true"/></td>
+                          <td><input type="text" id="new-pos-total" disabled="true"/></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <!--<button tabindex="9" role="button" type="button" id="item-add-compound-button" class="btn btn-md btn-default phx-btn-model-control-blue pull-right">Add-->
+                      <!--Ingredient-->
+                      <!--</button>-->
+                      <div class="col-md-12">
+                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
                           <%= @pos_transaction.posDetails.count %> Total Items
                         </div>
-                        <table class="phx-search-font table table-bordered" id="pos-items-list">
-                          <!--<td class="col-xs-1">&nbsp;</td></tr>-->
-                          <thead class="">
-                          <tr class="">
-                            <th style="background-color:#f9f9fa;">Qty</th>
-                            <th style="background-color:#f9f9fa;">Type</th>
-                            <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
-                            <th style="background-color:#f9f9fa;">Med</th>
-                            <th style="background-color:#f9f9fa;">Description</th>
-                            <th style="background-color:#f9f9fa;">Each</th>
-                            <th style="background-color:#f9f9fa;">Total</th>
-                            <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <% @pos_transaction.posDetails.each_with_index do |fff, idx| %>
-                              <tr class="" id="pos-item-<%= fff.id %>">
-                                <td><input type="text" id="new-pos-qty" placeholder=""/></td>
-                                <td><input type="text" id="new-pos-type" placeholder=""></td>
-                                <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
-                                <td><input type="text" id="new-pos-med" disabled="true"/></td>
-                                <td><input type="text" id="new-pos-desc" disabled="true"/></td>
-                                <td><input type="text" id="new-pos-each" disabled="true"/></td>
-                                <td><input type="text" id="new-pos-total" disabled="true"/></td>
-                              </tr>
-                          <% end %>
-                          </tbody>
-                        </table>
-
-                        </br>
                       </div>
-                  <% end %>
-                </div>
+                      <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+                      <table class="phx-search-font table table-bordered" id="pos-items-list">
+                        <!--<td class="col-xs-1">&nbsp;</td></tr>-->
+                        <thead class="">
+                        <tr class="">
+                          <th style="background-color:#f9f9fa;">Qty</th>
+                          <th style="background-color:#f9f9fa;">Type</th>
+                          <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
+                          <th style="background-color:#f9f9fa;">Med</th>
+                          <th style="background-color:#f9f9fa;">Description</th>
+                          <th style="background-color:#f9f9fa;">Each</th>
+                          <th style="background-color:#f9f9fa;">Total</th>
+                          <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% @pos_transaction.posDetails.each_with_index do |fff, idx| %>
+                            <tr class="" id="pos-item-<%= fff.id %>">
+                              <td><input type="text" id="new-pos-qty" placeholder=""/></td>
+                              <td><input type="text" id="new-pos-type" placeholder=""></td>
+                              <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
+                              <td><input type="text" id="new-pos-med" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-desc" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-each" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-total" disabled="true"/></td>
+                            </tr>
+                        <% end %>
+                        </tbody>
+                      </table>
 
-              </div> <!-- END OF Panel 2 -->
-            </div>
-          </div> <!-- end of tab panes -->
+                      </br>
+                    </div>
+                <% end %>
+              </div>
 
-        </div> <!-- end of tab area -->
+            </div> <!-- END OF Panel 2 -->
+          </div>
+        </div> <!-- end of tab panes -->
 
-      </div> <!-- end of work area -->
+      </div> <!-- end of tab area -->
 
-      <div id="item_search_modal_partial">
-        <div id="itemSearchModal">
-        </div>
+    </div> <!-- end of work area -->
+
+    <div id="item_search_modal_partial">
+      <div id="itemSearchModal">
       </div>
+    </div>
     </div>
 
 <% end %> <!-- end of form-->
