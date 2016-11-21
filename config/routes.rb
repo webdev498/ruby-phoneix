@@ -204,6 +204,8 @@ Rails.application.routes.draw do
 #  get 'posTax'            => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
 
   resources :pos_transactions
+
+  get 'pos_details/get_rx_or_item' => 'pos_details#get_rx_or_item'
   resources :pos_details
 
   get 'posCategories'         => 'pos_categories#posCategory',              as: :posCategory

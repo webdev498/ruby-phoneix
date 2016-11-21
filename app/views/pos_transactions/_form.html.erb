@@ -131,6 +131,8 @@
             <div class="container-fluid">
               <div class="row">
                 <%= f.fields_for :pos do |ff| %>
+                    <div id="hidden_fields">
+                    </div>
                     <div class="col-lg-12">
                       <% choice = 0 %>
                       <table class="phx-search-font table table-bordered">
@@ -149,10 +151,10 @@
                         <tbody>
                         <tr id="new-compound-search" class="">
                           <td><input type="text" id="new-pos-qty" placeholder=""/></td>
-                          <td><input type="text" id="new-pos-type" placeholder=""></td>
+                          <td><input type="text" id="new-pos-type" disabled="true" placeholder=""></td>
                           <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
                           <td><input type="text" id="new-pos-med" disabled="true"/></td>
-                          <td><input type="text" id="new-pos-desc" disabled="true"/></td>
+                          <td><input type="text" id="new-pos-desc" disabled="false"/></td>
                           <td><input type="text" id="new-pos-each" disabled="true"/></td>
                           <td><input type="text" id="new-pos-total" disabled="true"/></td>
                         </tr>
@@ -184,13 +186,13 @@
                         <tbody>
                         <% @pos_transaction.posDetails.each_with_index do |fff, idx| %>
                             <tr class="" id="pos-item-<%= fff.id %>">
-                              <td><input type="text" id="new-pos-qty" placeholder=""/></td>
-                              <td><input type="text" id="new-pos-type" placeholder=""></td>
-                              <td><input type="text" id="new-pos-rx-upc-number" placeholder=""/></td>
-                              <td><input type="text" id="new-pos-med" disabled="true"/></td>
-                              <td><input type="text" id="new-pos-desc" disabled="true"/></td>
-                              <td><input type="text" id="new-pos-each" disabled="true"/></td>
-                              <td><input type="text" id="new-pos-total" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder=""/></td>
+                              <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder=""></td>
+                              <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder=""/></td>
+                              <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true"/></td>
+                              <td><input type="text" id="new-pos-total-<%= fff.id %>" disabled="true"/></td>
                             </tr>
                         <% end %>
                         </tbody>
@@ -217,33 +219,3 @@
 
 <% end %> <!-- end of form-->
 
-<script>
-  var itemsrch = FEENX.Search.NewSearch('item',
-      {
-        context: '',
-        triggerField: 'item_name',
-        fieldPrefix: '',
-        modalId: 'itemSearchModal',
-        hiddenDivId: 'hidden_fields',
-        refresh: true,
-        refreshTo: '/items/'
-      });
-  // create the corresponding hidden fields in the form
-  itemsrch.addHiddenFields();
-  // create the corresponding data attribues in the modal rows
-  itemsrch.dataFormattedAttributes();
-  var compoundItemsrch = FEENX.Search.NewSearch('item',
-      {
-        context: '',
-        triggerField: 'item_name',
-        fieldPrefix: '',
-        modalId: 'itemSearchModal',
-        hiddenDivId: 'hidden_fields',
-        refresh: true,
-        refreshTo: ''
-      });
-  // create the corresponding hidden fields in the form
-  compoundItemsrch.addHiddenFields();
-  // create the corresponding data attribues in the modal rows
-  compoundItemsrch.dataFormattedAttributes();
-</script>
