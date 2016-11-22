@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get 'customer/menu'				=> 'customers#new',             as: :menu_customer
   get 'item/menu'                   => 'items#new',                 as: :menu_item
   get 'prescriber/menu'				=> 'prescribers#new',           as: :menu_prescriber
-  get 'plan/menu'                   => 'plans#new',                 as: :menu_plan
+  get 'plans/menu'                   => 'plans#new',                 as: :menu_plan
   get 'pharmacy/menu'   			=> 'pharmacies#new',            as: :menu_pharmacy
   get 'point_of_sale/menu'			=> 'pos_transactions#new',      as: :menu_point_of_sale
   get 'facility/menu'				=> 'facilities#new',            as: :menu_facility
