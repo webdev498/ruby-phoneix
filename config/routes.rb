@@ -137,6 +137,10 @@ Rails.application.routes.draw do
 #  get 'customer/:id'   		          => 'customers#show_customer',         as: :get_customer
  # match "/customers" => "customers#index", :as => :index, :via => [:get]
 
+  get 'customers/search_active' => "customers#search_active"
+  get 'customers/search' => "customers#search"
+  get 'customers/search_customer' => "customers#search_customer"
+
   resources :customers
   # resources :customers, except: :index do
   #   resources :contact_points
@@ -144,9 +148,7 @@ Rails.application.routes.draw do
   # end
 
   get 'plans/search' => "plans#search"
-  get 'customers/search_active' => "customers#search_active"
-  get 'customers/search' => "customers#search"
-  get 'customers/search_customer' => "customers#search_customer"
+
   get 'claims/search' => "claims#search"
   get 'claims/search_cob' => "claims#search_cob"
   get 'claims/search_dur' => "claims#search_dur"

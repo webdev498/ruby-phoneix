@@ -14,12 +14,12 @@
 				<div class="col-lg-8">
 
           <div class="phx-working-area-title">Prescription Processing
-						<% if !@prescription.customer_display_name.empty? %>
+						<%# if !@prescription.customer_display_name.empty? %>
               &nbsp;&nbsp;
 							<span class="phx-working-area-title-displayName" id="prescriptionCustomerName">
-								&nbsp;&nbsp;&nbsp;<%= @prescription.customer_display_name %>
+								&nbsp;&nbsp;&nbsp;<%#= @prescription.customer_display_name %>
 			      	</span>
-						<% end %>
+						<%# end %>
 
 					</div>
 				</div>
@@ -57,7 +57,7 @@
   						<%= phx_datefield_for f, :date_written, "Date Written", 0, "col-md-6" %>
   					</div>
 
-            <%= phx_textsearchfield_for f, :customer_display_name, "Customer" %>
+            <%#= phx_textsearchfield_for f, :customer_display_name, "Customer" %>
             <%= phx_textsearchfield_for f, :prescriber_display_name, "Prescriber" %>
             <%= phx_textsearchfield_for f, :item_display_name, "Drug" %>
 
@@ -178,16 +178,16 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <% @prescription.last6dispenses.each do |ff| %>
-                                  <%= f.fields_for :last6dispenses, ff do |sup_field| %>
-                                      <tr class="phx-table-detail" id="last6fills_<%=choice += 1%>">
-                                          <td style="text-align: center; width:10px;"><%= (ff.fill_time).strftime("%d-%m-%g") %></td>
-                                          <td style="text-align: center; width:10px;"><%= ff.quantity %></td>
-                                          <td style="text-align: center; width:10px;"><%= ff.cost_basis %></td>
-                                          <td style="text-align: center; width:10px;"><%= ff.price %></td>
-                                      </tr>
-                                  <% end %>
-                              <% end %>
+                              <%# @prescription.last6dispenses.each do |ff| %>
+                                  <%#= f.fields_for :last6dispenses, ff do |sup_field| %>
+                                      <!--<tr class="phx-table-detail" id="last6fills_<%#=choice += 1%>">-->
+                                          <!--<td style="text-align: center; width:10px;"><%#= (ff.fill_time).strftime("%d-%m-%g") %></td>-->
+                                          <!--<td style="text-align: center; width:10px;"><%#= ff.quantity %></td>-->
+                                          <!--<td style="text-align: center; width:10px;"><%#= ff#.cost_basis %></td>-->
+                                          <!--<td style="text-align: center; width:10px;"><%#= ff.price %></td>-->
+                                      <!--</tr>-->
+                                  <%# end %>
+                              <%# end %>
                           </tbody>
                       </table>
                   </div>
@@ -284,9 +284,42 @@
       <div id="itemSearchModal">
       </div>
   </div>
-
+    <!-- Remove it FIX ME -->
+  <input id="customer_id_field" type="hidden" value="<%=@prescription.customer_id %>" >
 <% end %>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Select Customer Plan</h4>
+      </div>
+      <div class="modal-body">
+        <table id ="modal_table" class="table table-hover">
+          <thead class="phx-table-head">
+          <tr>
+            <th style="background-color:#f9f9fa;" > </th>
+            <th style="background-color:#f9f9fa;" >Plan ID Code</th>
+            <th style="background-color:#f9f9fa;" >Plan Name </th>
+            <th style="background-color:#f9f9fa;" >Bin #</th>
+            <th style="background-color:#f9f9fa;" >Plan Type</th>
+          </tr>
+          </thead>
+        </table>
+        <div class="row">
+          <div class="col-md-3"> </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+              <button id="prescription_add_btn" class="button btn-danger" style="width:120px;margin-top:10px"> Add Plan </button>
+            </div>
+          </div>
+      </>
+    </div>
+  </div>
+</div>
 
 <script>
 
@@ -535,6 +568,6 @@
     //
     //<%#  END of MAGNIFIER  %>
 
-    starRatingChartSmall( <%= @prescription.star_ratings %> );
+    starRatingChartSmall( <%#= @prescription.star_ratings %> );
 
 </script>
