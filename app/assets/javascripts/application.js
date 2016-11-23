@@ -157,69 +157,6 @@ $(document).ready(function() {
         else val = 5
         location.href = '?sub_index=' + $(this).index()+"&tab_index="+val;
     });
-
-    $('#plan_id_code').keypress(function(e) {
-        if (e.keyCode == 13) {
-            location.href = '?sub_index=-1&plan_id_code=' + $(this).val();
-            e.preventDefault();
-        }
-    });
-
-    $('#plan_abb_name').keypress(function(e){
-       if (e.keyCode == 13) {
-           var s_val  = $('#plan_abb_name').val();
-           $.get( "search?search_value="+s_val , function( data ) {
-               var res ='';
-               $('#myModal').keydown(function(event){
-                   var keycode = event.which;
-                   if (keycode => 49 && keycode < 58 )
-                   {
-                       var plan_id_code = data[keycode-49]['plan_id_code'];
-                       $('#myModal').modal('hide');
-                       location.href = '?sub_index=-1&plan_id_code=' + plan_id_code;
-                       $('#myModal').unbind("keydown");
-                   }
-               });
-
-               data.forEach(function(item) {
-
-    
-                   res+='<tr>';
-                   for (prop in item) {
-                       if(item[prop]== null)
-                           item[prop]='';
-                   }
-                   res += '<td>' + item['plan_id_code'] + '</td>';
-                   res += '<td>' + item['abbreviated_name'] + '</td>';
-                   res += '<td>' + item['bin_number'] + '</td>';
-                   res += '<td>' + item['plan_type'] + '</td>';
-    
-                   res+='</tr>';
-               });
-               var tbl_html = "<thead>\
-                    <tr>\
-                    <th> Plan Id Code </th>\
-                    <th> Plan Name </th>\
-                    <th> Bin Number </th>\
-                    <th> Plan Type </th>\
-                    </tr>\
-                    </thead>\
-                    <tbody>\
-                    </tbody>";
-               $('#modal_table').html(tbl_html);
-    
-               $('#modal_table').append(res);
-               $('#modal_table tr').click(function() {
-                   var plan_id_code = data[$(this).index()]['plan_id_code'];
-                   $('#myModal').modal('hide');
-                   location.href = '?sub_index=-1&plan_id_code=' + plan_id_code;
-                   //$('#modal_table_tr').unbind("click");
-               });
-               $('#myModal').modal('show');
-           });
-           e.preventDefault();
-       }
-    });
     // $("#tabs > li:nth-child(5)").addClass('disabled');
 
     $("#tabs > li").click(function(){
