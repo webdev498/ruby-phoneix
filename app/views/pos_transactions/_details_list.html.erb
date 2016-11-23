@@ -1,0 +1,27 @@
+<input type="hidden" value="<% @pos_transaction.id %>" id="transaction-id">
+<!--<td class="col-xs-1">&nbsp;</td></tr>-->
+<thead class="">
+<tr class="">
+  <th style="background-color:#f9f9fa;">Qty</th>
+  <th style="background-color:#f9f9fa;">Type</th>
+  <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
+  <th style="background-color:#f9f9fa;">Med</th>
+  <th style="background-color:#f9f9fa;">Description</th>
+  <th style="background-color:#f9f9fa;">Each</th>
+  <th style="background-color:#f9f9fa;">Total</th>
+  <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+</tr>
+</thead>
+<tbody>
+<% @transaction.posDetails.each_with_index do |fff, idx| %>
+    <tr class="" id="pos-item-<%= fff.id %>">
+      <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder=""/></td>
+      <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder=""></td>
+      <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder=""/></td>
+      <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true"/></td>
+      <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true"/></td>
+      <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true"/></td>
+      <td><input type="text" id="new-pos-total-<%= fff.id %>" disabled="true"/></td>
+    </tr>
+<% end %>
+</tbody>

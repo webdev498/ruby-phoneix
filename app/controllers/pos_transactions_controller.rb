@@ -19,6 +19,12 @@ class PosTransactionsController < ApplicationController
     @pos_transaction = PosTransaction.new
   end
 
+# POST /pos_headers/add_new
+  def add_new
+    @transaction = params[:transactionId].nil? ? PosTransaction.create(posParams) : PosTransaction.find(params[:transactionId])
+    @transaction.addNewDetail(params)
+  end
+
 
   # GET /pos_headers/1/edit
   def edit
