@@ -97,6 +97,18 @@ $(document).ready(function() {
 
                 res+='</tr>';
             });
+
+            $('#myModal').keydown(function(event){
+                var keycode = event.which;
+                if (keycode => 49 && keycode < 58 )
+                {
+                    var plan_id_code = data[keycode-49]['plan_id_code'];
+                    $('#myModal').modal('hide');
+                    location.href = '../customers/1?sub_index=-1&plan_id_code=' + plan_id_code;
+                    $('#myModal').unbind("keydown");
+                }
+            });
+
             var tbl_html = "<thead>\
                     <tr>\
                     <th> </th>\
@@ -112,6 +124,8 @@ $(document).ready(function() {
                 var payment_type = $('#payment_type').val();
                 location.href = '../customers/' + customer_id +'?tab_index=2';
             });
+
+
             $('#modal_table').html(tbl_html);
 
             $('#modal_table').append(res);
@@ -166,6 +180,7 @@ $(document).ready(function() {
                        $('#myModal').unbind("keydown");
                    }
                });
+
                data.forEach(function(item) {
 
     
