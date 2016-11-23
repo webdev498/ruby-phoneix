@@ -81,12 +81,15 @@ $(document).ready(function() {
         $('#payment_type').val($('#prescription_payment_type').val());
         $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
             var res ='';
+            var no = 0;
             data.forEach(function(item) {
                 res+='<tr>';
                 for (prop in item) {
                     if(item[prop]== null)
                         item[prop]='';
                 }
+                no++;
+                res += '<td>' + no + '</td>';
                 res += '<td>' + item['plan_id_code'] + '</td>';
                 res += '<td>' + item['abbreviated_name'] + '</td>';
                 res += '<td>' + item['bin_number'] + '</td>';
@@ -96,6 +99,7 @@ $(document).ready(function() {
             });
             var tbl_html = "<thead>\
                     <tr>\
+                    <th> </th>\
                     <th> Plan Id Code </th>\
                     <th> Plan Name </th>\
                     <th> Bin Number </th>\
@@ -229,12 +233,15 @@ function modal_click() {
                 $('#myModal').unbind("keydown");
             }
         });
+        var no = 0;
         data.forEach(function(item) {
             res+='<tr>';
             for (prop in item) {
                 if(item[prop]== null)
                     item[prop]='';
             }
+            no++;
+            res += '<td>' + no + '</td>';
             res += '<td>' + item['plan_id_code'] + '</td>';
             res += '<td>' + item['insurance_plan_name'] + '</td>';
             res += '<td>' + item['bin_number'] + '</td>';
@@ -246,6 +253,7 @@ function modal_click() {
         });
         var tbl_html = "<thead>\
         <tr>\
+        <th> </th>\
         <th> Plan Id Code </th>\
         <th> Insurance Plan Name </th>\
         <th> Bin Number </th>\
