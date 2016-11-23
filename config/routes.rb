@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   #   - use the singular model name for menu originating requests
   get 'prescription/menu'			=> 'prescriptions#new',         as: :menu_prescription
   get 'claims/menu'					=> 'claims#new',                as: :menu_claim
-  get 'customer/menu'				=> 'customers#new',             as: :menu_customer
+  get 'customers/menu'				=> 'customers#new',             as: :menu_customer
   get 'item/menu'                   => 'items#new',                 as: :menu_item
   get 'prescriber/menu'				=> 'prescribers#new',           as: :menu_prescriber
   get 'plans/menu'                   => 'plans#new',                 as: :menu_plan
