@@ -66,7 +66,7 @@ class PhxMenu
 				PhxMenuItem.new(:s_customer_profileReport, :submenu,  "- Patient Profile Report"),
 				PhxMenuItem.new(:s_customer_mailingLabels, :submenu,  "- Print Mailing Labels") ],
 		m_item: [
-				PhxMenuItem.new(:s_item_priceScheduleMaintenance, :submenu,  "Price Schedule Maintenance", "", ""),
+				PhxMenuItem.new(:s_item_priceScheduleMaintenance, :submenu,  "Price Schedule Maintenance", rails_routes.new_price_schedule_path,rails_routes.new_price_schedule_path),
 				PhxMenuItem.new(:s_item_clinicalDrugInquiry, :submenu,  "Clinical Drug Inquiry", rails_routes.clinicalInquiry_path, rails_routes.clinicalInquiry_path),
 				PhxMenuItem.new(:s_item_priceUpdates, :submenu,  "Price Updates", "", ""),
 				PhxMenuItem.new(:s_item_clinicalUpdates, :submenu,  "Clinical Updates", "", ""),

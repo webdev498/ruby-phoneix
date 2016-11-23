@@ -161,8 +161,8 @@ class Prescription < ActiveRecord::Base
 
           self.active = true         # this will be depracated
 
-          self.active!
-          self.retail!
+          #self.active!
+          #self.retail!
 
           self.date_written = date_written
 
