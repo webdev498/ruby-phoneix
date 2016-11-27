@@ -1,4 +1,4 @@
-<input type="hidden" value="<% @pos_transaction.id %>" id="transaction-id">
+<input type="hidden" value="<%= @transaction.id %>" id="transaction-id">
 <!--<td class="col-xs-1">&nbsp;</td></tr>-->
 <thead class="">
 <tr class="">
@@ -15,13 +15,13 @@
 <tbody>
 <% @transaction.posDetails.each_with_index do |fff, idx| %>
     <tr class="" id="pos-item-<%= fff.id %>">
-      <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder=""/></td>
-      <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder=""></td>
-      <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder=""/></td>
-      <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true"/></td>
-      <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true"/></td>
-      <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true"/></td>
-      <td><input type="text" id="new-pos-total-<%= fff.id %>" disabled="true"/></td>
+      <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder="" value="<%= fff.quantity %>"/></td>
+      <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.item_type %>"></td>
+      <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number %>"/></td>
+      <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true" value="<%= fff.medical_item ? "Y" : "N" %>"/></td>
+      <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true" value="<%= fff.item_description %>"/></td>
+      <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true" value="<%= fff.price %>"/></td>
+      <td><input type="text" id="new-pos-total-<%= fff.id %>" disabled="true" value="<%= fff.price %>"/></td>
     </tr>
 <% end %>
 </tbody>
