@@ -24,6 +24,7 @@ class PosDetailsController < ApplicationController
       if @prescription.nil?
         render status: 400
       else
+        @quantity = params[:quantity]
         render layout: false, partial: "prescription_detail"
       end
     else

@@ -1,5 +1,5 @@
 class PosTransactionsController < ApplicationController
-  before_action :set_pos_header, only: [:show, :edit, :update, :destroy]
+  before_action :set_pos_header, only: [:show, :edit, :update, :destroy, :view]
 
 # 	def point_of_sale
 # #		@pos = PosTransaction.new
@@ -13,16 +13,23 @@ class PosTransactionsController < ApplicationController
       render :edit
   end
 
+  def view
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render :json => @pos_transaction }
+    end
+  end
 
   # GET /pos_headers/new
   def new
     @pos_transaction = PosTransaction.new
   end
 
-# POST /pos_headers/add_new
-  def add_new
-    @transaction = params[:transactionId].nil? ? PosTransaction.create(posParams) : PosTransaction.find(params[:transactionId])
+# POST /pos_transactions/add_new_detail
+  def add_new_detail
+    @transaction = params[:transactionId].nil? || params[:transactionId] == "" ? PosTransaction.create(pos_header_params) : PosTransaction.find(params[:transactionId])
     @transaction.addNewDetail(params)
+    render :partial => "details_list"
   end
 
 

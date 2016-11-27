@@ -7,24 +7,30 @@ class PosTransaction < ActiveRecord::Base
       prescription,item,fillDetails = PosDetail.getPrescription(params[:itemId])
       newDetail = PosDetail.create({
                                        pos_transaction_id: self.id,
-                                       fill_number: fillDetails.number,
-                                       rx_number: prescription.number,
-                                       quantity: params[:quantity],
+                                       fill_number: fillDetails.fill_number,
+                                       rx_number: prescription.rx_number,
+                                       item_description: item.item_name[0..19],
+                                       quantity: params[:quantity].to_i,
                                        created_at: Time.now,
                                        updated_at: Time.now,
                                        item_type: "RX",
+                                       item_number: item.id,
                                        medical_item: true,
-                                       price: fillDetails.price,
-                                       tax_amount: fillDetails.tax
+                                       price: fillDetails.price.nil? ? 0.0 :  fillDetails.price * params[:quantity].to_f,
+                                       tax_amount: fillDetails.tax.nil? ? 0.0 : fillDetails.tax * params[:quantity].to_f
                                    })
     else
      item = PosDetail.getItem(params[:itemId])
      newDetail = PosDetail.create({
                                       pos_transaction_id: self.id,
-                                      quantity: params[:quantity],
+                                      quantity: params[:quantity].to_i,
                                       created_at: Time.now,
                                       updated_at: Time.now,
+                                      item_description: item.item_name[0..19],
                                       item_type: "OTC",
+                                      item_number: item.id,
+                                      medical_item: false,
+                                      rx_number: item.upc_product_number,
                                       price: item.awp_unit_price * params[:quantity].to_f,
                                       tax_amount: item.fed_tax * params[:quantity].to_f
                                   })
@@ -34,7 +40,39 @@ class PosTransaction < ActiveRecord::Base
   end
 
   def update_transaction_price
+    medical_amount = 0.0
+    non_medical_amount = 0.0
+    medical_tax = 0.0
+    non_medical_tax = 0.0
 
+    total = 0.0
+    total_tax = 0.0
+
+    self.posDetails.each do |detail|
+      next if detail.price.nil?
+      if(detail.medical_item == true)
+        medical_amount += detail.price
+        medical_tax += detail.tax_amount.nil? ? 0.0 : detail.tax_amount
+      else
+        non_medical_amount += detail.price
+        non_medical_tax += detail.tax_amount.nil? ? 0.0 : detail.tax_amount
+      end
+    end
+
+    total =  medical_amount + non_medical_amount
+    total_tax = medical_tax + non_medical_tax
+
+    self.medical_total = medical_amount + medical_tax
+    self.medical_amount = medical_amount
+    self.medical_tax = medical_tax
+
+    self.non_medical_total = non_medical_amount + non_medical_tax
+    self.non_medical_amount = non_medical_amount
+    self.non_medical_tax = non_medical_tax
+
+    self.updated_at = Time.now()
+    self.number_items = self.posDetails.length
+    self.save!
   end
 
 end
