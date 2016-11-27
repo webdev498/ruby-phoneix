@@ -43,7 +43,7 @@ $ ->
     $("#pos_transaction_non_medical_amount").val(json.non_medical_amount)
     $("#pos_transaction_non_medical_tax").val(json.non_medical_tax)
     $("#pos_transaction_medical_total").val(json.medical_total)
-    $("#non_medical_total").val(json.non_medical_total)
+    $("#pos_transaction_non_medical_total").val(json.non_medical_total)
     $("#pos_transaction_total_amount").val(json.total_amount)
     $("#pos_transaction_total_tax").val(json.total_tax)
 
@@ -67,6 +67,7 @@ $ ->
       description = $("#new-pos-desc").val()
       itemid =  $("#new-pos-rx-upc-number").val()
       transactionId = $("#transaction-id").val()
+      pos_transaction_date = $("#pos_transaction_transaction_date").val()
       pos_transaction_initials = $("#pos_transaction_initials").val()
       pos_transaction_register_number = $("#pos_transaction_register_number").val()
       pos_transaction_primary_payment_method = $("#pos_transaction_primary_payment_method").val()
@@ -77,6 +78,7 @@ $ ->
       posParams = {
         initials: pos_transaction_initials,
         register_number: pos_transaction_register_number,
+        transaction_date: pos_transaction_date,
         primary_payment_method: pos_transaction_primary_payment_method,
         primary_payment_amount: pos_transaction_primary_payment_amount,
         secondary_payment_method: pos_transaction_secondary_payment_method,

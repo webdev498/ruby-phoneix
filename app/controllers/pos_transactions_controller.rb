@@ -27,7 +27,15 @@ class PosTransactionsController < ApplicationController
 
 # POST /pos_transactions/add_new_detail
   def add_new_detail
-    @transaction = params[:transactionId].nil? || params[:transactionId] == "" ? PosTransaction.create(pos_header_params) : PosTransaction.find(params[:transactionId])
+    pos_header_params[:transaction_date] = Time.now() if pos_header_params[:transaction_date].nil?
+    if params[:transactionId].nil? || params[:transactionId] == ""
+      @transaction =  PosTransaction.create(pos_header_params)
+    else
+      @transaction = PosTransaction.find(params[:transactionId])
+      @transaction.update(pos_header_params)
+      @transaction.save!
+    end
+
     @transaction.addNewDetail(params)
     render :partial => "details_list"
   end
@@ -86,6 +94,6 @@ class PosTransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pos_header_params
-      params.require(:pos_header).permit(:dept_number, :pos_transaction_date, :pos_ticket_number, :rna_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :tertiary_payment_method, :tertiary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
+      params.require(:pos_header).permit(:dept_number, :transaction_date, :pos_ticket_number, :rna_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :tertiary_payment_method, :tertiary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
     end
 end
