@@ -1,7 +1,8 @@
 class PosTransaction < ActiveRecord::Base
 
   has_many :posDetails
-  
+  enum primary_payment_method: [:default, :credit, :hsa, :other]
+
   def addNewDetail(params)
     if(PosDetail.itemOrPrescription?(params[:itemId]) == "prescription")
       prescription,item,fillDetails = PosDetail.getPrescription(params[:itemId])
@@ -59,8 +60,8 @@ class PosTransaction < ActiveRecord::Base
       end
     end
 
-    total =  medical_amount + non_medical_amount
-    total_tax = medical_tax + non_medical_tax
+    self.total_amount =  medical_amount + non_medical_amount
+    self.total_tax = medical_tax + non_medical_tax
 
     self.medical_total = medical_amount + medical_tax
     self.medical_amount = medical_amount
