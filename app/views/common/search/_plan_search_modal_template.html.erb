@@ -13,34 +13,32 @@
 		  		<thead class="phx-search-row-header">
   		  		<tr>
 						<th class="phx-search-font"><input type="text" id="planSearchModal_Keys1_9" style="width:0.5px;" ></th>
-						<th class="phx-search-font">NDC</th>
-						<th class="phx-search-font">GNC</th>
-						<th class="phx-search-font">Synonym</th>
-						<th class="phx-search-font">Plan Name</th>
-						<th class="phx-search-font">Active</th>
-						<th class="phx-search-font">DEA Schedule<th>
+						<th class="phx-search-font">Plan ID Code</th>
+						<th class="phx-search-font">Insurance Plan Name</th>
+						<th class="phx-search-font">Bin Number </th>
+						<th class="phx-search-font">Processor Control Number</th>
+						<th class="phx-search-font">Plan Type</th>
+						<th class="phx-search-font">Active<th>
 		  		</tr>
   				</thead>
 
 		  		<tbody>
 						<% searchPlans.each do |plan| %>
 
-							<% planSearchRowId = "itemRow" + (choice += 1).to_s %>
-							<tr	id="<%=itemSearchRowId%>"
-									class="phx-search-row clickable-itemRow"
-									data-phx-search-item-id="<%= item.id %>"
-									data-phx-search-item-name="<%= item.display_name %>"
-									data-phx-search-item-ndc-number="<%= item.ndc_number %>" >
+							<% planSearchRowId = "planRow" + (choice += 1).to_s %>
+							<tr	id="<%=planSearchRowId%>"
+									class="phx-search-row clickable-planRow"
+ >
 
 								<td class="phx-search-font"> <%= choice %> </td>
-								<td class="phx-search-font"> <%= item.ndc_number %> </td>
-								<td class="phx-search-font"> <%= item.gcnseq_number %> </td>
-								<td class="phx-search-font"> <%= item.synonym %> </td>
-								<td class="phx-search-font"> <%= item.item_name %> </td>
-								<td class="phx-search-font"> <%= item.active_flag ? "Yes" : "No" %> </td>
-								<td class="phx-search-font"> <%= item.dea_schedule%> </td>
+								<td class="phx-search-font"> <%= plan.plan_id_code %> </td>
+								<td class="phx-search-font"> <%= plan.insurance_plan_name %> </td>
+								<td class="phx-search-font"> <%= plan.bin_number %> </td>
+								<td class="phx-search-font"> <%= plan.processor_control_number %> </td>
+								<td class="phx-search-font"> <%= plan.plan_type ? "Yes" : "No" %> </td>
+								<td class="phx-search-font"> <%= plan.active%> </td>
 							</tr>
-						<% end %> <!-- END OF item list -->
+						<% end %> <!-- END OF plan list -->
  			 		</tbody>
 				</table>
 			</div> <!-- end of modal-body -->
@@ -48,16 +46,11 @@
 			</br>
 
 			<div class="modal-footer">
-				<%=	paginate searchItems,
-						params: { controller: "items", action: "nextItems"} , remote: true  unless searchItems.empty? %>
+				<%=	paginate searchPlans,
+						params: { controller: "plans", action: "search"} , remote: true  unless searchPlans.empty? %>
 
-				<%= link_to "New Item",
-						item_path,
-						id: "createNewItemButton",
-						method: "get",
-						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
 
-				<button id="item_modal_close_btn"
+				<button id="plan_modal_close_btn"
 						class="btn btn-sm btn-default phx-btn-model-control-red"
 						data-dismiss="modal"
 						aria-hidden="true">
@@ -71,30 +64,30 @@
 	<script>
 
 		//<%# signal that a search selection has been made, and provide the ID and Name %>
-		//<%# the calling view MUST define the "phx-selected-item" custom event  %>
-		function triggerSearchSelection( selectedSearchItem ) {
-			$( document ).trigger( "phx-selected-item",
-										[ selectedSearchItem.data("phxSearchItemId"),
-										  selectedSearchItem.data("phxSearchItemName"),
-										  selectedSearchItem.data("phxSearchItemNdcNumber") ] );
-			$('#item_modal_close_btn').trigger("click");
+		//<%# the calling view MUST define the "phx-selected-plan" custom event  %>
+		function triggerSearchSelection( selectedSearchPlan ) {
+			$( document ).trigger( "phx-selected-plan",
+										[ selectedSearchPlan.data("phxSearchId"),
+										  selectedSearchPlan.data("phxSearchPlanName"),
+										  selectedSearchPlan.data("phxSearchPlanNdcNumber") ] );
+			$('#plan_modal_close_btn').trigger("click");
 			}
 
 		// handle a click event on any of the search rows
-		$(".clickable-itemRow").click(function() {
+		$(".clickable-planRow").click(function() {
 			// send the jQuery version of "this"
 			triggerSearchSelection( $(this) );
 			});
 
 		// handle a number selection on the search
-		$('#itemSearchModal_Keys1_9').on("keypress", function(e) {
+		$('#planSearchModal_Keys1_9').on("keypress", function(e) {
 				var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
 
 				if( key >= 48 && key <= 57 ) {
-						triggerSearchSelection( $("#itemRow" + (key-48).toString()) );
+						triggerSearchSelection( $("#planRow" + (key-48).toString()) );
 						return false; }
-				if (key == 27) { $("#itemSearchModal_close_btn").trigger("click"); return false; }
-				if (key == 43) { $("#createNewItemButton").trigger("click"); return false; }
+				if (key == 27) { $("#planSearchModal_close_btn").trigger("click"); return false; }
+				if (key == 43) { $("#createNewPlanButton").trigger("click"); return false; }
 			});
 
 	</script>
