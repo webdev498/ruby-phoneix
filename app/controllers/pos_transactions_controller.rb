@@ -7,10 +7,10 @@ class PosTransactionsController < ApplicationController
 # 	end
 
 
-  # GET /pos_headers/1
-  # GET /pos_headers/1.json
+# GET /pos_headers/1
+# GET /pos_headers/1.json
   def show
-      render :edit
+    render :edit
   end
 
   def view
@@ -20,16 +20,18 @@ class PosTransactionsController < ApplicationController
     end
   end
 
-  # GET /pos_headers/new
+# GET /pos_headers/new
   def new
     @pos_transaction = PosTransaction.new
   end
 
 # POST /pos_transactions/add_new_detail
   def add_new_detail
-    pos_header_params[:transaction_date] = Time.now() if pos_header_params[:transaction_date].nil?
+    pos_header_params
+    params[:pos_header][:transaction_date] = Time.now() if params[:pos_header][:transaction_date].to_s == ""
+    update_payment_types
     if params[:transactionId].nil? || params[:transactionId] == ""
-      @transaction =  PosTransaction.create(pos_header_params)
+      @transaction = PosTransaction.create(pos_header_params)
     else
       @transaction = PosTransaction.find(params[:transactionId])
       @transaction.update(pos_header_params)
@@ -45,13 +47,27 @@ class PosTransactionsController < ApplicationController
   end
 
 
-  # GET /pos_headers/1/edit
+  def create_or_update
+    pos_header_params
+    params[:pos_header][:transaction_date] = Time.now() if params[:pos_header][:transaction_date].to_s == ""
+    update_payment_types
+    if params[:transactionId].nil? || params[:transactionId] == ""
+      @transaction = PosTransaction.create(pos_header_params)
+    else
+      @transaction = PosTransaction.find(params[:transactionId])
+      @transaction.update(pos_header_params)
+      @transaction.save!
+    end
+    render :json => {status: "ok"}
+  end
+
+# GET /pos_headers/1/edit
   def edit
   end
 
 
-  # POST /pos_headers
-  # POST /pos_headers.json
+# POST /pos_headers
+# POST /pos_headers.json
   def create
     @pos_transaction = PosTransaction.new(pos_header_params)
 
@@ -66,8 +82,8 @@ class PosTransactionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /pos_headers/1
-  # PATCH/PUT /pos_headers/1.json
+# PATCH/PUT /pos_headers/1
+# PATCH/PUT /pos_headers/1.json
   def update
     respond_to do |format|
       if @pos_transaction.update(pos_header_params)
@@ -80,8 +96,8 @@ class PosTransactionsController < ApplicationController
     end
   end
 
-  # DELETE /pos_headers/1
-  # DELETE /pos_headers/1.json
+# DELETE /pos_headers/1
+# DELETE /pos_headers/1.json
   def destroy
     @pos_transaction.destroy
     respond_to do |format|
@@ -91,15 +107,21 @@ class PosTransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pos_header
-      @pos_transaction = PosTransaction.find(params[:id])
-      @totalpaid = @pos_transaction.primary_payment_amount.to_f + @pos_transaction.secondary_payment_amount.to_f
-      @change_due = @pos_transaction.total_amount.to_f + @pos_transaction.total_tax.to_f - @totalpaid
-    end
+# Use callbacks to share common setup or constraints between actions.
+  def set_pos_header
+    @pos_transaction = PosTransaction.find(params[:id])
+    @totalpaid = @pos_transaction.primary_payment_amount.to_f + @pos_transaction.secondary_payment_amount.to_f
+    @change_due = @pos_transaction.total_amount.to_f + @pos_transaction.total_tax.to_f - @totalpaid
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pos_header_params
-      params.require(:pos_header).permit(:dept_number, :transaction_date, :pos_ticket_number, :rna_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :tertiary_payment_method, :tertiary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
-    end
+# Never trust parameters from the scary internet, only allow the white list through.
+  def pos_header_params
+    params.require(:pos_header).permit(:dept_number, :transaction_date, :pos_ticket_number, :rna_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :tertiary_payment_method, :tertiary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
+  end
+
+  def update_payment_types
+    params[:pos_header][:primary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:primary_payment_method]) if params[:pos_header][:primary_payment_method]
+    params[:pos_header][:secondary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:secondary_payment_method]) if params[:pos_header][:secondary_payment_method]
+  end
+
 end

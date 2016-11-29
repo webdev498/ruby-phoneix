@@ -1,7 +1,37 @@
 class PosTransaction < ActiveRecord::Base
 
   has_many :posDetails
-  enum primary_payment_method: [:default, :credit, :hsa, :other]
+  enum payment_methods: [:default, :credit, :hsa, :other]
+
+  def self.payment_method_enum_to_string(enumvalue)
+    case (enumvalue.to_i)
+      when 0
+        return "CSH"
+      when 1
+        return "CC"
+      when 2
+        return "HSA"
+      when 3
+        return "OTH"
+      else
+        return "OTH"
+    end
+  end
+
+  def self.payment_method_string_to_enum(enumvalue)
+    case (enumvalue)
+      when "CSH"
+        return 0
+      when "CC"
+        return 1
+      when "HSA"
+        return 2
+      when "OTH"
+        return 3
+      else
+        return 0
+    end
+  end
 
   def addNewDetail(params)
     if(PosDetail.itemOrPrescription?(params[:itemId]) == "prescription")
@@ -75,5 +105,6 @@ class PosTransaction < ActiveRecord::Base
     self.number_items = self.posDetails.length
     self.save!
   end
+
 
 end

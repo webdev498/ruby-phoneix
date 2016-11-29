@@ -60,6 +60,30 @@ $ ->
     $("#new-pos-qty").focus()
     reattachFormListeners()
 
+  getPosParams = ->
+    pos_transaction_date = $("#pos_transaction_transaction_date").val()
+    pos_transaction_initials = $("#pos_transaction_initials").val()
+    pos_transaction_register_number = $("#pos_transaction_register_number").val()
+    pos_transaction_primary_payment_method = $("#pos_transaction_primary_payment_method").val()
+    pos_transaction_primary_payment_amount = $("#pos_transaction_primary_payment_amount").val()
+    pos_transaction_secondary_payment_method = $("#pos_transaction_secondary_payment_method").val()
+    pos_transaction_secondary_payment_amount = $("#pos_transaction_secondary_payment_amount").val()
+
+    posParams = {
+      initials: pos_transaction_initials,
+      register_number: pos_transaction_register_number,
+      transaction_date: pos_transaction_date
+    }
+
+    if(pos_transaction_primary_payment_amount != "")
+      posParams["primary_payment_method"] = pos_transaction_primary_payment_method
+      posParams["primary_payment_amount"] = pos_transaction_primary_payment_amount
+
+
+    if(pos_transaction_secondary_payment_amount != "")
+      posParams["secondary_payment_method"] = pos_transaction_secondary_payment_method
+      posParams["secondary_payment_amount"] = pos_transaction_secondary_payment_amount
+    posParams
 
   reattachFormListeners = ->
     $("#new-pos-desc").off().bind('keyup', (e)->
@@ -70,35 +94,16 @@ $ ->
       pos_transaction_date = $("#pos_transaction_transaction_date").val()
       pos_transaction_initials = $("#pos_transaction_initials").val()
       pos_transaction_register_number = $("#pos_transaction_register_number").val()
+      posParams = getPosParams()
 
-      pos_transaction_primary_payment_method = $("#pos_transaction_primary_payment_method").val()
-      pos_transaction_primary_payment_amount = $("#pos_transaction_primary_payment_amount").val()
-      pos_transaction_secondary_payment_method = $("#pos_transaction_secondary_payment_method").val()
-      pos_transaction_secondary_payment_amount = $("#pos_transaction_secondary_payment_amount").val()
-
-      posParams = {
-        initials: pos_transaction_initials,
-        register_number: pos_transaction_register_number,
-        transaction_date: pos_transaction_date
-      }
-
-      if(pos_transaction_primary_payment_amount != "")
-        posParams["primary_payment_method"] = pos_transaction_primary_payment_method
-        posParams["primary_payment_amount"] = pos_transaction_primary_payment_amount
-
-
-      if(pos_transaction_secondary_payment_amount != "")
-        posParams["secondary_payment_method"] = pos_transaction_secondary_payment_method
-        posParams["secondary_payment_amount"] = pos_transaction_secondary_payment_amount
-
-      if e?.keyCode == 13
+      if e?.keyCode == 13 || e?.keyCode == 9
         e.preventDefault()
         saveNewItem(itemid,quantity,description,transactionId,posParams)
     )
 
     $("#new-pos-rx-upc-number").off().bind('keyup', (e)->
       quantity = $("#new-pos-qty").val()
-      if e?.keyCode == 13
+      if e?.keyCode == 13  || e?.keyCode == 9
         e.preventDefault()
         quantity = $("#new-pos-qty").val()
         valueToSearchFor = $("#new-pos-rx-upc-number").val()
@@ -123,29 +128,61 @@ $ ->
       else
         $(".change_due").html("$0.00")
 
-    updatePrimaryPayments = (amount,method) ->
-      console.log("Undefined")
-      updatePaymentTotals()
+    updatePrimaryPayments = (amount,method,callback) ->
+      transactionId = $("#transaction-id").val()
+      posParams = getPosParams()
+      posParams.primary_payment_amount = amount
+      posParams.primary_payment_method = amount
+      $.ajax({
+        url: "/pos_transactions/create_or_update",
+        method: "post",
+        data: {
+          transactionId: transactionId,
+          pos_header: posParams,
+        },
+        dataType: "json"
+      }).done( ->
+        callback()
+      )
 
-    updateSecondaryPayments = (amount,method) ->
-      console.log("Undefined")
-      updatePaymentTotals()
+    updateSecondaryPayments = (amount,method,callback) ->
+      posParams = getPosParams()
+      posParams.secondary_payment_amount = amount
+      posParams.secondary_payment_method = amount
+      $.ajax({
+        url: "/pos_transactions/create_or_update",
+        method: "post",
+        data: {
+          transactionId: transactionId,
+          pos_header: posParams,
+        },
+        dataType: "json"
+      }).done( ->
+        callback()
+      )
 
     $("#pos_transaction_primary_payment_amount").off().bind('keyup', (e)->
       amount = $("#pos_transaction_primary_payment_amount").val()
       method = $("#pos_transaction_primary_payment_method").val()
-      if e?.keyCode == 13
+      if e?.keyCode == 13 || e?.keyCode == 9
         e.preventDefault()
         quantity = $("#new-pos-qty").val()
-        updatePrimaryPayments(amount,method)
+        updatePrimaryPayments(amount,method, ->
+          updatePaymentTotals()
+          $("#pos_transaction_secondary_payment_amount").focus()
+        )
+
     )
 
     $("#pos_transaction_secondary_payment_amount").off().bind('keyup', (e)->
       amount = $("#pos_transaction_secondary_payment_amount").val()
       method = $("#pos_transaction_secondary_payment_method").val()
-      if e?.keyCode == 13
+      if e?.keyCode == 13  || e?.keyCode == 9
         e.preventDefault()
-        updateSecondaryPayments(amount,method)
+        updateSecondaryPayments(amount,method, ->
+          updatePaymentTotals()
+          $("#new-pos-qty").focus()
+        )
 
     )
 
