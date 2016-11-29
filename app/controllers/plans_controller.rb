@@ -19,7 +19,7 @@ class PlansController < ApplicationController
 
   def search
     bin_number = params[:bin_number]
-    plan_name  = params[:plan_name]
+    plan_name  = params[:insurance_plan_name]
     pageNumber = params[:page] ? params[:page] : 1
     perPage = 9
     case bin_number
