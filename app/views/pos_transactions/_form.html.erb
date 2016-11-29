@@ -110,8 +110,8 @@
                 <%= phx_textfield_for f, :secondary_payment_amount, "Amount", 0, "col-md-6" %>
             </div>
             <div class="row phx-two-horizontal-controls">
-              <div class="col-md-6">Total Paid: <span class="total_paid"></span></div>
-              <div class="col-md-6">Change Due: <span class="change_due"></span></div>
+              <div class="col-md-6" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-top:5px;">Total Paid: <span class="total_paid"><%= @totalpaid %></span></div>
+              <div class="col-md-6" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-top:5px;">Change Due: <span class="change_due"><%= @changedue %></span></div>
             </div>
             <div class="field form-group phx-input-control-spacer">&nbsp;
             </div>
