@@ -203,6 +203,8 @@ Rails.application.routes.draw do
 #  get 'posPaymentMethods' => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
 #  get 'posTax'            => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
   post 'pos_transactions/add_new_detail' => 'pos_transactions#add_new_detail'
+  post 'pos_transactions/create_or_update' => 'pos_transactions#create_or_update'
+
   get 'pos_transactions/view/:id' => 'pos_transactions#view'
 
   resources :pos_transactions

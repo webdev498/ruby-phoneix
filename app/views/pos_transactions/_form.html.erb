@@ -98,14 +98,14 @@
             <div class="row phx-two-horizontal-controls">
               <div class="field form-group phx-input-control col-md-6">
                 <label class="phx-form-control-label" for="compound_form">Payment Type 1</label>
-                <%= phx_selectfield_for f, :primary_payment_method, "Payment Type 1", PosTransaction.primary_payment_methods, false, 0, "col-md-6 register-primary-payment-type", true, "pos_transaction_primary_payment_method", true %>
+                <%= phx_selectfield_for f, :primary_payment_method, "Payment Type 1", PosTransaction.payment_methods, false, 0, "col-md-6 register-primary-payment-type", true, "pos_transaction_primary_payment_method", true %>
               </div>
               <%= phx_textfield_for f, :primary_payment_amount, "Amount", 0, "col-md-6" %>
             </div>
             <div class="row phx-two-horizontal-controls">
               <div class="field form-group phx-input-control col-md-6">
                 <label class="phx-form-control-label" for="compound_form">Payment Type 2</label>
-                <%= phx_selectfield_for f, :secondary_payment_method, "Payment Type 2", PosTransaction.primary_payment_methods, false, 0, "col-md-6 register-primary-payment-type", true, "pos_transaction_secondary_payment_method", true %>
+                <%= phx_selectfield_for f, :secondary_payment_method, "Payment Type 2", PosTransaction.payment_methods, false, 0, "col-md-6 register-primary-payment-type", true, "pos_transaction_secondary_payment_method", true %>
               </div>
                 <%= phx_textfield_for f, :secondary_payment_amount, "Amount", 0, "col-md-6" %>
             </div>
