@@ -35,8 +35,12 @@ class PosTransactionsController < ApplicationController
       @transaction.update(pos_header_params)
       @transaction.save!
     end
-
+    transactionid = @transaction.id
     @transaction.addNewDetail(params)
+    @transaction = PosTransaction.find(transactionid) # reload with all the new totals
+
+    @totalpaid = @transaction.primary_payment_amount.to_f + @transaction.secondary_payment_amount.to_f
+    @change_due = @transaction.total_amount.to_f + @transaction.total_tax.to_f - @totalpaid
     render :partial => "details_list"
   end
 
@@ -90,6 +94,8 @@ class PosTransactionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pos_header
       @pos_transaction = PosTransaction.find(params[:id])
+      @totalpaid = @pos_transaction.primary_payment_amount.to_f + @pos_transaction.secondary_payment_amount.to_f
+      @change_due = @pos_transaction.total_amount.to_f + @pos_transaction.total_tax.to_f - @totalpaid
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

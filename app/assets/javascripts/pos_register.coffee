@@ -46,7 +46,7 @@ $ ->
     $("#pos_transaction_non_medical_total").val(json.non_medical_total)
     $("#pos_transaction_total_amount").val(json.total_amount)
     $("#pos_transaction_total_tax").val(json.total_tax)
-
+    $("#pos_transaction_total_due").val( (json.total_amount + json.total_tax) )
 
     # Clear the fields to en
     $("#new-pos-qty").val("")
@@ -70,6 +70,7 @@ $ ->
       pos_transaction_date = $("#pos_transaction_transaction_date").val()
       pos_transaction_initials = $("#pos_transaction_initials").val()
       pos_transaction_register_number = $("#pos_transaction_register_number").val()
+
       pos_transaction_primary_payment_method = $("#pos_transaction_primary_payment_method").val()
       pos_transaction_primary_payment_amount = $("#pos_transaction_primary_payment_amount").val()
       pos_transaction_secondary_payment_method = $("#pos_transaction_secondary_payment_method").val()
@@ -78,12 +79,17 @@ $ ->
       posParams = {
         initials: pos_transaction_initials,
         register_number: pos_transaction_register_number,
-        transaction_date: pos_transaction_date,
-        primary_payment_method: pos_transaction_primary_payment_method,
-        primary_payment_amount: pos_transaction_primary_payment_amount,
-        secondary_payment_method: pos_transaction_secondary_payment_method,
-        secondary_payment_amount: pos_transaction_secondary_payment_amount
+        transaction_date: pos_transaction_date
       }
+
+      if(pos_transaction_primary_payment_amount != "")
+        posParams["primary_payment_method"] = pos_transaction_primary_payment_method
+        posParams["primary_payment_amount"] = pos_transaction_primary_payment_amount
+
+
+      if(pos_transaction_secondary_payment_amount != "")
+        posParams["secondary_payment_method"] = pos_transaction_secondary_payment_method
+        posParams["secondary_payment_amount"] = pos_transaction_secondary_payment_amount
 
       if e?.keyCode == 13
         e.preventDefault()
@@ -98,6 +104,51 @@ $ ->
         valueToSearchFor = $("#new-pos-rx-upc-number").val()
         fetchRxOrItem(valueToSearchFor,quantity)
     )
+
+    updatePaymentTotals = ->
+      primary_amount = parseFloat($("#pos_transaction_primary_payment_amount").val())
+      secondary_amount = parseFloat($("#pos_transaction_secondary_payment_amount").val())
+      if !secondary_amount
+        secondary_amount = 0.0
+      if !primary_amount
+        primary_amount = 0.0
+      $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
+      $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
+
+      paid_total = primary_amount + secondary_amount
+      change_due = (( parseFloat($("#pos_transaction_total_amount").val()) - paid_total) * -1.0).toFixed(2)
+      $(".total_paid").html("$" + paid_total.toFixed(2))
+      if(change_due > 0.0)
+        $(".change_due").html("$" + change_due)
+      else
+        $(".change_due").html("$0.00")
+
+    updatePrimaryPayments = (amount,method) ->
+      console.log("Undefined")
+      updatePaymentTotals()
+
+    updateSecondaryPayments = (amount,method) ->
+      console.log("Undefined")
+      updatePaymentTotals()
+
+    $("#pos_transaction_primary_payment_amount").off().bind('keyup', (e)->
+      amount = $("#pos_transaction_primary_payment_amount").val()
+      method = $("#pos_transaction_primary_payment_method").val()
+      if e?.keyCode == 13
+        e.preventDefault()
+        quantity = $("#new-pos-qty").val()
+        updatePrimaryPayments(amount,method)
+    )
+
+    $("#pos_transaction_secondary_payment_amount").off().bind('keyup', (e)->
+      amount = $("#pos_transaction_secondary_payment_amount").val()
+      method = $("#pos_transaction_secondary_payment_method").val()
+      if e?.keyCode == 13
+        e.preventDefault()
+        updateSecondaryPayments(amount,method)
+
+    )
+
   reattachFormListeners()
   document.addEventListener("page:load", ->
     reattachFormListeners()
