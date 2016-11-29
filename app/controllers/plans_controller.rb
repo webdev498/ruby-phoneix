@@ -20,13 +20,15 @@ class PlansController < ApplicationController
   def search
     bin_number = params[:bin_number]
     plan_name  = params[:plan_name]
+    pageNumber = params[:page] ? params[:page] : 1
+    perPage = 9
     case bin_number
       when /^\d{6}$/      #6 digit bin number
-        data = Plan.search_by_partial(bin_number)
+        @searchPlans = Plan.search_by_partial(bin_number).page(pageNumber).per(perPage)
       else
-        data = Plan.search_by_plan_name(plan_name)
+        @searchPlans = Plan.search_by_plan_name(plan_name).page(pageNumber).per(perPage)
     end
-    render :json => data
+    render  template: 'common/search/js/nextSearchPlans.js'
   end
 
   # GET /plans/new
