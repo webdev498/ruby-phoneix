@@ -53,15 +53,17 @@ class CustomersController < ApplicationController
     end
 
     def search
-      s_val  = params[:search_value]
+      s_val  = params[:abb_name] ? params[:abb_name] : ''
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
       case s_val
         when /^\d{6}$/      #6 digit bin number
-          data = Plan.find_by_sql("select plans.plan_id_code, plans.abbreviated_name, plans.bin_number,plans.plan_type from plans where plans.bin_number = #{s_val}").first(9)
+          @searchPlans = Plan.select("plans.plan_id_code, plans.abbreviated_name, plans.bin_number,plans.plan_type").where("plans.bin_number = #{s_val}").page(pageNumber).per(perPage)
         else
-          data = Plan.select("plans.id, plans.plan_id_code, plans.abbreviated_name,plans.bin_number,plans.plan_type").where("abbreviated_name like '#{s_val}%'").first(9)
+          @searchPlans = Plan.select("plans.id, plans.plan_id_code, plans.abbreviated_name,plans.bin_number,plans.plan_type").where("plans.abbreviated_name like '#{s_val}%'").page(pageNumber).per(perPage)
       end
 
-      render :json => data
+      render  template: 'common/search/js/nextSearchCustomerPlans.js'
     end
 
     # GET /customers/1
