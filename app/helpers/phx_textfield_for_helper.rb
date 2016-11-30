@@ -1,6 +1,6 @@
 module PhxTextfieldForHelper
 
-  def phx_textfield_for model, field, prompt, tabindex = 0, css_class = "", readonly=nil, searchSource=false, val=""
+  def phx_textfield_for model, field, prompt, tabindex = nil, css_class = "", readonly=nil, searchSource=false, val=""
 
   	model_name = model.object_name
 
@@ -23,10 +23,19 @@ module PhxTextfieldForHelper
 
     # let rails generate the html
     if val == ""
-      textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), readonly: (readonly == :readonly))  end
+      if tabindex
+        textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), readonly: (readonly == :readonly), tabindex: tabindex)  end
+      else
+        textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), readonly: (readonly == :readonly))  end
+      end
     else
-      textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), value: val,readonly: (readonly == :readonly))  end
+      if tabindex
+        textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), value: val,readonly: (readonly == :readonly), tabindex: tabindex) end
+      else
+        textfield = capture do concat model.text_field(field, class: 'phx-form-control'+(searchSource ? '-search' : ''), value: val,readonly: (readonly == :readonly))  end
+      end
     end
+
   	tfld4 = '</div>'
     tfld = tfld1 + em1div + tfld2 + em2div + em3div + textfield + tfld4
 
