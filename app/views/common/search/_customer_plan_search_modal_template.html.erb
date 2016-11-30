@@ -4,7 +4,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h3>Plan Search</h3>
+        <h3>Customer Plan Search</h3>
       </div>
 
       <div class="modal-body">
@@ -44,7 +44,7 @@
 
       <div class="modal-footer">
         <%=	paginate searchPlans,
-                      params: { controller: "plans", action: "search"} , remote: true  unless searchPlans.empty? %>
+                      params: { controller: "customers", action: "search"} , remote: true  unless searchPlans.empty? %>
 
 
         <button id="plan_modal_close_btn"
