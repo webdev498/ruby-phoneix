@@ -10,10 +10,10 @@ class Plan < ActiveRecord::Base
   def self.search_by_plan_name sourceString
 
     #Plan.where("insurance_plan_name like :desc", :desc=>"#{sourceString}%")
-    Plan.select("plans.id, plans.plan_id_code,plans.bin_number, plans.insurance_plan_name , plans.processor_control_number,plans.plan_type,plans.active").where("insurance_plan_name like '#{sourceString}%'").first(9)
+    Plan.select("plans.id, plans.plan_id_code,plans.bin_number, plans.insurance_plan_name , plans.processor_control_number,plans.plan_type,plans.active").where("insurance_plan_name like '#{sourceString}%'")
   end
 
   def self.search_by_partial sourceString
-    Plan.find_by_sql("select  plans.id ,plans.plan_id_code,plans.bin_number,plans.insurance_plan_name, plans.processor_control_number,plans.plan_type,plans.active from plans where plans.bin_number = #{sourceString}").first(9)
+    Plan.select("plans.id ,plans.plan_id_code,plans.bin_number,plans.insurance_plan_name, plans.processor_control_number,plans.plan_type,plans.active").where("bin_number = #{sourceString}")
   end
 end
