@@ -25,6 +25,17 @@ class PosTransactionsController < ApplicationController
     @pos_transaction = PosTransaction.new
   end
 
+  def delete_detail
+    @transaction = PosTransaction.find(params[:transactionId])
+    transactionid = @transaction.id
+    @transaction.deleteDetail(params)
+    @transaction = PosTransaction.find(transactionid) # reload with all the new totals
+
+    @totalpaid = @transaction.primary_payment_amount.to_f + @transaction.secondary_payment_amount.to_f
+    @change_due = @transaction.total_amount.to_f + @transaction.total_tax.to_f - @totalpaid
+    render :partial => "details_list"
+  end
+
 # POST /pos_transactions/add_new_detail
   def add_new_detail
     pos_header_params

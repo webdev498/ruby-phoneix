@@ -415,8 +415,16 @@ root.setupFormulaCopy = ->
     copyToFormula e
 
   console.log("setupFormulaCopy setup complete")
-
 $ ->
   attachIngredientSearchHandlers();
   setIngredientRowHandlers();
   setupFormulaCopy();
+
+  # turbolinks event for page load
+  document.addEventListener("page:load", ->
+    attachIngredientSearchHandlers();
+    setIngredientRowHandlers();
+    setupFormulaCopy();
+  )
+
+
