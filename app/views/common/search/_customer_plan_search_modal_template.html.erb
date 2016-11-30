@@ -14,11 +14,9 @@
           <tr>
             <th class="phx-search-font"><input type="text" id="planSearchModal_Keys1_9" style="width:0.5px;" ></th>
             <th class="phx-search-font">Plan ID Code</th>
-            <th class="phx-search-font">Insurance Plan Name</th>
+            <th class="phx-search-font">Plan Name</th>
             <th class="phx-search-font">Bin Number </th>
-            <th class="phx-search-font">Processor Control Number</th>
             <th class="phx-search-font">Plan Type</th>
-            <th class="phx-search-font">Active<th>
           </tr>
           </thead>
 
@@ -33,11 +31,9 @@
 
                 <td class="phx-search-font"> <%= choice %> </td>
                 <td class="phx-search-font"> <%= plan.plan_id_code %> </td>
-                <td class="phx-search-font"> <%= plan.abb %> </td>
+                <td class="phx-search-font"> <%= plan.abbreviated_name %> </td>
                 <td class="phx-search-font"> <%= plan.bin_number %> </td>
-                <td class="phx-search-font"> <%= plan.processor_control_number %> </td>
-                <td class="phx-search-font"> <%= plan.plan_type ? "Yes" : "No" %> </td>
-                <td class="phx-search-font"> <%= plan.active%> </td>
+                <td class="phx-search-font"> <%= plan.plan_type  %> </td>
               </tr>
           <% end %> <!-- END OF plan list -->
           </tbody>
