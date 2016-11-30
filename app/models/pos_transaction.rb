@@ -67,7 +67,14 @@ class PosTransaction < ActiveRecord::Base
                                   })
     end
     update_transaction_price
+  end
 
+  def deleteDetail(params)
+    detailToDelete = PosDetail.find(params[:detailId]) rescue nil
+    if detailToDelete
+      detailToDelete.delete
+    end
+    update_transaction_price
   end
 
   def update_transaction_price

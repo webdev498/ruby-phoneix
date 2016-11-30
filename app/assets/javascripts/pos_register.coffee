@@ -31,6 +31,7 @@ $ ->
         dataType: "json"
       ).done( (data) ->
         updateRegisterFields(data,tablehtml)
+        reattachFormListeners()
       )
     )
 
@@ -186,6 +187,46 @@ $ ->
           updatePaymentTotals()
           $("#pos_transaction_print_receipt").focus()
         )
+
+    )
+
+
+
+    deleteDetail = (e) ->
+      e.preventDefault()
+      transactionId = $("#transaction-id").val()
+      detailId = e.target.id.split("-delete-")[1]
+      $.ajax({
+        url: "/pos_transactions/delete_detail",
+        method: "delete",
+        data: {
+          detailId: detailId,
+          transactionId: transactionId
+        }
+      }).done( (tablehtml) ->
+        $("#pos-items-list").html(tablehtml)
+        transactionId = $("#transaction-id").val()
+        $.ajax(
+          url: "/pos_transactions/view/" + transactionId + ".json",
+          dataType: "json"
+        ).done( (data) ->
+          updateRegisterFields(data,tablehtml)
+          reattachFormListeners()
+        )
+      )
+
+    $(".detail-delete").off().click( (e) ->
+      deleteDetail(e)
+      return false
+    )
+
+    $(".detail-delete").bind('keypress', (e)->
+      if(e?.keyCode == 13)
+        e.preventDefault()
+        deleteDetail(e)
+        return false
+      else
+        return true
 
     )
 
