@@ -69,15 +69,20 @@ FEENX.Search = (function () {
         that.getPath = function(param) {
             if(basePath != ''){
                 var path = basePath;
+                var key13context = '';
+                var triggerFieldVal = '';
+                key13context = (context == '') ? model : context;
+
                 if(Array.isArray(triggerField)){
                     path += '?';
                     triggerField.forEach(function(item){
-                        var key13context = '';
-                        var triggerFieldVal = '';
-                        key13context = (context == '') ? model : context;
                         triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + item).val();
                         path += item + '='+triggerFieldVal + '&';
                     });
+                }else{
+                    path += '?';
+                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                    path += triggerField + '='+triggerFieldVal;
                 }
                 return path;
             }else {
