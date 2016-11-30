@@ -14,6 +14,6 @@ class Plan < ActiveRecord::Base
   end
 
   def self.search_by_partial sourceString
-    Plan.find_by_sql("select  plans.id ,plans.plan_id_code,plans.bin_number,plans.insurance_plan_name, plans.processor_control_number,plans.plan_type,plans.active from plans where plans.bin_number = #{sourceString}")
+    Plan.select("plans.id ,plans.plan_id_code,plans.bin_number,plans.insurance_plan_name, plans.processor_control_number,plans.plan_type,plans.active").where("bin_number = #{sourceString}")
   end
 end
