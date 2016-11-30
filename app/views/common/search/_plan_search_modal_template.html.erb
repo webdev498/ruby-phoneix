@@ -25,7 +25,7 @@
 		  		<tbody>
 						<% searchPlans.each do |plan| %>
 
-							<% planSearchRowId = "planRow" + (choice += 1).to_s %>
+							<% planSearchRowId = "planSearchModal-row" + (choice += 1).to_s %>
 							<tr	id="<%=planSearchRowId%>"
 									class="phx-search-row clickable-planSearchModal-row"
                   data-phx-search-plan-id="<%= plan.id %>"
