@@ -37,6 +37,8 @@ FEENX.Search = (function () {
         var fieldPrefix  = options.fieldPrefix || '';
         if(fieldPrefix !== '') { fieldPrefix += '_'};
         var triggerField = options.triggerField || '';
+        var triggerObj = options.triggerObj || null;
+        var basePath = options.basePath || '';
         var nextMethod   = options.nextMethod || '';
         var refresh      = options.refresh || false;
         var refreshTo    = options.refreshTo || '';
@@ -65,25 +67,42 @@ FEENX.Search = (function () {
 
         // getPath format example:    /customer/nextcustomers?start='SMITH'
         that.getPath = function(param) {
-            var key13context='';
-            var triggerFieldVal='';
-            if(triggerField) {
-                key13context = (context == '') ? model : context;
-                triggerFieldVal = $('#'+key13context+'_'+fieldPrefix+triggerField).val();
-            }
+            if(basePath != ''){
+                var path = basePath;
+                if(Array.isArray(triggerField)){
+                    path += '?';
+                    triggerField.forEach(function(item){
+                        var key13context = '';
+                        var triggerFieldVal = '';
+                        key13context = (context == '') ? model : context;
+                        triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + item).val();
+                        path += item + '='+triggerFieldVal + '&';
+                    });
+                }
+                return path;
+            }else {
+                var key13context = '';
+                var triggerFieldVal = '';
+                if (triggerField) {
+                    key13context = (context == '') ? model : context;
+                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                }
 
-            var actualNextMethod = "";
-            if( nextMethod == '') {
-                actualNextMethod = "/next" + upperCaseModel().replace(/_\w/g, function(m) { return m[1].toUpperCase();} ) + "s";
-            } else {
-                actualNextMethod = nextMethod;
-            }
+                var actualNextMethod = "";
+                if (nextMethod == '') {
+                    actualNextMethod = "/next" + upperCaseModel().replace(/_\w/g, function (m) {
+                            return m[1].toUpperCase();
+                        }) + "s";
+                } else {
+                    actualNextMethod = nextMethod;
+                }
 
-            var controllerContext = (context == '') ? model : context;
-            return "/"	+ controllerContext
-                + actualNextMethod
-                + "?start=" + triggerFieldVal
-                + param;
+                var controllerContext = (context == '') ? model : context;
+                return "/" + controllerContext
+                    + actualNextMethod
+                    + "?start=" + triggerFieldVal
+                    + param;
+            }
         };
 
 
@@ -208,16 +227,22 @@ FEENX.Search = (function () {
 
         that.onKey13 = function() {
             var that = this;
-            var key13context = (context == '') ? model : context;
-            $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", function(evt) {
+            var event_handler = function(evt) {
                 var key = evt.charCode ? evt.charCode : evt.keyCode ? evt.keyCode : 0;
                 // ajax to get the search modal populated with next batch of data
-                if(key == 13) {
-                    $.get( that.getPath(""), function(data) {
+                if (key == 13) {
+                    $.get(that.getPath(""), function (data) {
                     });
                     return false;
                 }
-            });
+            };
+            if(triggerObj){
+                triggerObj.off('keypress').on("keypress", event_handler);
+            }else{
+                var key13context = (context == '') ? model : context;
+                $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", event_handler);
+            }
+
         };
 
 
