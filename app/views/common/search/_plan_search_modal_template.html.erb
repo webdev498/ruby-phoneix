@@ -61,35 +61,9 @@
 
 	</div>  <!-- end of modal-dialog -->
 
-	<script>
-
-		//<%# signal that a search selection has been made, and provide the ID and Name %>
-		//<%# the calling view MUST define the "phx-selected-plan" custom event  %>
-		function triggerSearchSelection( selectedSearchPlan ) {
-			$( document ).trigger( "phx-selected-plan",
-										[ selectedSearchPlan.data("phxSearchId"),
-										  selectedSearchPlan.data("phxSearchPlanName"),
-										  selectedSearchPlan.data("phxSearchPlanNdcNumber") ] );
-			$('#plan_modal_close_btn').trigger("click");
-			}
-
-		// handle a click event on any of the search rows
-		$(".clickable-planRow").click(function() {
-			// send the jQuery version of "this"
-			triggerSearchSelection( $(this) );
-			});
-
-		// handle a number selection on the search
-		$('#planSearchModal_Keys1_9').on("keypress", function(e) {
-				var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
-
-				if( key >= 48 && key <= 57 ) {
-						triggerSearchSelection( $("#planRow" + (key-48).toString()) );
-						return false; }
-				if (key == 27) { $("#planSearchModal_close_btn").trigger("click"); return false; }
-				if (key == 43) { $("#createNewPlanButton").trigger("click"); return false; }
-			});
-
-	</script>
-
 </div>
+
+<script>
+  $('#plan_search_modal_partial').trigger('contentchanged');
+</script>
+
