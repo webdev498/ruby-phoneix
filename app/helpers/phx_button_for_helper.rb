@@ -21,10 +21,10 @@ module PhxButtonForHelper
 
     end
 
-    def phx_blue_submit_button_for( model, captionSuffix="", alternateCaptions=[], name="", cssClass="", disabled=false, remote = false, id = nil, overrideCaption = nil )
+    def phx_blue_submit_button_for( model, captionSuffix="", alternateCaptions=[], name="", cssClass="", disabled=false, remote = false, id = nil, overrideCaption = nil, tabindex = nil )
 
         buttonClass = "phx-btn-model-control-blue " << cssClass
-        phx_button_for model, captionSuffix, alternateCaptions, name, buttonClass, disabled, remote, id, overrideCaption
+        phx_button_for model, captionSuffix, alternateCaptions, name, buttonClass, disabled, remote, id, overrideCaption, tabindex
 
     end
 
@@ -40,7 +40,7 @@ private
 
     # alternateCaptions[0] - create caption
     # alternateCaptions[1] - update caption
-    def phx_button_for( model, captionSuffix, alternateCaptions, name, cssClass, disabled = false, remote = false, id = nil, overrideCaption = nil )
+    def phx_button_for( model, captionSuffix, alternateCaptions, name, cssClass, disabled = false, remote = false, id = nil, overrideCaption = nil, tabindex = nil )
 
       buttonClass = "btn btn-sm btn-default " << cssClass
       if overrideCaption
@@ -51,7 +51,12 @@ private
           fullCaption = model.object.persisted? ? alternateCaptions[1] : alternateCaptions[0]
       end
       # let rails generate the html
-      button = capture do concat model.submit( fullCaption, name: name, class: buttonClass, disabled: disabled, remote: remote, id: id )  end
+      if tabindex
+        button = capture do concat model.submit( fullCaption, name: name, class: buttonClass, disabled: disabled, remote: remote, id: id, tabindex: tabindex )  end
+      else
+        button = capture do concat model.submit( fullCaption, name: name, class: buttonClass, disabled: disabled, remote: remote, id: id )  end
+
+      end
 
       button.html_safe
 

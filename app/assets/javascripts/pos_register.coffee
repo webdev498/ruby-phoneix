@@ -37,7 +37,8 @@ $ ->
   updateRegisterFields = (json,tablehtml) ->
     $("#pos_transaction_initials").val(json.initials)
     $("#pos_transaction_register_number").val(json.register_number)
-    $("#pos_transaction_transaction_date").val(json.transaction_date)
+    formattedDate = (new Date(json.created_at)).toLocaleDateString().replace(/\//g,"-")
+    $("#pos_transaction_transaction_date").val(formattedDate)
     $("#pos_transaction_medical_amount").val(json.medical_amount)
     $("#pos_transaction_medical_tax").val(json.medical_tax)
     $("#pos_transaction_non_medical_amount").val(json.non_medical_amount)
@@ -170,7 +171,7 @@ $ ->
         e.preventDefault()
         updatePrimaryPayments(amount,method, ->
           updatePaymentTotals()
-          $("#pos_transaction_secondary_payment_amount").focus()
+          $("#pos_transaction_secondary_payment_method").focus()
         )
 
     )
@@ -183,7 +184,7 @@ $ ->
         e.preventDefault()
         updateSecondaryPayments(amount,method, ->
           updatePaymentTotals()
-          $("#new-pos-qty").focus()
+          $("#pos_transaction_print_receipt").focus()
         )
 
     )
