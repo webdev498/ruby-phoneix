@@ -96,14 +96,14 @@ $ ->
       pos_transaction_register_number = $("#pos_transaction_register_number").val()
       posParams = getPosParams()
 
-      if e?.keyCode == 13 || e?.keyCode == 9
+      if ( e?.keyCode == 13 )
         e.preventDefault()
         saveNewItem(itemid,quantity,description,transactionId,posParams)
     )
 
     $("#new-pos-rx-upc-number").off().bind('keyup', (e)->
       quantity = $("#new-pos-qty").val()
-      if e?.keyCode == 13  || e?.keyCode == 9
+      if $("#new-pos-rx-upc-number").val() != "" && e?.keyCode == 13
         e.preventDefault()
         quantity = $("#new-pos-qty").val()
         valueToSearchFor = $("#new-pos-rx-upc-number").val()
@@ -146,6 +146,7 @@ $ ->
       )
 
     updateSecondaryPayments = (amount,method,callback) ->
+      transactionId = $("#transaction-id").val()
       posParams = getPosParams()
       posParams.secondary_payment_amount = amount
       posParams.secondary_payment_method = amount
@@ -162,11 +163,11 @@ $ ->
       )
 
     $("#pos_transaction_primary_payment_amount").off().bind('keyup', (e)->
+      transactionId = $("#transaction-id").val()
       amount = $("#pos_transaction_primary_payment_amount").val()
       method = $("#pos_transaction_primary_payment_method").val()
-      if e?.keyCode == 13 || e?.keyCode == 9
+      if transactionId != "" && e?.keyCode == 13  && amount != ""
         e.preventDefault()
-        quantity = $("#new-pos-qty").val()
         updatePrimaryPayments(amount,method, ->
           updatePaymentTotals()
           $("#pos_transaction_secondary_payment_amount").focus()
@@ -175,9 +176,10 @@ $ ->
     )
 
     $("#pos_transaction_secondary_payment_amount").off().bind('keyup', (e)->
+      transactionId = $("#transaction-id").val()
       amount = $("#pos_transaction_secondary_payment_amount").val()
       method = $("#pos_transaction_secondary_payment_method").val()
-      if e?.keyCode == 13  || e?.keyCode == 9
+      if transactionId != "" && e?.keyCode == 13   && amount != ""
         e.preventDefault()
         updateSecondaryPayments(amount,method, ->
           updatePaymentTotals()
