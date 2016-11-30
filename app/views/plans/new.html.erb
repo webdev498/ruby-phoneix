@@ -258,13 +258,25 @@
           </div>
   <% end %>
   </div> <!-- end of col lg 10 -->
-
+  <div id="plan_search_modal_partial">
+    <div id="planSearchModal">
+    </div>
+  </div>
 <script>
   $(document).ready(function() {
-    $(document).keypress(function(event){
-      if (event.which == 13) {
-        modal_click();
-      }
-    });
+
   });
+  var cs = FEENX.Search.NewSearch('plan',
+      {   context:      '',
+        basePath: 'search',
+        fieldPrefix:  '',
+        triggerField : ['insurance_plan_name','bin_number'],
+        triggerObj : $(document),
+        modalId:      'planSearchModal',
+        hiddenDivId:  'hidden_fields',
+        refresh:      true,
+        refreshTo:    '/plans/' });
+  cs.addHiddenFields();
+  // create the corresponding data attribues in the modal rows
+  cs.dataFormattedAttributes();
 </script>
