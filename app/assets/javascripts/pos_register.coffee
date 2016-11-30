@@ -31,6 +31,7 @@ $ ->
         dataType: "json"
       ).done( (data) ->
         updateRegisterFields(data,tablehtml)
+        updatePaymentTotals()
         reattachFormListeners()
       )
     )
@@ -49,6 +50,7 @@ $ ->
     $("#pos_transaction_total_amount").val(json.total_amount)
     $("#pos_transaction_total_tax").val(json.total_tax)
     $("#pos_transaction_total_due").val( (json.total_amount + json.total_tax) )
+    $("#pos_transaction_items_count").val( 20 )
 
     # Clear the fields to en
     $("#new-pos-qty").val("")
@@ -186,6 +188,7 @@ $ ->
         updateSecondaryPayments(amount,method, ->
           updatePaymentTotals()
           $("#pos_transaction_print_receipt").focus()
+
         )
 
     )
@@ -211,6 +214,7 @@ $ ->
           dataType: "json"
         ).done( (data) ->
           updateRegisterFields(data,tablehtml)
+          updatePaymentTotals()
           reattachFormListeners()
         )
       )

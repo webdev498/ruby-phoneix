@@ -1,3 +1,10 @@
+<div class="col-md-12">
+  <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+    <span id="pos_transaction_items_count" ></span><%= @transaction.posDetails.count %></span> Total Items
+  </div>
+</div>
+<div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+<table class="phx-search-font table table-bordered" id="pos-items-list">
 <input type="hidden" value="<%= @transaction.id %>" id="transaction-id">
 <!--<td class="col-xs-1">&nbsp;</td></tr>-->
 <thead class="">
@@ -28,3 +35,4 @@
     </tr>
 <% end %>
 </tbody>
+</table>

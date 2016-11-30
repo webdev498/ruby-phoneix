@@ -1,7 +1,7 @@
 class PosTransaction < ActiveRecord::Base
 
   has_many :posDetails
-  enum payment_methods: [:default, :credit, :hsa, :other]
+  enum payment_methods: [:cash, :credit, :hsa, :other]
 
   def self.payment_method_enum_to_string(enumvalue)
     case (enumvalue.to_i)
