@@ -1156,8 +1156,10 @@
           fieldPrefix:  '',
           modalId:      'planSearchModal',
           hiddenDivId:  'hidden_fields',
-          refresh:      true,
-          refreshTo:    '/plans/' });
+          customProcessSearchSelection : function(target){
+            var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
+            location.href =  '?sub_index=-1&plan_id_code=' + plan_id_code ;
+          }});
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
     // create the corresponding data attribues in the modal rows
@@ -1171,7 +1173,7 @@
           e.preventDefault();
         }
       });
-
+    });
 //      $('#plan_abb_name').keypress(function(e){
 //        if (e.keyCode == 13) {
 //          var s_val  = $('#plan_abb_name').val();
@@ -1230,5 +1232,5 @@
 //          e.preventDefault();
 //        }
 //      });
-    });
+
 </script>
