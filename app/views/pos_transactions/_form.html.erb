@@ -156,13 +156,13 @@
                         </thead>
                         <tbody>
                         <tr id="new-compound-search" class="">
-                          <td><input type="text" id="new-pos-qty" placeholder="" tabindex="10"/></td>
-                          <td><input type="text" id="new-pos-type" disabled="true" placeholder="" tabindex="-1"></td>
+                          <td><input type="text" id="new-pos-qty" placeholder="" tabindex="10" value="1"/></td>
+                          <td><%= select_tag(:new_pos_type, options_for_select(PosCategory.getSelectEnum), tabindex: "10", id: "new-pos-type") %></td>
                           <td><input type="text" id="new-pos-rx-upc-number" placeholder="" tabindex="10"/></td>
-                          <td><input type="text" id="new-pos-med" disabled="true" tabindex="-1"/></td>
-                          <td><input type="text" id="new-pos-desc" disabled="false" tabindex="10"/></td>
-                          <td><input type="text" id="new-pos-each" disabled="true" tabindex="-1"/></td>
-                          <td><input type="text" id="new-pos-total" disabled="true" tabindex="-1"/></td>
+                          <td><input type="text" id="new-pos-med" tabindex="10"/></td>
+                          <td><input type="text" id="new-pos-desc" tabindex="10"/></td>
+                          <td><input type="text" id="new-pos-each" tabindex="10"/></td>
+                          <td><input type="text" id="new-pos-total" tabindex="10"/></td>
                         </tr>
                         </tbody>
                       </table>
@@ -195,7 +195,7 @@
                         <% @pos_transaction.posDetails.each_with_index do |fff, idx| %>
                             <tr class="" id="pos-item-<%= fff.id %>">
                               <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder="" value="<%= fff.quantity %>" tabindex="-1"/></td>
-                              <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.item_type %>"  tabindex="-1"/></td>
+                              <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.category %>"  tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number %>" tabindex="-1" /></td>
                               <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true" value="<%= fff.medical_item ? "Y" : "N" %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true" value="<%= fff.item_description %>" tabindex="-1"/></td>

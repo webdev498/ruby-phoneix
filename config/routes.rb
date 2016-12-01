@@ -207,7 +207,7 @@ Rails.application.routes.draw do
   post 'pos_transactions/create_or_update' => 'pos_transactions#create_or_update'
 
   get 'pos_transactions/view/:id' => 'pos_transactions#view'
-
+  get 'pos_transactions/show/:id' => 'pos_transactions#show'
   resources :pos_transactions
 
   get 'pos_details/get_rx_or_item' => 'pos_details#get_rx_or_item'
