@@ -1,18 +1,35 @@
 $ ->
-  fetchRxOrItem = (valueToSearchFor,quantity) ->
-    $.ajax("/pos_details/get_rx_or_item?id=" + valueToSearchFor + "&quantity="+ quantity,
-      method: "get",
+  fetchRxOrItem = (valueToSearchFor,quantity,categoryId) ->
+    $.ajax("/pos_details/get_rx_or_item?id=" + valueToSearchFor + "&quantity="+ quantity + "&categoryId" + categoryId,
+      method: "get"
     ).done((data) ->
       $("#new-compound-search").html(data)
-      $("#new-pos-desc").focus()
-      reattachFormListeners()
+      previouslySelectedIndex = $("#new-pos-type")[0].selectedIndex
+      selectedType = $("#new-pos-type")[0].options[selectedIndex].label
+      if(selectedType == "RX")
+        saveNewItem()
+      else
+        $("#new-pos-med").focus()
+        reattachFormListeners()
     ).fail((data) ->
       alert("Item not found")
     )
 
 
 
-  saveNewItem = (itemId,quantity,description,transactionId,posParams) ->
+  saveNewItem = () ->
+    quantity = $("#new-pos-qty").val()
+    description = $("#new-pos-desc").val()
+    categoryId = $("#new-pos-type").val()
+    itemId =  $("#new-pos-rx-upc-number").val()
+    transactionId = $("#transaction-id").val()
+    pos_transaction_date = $("#pos_transaction_transaction_date").val()
+    pos_transaction_initials = $("#pos_transaction_initials").val()
+    pos_transaction_register_number = $("#pos_transaction_register_number").val()
+    posParams = getPosParams()
+    previouslySelectedIndex = $("#new-pos-type")[0].selectedIndex
+    selectedType = $("#new-pos-type")[0].options[selectedIndex].label
+
     $.ajax({
       url: "/pos_transactions/add_new_detail",
       method: "post",
@@ -20,6 +37,7 @@ $ ->
         quantity: quantity,
         description: description,
         itemId: itemId,
+        categoryId: categoryId,
         transactionId: transactionId,
         pos_header: posParams,
       }
@@ -30,13 +48,14 @@ $ ->
         url: "/pos_transactions/view/" + transactionId + ".json",
         dataType: "json"
       ).done( (data) ->
-        updateRegisterFields(data,tablehtml)
+
+        updateRegisterFields(data,tablehtml,previouslySelectedIndex)
         updatePaymentTotals()
         reattachFormListeners()
       )
     )
 
-  updateRegisterFields = (json,tablehtml) ->
+  updateRegisterFields = (json,tablehtml,previouslySelectedIndex) ->
     $("#pos_transaction_initials").val(json.initials)
     $("#pos_transaction_register_number").val(json.register_number)
     formattedDate = (new Date(json.created_at)).toLocaleDateString().replace(/\//g,"-")
@@ -50,18 +69,16 @@ $ ->
     $("#pos_transaction_total_amount").val(json.total_amount)
     $("#pos_transaction_total_tax").val(json.total_tax)
     $("#pos_transaction_total_due").val( (json.total_amount + json.total_tax) )
-    $("#pos_transaction_items_count").val( 20 )
 
     # Clear the fields to en
-    $("#new-pos-qty").val("")
-    $("#new-pos-type").val("")
+    $("#new-pos-qty").val("1")
+    $("#new-pos-type")[0].selectedIndex = previouslySelectedIndex
     $("#new-pos-rx-upc-number").val("")
     $("#new-pos-med").val("")
     $("#new-pos-desc").val("")
     $("#new-pos-each").val("")
     $("#new-pos-total").val("")
-
-    $("#new-pos-qty").focus()
+    $("#new-pos-rx-upc-number").focus()
     reattachFormListeners()
 
   getPosParams = ->
@@ -91,18 +108,9 @@ $ ->
 
   reattachFormListeners = ->
     $("#new-pos-desc").off().bind('keyup', (e)->
-      quantity = $("#new-pos-qty").val()
-      description = $("#new-pos-desc").val()
-      itemid =  $("#new-pos-rx-upc-number").val()
-      transactionId = $("#transaction-id").val()
-      pos_transaction_date = $("#pos_transaction_transaction_date").val()
-      pos_transaction_initials = $("#pos_transaction_initials").val()
-      pos_transaction_register_number = $("#pos_transaction_register_number").val()
-      posParams = getPosParams()
-
       if ( e?.keyCode == 13 )
         e.preventDefault()
-        saveNewItem(itemid,quantity,description,transactionId,posParams)
+        saveNewItem()
     )
 
     $("#new-pos-rx-upc-number").off().bind('keyup', (e)->
@@ -111,7 +119,8 @@ $ ->
         e.preventDefault()
         quantity = $("#new-pos-qty").val()
         valueToSearchFor = $("#new-pos-rx-upc-number").val()
-        fetchRxOrItem(valueToSearchFor,quantity)
+        categoryId = $("#new-pos-type").val()
+        fetchRxOrItem(valueToSearchFor,quantity,categoryId)
     )
 
     updatePaymentTotals = ->
