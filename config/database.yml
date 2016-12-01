@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: med_demo_dev_2
+  database: newDb
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -32,7 +32,7 @@ development:
   username: postgres
 
   # The password associated with the postgres role (username).
-  password:
+  password: phoenix@
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -41,7 +41,7 @@ development:
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-
+  port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -57,11 +57,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: med_demo_test_2
-  username: beeker
-  password:
+  database: phoenixTestDb
+  username: phoenixTester
+  password: phoenix@
   host: localhost
-
+  port: 5432
 
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -87,4 +87,5 @@ production:
   <<: *default
   database: phoenixDb
   username: postgres
-  password: phoenix@
+password: phoenix@
+
