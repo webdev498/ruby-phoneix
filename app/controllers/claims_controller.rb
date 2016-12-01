@@ -65,9 +65,11 @@ class ClaimsController < ApplicationController
       if params[:customer_id] && params[:customer_id] != ''
         dbContext = dbContext.where('customer_id ='+ params[:customer_id])
       end
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
+      @searchClaims = dbContext.page(pageNumber).per(perPage)
 
-      data = dbContext.last(9)
-      render json: data
+      render  template: 'common/search/js/nextSearchClaims.js'
     end
 
 
