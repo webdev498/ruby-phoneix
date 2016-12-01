@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: newDb
+  database: med_demo_dev_2
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,8 +57,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: phoenixTestDb
-  username: phoenixTester
+  database: med_demo__test
+  username: postgres
   password: phoenix@
   host: localhost
   port: 5432
