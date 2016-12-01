@@ -15,7 +15,7 @@ class PosDetail < ActiveRecord::Base
 
     return nil,nil,nil if prescription.nil?
 
-    prescription_item = Item.find(prescription.item)
+    prescription_item = Item.find(prescription.item_id)
     if(refillNumber)
       fillInfo = prescription.dispenses.find_by(fill_number: refillNumber)
     else

@@ -34,8 +34,7 @@ class PosTransaction < ActiveRecord::Base
   end
 
   def addNewDetail(params)
-    category = PosCategory.find(:pos_category_id) rescue nil
-
+    category = PosCategory.find(params[:categoryId]) rescue nil
     if category && category.category_abbreviation == "RX"
       prescription,item,fillDetails = PosDetail.getPrescription(params[:itemId])
       newDetail = PosDetail.create({
@@ -60,14 +59,14 @@ class PosTransaction < ActiveRecord::Base
                                       quantity: params[:quantity].to_i,
                                       created_at: Time.now,
                                       updated_at: Time.now,
-                                      item_description: item.item_name[0..19],
+                                      item_description: item ? item.item_name[0..19] : params[:description].to_s[0..19],
                                       item_type: "OTC",
-                                      item_number: item.id,
-                                      medical_item: false,
+                                      item_number: item ? item.id : nil,
+                                      medical_item: params[:medical] ? params[:medical] : "N",
                                       category: category.nil? ? "NA" : category.category_abbreviation,
-                                      rx_number: item.upc_product_number,
-                                      price: item.awp_unit_price * params[:quantity].to_f,
-                                      tax_amount: item.fed_tax * params[:quantity].to_f
+                                      rx_number: nil,
+                                      price: item ? item.awp_unit_price * params[:quantity].to_f : params[:each].to_f * params[:quantity].to_f,
+                                      tax_amount: item ? item.fed_tax * params[:quantity].to_f : 0.0
                                   })
     end
     update_transaction_price

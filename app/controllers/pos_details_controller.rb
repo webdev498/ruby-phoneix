@@ -19,7 +19,10 @@ class PosDetailsController < ApplicationController
 
   def get_rx_or_item
     @prescription = nil
-    if PosDetail.itemOrPrescription?(params[:id]) == "prescription"
+    @selectedItem = params[:categoryId]
+    category = PosCategory.find(@selectedItem) rescue nil
+    if category && category.category_abbreviation == "RX"
+      @isMedical = "Y"
       @prescription,@item,@fillInfo = PosDetail.getPrescription(params[:id])
       if @prescription.nil?
         render status: 400
@@ -28,9 +31,10 @@ class PosDetailsController < ApplicationController
         render layout: false, partial: "prescription_detail"
       end
     else
+      @isMedical = "N"
       @item = PosDetail.getItem(params[:itemId])
       if(@item.nil?)
-        render status: 400
+          render status: 400
       else
         @quantity = @params[:quantity]
         @totalPrice = @quantity.to_i * @item.aws_unit_price

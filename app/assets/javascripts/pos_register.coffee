@@ -1,11 +1,11 @@
 $ ->
   fetchRxOrItem = (valueToSearchFor,quantity,categoryId) ->
-    $.ajax("/pos_details/get_rx_or_item?id=" + valueToSearchFor + "&quantity="+ quantity + "&categoryId" + categoryId,
+    $.ajax("/pos_details/get_rx_or_item?id=" + valueToSearchFor + "&quantity="+ quantity + "&categoryId=" + categoryId,
       method: "get"
     ).done((data) ->
       $("#new-compound-search").html(data)
       previouslySelectedIndex = $("#new-pos-type")[0].selectedIndex
-      selectedType = $("#new-pos-type")[0].options[selectedIndex].label
+      selectedType = $("#new-pos-type")[0].options[previouslySelectedIndex].label
       if(selectedType == "RX")
         saveNewItem()
       else
@@ -15,6 +15,23 @@ $ ->
       alert("Item not found")
     )
 
+  updatePaymentTotals = ->
+    primary_amount = parseFloat($("#pos_transaction_primary_payment_amount").val())
+    secondary_amount = parseFloat($("#pos_transaction_secondary_payment_amount").val())
+    if !secondary_amount
+      secondary_amount = 0.0
+    if !primary_amount
+      primary_amount = 0.0
+    $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
+    $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
+
+    paid_total = primary_amount + secondary_amount
+    change_due = (( parseFloat($("#pos_transaction_total_amount").val()) - paid_total) * -1.0).toFixed(2)
+    $(".total_paid").html("$" + paid_total.toFixed(2))
+    if(change_due > 0.0)
+      $(".change_due").html("$" + change_due)
+    else
+      $(".change_due").html("$0.00")
 
 
   saveNewItem = () ->
@@ -22,13 +39,19 @@ $ ->
     description = $("#new-pos-desc").val()
     categoryId = $("#new-pos-type").val()
     itemId =  $("#new-pos-rx-upc-number").val()
+    quantity = $("#new-pos-qty").val()
+    medical = $("#new-pos-med").val()
+    each = $("#new-pos-each").val()
+    total = $("#new-pos-total").val()
     transactionId = $("#transaction-id").val()
+
+
     pos_transaction_date = $("#pos_transaction_transaction_date").val()
     pos_transaction_initials = $("#pos_transaction_initials").val()
     pos_transaction_register_number = $("#pos_transaction_register_number").val()
     posParams = getPosParams()
     previouslySelectedIndex = $("#new-pos-type")[0].selectedIndex
-    selectedType = $("#new-pos-type")[0].options[selectedIndex].label
+    selectedType = $("#new-pos-type")[0].options[previouslySelectedIndex].label
 
     $.ajax({
       url: "/pos_transactions/add_new_detail",
@@ -39,6 +62,9 @@ $ ->
         itemId: itemId,
         categoryId: categoryId,
         transactionId: transactionId,
+        medical: medical,
+        each: each,
+        total: total,
         pos_header: posParams,
       }
     }).done( (tablehtml) ->
@@ -48,7 +74,6 @@ $ ->
         url: "/pos_transactions/view/" + transactionId + ".json",
         dataType: "json"
       ).done( (data) ->
-
         updateRegisterFields(data,tablehtml,previouslySelectedIndex)
         updatePaymentTotals()
         reattachFormListeners()
@@ -113,14 +138,24 @@ $ ->
         saveNewItem()
     )
 
+    $("#new-pos-total").off().bind('keyup', (e)->
+      if ( e?.keyCode == 13 )
+        e.preventDefault()
+        saveNewItem()
+    )
+
     $("#new-pos-rx-upc-number").off().bind('keyup', (e)->
       quantity = $("#new-pos-qty").val()
       if $("#new-pos-rx-upc-number").val() != "" && e?.keyCode == 13
         e.preventDefault()
         quantity = $("#new-pos-qty").val()
         valueToSearchFor = $("#new-pos-rx-upc-number").val()
+        medical = $("#new-pos-med").val()
         categoryId = $("#new-pos-type").val()
-        fetchRxOrItem(valueToSearchFor,quantity,categoryId)
+        each = $("#new-pos-each").val()
+        description = $("#new-pos-desc").val()
+        total = $("#new-pos-total").val()
+        fetchRxOrItem(valueToSearchFor,quantity,categoryId,description,each,medical,total)
     )
 
     updatePaymentTotals = ->
