@@ -2,7 +2,7 @@ class PosTransaction < ActiveRecord::Base
 
   has_many :posDetails
   enum payment_methods: [:cash, :credit, :hsa, :other]
-
+  before_create :getNewTicketNumber
   def self.payment_method_enum_to_string(enumvalue)
     case (enumvalue.to_i)
       when 0
@@ -116,5 +116,13 @@ class PosTransaction < ActiveRecord::Base
     self.save!
   end
 
+  def getNewTicketNumber
+    most_recent_ticket_number_transaction = PosTransaction.where.not(ticket_number: [nil]).order(ticket_number: :desc).first
+    ticket_number = 1
+    if most_recent_ticket_number_transaction
+      ticket_number = most_recent_ticket_number_transaction.ticket_number.to_i + 1
+    end
+    self.ticket_number = ticket_number
+  end
 
 end
