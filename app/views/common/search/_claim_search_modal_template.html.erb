@@ -13,13 +13,14 @@
 		  		<thead class="phx-search-row-header">
  		  			<tr>
 						<th class="phx-search-font"><input type="text" id="claimsSearchModal_Keys1_9" style="width:0.1px;" ></th>
-						<th class="phx-search-font">ID</th>
-						<th class="phx-search-font">RX #</th>
-						<th class="phx-search-font">Fill #</th>
-						<th class="phx-search-font">Transmit Date</th>
+						<th class="phx-search-font">RX Number</th>
+            <th class="phx-search-font">Fill Number</th>
+						<th class="phx-search-font">Plan ID Code</th>
+						<th class="phx-search-font">Truncated Customer Name</th>
+						<th class="phx-search-font">Date Filled</th>
+						<th class="phx-search-font">Truncated Drug Name</th>
 						<th class="phx-search-font">Status</th>
-						<th class="phx-search-font">Customer</th>
-						<th class="phx-search-font">Active</th>
+						<th class="phx-search-font">Diff</th>
 		  		  </tr>
   				</thead>
 
@@ -36,10 +37,12 @@
 								<td class="phx-search-font" > <%= choice %> </td>
 								<td class="phx-search-font"> <%= claim.rx_number %> </td>
 								<td class="phx-search-font"> <%= claim.fill_number %> </td>
-								<td class="phx-search-font"> <%= claim.transmit_date %> </td>
-								<td class="phx-search-font"> <%= claim.status %> </td>
-								<td class="phx-search-font"> <%= claim.customer_id %> </td>
-								<td class="phx-search-font"> <%= claim.active %> </td>
+                <td class="phx-search-font"> <%= claim.plan_id_code %> </td>
+                <td class="phx-search-font"> <%= claim.fill_number %> </td>
+								<td class="phx-search-font"> <%#= claim.last_name %> </td>
+								<td class="phx-search-font"> <%#= claim.drug_name %> </td>
+                <td class="phx-search-font"> <%= claim.status %> </td>
+								<td class="phx-search-font"> <%#= claim.diff %> </td>
 							</tr>
 						<% end %> <!-- END OF claim list -->
 					</tbody>
@@ -66,8 +69,8 @@
 
 	<script>
 
-		<%= phx_search_modal_javascript "claim" %>
-
+		<%#= phx_search_modal_javascript "claim" %>
+    $('#claim_search_modal_partial').trigger('contentchanged');
 	</script>
 
 </div>

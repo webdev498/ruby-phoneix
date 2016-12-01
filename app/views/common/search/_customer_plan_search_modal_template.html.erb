@@ -1,0 +1,69 @@
+<div class="phx-modal containter-fluid" id="planSearchModal" role="dialog" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Customer Plan Search</h3>
+      </div>
+
+      <div class="modal-body">
+        <% choice = 0 %>
+        <table class="table">
+          <thead class="phx-search-row-header">
+          <tr>
+            <th class="phx-search-font"><input type="text" id="planSearchModal_Keys1_9" style="width:0.5px;" ></th>
+            <th class="phx-search-font">Plan ID Code</th>
+            <th class="phx-search-font">Plan Name</th>
+            <th class="phx-search-font">Bin Number </th>
+            <th class="phx-search-font">Plan Type</th>
+            <th class="phx-search-font">Active</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% searchPlans.each do |plan| %>
+
+              <% planSearchRowId = "planSearchModal-row" + (choice += 1).to_s %>
+              <tr	id="<%=planSearchRowId%>"
+                   class="phx-search-row clickable-planSearchModal-row"
+                   data-phx-search-plan-id="<%= plan.id %>"
+                   data-phx-search-plan-plan_id_code="<%= plan.plan_id_code %>"
+              >
+
+                <td class="phx-search-font"> <%= choice %> </td>
+                <td class="phx-search-font"> <%= plan.plan_id_code %> </td>
+                <td class="phx-search-font"> <%= plan.abbreviated_name %> </td>
+                <td class="phx-search-font"> <%= plan.bin_number %> </td>
+                <td class="phx-search-font"> <%= plan.plan_type  %> </td>
+                <td class="phx-search-font"> <%= plan.active%> </td>
+              </tr>
+          <% end %> <!-- END OF plan list -->
+          </tbody>
+        </table>
+      </div> <!-- end of modal-body -->
+
+      </br>
+
+      <div class="modal-footer">
+        <%=	paginate searchPlans,
+                      params: { controller: "customers", action: "search"} , remote: true  unless searchPlans.empty? %>
+
+
+        <button id="plan_modal_close_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                data-dismiss="modal"
+                aria-hidden="true">
+          Close</button>
+      </div>
+
+    </div>  <!-- end of modal-content -->
+
+  </div>  <!-- end of modal-dialog -->
+
+</div>
+
+<script>
+  $('#plan_search_modal_partial').trigger('contentchanged');
+</script>
+

@@ -905,15 +905,21 @@
 
 <script>
 
-    <%= phx_search_caller_javascript "claims", "", "search_for_rx_number", "id", "", true %>
-    var cs = FEENX.Search.NewSearch('claims',
+    <%#= phx_search_caller_javascript "claims", "", "search_for_rx_number", "id", "", true %>
+    var cs = FEENX.Search.NewSearch('claim',
         {   context:      '',
-          triggerField: 'last_name',
+          basePath : 'search',
+          triggerField: 'search_for_rx_number',
           fieldPrefix:  '',
           modalId:      'claimSearchModal',
           hiddenDivId:  'hidden_fields',
           refresh:      true,
           refreshTo:    '/claims/' });
+
+    // create the corresponding hidden fields in the form
+    cs.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    cs.dataFormattedAttributes();
 
     var transmission_code = "<%= @claim.transmission_code%>";
     var status = "<%= @claim.status%>";
@@ -1272,7 +1278,7 @@
         }
       });
 
-      $("#claim_search_for_rx_number, #claim_search_for_fill_number, #claim_search_for_from_date, #claim_search_for_status").keydown(function(event){
+      $("#claim_search_for_fill_number, #claim_search_for_from_date, #claim_search_for_status").keydown(function(event){
         var keycode = event.which;
         var rx_number = $("#claim_search_for_rx_number").val();
         var fill_number = $("#claim_search_for_fill_number").val();
