@@ -249,7 +249,13 @@ FEENX.Search = (function () {
                 triggerObj.off('keypress').on("keypress", event_handler);
             }else{
                 var key13context = (context == '') ? model : context;
-                $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", event_handler);
+                if(Array.isArray(triggerField)){
+                    triggerField.forEach(function(item){
+                        $('#'+key13context+'_'+fieldPrefix+item).off().on("keypress", event_handler);
+                    });
+                }
+                else
+                    $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", event_handler);
             }
 
         };
