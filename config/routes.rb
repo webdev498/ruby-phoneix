@@ -208,9 +208,12 @@ Rails.application.routes.draw do
 
   get 'pos_transactions/view/:id' => 'pos_transactions#view'
   get 'pos_transactions/show/:id' => 'pos_transactions#show'
+  get 'pos_transactions/get_ticket/:ticket_number' => 'pos_transactions#get_ticket'
+
   resources :pos_transactions
 
   get 'pos_details/get_rx_or_item' => 'pos_details#get_rx_or_item'
+
   resources :pos_details
 
   get 'posCategories'         => 'pos_categories#posCategory',              as: :posCategory

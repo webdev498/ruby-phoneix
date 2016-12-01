@@ -13,6 +13,14 @@ class PosTransactionsController < ApplicationController
     render :edit
   end
 
+  def get_ticket
+    @pos_transaction = PosTransaction.find_by_ticket_number(params[:ticket_number])
+    @totalpaid = @pos_transaction.primary_payment_amount.to_f + @pos_transaction.secondary_payment_amount.to_f
+    @change_due = @pos_transaction.total_amount.to_f + @pos_transaction.total_tax.to_f - @totalpaid
+    render :edit
+  end
+
+
   def view
     respond_to do |format|
       format.html { render :edit }
