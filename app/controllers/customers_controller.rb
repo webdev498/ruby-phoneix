@@ -58,9 +58,9 @@ class CustomersController < ApplicationController
       perPage = 9
       case s_val
         when /^\d{6}$/      #6 digit bin number
-          @searchPlans = Plan.select("plans.plan_id_code, plans.abbreviated_name, plans.bin_number,plans.plan_type").where("plans.bin_number = #{s_val}").page(pageNumber).per(perPage)
+          @searchPlans = Plan.select("plans.plan_id_code, plans.abbreviated_name, plans.bin_number,plans.plan_type, plans.active").where("plans.bin_number = #{s_val}").page(pageNumber).per(perPage)
         else
-          @searchPlans = Plan.select("plans.id, plans.plan_id_code, plans.abbreviated_name,plans.bin_number,plans.plan_type").where("plans.abbreviated_name like '#{s_val}%'").page(pageNumber).per(perPage)
+          @searchPlans = Plan.select("plans.id, plans.plan_id_code, plans.abbreviated_name,plans.bin_number,plans.plan_type, plans.active").where("plans.abbreviated_name like '#{s_val}%'").page(pageNumber).per(perPage)
       end
 
       render  template: 'common/search/js/nextSearchCustomerPlans.js'

@@ -17,6 +17,7 @@
             <th class="phx-search-font">Plan Name</th>
             <th class="phx-search-font">Bin Number </th>
             <th class="phx-search-font">Plan Type</th>
+            <th class="phx-search-font">Active</th>
           </tr>
           </thead>
 
@@ -35,6 +36,7 @@
                 <td class="phx-search-font"> <%= plan.abbreviated_name %> </td>
                 <td class="phx-search-font"> <%= plan.bin_number %> </td>
                 <td class="phx-search-font"> <%= plan.plan_type  %> </td>
+                <td class="phx-search-font"> <%= plan.active%> </td>
               </tr>
           <% end %> <!-- END OF plan list -->
           </tbody>
