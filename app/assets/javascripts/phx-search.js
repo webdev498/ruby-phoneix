@@ -89,10 +89,13 @@ FEENX.Search = (function () {
             }else {
                 var key13context = '';
                 var triggerFieldVal = '';
-                if (triggerField) {
-                    key13context = (context == '') ? model : context;
-                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
-                }
+                if (triggerObj)
+                    triggerFieldVal = triggerObj.val();
+                else
+                    if (triggerField) {
+                        key13context = (context == '') ? model : context;
+                        triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                    }
 
                 var actualNextMethod = "";
                 if (nextMethod == '') {
