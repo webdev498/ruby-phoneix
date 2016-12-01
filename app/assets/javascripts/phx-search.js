@@ -43,6 +43,7 @@ FEENX.Search = (function () {
         var refresh      = options.refresh || false;
         var refreshTo    = options.refreshTo || '';
         var onAbortFocusTo = options.onAbortFocusTo || '';
+        var customProcessSearchSelection = options.customProcessSearchSelection || null;
 
 // !!!!! the modalId may need to change depending on the the context !!!!!!
 // e.g.   item search for item maintenance is one modalId
@@ -164,7 +165,10 @@ FEENX.Search = (function () {
                     var target = $("#"+ modalId + "-row" + (key-48).toString());
                     // id is always a defined field and only shows in valid search rows
                     if( target.attr("data-phx-search-"+model+"-id") !== undefined) {
-                        processSearchSelection(target);
+                        if (customProcessSearchSelection)
+                            customProcessSearchSelection(target);
+                        else
+                            processSearchSelection(target);
                     }
                     return false;
                 }
@@ -402,7 +406,10 @@ FEENX.Search = (function () {
             $("#" + modalId).modal("show");
             $("#" + modalId + "_Keys1_9").focus();
             $(".clickable-"+modalId+"-row").off().click( function() {
-                processSearchSelection( $(this) );
+                if(customProcessSearchSelection)
+                    customProcessSearchSelection($(this));
+                else
+                    processSearchSelection( $(this) );
             });
 
             // set up to trap modal close via escape or close without selection
