@@ -1,7 +1,7 @@
 <td><input type="text" id="new-pos-qty" value="<%= @quantity %>"/></td>
-<td><input type="text" id="new-pos-type" disabled="true" value="OTC"></td>
-<td><input type="text" id="new-pos-rx-upc-number" value="<%= @prescription.upc_product_number %>"/></td>
-<td><input type="text" id="new-pos-med" disabled="true" value="N"/></td>
-<td><input type="text" id="new-pos-desc" value="<% @item.item_name %>"/></td>
-<td><input type="text" id="new-pos-each" disabled="true" value="<% @item.price %>"/></td>
-<td><input type="text" id="new-pos-total" disabled="true" value="<% @totalPrice %>"/></td>
+<td><%= select_tag(:new_pos_type, options_for_select(PosCategory.getSelectEnum, @selectedItem), tabindex: "10", id: "new-pos-type") %></td>
+<td><input type="text" id="new-pos-rx-upc-number" value="<%= @prescription ? @prescription.upc_product_number : @item.upc_product_number %>"/></td>
+<td><input type="text" id="new-pos-med"  value="N"/></td>
+<td><input type="text" id="new-pos-desc" value="<%= @item.item_name %>"/></td>
+<td><input type="text" id="new-pos-each"  value="<%= @item.awp_unit_price %>"/></td>
+<td><input type="text" id="new-pos-total"  value="<%= @totalPrice %>"/></td>

@@ -62,11 +62,11 @@ class PosTransaction < ActiveRecord::Base
                                       item_description: item ? item.item_name[0..19] : params[:description].to_s[0..19],
                                       item_type: "OTC",
                                       item_number: item ? item.id : nil,
-                                      medical_item: params[:medical] ? params[:medical] : "N",
+                                      medical_item: params[:medical] ? (params[:medical].to_s.downcase == "y" ? true : false) : false,
                                       category: category.nil? ? "NA" : category.category_abbreviation,
                                       rx_number: nil,
-                                      price: item ? item.awp_unit_price * params[:quantity].to_f : params[:each].to_f * params[:quantity].to_f,
-                                      tax_amount: item ? item.fed_tax * params[:quantity].to_f : 0.0
+                                      price: item ? item.awp_unit_price.to_f * params[:quantity].to_f : params[:each].to_f * params[:quantity].to_f,
+                                      tax_amount: item ? item.fed_tax.to_f * params[:quantity].to_f : 0.0
                                   })
     end
     update_transaction_price

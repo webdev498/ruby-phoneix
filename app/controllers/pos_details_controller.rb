@@ -32,12 +32,12 @@ class PosDetailsController < ApplicationController
       end
     else
       @isMedical = "N"
-      @item = PosDetail.getItem(params[:itemId])
+      @item = PosDetail.getItem(params[:id])
       if(@item.nil?)
           render status: 400
       else
-        @quantity = @params[:quantity]
-        @totalPrice = @quantity.to_i * @item.aws_unit_price
+        @quantity = params[:quantity]
+        @totalPrice = @quantity.to_f * @item.awp_unit_price.to_f
         render layout: false, partial: "item_detail"
       end
 
