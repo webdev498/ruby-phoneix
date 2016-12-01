@@ -198,7 +198,7 @@
                             <tr class="" id="pos-item-<%= fff.id %>">
                               <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder="" value="<%= fff.quantity %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.category %>"  tabindex="-1"/></td>
-                              <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number %>" tabindex="-1" /></td>
+                              <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number || fff.item_number %>" tabindex="-1" /></td>
                               <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true" value="<%= fff.medical_item ? "Y" : "N" %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true" value="<%= fff.item_description %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true" value="<%= fff.price %>" tabindex="-1"/></td>

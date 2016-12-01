@@ -61,7 +61,7 @@ class PosTransaction < ActiveRecord::Base
                                       updated_at: Time.now,
                                       item_description: item ? item.item_name[0..19] : params[:description].to_s[0..19],
                                       item_type: "OTC",
-                                      item_number: item ? item.id : nil,
+                                      item_number: item ? item.upc_product_number : nil,
                                       medical_item: params[:medical] ? (params[:medical].to_s.downcase == "y" ? true : false) : false,
                                       category: category.nil? ? "NA" : category.category_abbreviation,
                                       rx_number: nil,
