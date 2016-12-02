@@ -44,6 +44,7 @@ FEENX.Search = (function () {
         var refreshTo    = options.refreshTo || '';
         var onAbortFocusTo = options.onAbortFocusTo || '';
         var customProcessSearchSelection = options.customProcessSearchSelection || null;
+        var triggerFieldCaption = options.triggerFieldCaption || 'start';
 
 // !!!!! the modalId may need to change depending on the the context !!!!!!
 // e.g.   item search for item maintenance is one modalId
@@ -82,8 +83,14 @@ FEENX.Search = (function () {
                     });
                 }else{
                     path += '?';
-                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
-                    path += triggerField + '='+triggerFieldVal;
+                    if(triggerObj){
+                        triggerFieldVal = triggerObj.val();
+                        path+= triggerFieldCaption+'='+triggerFieldVal;
+
+                    }else {
+                        triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                        path += triggerField + '=' + triggerFieldVal;
+                    }
                 }
                 return path;
             }else {
