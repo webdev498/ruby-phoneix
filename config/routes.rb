@@ -148,7 +148,7 @@ Rails.application.routes.draw do
   # end
 
   get 'plans/search' => "plans#search"
-
+  get 'plans/getid' => "plans#get_id"
   get 'claims/search' => "claims#search"
   get 'claims/search_cob' => "claims#search_cob"
   get 'claims/search_dur' => "claims#search_dur"
