@@ -42,7 +42,7 @@
 								<td class="phx-search-font"> <%= claim.date_filled %> </td>
 								<td class="phx-search-font"> <%#= claim.drug_name %> </td>
                 <td class="phx-search-font"> <%= claim.status %> </td>
-								<td class="phx-search-font"> <%#= claim.diff %> </td>
+								<td class="phx-search-font"> <%= '%.2f' % (claim.total_submitted - claim.cost_submitted).abs %> </td>
 							</tr>
 						<% end %> <!-- END OF claim list -->
 					</tbody>
