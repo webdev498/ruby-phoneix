@@ -17,6 +17,17 @@ class PlansController < ApplicationController
     render :edit
   end
 
+  def get_id
+    plan_id_code = params[:plan_id_code]
+    plan = Plan.where("plan_id_code = '#{plan_id_code}'").first()
+    if(plan)
+      id = plan.id
+    else
+      id = -1
+    end
+    render json:id
+  end
+
   def search
     bin_number = params[:bin_number]
     plan_name  = params[:insurance_plan_name]
