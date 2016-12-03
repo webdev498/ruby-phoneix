@@ -25,11 +25,13 @@ class ClaimsController < ApplicationController
     def search_cob
       claim_id = params[:claim_id]
       claim = Claim.find(claim_id)
-      data = ClaimCob.select('id,plan_id_code, payor_coverage_type, payor_id, payor_amount_paid, patient_amount')
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
+      @searchClaimCobs = ClaimCob.select('id,plan_id_code, payor_coverage_type, payor_id, payor_amount_paid, patient_amount')
                  .where('claim_id = :claim_id AND rx_number = :rx_number AND fill_number = :fill_number AND plan_id_code = :plan_id_code',
                   {claim_id: params[:claim_id], rx_number:claim.rx_number, fill_number: claim.fill_number, plan_id_code: claim.plan_id_code})
-                 .order(:payor_coverage_type)
-      render json: data
+                 .order(:payor_coverage_type).page(pageNumber).per(perPage)
+      render template: 'common/search/js/nextSearchClaimCobs.js'
     end
 
     def search_dur
