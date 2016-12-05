@@ -889,6 +889,11 @@
       </div>
     </div>
 
+    <div id="claimDur_search_modal_partial">
+      <div id="claimDurSearchModal">
+      </div>
+    </div>
+
     <div id="customer_search_modal_partial">
       <div id="customerSearchModal"></div>
     </div>
@@ -994,6 +999,17 @@
     // create the corresponding data attribues in the modal rows
     cs.dataFormattedAttributes();
 
+    cs = FEENX.Search.NewSearch('claimDur',
+        {   context:      '',
+          fieldPrefix:  '',
+          modalId:      'claimDurSearchModal',
+          hiddenDivId:  'hidden_fields',
+          modalWidth : 270
+        });
+    cs.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    cs.dataFormattedAttributes();
+
 
     var transmission_code = "<%= @claim.transmission_code%>";
     var status = "<%= @claim.status%>";
@@ -1067,19 +1083,9 @@
             });
           }
         }else if(tab_idx == 5){
-
-          var tbl_html = "<thead>\
-                <tr>\
-                <th></th>\
-                <th> Dur Code </th>\
-                <th> Severity </th>\
-                <th> Dur Message </th>\
-                </tr>\
-                </thead>\
-                <tbody>\
-                </tbody>";
           if(!dur_selected)
-           openSelectionModal("Select Claim Dur",tbl_html,'search_dur?claim_id='+claim_id, claimDurSelected);
+            $.get('search_dur?claim_id='+claim_id, function(data){
+            });
         }
 
       });
