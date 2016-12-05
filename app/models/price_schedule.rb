@@ -1,7 +1,7 @@
 class PriceSchedule < ActiveRecord::Base
 
-#    has_many :price_breaks, dependent: :destroy
-
+    has_many :priceBreaks, dependent: :destroy
+    accepts_nested_attributes_for :priceBreaks
 
     enum basis: [ :AWP, :ACT, :MAC, :basis_340b, :WAC, :contract, :Nadac, :custom, :user ]
     enum break_type: [ :price_based, :quantity_based ]
