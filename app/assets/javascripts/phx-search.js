@@ -45,6 +45,7 @@ FEENX.Search = (function () {
         var onAbortFocusTo = options.onAbortFocusTo || '';
         var customProcessSearchSelection = options.customProcessSearchSelection || null;
         var triggerFieldCaption = options.triggerFieldCaption || 'start';
+        var modalWidth = options.modalWidth || null;
 
 // !!!!! the modalId may need to change depending on the the context !!!!!!
 // e.g.   item search for item maintenance is one modalId
@@ -419,6 +420,7 @@ FEENX.Search = (function () {
             $(".modal-backdrop").remove();
             onKeys0_9();
             // light up the modal; focus for 0-9 input
+            $("#" + modalId + "> .modal-dialog").css('width', modalWidth + 'px' );
             $("#" + modalId).modal("show");
             $("#" + modalId + "_Keys1_9").focus();
             $(".clickable-"+modalId+"-row").off().click( function() {
