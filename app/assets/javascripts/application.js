@@ -32,7 +32,7 @@ function openSelectionModal(caption,tblHtml,dtUrl, rowSelHandler) {
         //     {
         //         var id = data[keycode-49]['id'];
         //         $('#myModal').modal('hide');
-        //         location.href= id + '/edit';
+        //         f= id + '/edit';
         //         $('#myModal').unbind("keydown");
         //     }
         // });
@@ -80,7 +80,7 @@ $(document).ready(function() {
         var customer_id = $('#customer_id_field').val();
         $('#payment_type').val($('#prescription_payment_type').val());
         $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
-            var res ='';
+            var res ='';                                                                                                                                                                                                                                                                                                   
             var no = 0;
             data.forEach(function(item) {
                 res+='<tr>';

@@ -60,7 +60,12 @@ class ClaimsController < ApplicationController
       dbContext = dbContext.where("date_filled >= '" + params[:search_for_from_date] + "'") if params[:search_for_from_date] && params[:search_for_from_date] != ''
 
       if params[:search_for_status] && params[:search_for_status] != ''
-        dbContext = dbContext.where('status ='+ Claim.statuses[params[:search_for_status]].to_s)
+        status = params[:search_for_status]
+        if(status == status.to_i.to_s)
+          dbContext = dbContext.where('status ='+ status)
+        else
+          dbContext = dbContext.where('status ='+ Claim.statuses[params[:search_for_status]].to_s)
+        end
       end
 
       if params[:plan_id] && params[:plan_id] != ''
