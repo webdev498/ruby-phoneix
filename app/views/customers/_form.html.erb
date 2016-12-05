@@ -1154,7 +1154,8 @@
             modalId:      'customerSearchModal',
             hiddenDivId:  'hidden_fields',
             refresh:      true,
-            refreshTo:    '/customers/' });
+            refreshTo:    '/customers/',
+        });
     // additional attributes would be defined
     cs.addAttribute('last_name', false, '', null);
     cs.addAttribute('display_name', false, '', null);
@@ -1171,6 +1172,7 @@
           fieldPrefix:  '',
           modalId:      'planSearchModal',
           hiddenDivId:  'hidden_fields',
+          modalWidth: 400,
           customProcessSearchSelection : function(target){
             var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
             location.href =  '?sub_index=-1&plan_id_code=' + plan_id_code ;
