@@ -25,11 +25,13 @@ class ClaimsController < ApplicationController
     def search_cob
       claim_id = params[:claim_id]
       claim = Claim.find(claim_id)
-      data = ClaimCob.select('id,plan_id_code, payor_coverage_type, payor_id, payor_amount_paid, patient_amount')
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
+      @searchClaimCobs = ClaimCob.select('id,plan_id_code, payor_coverage_type, payor_id, payor_amount_paid, patient_amount')
                  .where('claim_id = :claim_id AND rx_number = :rx_number AND fill_number = :fill_number AND plan_id_code = :plan_id_code',
                   {claim_id: params[:claim_id], rx_number:claim.rx_number, fill_number: claim.fill_number, plan_id_code: claim.plan_id_code})
-                 .order(:payor_coverage_type)
-      render json: data
+                 .order(:payor_coverage_type).page(pageNumber).per(perPage)
+      render template: 'common/search/js/nextSearchClaimCobs.js'
     end
 
     def search_dur
@@ -44,18 +46,18 @@ class ClaimsController < ApplicationController
     def search
       dbContext = Claim.joins(:customer).select('claims.id, rx_number, fill_number, plan_id_code, date_filled, status, total_submitted, cost_submitted, last_name')
 
-      if params[:rx_number] && params[:rx_number] != ''
-        dbContext = dbContext.where('rx_number = ' + params[:rx_number])
+      if params[:search_for_rx_number] && params[:search_for_rx_number] != ''
+        dbContext = dbContext.where('rx_number = ' + params[:search_for_rx_number])
       end
 
-      if params[:fill_number] && params[:fill_number] != ''
-        dbContext = dbContext.where('fill_number = ' + params[:fill_number])
+      if params[:search_for_fill_number] && params[:search_for_fill_number] != ''
+        dbContext = dbContext.where('fill_number = ' + params[:search_for_fill_number])
       end
 
-      dbContext = dbContext.where("date_filled >= '" + params[:from_date] + "'") if params[:from_date] && params[:from_date] != ''
+      dbContext = dbContext.where("date_filled >= '" + params[:search_for_from_date] + "'") if params[:search_for_from_date] && params[:search_for_from_date] != ''
 
-      if params[:status] && params[:status] != ''
-        dbContext = dbContext.where('status ='+ Claim.statuses[params[:status]].to_s)
+      if params[:search_for_status] && params[:search_for_status] != ''
+        dbContext = dbContext.where('status ='+ Claim.statuses[params[:search_for_status]].to_s)
       end
 
       if params[:plan_id] && params[:plan_id] != ''

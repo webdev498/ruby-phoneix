@@ -44,6 +44,8 @@ FEENX.Search = (function () {
         var refreshTo    = options.refreshTo || '';
         var onAbortFocusTo = options.onAbortFocusTo || '';
         var customProcessSearchSelection = options.customProcessSearchSelection || null;
+        var triggerFieldCaption = options.triggerFieldCaption || 'start';
+        var modalWidth = options.modalWidth || null;
 
 // !!!!! the modalId may need to change depending on the the context !!!!!!
 // e.g.   item search for item maintenance is one modalId
@@ -82,17 +84,26 @@ FEENX.Search = (function () {
                     });
                 }else{
                     path += '?';
-                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
-                    path += triggerField + '='+triggerFieldVal;
+                    if(triggerObj){
+                        triggerFieldVal = triggerObj.val();
+                        path+= triggerFieldCaption+'='+triggerFieldVal;
+
+                    }else {
+                        triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                        path += triggerField + '=' + triggerFieldVal;
+                    }
                 }
                 return path;
             }else {
                 var key13context = '';
                 var triggerFieldVal = '';
-                if (triggerField) {
-                    key13context = (context == '') ? model : context;
-                    triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
-                }
+                if (triggerObj)
+                    triggerFieldVal = triggerObj.val();
+                else
+                    if (triggerField) {
+                        key13context = (context == '') ? model : context;
+                        triggerFieldVal = $('#' + key13context + '_' + fieldPrefix + triggerField).val();
+                    }
 
                 var actualNextMethod = "";
                 if (nextMethod == '') {
@@ -249,7 +260,13 @@ FEENX.Search = (function () {
                 triggerObj.off('keypress').on("keypress", event_handler);
             }else{
                 var key13context = (context == '') ? model : context;
-                $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", event_handler);
+                if(Array.isArray(triggerField)){
+                    triggerField.forEach(function(item){
+                        $('#'+key13context+'_'+fieldPrefix+item).off().on("keypress", event_handler);
+                    });
+                }
+                else
+                    $('#'+key13context+'_'+fieldPrefix+triggerField).off().on("keypress", event_handler);
             }
 
         };
@@ -403,6 +420,7 @@ FEENX.Search = (function () {
             $(".modal-backdrop").remove();
             onKeys0_9();
             // light up the modal; focus for 0-9 input
+            $("#" + modalId + "> .modal-dialog").css('width', modalWidth + 'px' );
             $("#" + modalId).modal("show");
             $("#" + modalId + "_Keys1_9").focus();
             $(".clickable-"+modalId+"-row").off().click( function() {

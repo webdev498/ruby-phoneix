@@ -1,0 +1,66 @@
+<div class="phx-modal containter-fluid" id="claimCobSearchModal" role="dialog" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Claim Cob Search</h3>
+      </div>
+
+      <div class="modal-body">
+        <% choice = 0 %>
+        <table class="table-hover">
+          <thead class="phx-search-row-header">
+            <tr>
+              <th class="phx-search-font"><input type="text" id="claimCobSearchModal_Keys1_9" style="width:0.1px;" ></th>
+              <th class="phx-search-font">Plan ID Code</th>
+              <th class="phx-search-font">Payor Coverage Type</th>
+              <th class="phx-search-font"> Payor ID </th>
+              <th class="phx-search-font"> Amount Paid </th>
+              <th class="phx-search-font"> Patient Amount </th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% searchClaimCobs.each do |claimCob| %>
+
+              <% claimSearchRowId = "claimSearchModal-row" + (choice += 1).to_s %>
+              <tr	id="<%=claimSearchRowId%>"
+                   class="phx-search-row clickable-claimSearchModal-row"
+                   data-phx-search-claimCob-id="<%= claimCob.id %>">
+
+                <td class="phx-search-font" > <%= choice %> </td>
+                <td class="phx-search-font"> <%= claimCob.plan_id_code %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_coverage_type %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_id %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_amount_id %> </td>
+                <td class="phx-search-font"> <%= claimCob.patient_amount %> </td>
+              </tr>
+          <% end %> <!-- END OF claim list -->
+          </tbody>
+        </table>
+      </div> <!-- end of modal-body -->
+
+      </br>
+
+      <div class="modal-footer">
+        <%= paginate searchClaimCobs,
+                     params: { controller: "claims", action: "search_cob"} , remote: true  unless searchClaimCobs.empty? %>
+
+        <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+        <button id="claimCob_modal_close_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                data-dismiss="modal"
+                aria-hidden="true">
+          Close</button>
+      </div>
+
+    </div>  <!-- end of modal-content -->
+
+  </div>  <!-- end of modal-dialog -->
+
+  <script>
+    $('#claimCob_search_modal_partial').trigger('contentchanged');
+  </script>
+
+</div>
