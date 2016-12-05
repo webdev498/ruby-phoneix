@@ -11,38 +11,30 @@
         <% choice = 0 %>
         <table class="table-hover">
           <thead class="phx-search-row-header">
-          <tr>
-            <th class="phx-search-font"><input type="text" id="claimSearchModal_Keys1_9" style="width:0.1px;" ></th>
-            <th class="phx-search-font">RX Number</th>
-            <th class="phx-search-font">Fill Number</th>
-            <th class="phx-search-font">Plan ID Code</th>
-            <th class="phx-search-font">Customer Name</th>
-            <th class="phx-search-font">Date Filled</th>
-            <th class="phx-search-font">Drug Name</th>
-            <th class="phx-search-font">Status</th>
-            <th class="phx-search-font">Diff</th>
-          </tr>
+            <tr>
+              <th class="phx-search-font"><input type="text" id="claimCobSearchModal_Keys1_9" style="width:0.1px;" ></th>
+              <th class="phx-search-font">Plan ID Code</th>
+              <th class="phx-search-font">Payor Coverage Type</th>
+              <th class="phx-search-font"> Payor ID </th>
+              <th class="phx-search-font"> Amount Paid </th>
+              <th class="phx-search-font"> Patient Amount </th>
+            </tr>
           </thead>
 
           <tbody>
-          <% searchClaims.each do |claim| %>
+          <% searchClaimCobs.each do |claimCob| %>
 
               <% claimSearchRowId = "claimSearchModal-row" + (choice += 1).to_s %>
               <tr	id="<%=claimSearchRowId%>"
                    class="phx-search-row clickable-claimSearchModal-row"
-                   data-phx-search-claim-id="<%= claim.id %>"
-                   data-phx-search-claim-rx-number="<%= claim.rx_number %>"
-                   data-phx-search-claim-fill-number="<%= claim.fill_number %>" >
+                   data-phx-search-claimCob-id="<%= claimCob.id %>">
 
                 <td class="phx-search-font" > <%= choice %> </td>
-                <td class="phx-search-font"> <%= claim.rx_number %> </td>
-                <td class="phx-search-font"> <%= claim.fill_number %> </td>
-                <td class="phx-search-font"> <%= claim.plan_id_code %> </td>
-                <td class="phx-search-font"> <%= claim.last_name %> </td>
-                <td class="phx-search-font"> <%= claim.date_filled %> </td>
-                <td class="phx-search-font"> <%#= claim.drug_name %> </td>
-                <td class="phx-search-font"> <%= claim.status %> </td>
-                <td class="phx-search-font"> <%= '%.2f' % (claim.total_submitted - claim.cost_submitted).abs %> </td>
+                <td class="phx-search-font"> <%= claimCob.plan_id_code %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_coverage_type %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_id %> </td>
+                <td class="phx-search-font"> <%= claimCob.payor_amount_id %> </td>
+                <td class="phx-search-font"> <%= claimCob.patient_amount %> </td>
               </tr>
           <% end %> <!-- END OF claim list -->
           </tbody>
@@ -52,11 +44,11 @@
       </br>
 
       <div class="modal-footer">
-        <%= paginate searchClaims,
-                     params: { controller: "claims", action: "search"} , remote: true  unless searchClaims.empty? %>
+        <%= paginate searchClaimCobs,
+                     params: { controller: "claims", action: "search_cob"} , remote: true  unless searchClaimCobs.empty? %>
 
         <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
-        <button id="claim_modal_close_btn"
+        <button id="claimCob_modal_close_btn"
                 class="btn btn-sm btn-default phx-btn-model-control-red"
                 data-dismiss="modal"
                 aria-hidden="true">
@@ -68,7 +60,6 @@
   </div>  <!-- end of modal-dialog -->
 
   <script>
-
     $('#claimCob_search_modal_partial').trigger('contentchanged');
   </script>
 
