@@ -17,17 +17,23 @@ class PlansController < ApplicationController
     render :edit
   end
 
+  def get_id
+    plan_id_code = params[:plan_id_code]
+    plan = Plan.where("plan_id_code = '#{plan_id_code}'").first()
+    if(plan)
+      id = plan.id
+    else
+      id = -1
+    end
+    render json:id
+  end
+
   def search
     bin_number = params[:bin_number]
     plan_name  = params[:insurance_plan_name]
     pageNumber = params[:page] ? params[:page] : 1
     perPage = 9
-    case bin_number
-      when /^\d{6}$/      #6 digit bin number
-        @searchPlans = Plan.search_by_partial(bin_number).page(pageNumber).per(perPage)
-      else
-        @searchPlans = Plan.search_by_plan_name(plan_name).page(pageNumber).per(perPage)
-    end
+    @searchPlans = Plan.search_plan(plan_name, bin_number).page(pageNumber).per(perPage)
     render  template: 'common/search/js/nextSearchPlans.js'
   end
 

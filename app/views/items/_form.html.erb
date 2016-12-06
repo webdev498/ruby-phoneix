@@ -61,8 +61,10 @@
             </div>
 
             <div class="row phx-two-horizontal-controls">
-                <%= phx_textfield_for f, :brand_generic_compound, "Brand / Generic / Compound", 0, "col-md-6", Item.brand_generic_compounds, false %>
-                <%= phx_textfield_for f, :dea_schedule, "DEA Schedule", 0, "col-md-6", Item.dea_schedules, false %>
+                <!-- <%= phx_textfield_for f, :brand_generic_compound, "Brand / Generic / Compound", 0, "col-md-6", Item.brand_generic_compounds, false %> -->
+                <%= phx_selectfield_for f, :brand_generic_compound, "Brand / Generic / Compound", Item.brand_generic_compounds, false, nil, "col-md-6" %>
+                <!-- <%= phx_textfield_for f, :dea_schedule, "DEA Schedule", 0, "col-md-6", Item.dea_schedules, false %> -->
+                <%= phx_selectfield_for f, :dea_schedule, "DEA Schedule", Item.dea_schedules, false, nil, "col-md-6" %>
             </div>
 
             <div class="row phx-two-horizontal-controls">

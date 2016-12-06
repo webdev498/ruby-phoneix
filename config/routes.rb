@@ -108,7 +108,6 @@ Rails.application.routes.draw do
 
   get 'item/clinicalInquiry'			  => 'items#clinicalInquiry',	as: :clinicalInquiry
   get 'item/nextItems'				   	  => 'items#nextItems',	        as: :nextItems   # arggggghhh !!!!
-  get 'item/:id'                          => 'items#show_item',         as: :get_item
   get 'item/addCompoundItem/:id,:cid'     => 'items#addCompound',       as: :addCompoundItem
   get 'item/removeCompoundItem/:id,:cid'  => 'items#removeCompound',    as: :removeCompoundItem
   get 'item/nextIngredients' => 'items#nextIngredients'
@@ -116,7 +115,15 @@ Rails.application.routes.draw do
   get 'item/nextItemFormulaToCopy' => 'items#nextItemFormulaToCopy'
   get 'item/ingredient_details/:id' => 'items#ingredient_details'
   put 'item/copyFormula' => 'items#copyFormula'
+  get 'item/:id'                          => 'items#show_item',         as: :get_item
 
+  get 'formula/ingredients/:id' => 'formula#ingredients'
+  get 'formulas/ingredients/:id' => 'formulas#ingredients'
+  post 'formulas/addIngredient' => 'formulas#addIngredient'
+  delete 'formulas/removeIngredient/:id' => 'formulas#removeIngredient'
+  put 'formulas/updateIngredient/:id' => 'formulas#updateIngredient'
+
+  resources :formulas
   resources :items, except: :index do
     resources :formulas do
       resources :ingredients
@@ -148,7 +155,7 @@ Rails.application.routes.draw do
   # end
 
   get 'plans/search' => "plans#search"
-
+  get 'plans/getid' => "plans#get_id"
   get 'claims/search' => "claims#search"
   get 'claims/search_cob' => "claims#search_cob"
   get 'claims/search_dur' => "claims#search_dur"

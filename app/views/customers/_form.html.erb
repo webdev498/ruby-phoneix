@@ -279,6 +279,13 @@
                             <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                           </div>
 
+                          <div class="row phx-two-horizontal-controls">
+                            <div class="form-group phx-input-control-spacer"></div>
+                            <button class="button btn-danger col-md-6" style="margin-left: 9px" type="submit">Save</button>
+                          </div>
+
+                          <div class="form-group phx-input-control-spacer"></div>
+
                         </div> <!-- END OF first panel, first column -->
 
                         <!-- Insurance INFO panel, second column -->
@@ -358,10 +365,6 @@
                           <div class="form-group phx-input-control-spacer"></div>
                         </div> <!-- END OF GENERAL INFO panel, third column -->
                         <div class="container-fluid col-lg-4">
-
-                          <div class="row phx-two-horizontal-controls">
-                            <button class="button btn-danger col-md-6" style="margin-left: 9px" type="submit">Save</button>
-                          </div>
 
                         </div> <!-- END OF GENERAL INFO panel, third column -->
                       </row>
@@ -416,6 +419,13 @@
                             <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                           </div>
 
+                          <div class="row phx-two-horizontal-controls">
+                            <div class="form-group phx-input-control-spacer"></div>
+                            <button class="button btn-danger col-md-6" style="margin-left: 9px" type="submit">Save</button>
+                          </div>
+
+                          <div class="form-group phx-input-control-spacer"></div>
+
                         </div> <!-- END OF first panel, first column -->
 
                         <!-- Insurance INFO panel, second column -->
@@ -495,10 +505,6 @@
                           <div class="form-group phx-input-control-spacer"></div>
                         </div> <!-- END OF GENERAL INFO panel, third column -->
                         <div class="container-fluid col-lg-4">
-
-                          <div class="row phx-two-horizontal-controls">
-                            <button class="button btn-danger col-md-6" style="margin-left: 9px" type="submit">Save</button>
-                          </div>
 
                         </div> <!-- END OF GENERAL INFO panel, third column -->
                       </row>
@@ -569,6 +575,7 @@
                             <div class="row phx-two-horizontal-controls col-sm-12">
                               <button class="col-sm-6 button btn-danger" style="margin-left:10px" type="submit">Save </button>
                             </div>
+
                           <% end %>
                         <% end %>
                       <% end %>
@@ -633,6 +640,13 @@
                                   <%= phx_textfield_for ff, :prior_authorization, "Prior Auth", 0, "col-md-6" %>
                                   <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                                 </div>
+
+                                <div class="row phx-two-horizontal-controls">
+                                  <div class="form-group phx-input-control-spacer"></div>
+                                  <button class="button btn-danger col-md-6" style="margin-left: 9px" type="button">Save</button>
+                                </div>
+
+                                <div class="form-group phx-input-control-spacer"></div>
 
                               </div> <!-- END OF Workers Comp first panel, first column -->
 
@@ -738,9 +752,6 @@
                               </div> <!-- END OF GENERAL INFO panel, third column -->
                               <div class="container-fluid col-lg-4">
 
-                                <div class="row phx-two-horizontal-controls">
-                                  <button class="button btn-danger col-md-6" style="margin-left: 9px" type="button">Save</button>
-                                </div>
 
                               </div> <!-- END OF GENERAL INFO panel, third column -->
                             </row>
@@ -796,7 +807,15 @@
                             <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                         </div>
 
-                     	</div> <!-- END OF Workers Comp first panel, first column -->
+                        <div class="row phx-two-horizontal-controls">
+                          <div class="form-group phx-input-control-spacer"></div>
+                          <button class="button btn-danger col-md-6" style="margin-left: 9px" type="button">Save</button>
+                        </div>
+
+                        <div class="form-group phx-input-control-spacer"></div>
+
+
+                      </div> <!-- END OF Workers Comp first panel, first column -->
 
     									<!-- Workers Comp INFO panel, second column -->
     									<div class="container-fluid col-lg-4">
@@ -899,10 +918,6 @@
 
     									</div> <!-- END OF GENERAL INFO panel, third column -->
                       <div class="container-fluid col-lg-4">
-
-                        <div class="row phx-two-horizontal-controls">
-                          <button class="button btn-danger col-md-6" style="margin-left: 9px" type="button">Save</button>
-                        </div>
 
                       </div> <!-- END OF GENERAL INFO panel, third column -->
     								</row>
@@ -1139,7 +1154,8 @@
             modalId:      'customerSearchModal',
             hiddenDivId:  'hidden_fields',
             refresh:      true,
-            refreshTo:    '/customers/' });
+            refreshTo:    '/customers/',
+        });
     // additional attributes would be defined
     cs.addAttribute('last_name', false, '', null);
     cs.addAttribute('display_name', false, '', null);
@@ -1156,6 +1172,7 @@
           fieldPrefix:  '',
           modalId:      'planSearchModal',
           hiddenDivId:  'hidden_fields',
+          modalWidth: 400,
           customProcessSearchSelection : function(target){
             var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
             location.href =  '?sub_index=-1&plan_id_code=' + plan_id_code ;

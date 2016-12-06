@@ -4,7 +4,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h3>claim Search</h3>
+				<h3>Claim Search</h3>
 			</div>
 
 			<div class="modal-body">
@@ -12,13 +12,13 @@
 				<table class="table-hover">
 		  		<thead class="phx-search-row-header">
  		  			<tr>
-						<th class="phx-search-font"><input type="text" id="claimsSearchModal_Keys1_9" style="width:0.1px;" ></th>
+						<th class="phx-search-font"><input type="text" id="claimSearchModal_Keys1_9" style="width:0.1px;" ></th>
 						<th class="phx-search-font">RX Number</th>
             <th class="phx-search-font">Fill Number</th>
 						<th class="phx-search-font">Plan ID Code</th>
-						<th class="phx-search-font">Truncated Customer Name</th>
+						<th class="phx-search-font">Customer Name</th>
 						<th class="phx-search-font">Date Filled</th>
-						<th class="phx-search-font">Truncated Drug Name</th>
+						<th class="phx-search-font">Drug Name</th>
 						<th class="phx-search-font">Status</th>
 						<th class="phx-search-font">Diff</th>
 		  		  </tr>
@@ -27,10 +27,10 @@
 					<tbody>
 						<% searchClaims.each do |claim| %>
 
-							<% claimSearchRowId = "claimRow" + (choice += 1).to_s %>
+							<% claimSearchRowId = "claimSearchModal-row" + (choice += 1).to_s %>
 							<tr	id="<%=claimSearchRowId%>"
-									class="phx-search-row clickable-claimRow"
-									data-phx-search-claim.id="<%= claim.id %>"
+									class="phx-search-row clickable-claimSearchModal-row"
+									data-phx-search-claim-id="<%= claim.id %>"
 									data-phx-search-claim-rx-number="<%= claim.rx_number %>"
 									data-phx-search-claim-fill-number="<%= claim.fill_number %>" >
 
@@ -38,11 +38,11 @@
 								<td class="phx-search-font"> <%= claim.rx_number %> </td>
 								<td class="phx-search-font"> <%= claim.fill_number %> </td>
                 <td class="phx-search-font"> <%= claim.plan_id_code %> </td>
-                <td class="phx-search-font"> <%= claim.fill_number %> </td>
-								<td class="phx-search-font"> <%#= claim.last_name %> </td>
+                <td class="phx-search-font"> <%= claim.last_name %> </td>
+								<td class="phx-search-font"> <%= claim.date_filled %> </td>
 								<td class="phx-search-font"> <%#= claim.drug_name %> </td>
                 <td class="phx-search-font"> <%= claim.status %> </td>
-								<td class="phx-search-font"> <%#= claim.diff %> </td>
+								<td class="phx-search-font"> <%= '%.2f' % (claim.total_submitted - claim.cost_submitted).abs %> </td>
 							</tr>
 						<% end %> <!-- END OF claim list -->
 					</tbody>
@@ -53,7 +53,7 @@
 
 			<div class="modal-footer">
 				<%= paginate searchClaims,
-						params: { controller: "claims", action: "nextClaims"} , remote: true  unless searchClaims.empty? %>
+						params: { controller: "claims", action: "search"} , remote: true  unless searchClaims.empty? %>
 
 				<%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
 				<button id="claim_modal_close_btn"
