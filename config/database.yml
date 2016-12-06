@@ -57,8 +57,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: med_demo__test
-  username: postgres
+  database: phoenixTestDb
+  username: phoenixTester
   password: phoenix@
   host: localhost
   port: 5432
