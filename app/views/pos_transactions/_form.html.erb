@@ -54,6 +54,8 @@
 
             <div class="row phx-two-horizontal-controls">
               <%= phx_textfield_for f, :transaction_date, "Transaction Date", -1, "col-md-6", nil, nil, Time.now %>
+              <%= phx_textfield_for f, :ticket_number, "Ticket Number", 2, "col-md-6" %>
+
             </div>
           </div>
           <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
@@ -196,7 +198,7 @@
                             <tr class="" id="pos-item-<%= fff.id %>">
                               <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder="" value="<%= fff.quantity %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.category %>"  tabindex="-1"/></td>
-                              <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number %>" tabindex="-1" /></td>
+                              <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number || fff.item_number %>" tabindex="-1" /></td>
                               <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true" value="<%= fff.medical_item ? "Y" : "N" %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true" value="<%= fff.item_description %>" tabindex="-1"/></td>
                               <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true" value="<%= fff.price %>" tabindex="-1"/></td>

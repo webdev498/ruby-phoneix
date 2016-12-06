@@ -15,13 +15,24 @@ $ ->
       alert("Item not found")
     )
 
+  updatePaymentTotalsAfterNewItem = ->
+    primary_amount = parseFloat($("#pos_transaction_total_amount").val())
+    secondary_amount = 0.0
+    $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
+    $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
+
   updatePaymentTotals = ->
     primary_amount = parseFloat($("#pos_transaction_primary_payment_amount").val())
     secondary_amount = parseFloat($("#pos_transaction_secondary_payment_amount").val())
-    if !secondary_amount
+
+    if !primary_amount || parseInt(saved_primary_amount) == 0
+      primary_amount = parseFloat($("#pos_transaction_total_amount").val())
+
+    if !secondary_amount && !primary_amount
+      secondary_amount = parseFloat($("#pos_transaction_total_amount").val() - parseFloat(primary_amount))
+    else if !secondary_amount
       secondary_amount = 0.0
-    if !primary_amount
-      primary_amount = 0.0
+
     $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
     $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
 
@@ -75,7 +86,7 @@ $ ->
         dataType: "json"
       ).done( (data) ->
         updateRegisterFields(data,tablehtml,previouslySelectedIndex)
-        updatePaymentTotals()
+        updatePaymentTotalsAfterNewItem()
         reattachFormListeners()
       )
     )
@@ -83,17 +94,18 @@ $ ->
   updateRegisterFields = (json,tablehtml,previouslySelectedIndex) ->
     $("#pos_transaction_initials").val(json.initials)
     $("#pos_transaction_register_number").val(json.register_number)
+    $("#pos_transaction_ticket_number").val(json.ticket_number)
     formattedDate = (new Date(json.created_at)).toLocaleDateString().replace(/\//g,"-")
     $("#pos_transaction_transaction_date").val(formattedDate)
-    $("#pos_transaction_medical_amount").val(json.medical_amount)
-    $("#pos_transaction_medical_tax").val(json.medical_tax)
-    $("#pos_transaction_non_medical_amount").val(json.non_medical_amount)
-    $("#pos_transaction_non_medical_tax").val(json.non_medical_tax)
-    $("#pos_transaction_medical_total").val(json.medical_total)
-    $("#pos_transaction_non_medical_total").val(json.non_medical_total)
-    $("#pos_transaction_total_amount").val(json.total_amount)
-    $("#pos_transaction_total_tax").val(json.total_tax)
-    $("#pos_transaction_total_due").val( (json.total_amount + json.total_tax) )
+    $("#pos_transaction_medical_amount").val(parseFloat(json.medical_amount).toFixed(2))
+    $("#pos_transaction_medical_tax").val(parseFloat(json.medical_tax).toFixed(2))
+    $("#pos_transaction_non_medical_amount").val(parseFloat(json.non_medical_amount).toFixed(2))
+    $("#pos_transaction_non_medical_tax").val(parseFloat(json.non_medical_tax).toFixed(2))
+    $("#pos_transaction_medical_total").val(parseFloat(json.medical_total).toFixed(2))
+    $("#pos_transaction_non_medical_total").val(parseFloat(json.non_medical_total).toFixed(2))
+    $("#pos_transaction_total_amount").val(parseFloat(json.total_amount).toFixed(2))
+    $("#pos_transaction_total_tax").val(parseFloat(json.total_tax).toFixed(2))
+    $("#pos_transaction_total_due").val(parseFloat((json.total_amount + json.total_tax) ).toFixed(2))
 
     # Clear the fields to en
     $("#new-pos-qty").val("1")
@@ -131,11 +143,21 @@ $ ->
       posParams["secondary_payment_amount"] = pos_transaction_secondary_payment_amount
     posParams
 
+
   reattachFormListeners = ->
+    getTicket = (ticket_number) ->
+      window.location = "/pos_transactions/get_ticket/" + ticket_number
+
     $("#new-pos-desc").off().bind('keyup', (e)->
       if ( e?.keyCode == 13 )
         e.preventDefault()
         saveNewItem()
+    )
+
+    $("#pos_transaction_ticket_number").off().bind('keyup', (e)->
+      if ( e?.keyCode == 13 )
+        e.preventDefault()
+        getTicket( $("#pos_transaction_ticket_number").val() )
     )
 
     $("#new-pos-total").off().bind('keyup', (e)->
@@ -161,10 +183,17 @@ $ ->
     updatePaymentTotals = ->
       primary_amount = parseFloat($("#pos_transaction_primary_payment_amount").val())
       secondary_amount = parseFloat($("#pos_transaction_secondary_payment_amount").val())
-      if !secondary_amount
-        secondary_amount = 0.0
       if !primary_amount
-        primary_amount = 0.0
+        primary_amount = parseFloat($("#pos_transaction_total_amount").val())
+
+      if !secondary_amount && !primary_amount
+        secondary_amount = (parseFloat($("#pos_transaction_total_amount").val()) - parseFloat(primary_amount))
+      else if !secondary_amount
+        secondary_amount = 0.0
+
+      if !primary_amount
+        primary_amount = parseFloat($("#pos_transaction_total_amount").val())
+
       $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
       $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
 
@@ -237,7 +266,11 @@ $ ->
 
     )
 
-
+    updatePaymentTotalsAfterNewItem = ->
+      primary_amount = parseFloat($("#pos_transaction_total_amount").val())
+      secondary_amount = 0.0
+      $("#pos_transaction_primary_payment_amount").val(primary_amount.toFixed(2))
+      $("#pos_transaction_secondary_payment_amount").val(secondary_amount.toFixed(2))
 
     deleteDetail = (e) ->
       e.preventDefault()
@@ -258,7 +291,7 @@ $ ->
           dataType: "json"
         ).done( (data) ->
           updateRegisterFields(data,tablehtml)
-          updatePaymentTotals()
+          updatePaymentTotalsAfterNewItem()
           reattachFormListeners()
         )
       )
