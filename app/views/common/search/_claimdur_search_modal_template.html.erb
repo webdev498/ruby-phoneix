@@ -1,0 +1,62 @@
+<div class="phx-modal containter-fluid" id="claimDurSearchModal" role="dialog" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Claim Dur Search</h3>
+      </div>
+
+      <div class="modal-body">
+        <% choice = 0 %>
+        <table class="table-hover">
+          <thead class="phx-search-row-header">
+          <tr>
+            <th class="phx-search-font"><input type="text" id="claimDurSearchModal_Keys1_9" style="width:0.1px;" ></th>
+            <th class="phx-search-font"> Dur Code </th>
+            <th class="phx-search-font"> Severity </th>
+            <th class="phx-search-font"> Dur Message </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% searchClaimDurs.each do |claimDur| %>
+
+              <% claimSearchRowId = "claimSearchModal-row" + (choice += 1).to_s %>
+              <tr	id="<%=claimSearchRowId%>"
+                   class="phx-search-row clickable-claimSearchModal-row"
+                   data-phx-search-claimDur-id="<%= claimDur.id %>">
+
+                <td class="phx-search-font" > <%= choice %> </td>
+                <td class="phx-search-font"> <%= claimDur.dur_code %> </td>
+                <td class="phx-search-font"> <%= claimDur.dur_severity %> </td>
+                <td class="phx-search-font"> <%= claimDur.dur_message %> </td>
+              </tr>
+          <% end %> <!-- END OF claim list -->
+          </tbody>
+        </table>
+      </div> <!-- end of modal-body -->
+
+      </br>
+
+      <div class="modal-footer">
+        <%= paginate searchClaimDurs,
+                     params: { controller: "claims", action: "search_dur"} , remote: true  unless searchClaimDurs.empty? %>
+
+        <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+        <button id="claimDur_modal_close_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                data-dismiss="modal"
+                aria-hidden="true">
+          Close</button>
+      </div>
+
+    </div>  <!-- end of modal-content -->
+
+  </div>  <!-- end of modal-dialog -->
+
+  <script>
+    $('#claimDur_search_modal_partial').trigger('contentchanged');
+  </script>
+
+</div>

@@ -37,10 +37,13 @@ class ClaimsController < ApplicationController
     def search_dur
       claim_id = params[:claim_id]
       claim = Claim.find(claim_id)
-      data = ClaimDur.select('id, dur_code, dur_severity, dur_message')
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
+      @searchClaimDurs = ClaimDur.select('id, dur_code, dur_severity, dur_message')
                  .where('claim_id = :claim_id AND rx_number = :rx_number AND fill_number = :fill_number AND plan_id_code = :plan_id_code',
-                        {claim_id: params[:claim_id], rx_number:claim.rx_number, fill_number: claim.fill_number, plan_id_code: claim.plan_id_code})
-      render json: data
+                  {claim_id: params[:claim_id], rx_number:claim.rx_number, fill_number: claim.fill_number, plan_id_code: claim.plan_id_code})
+                  .page(pageNumber).per(perPage)
+      render template: 'common/search/js/nextSearchClaimDurs.js'
     end
 
     def search
@@ -57,7 +60,12 @@ class ClaimsController < ApplicationController
       dbContext = dbContext.where("date_filled >= '" + params[:search_for_from_date] + "'") if params[:search_for_from_date] && params[:search_for_from_date] != ''
 
       if params[:search_for_status] && params[:search_for_status] != ''
-        dbContext = dbContext.where('status ='+ Claim.statuses[params[:search_for_status]].to_s)
+        status = params[:search_for_status]
+        if(status == status.to_i.to_s)
+          dbContext = dbContext.where('status ='+ status)
+        else
+          dbContext = dbContext.where('status ='+ Claim.statuses[params[:search_for_status]].to_s)
+        end
       end
 
       if params[:plan_id] && params[:plan_id] != ''

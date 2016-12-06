@@ -13,13 +13,26 @@ class PriceSchedulesController < ApplicationController
   # GET /price_schedules/1
   # GET /price_schedules/1.json
   def show
+      sch_num = params[:number]
+      if(sch_num)
+        sch = PriceSchedule.find_by number: sch_num
+        if (sch)
+          @price_schedule = sch
+        end
+      end
+
+      if @price_schedule.break_type == 'price_based'
+        @b_w = "Cost up to:"
+      else
+        @b_w = "Qty up to:"
+      end
       render :edit
    end
 
   # GET /price_schedules/new
   def new
-#    @price_schedule = PriceSchedule.new
-    @price_schedule = PriceSchedule.find 1
+    @price_schedule = PriceSchedule.new
+   # @price_schedule = PriceSchedule.find 1
   end
 
   # GET /price_schedules/1/edit
@@ -55,6 +68,8 @@ class PriceSchedulesController < ApplicationController
       end
     end
   end
+
+
 
   # DELETE /price_schedules/1
   # DELETE /price_schedules/1.json
