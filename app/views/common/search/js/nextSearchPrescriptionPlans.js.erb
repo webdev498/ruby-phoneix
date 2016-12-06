@@ -1,0 +1,2 @@
+$("#plan_search_modal_partial").html(
+    "<%= escape_javascript(render partial: 'common/search/prescription_plan_search_modal_template', locals: { searchPlans: @searchPlans, searchController: @searchController } ) %>");

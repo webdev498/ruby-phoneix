@@ -284,6 +284,10 @@
       <div id="itemSearchModal">
       </div>
   </div>
+
+  <div id="plan_search_modal_partial">
+    <div id="planSearchModal"></div>
+  </div>
     <!-- Remove it FIX ME -->
   <input id="customer_id_field" type="hidden" value="<%=@prescription.customer_id %>" >
 <% end %>
@@ -397,6 +401,7 @@
             modalId:      'prescriberSearchModal',
             hiddenDivId:  'hidden_fields',
             refresh:      false,
+            modalWidth:   480,
             refreshTo:    '' });
 
     // additional attributes would be defined
@@ -452,6 +457,22 @@
 
     // Sig Cache
     var sigCache = FEENX.Sig.SigCache();
+
+    var cs = FEENX.Search.NewSearch('plan',
+        {   context:      '',
+          basePath : 'search',
+          fieldPrefix:  '',
+          modalId:      'planSearchModal',
+          hiddenDivId:  'hidden_fields',
+          modalWidth: 350,
+          customProcessSearchSelection : function(target){
+            var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
+            location.href =  '?sub_index=-1&plan_id_code=' + plan_id_code ;
+          }});
+    // create the corresponding hidden fields in the form
+    cs.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    cs.dataFormattedAttributes();
 
 
     // Track state to profile using a global variable, starting at false
