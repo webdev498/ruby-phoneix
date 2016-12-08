@@ -207,15 +207,17 @@
                       </thead>
                       <tbody>
                           <% i = 0 %>
-                          <% @customer.customerPlans.order(:sequence_number, :id).each do |f| %>
+                          <% @customer.customerPlans.joins("LEFT JOIN plans ON plans.plan_id_code = customer_plans.plan_id_code")
+                                 .select("customer_plans.id, customer_plans.plan_id_code, customer_plans.plan_abb_name, plans.bin_number, plans.processor_control_number, customer_plans.plan_type, customer_plans.active  ").order(:sequence_number, :id).each do |f| %>
                           <tr>
                             <td> <%= i = i +1 %> </td>
                             <td> <%= f.plan_id_code %> </td>
                             <td> <%= f.plan_abb_name %> </td>
                             <td> <%= f.bin_number %> </td>
-                            <td> <%= f.processor_controller %> </td>
+                            <td> <%= f.processor_control_number %> </td>
                             <td> <%= f.plan_type %> </td>
                             <td> <%= f.active %> </td>
+                            <td style="display:none"> <%= f.id %> </td>
                           </tr>
                       <% end %>
                       </tbody>
@@ -370,7 +372,7 @@
                       </row>
                     <% end %>
                   <% else %>
-                    <%= f.fields_for :customerPlans, @customer.customerPlans.order(:sequence_number, :id).offset(@sub_index.to_i).first do |ff| %>
+                    <%= f.fields_for :customerPlans, @customer.customerPlans.order(:sequence_number, :id).find(@sub_index.to_i) do |ff| %>
                       <row>
                               <!-- Insurance INFO, first column -->
                         <div class="container-fluid col-lg-4">
@@ -550,7 +552,7 @@
 
                           <% end %>
                         <% else %>
-                          <%= f.fields_for :customerPlans, @customer.customerPlans.order(:sequence_number, :id).offset(@sub_index.to_i).first  do |ff| %>
+                          <%= f.fields_for :customerPlans, @customer.customerPlans.order(:sequence_number, :id).find(@sub_index.to_i)  do |ff| %>
 
                             <div class="row phx-two-horizontal-controls col-sm-12">
                               <%= phx_textfield_for ff, :plan_id_code, "Pay Type", 0, "col-sm-6" , :readonly%>
@@ -757,7 +759,7 @@
                             </row>
                         <% end %>
                   <% else %>
-                    <%= f.fields_for :customerPlans,@customer.customerPlans.order(:sequence_number, :id).offset(@sub_index.to_i).first do |ff| %>
+                    <%= f.fields_for :customerPlans,@customer.customerPlans.order(:sequence_number, :id).find(@sub_index.to_i) do |ff| %>
 
                     <row>
     									<!-- Insurance INFO, first column -->
