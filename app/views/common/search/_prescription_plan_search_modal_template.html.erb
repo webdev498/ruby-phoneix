@@ -27,7 +27,7 @@
               <tr	id="<%=planSearchRowId%>"
                    class="phx-search-row clickable-planSearchModal-row"
                    data-phx-search-plan-id="<%= plan.id %>"
-                   data-phx-search-plan-plan_id_code="<%= plan.plan_id_code %>"
+                   data-phx-search-plan-plan_type="<%= plan.plan_type %>"
               >
 
                 <td class="phx-search-font"> <%= choice %> </td>
@@ -48,6 +48,11 @@
                       params: { controller: "customers", action: "search_active"} , remote: true  unless searchPlans.empty? %>
 
 
+        <button id="plan_modal_add_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                aria-hidden="true">
+          Add Plan</button>
+
         <button id="plan_modal_close_btn"
                 class="btn btn-sm btn-default phx-btn-model-control-red"
                 data-dismiss="modal"
@@ -63,5 +68,9 @@
 
 <script>
   $('#plan_search_modal_partial').trigger('contentchanged');
+  $('#plan_modal_add_btn').click(function(){
+    var customer_id = $('#customer_id_field').val();
+    location.href = '../customers/'+ customer_id +"&tab_index=2";
+  })
 </script>
 
