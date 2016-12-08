@@ -9,12 +9,12 @@ class CustomerPlan < ActiveRecord::Base
     enum payor_type: [ :patient, :head_of_household, :sponsor, :master ]
 
 
-    def bin_number
-        bin_number= Plan.where("plan_id_code = " + self.plan_id_code.to_s).first.bin_number
-        #
-    end
+    # def bin_number
+    #     bin_number= Plan.where("plan_id_code = " + self.plan_id_code.to_s).first.bin_number
+    #     #
+    # end
 
-    def processor_controller
-        processor_control_number= Plan.where("plan_id_code = " + self.plan_id_code.to_s).first.processor_control_number
-    end
+    # def processor_controller
+    #     processor_control_number= Plan.where("plan_id_code = " + self.plan_id_code.to_s).first.processor_control_number
+    # end
 end
