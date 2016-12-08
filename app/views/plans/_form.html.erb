@@ -199,8 +199,10 @@
                                 </br>
 
                             </div> <!-- END OF first panel, first column -->
-									<!-- GENERAL INFO panel, second column -->
-									<div class="container-fluid col-lg-4">
+
+              <% if(@plan.plan_requirement) %>
+                <!-- GENERAL INFO panel, second column -->
+                <div class="container-fluid col-lg-4">
 										<div class="field form-group phx-input-control">
 											<label class="phx-form-control-label" for="claim_seg_sel">Claim Segments</label>
 											<%#= f.text_field :address1, class:'phx-form-control' %>
@@ -255,8 +257,8 @@
                     <% end %>
 									</div> <!-- END OF GENERAL INFO panel, second column -->
 
-              <!-- GENERAL INFO panel, third column -->
-              <div class="container-fluid col-lg-4">
+                <!-- GENERAL INFO panel, third column -->
+                <div class="container-fluid col-lg-4">
                 <div style="margin-bottom: 13px"  class="phx-input-control-spacer">&nbsp;</div>
                 <%= form_for([@plan, @plan.plan_requirement]) do |rf| %>
                     <% @segment_ary.each do |key, val| %>
@@ -272,7 +274,7 @@
                 <% end %>
 
               </div> <!-- END OF GENERAL INFO panel, third column -->
-
+              <% end %>
             </row>
 							</div> <!-- END OF GENERAL INFO panel container-fluid -->
 						</div>

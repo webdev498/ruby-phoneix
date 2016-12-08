@@ -27,20 +27,14 @@ class CustomersController < ApplicationController
     end
 
     def search_active
+      pageNumber = params[:page] ? params[:page] : 1
+      perPage = 9
       customer_id = params[:customer_id]
-      data = CustomerPlan.select("plan_id_code, plan_abb_name, plan_type").where("active=true AND customer_id="+customer_id.to_s)
-      i = 0
-      result = Array.new(data.to_ary.length) {Hash.new}
-      data.to_ary.each do |f|
-        result[i][:bin_number] = Plan.where("plan_id_code = " + f[:plan_id_code].to_s).first.bin_number
-        result[i][:plan_id_code] = f[:plan_id_code]
-        result[i][:abbreviated_name] = f[:plan_abb_name]
-        result[i][:plan_type] = f[:plan_type] == 0 ? 'insurance' : (f[:plan_type] == 1 ? "workers compensation" : "charge" )
+      @searchPlans = CustomerPlan.joins("LEFT JOIN plans ON plans.plan_id_code = customer_plans.plan_id_code")
+        .select('customer_plans.id,customer_plans.plan_id_code, plans.bin_number, plans.abbreviated_name, plans.plan_type')
+        .where("customer_id="+customer_id.to_s + ' AND customer_plans.active = true').page(pageNumber).per(perPage).order(:sequence_number, :id)
 
-        i+=1
-      end
-
-      render :json => result
+      render template: 'common/search/js/nextSearchPrescriptionPlans.js'
     end
 
     def search_customer

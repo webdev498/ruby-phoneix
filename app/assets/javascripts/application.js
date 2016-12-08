@@ -22,48 +22,6 @@
  */
 var FEENX = FEENX || {};
 
-function openSelectionModal(caption,tblHtml,dtUrl, rowSelHandler) {
-
-    $.get( dtUrl, function( data ) {
-        var res ='';
-        // $('#myModal').keydown(function(event){
-        //     var keycode = event.which;
-        //     if (keycode >= 49 && keycode < 58 )
-        //     {
-        //         var id = data[keycode-49]['id'];
-        //         $('#myModal').modal('hide');
-        //         f= id + '/edit';
-        //         $('#myModal').unbind("keydown");
-        //     }
-        // });
-        var rNo = 1;
-        data.forEach(function(item) {
-            res+='<tr>';
-            res+='<td>'+rNo+'</td>'
-            for (prop in item) {
-                if (prop == 'id')
-                    continue;
-                if(item[prop] == null)
-                    item[prop]='';
-                res += '<td>' + item[prop] + '</td>';
-            }
-            rNo++;
-            res+='</tr>';
-        });
-
-        $('#modal_table').html(tblHtml);
-        $('#myModalLabel').html(caption);
-        $('#modal_table').append(res);
-        $('#modal_table tr').click(function() {
-            var id = data[$(this).index()]['id'];
-            rowSelHandler( id );
-            $('#modal_table_tr').unbind("click")
-        });
-        $('#myModal').modal('show');
-    });
-}
-
-
 $(document).ready(function() {
 
     $('.float-dollar > input').each(function(index){
@@ -78,64 +36,8 @@ $(document).ready(function() {
 
     $('#prescription_payment_type').focus(function() {
         var customer_id = $('#customer_id_field').val();
-        $('#payment_type').val($('#prescription_payment_type').val());
         $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
-            var res ='';                                                                                                                                                                                                                                                                                                   
-            var no = 0;
-            data.forEach(function(item) {
-                res+='<tr>';
-                for (prop in item) {
-                    if(item[prop]== null)
-                        item[prop]='';
-                }
-                no++;
-                res += '<td>' + no + '</td>';
-                res += '<td>' + item['plan_id_code'] + '</td>';
-                res += '<td>' + item['abbreviated_name'] + '</td>';
-                res += '<td>' + item['bin_number'] + '</td>';
-                res += '<td>' + item['plan_type'] + '</td>';
 
-                res+='</tr>';
-            });
-
-            $('#myModal').keydown(function(event){
-                var keycode = event.which;
-                if (keycode => 49 && keycode < 58 )
-                {
-                    var plan_id_code = data[keycode-49]['plan_id_code'];
-                    $('#myModal').modal('hide');
-                    location.href = '../customers/1?sub_index=-1&plan_id_code=' + plan_id_code;
-                    $('#myModal').unbind("keydown");
-                }
-            });
-
-            var tbl_html = "<thead>\
-                    <tr>\
-                    <th> </th>\
-                    <th> Plan Id Code </th>\
-                    <th> Plan Name </th>\
-                    <th> Bin Number </th>\
-                    <th> Plan Type </th>\
-                    </tr>\
-                    </thead>\
-                    <tbody>\
-                    </tbody>";
-            $("#prescription_add_btn").click(function(){
-                var payment_type = $('#payment_type').val();
-                location.href = '../customers/' + customer_id +'?tab_index=2';
-            });
-
-
-            $('#modal_table').html(tbl_html);
-
-            $('#modal_table').append(res);
-            $('#modal_table tr').click(function() {
-                var plan_id_code = data[$(this).index()]['plan_id_code'];
-                $('#myModal').modal('hide');
-                location.href = '../customers/1?sub_index=-1&plan_id_code=' + plan_id_code;
-                //$('#modal_table_tr').unbind("click");
-            });
-            $('#myModal').modal('show');
         });
     });
 
@@ -155,7 +57,7 @@ $(document).ready(function() {
         if(plan_type == "insurance") val= 3;
         else if(plan_type == "workers_comp") val=4;
         else val = 5
-        location.href = '?sub_index=' + $(this).index()+"&tab_index="+val;
+        location.href = '?sub_index=' + $(this).find(':last-child').text().trim()+"&tab_index="+val;
     });
     // $("#tabs > li:nth-child(5)").addClass('disabled');
 
