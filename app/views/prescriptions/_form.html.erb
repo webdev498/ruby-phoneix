@@ -466,8 +466,15 @@
           hiddenDivId:  'hidden_fields',
           modalWidth: 350,
           customProcessSearchSelection : function(target){
-            var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
-            location.href =  '?sub_index=-1&plan_id_code=' + plan_id_code ;
+            var customer_id = $('#customer_id_field').val();
+
+            var plan_type = target.attr("data-phx-search-plan-plan_type");
+            var sub_index = target.attr("data-phx-search-plan-id");
+            var val=3;
+            if(plan_type == "insurance") val= 3;
+            else if(plan_type == "workers_comp") val=4;
+            else val = 5
+            location.href = '../customers/'+ customer_id +'?sub_index=' + sub_index +"&tab_index="+val;
           }});
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
