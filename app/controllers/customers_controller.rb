@@ -31,8 +31,8 @@ class CustomersController < ApplicationController
       perPage = 9
       customer_id = params[:customer_id]
       @searchPlans = CustomerPlan.joins("LEFT JOIN plans ON plans.plan_id_code = customer_plans.plan_id_code")
-        .select('customer_plans.plan_id_code, plans.bin_number, plans.abbreviated_name, plans.plan_type')
-        .where("customer_id="+customer_id.to_s + ' AND customer_plans.active = true').page(pageNumber).per(perPage)
+        .select('customer_plans.id,customer_plans.plan_id_code, plans.bin_number, plans.abbreviated_name, plans.plan_type')
+        .where("customer_id="+customer_id.to_s + ' AND customer_plans.active = true').page(pageNumber).per(perPage).order(:sequence_number, :id)
 
       render template: 'common/search/js/nextSearchPrescriptionPlans.js'
     end
