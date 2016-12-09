@@ -441,6 +441,7 @@
     // set all search clean-up & following actions below ...
 
     $(custsrch).on(custsrch.done(), function(event, data) {
+        $('#customer_id_field').val(data);
         rxsrch.doSearch(data);  // provide start ID
     });
 
