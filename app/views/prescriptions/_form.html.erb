@@ -469,13 +469,9 @@
           customProcessSearchSelection : function(target){
             var customer_id = $('#customer_id_field').val();
 
-            var plan_type = target.attr("data-phx-search-plan-plan_type");
-            var sub_index = target.attr("data-phx-search-plan-id");
-            var val=3;
-            if(plan_type == "insurance") val= 3;
-            else if(plan_type == "workers_comp") val=4;
-            else val = 5
-            location.href = '../customers/'+ customer_id +'?sub_index=' + sub_index +"&tab_index="+val;
+            var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
+            $("#prescription_payment_type").val(plan_id_code);
+            $("#planSearchModal").modal('toggle');
           }});
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
