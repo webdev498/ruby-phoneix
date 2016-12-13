@@ -24,11 +24,26 @@ var FEENX = FEENX || {};
 
 $(document).ready(function() {
 
-    $('.float-dollar > input').each(function(index){
-        var break_type = $('#price_schedule_break_type').val();
-        var precision = 2;
+    $('[name="price_schedule[break_type]"]').change(function(){
+        var break_type = $('[name="price_schedule[break_type]"]').val();
+        //alert(break_type);
+        var precision = 3;
         if (break_type == 0)
             precision = 2;
+        $('.float-dollar > input').each(function(index){
+
+            var val = parseFloat($(this).val());
+            val = val.toFixed(precision);
+            $(this).val(val);
+        });
+    });
+    var break_type = $('[name="price_schedule[break_type]"]').val();
+    //alert(break_type);
+    var precision = 3;
+    if (break_type == 0)
+        precision = 2;
+    $('.float-dollar > input').each(function(index){
+
          var val = parseFloat($(this).val());
          val = val.toFixed(precision);
          $(this).val(val);
