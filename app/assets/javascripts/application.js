@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     $('.float-dollar > input').each(function(index){
         var break_type = $('#price_schedule_break_type').val();
-        var precision = 3;
+        var precision = 2;
         if (break_type == 0)
             precision = 2;
          var val = parseFloat($(this).val());
