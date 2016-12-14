@@ -309,3 +309,20 @@
 		</div>
 	<% end %>
 </div> <!-- end of col lg 10 -->
+
+<script>
+    $(document).ready(function(){
+        $('#plan_plan_id_code').keydown(function(evt) {
+            var ch = evt.which;
+
+            if (ch == 13) {
+                $.get('getid?plan_id_code=' + $(this).val(),function(data){
+                    if(data == -1 )
+                        return;
+                    location.href = data;
+                });
+            }
+        });
+    });
+
+</script>

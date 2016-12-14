@@ -263,17 +263,18 @@
     </div>
   </div>
 <script>
-  $('#plan_plan_id_code').keydown(function(evt) {
-    var ch = evt.which;
+  $(document).ready(function(){
+      $('#plan_plan_id_code').keydown(function(evt) {
+          var ch = evt.which;
 
-    if (ch == 13) {
-      $.get('getid?plan_id_code=' + $(this).val(),function(data){
-        if(data == -1 )
-            return;
-        location.href = data;
+          if (ch == 13) {
+              $.get('getid?plan_id_code=' + $(this).val(),function(data){
+                  if(data == -1 )
+                      return;
+                  location.href = data;
+              });
+          }
       });
-
-    }
   });
   var cs = FEENX.Search.NewSearch('plan',
       {   context:      '',
