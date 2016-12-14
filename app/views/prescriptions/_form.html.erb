@@ -474,6 +474,7 @@
             $("#prescription_payment_type").val(plan_id_code);
             $("#prescription_plan_name").val(plan_name);
             $("#planSearchModal").modal('toggle');
+            $("[name='prescription[dispense_as_written_code]']").focus();
           }});
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
