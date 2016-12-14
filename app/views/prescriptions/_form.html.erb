@@ -327,6 +327,15 @@
 
 <script>
 
+  $(document).ready(function(){
+      $('#prescription_payment_type').focus(function() {
+          var customer_id = $('#customer_id_field').val();
+          $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
+
+          });
+      });
+  });
+
     //<%#  *** PRESCRIPTION number ***  %>
 
 	$('#prescription_rx_number').on("keypress", function(e) {
