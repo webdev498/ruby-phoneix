@@ -1,0 +1,7 @@
+<td><input type="text" id="new-pos-qty" value="<%= @quantity %>" tabindex="10"/></td>
+<td><%= select_tag(:new_pos_type, options_for_select(PosCategory.getSelectEnum, @selectedItem), tabindex: "10", id: "new-pos-type") %></td>
+<td><input type="text" id="new-pos-rx-upc-number" value="<%= @prescription.rx_number %>" tabindex="10"/></td>
+<td><input type="text" id="new-pos-med" value="<%= @isMedical %>" tabindex="10"/></td>
+<td><input type="text" id="new-pos-desc" value="<%= @item.item_name %>" tabindex="10"/></td>
+<td><input type="text" id="new-pos-each" value="<%= @fillInfo.price %>" tabindex="10"/></td>
+<td><input type="text" id="new-pos-total" value="<%= @fillInfo.price %>" tabindex="10"/></td>

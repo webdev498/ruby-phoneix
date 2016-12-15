@@ -88,3 +88,7 @@ production:
   database: phoenixDb
   username: postgres
   password: phoenix@
+<<<<<<< HEAD
+=======
+
+>>>>>>> point_of_sale_2
