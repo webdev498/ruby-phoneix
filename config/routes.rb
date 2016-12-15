@@ -231,7 +231,11 @@ Rails.application.routes.draw do
 
   resources :pos_taxes
 
+  get 'facilities/search' => 'facilities#search'
+
   resources :facilities
+
+
 
   #  * Accounts Recieveable
   get 'account/nextAccountPostings' => 'accounts#next_account_postings'
