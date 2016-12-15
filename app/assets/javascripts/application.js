@@ -49,13 +49,6 @@ $(document).ready(function() {
          $(this).val(val);
     });
 
-    $('#prescription_payment_type').focus(function() {
-        var customer_id = $('#customer_id_field').val();
-        $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
-
-        });
-    });
-
     var sel = $('#claim_seg_sel').val();
     $('.ctrl-segment').hide();
     $('.ctrl-'+sel).show();

@@ -327,6 +327,15 @@
 
 <script>
 
+  $(document).ready(function(){
+      $('#prescription_payment_type').focus(function() {
+          var customer_id = $('#customer_id_field').val();
+          $.get( "../customers/search_active?customer_id="+customer_id , function( data ) {
+
+          });
+      });
+  });
+
     //<%#  *** PRESCRIPTION number ***  %>
 
 	$('#prescription_rx_number').on("keypress", function(e) {
@@ -470,8 +479,11 @@
             var customer_id = $('#customer_id_field').val();
 
             var plan_id_code = target.attr("data-phx-search-plan-plan_id_code");
+            var plan_name = target.attr("data-phx-search-plan-plan_name");
             $("#prescription_payment_type").val(plan_id_code);
+            $("#prescription_plan_name").val(plan_name);
             $("#planSearchModal").modal('toggle');
+            $("[name='prescription[dispense_as_written_code]']").focus();
           }});
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
