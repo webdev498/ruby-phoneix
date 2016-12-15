@@ -42,6 +42,14 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def search
+    facility_name = params[:facility_name] ? params[:facility_name] : ''
+    pageNumber = params[:page] ? params[:page] : 1
+    perPage = 9
+    @searchFacilities = Facility.where("name like '#{facility_name}%'").page(pageNumber).per(perPage)
+    render template: 'common/search/js/nextSearchFacilities.js'
+  end
+
   # PATCH/PUT /facilities/1
   # PATCH/PUT /facilities/1.json
   def update
