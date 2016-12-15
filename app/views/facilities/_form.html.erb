@@ -117,13 +117,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
             <div class="col-lg-8  ">
 
                 <!-- Tab labels -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#wings" role="tab" data-toggle="tab">Wing</a></li>
+                    <li class="active"><a href="#wing" role="tab" data-toggle="tab">Wing</a></li>
                     <li><a href="#itemPanel-bed" role="tab" data-toggle="tab">Bed</a></li>
                     <li><a href="#itemPanel-records" role="tab" data-toggle="tab">Medical Records</a></li>
                     <li><a href="#itemPanel-times" role="tab" data-toggle="tab">Pass Times</a></li>
@@ -353,25 +352,25 @@
 
                   </div> <!-- END OF WING INFO panel container-fluid -->
               </div>
-              <div class="tab-pane" id="bed">
+
+              <div class="tab-pane" id="itemPanel-bed">
                   <div class="container-fluid">
                       <row>
-                      <!-- First panel, first column -->
-                      <div class="container-fluid col-lg-4">
+                        <!-- First panel, first column -->
+                        <div class="container-fluid col-lg-4">
 
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
-                              <%= f.text_field :name, class: 'phx-form-control' %>
-                          </div>
-                      </div>
+                            <div class="field form-group phx-input-control">
+                                <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
+                                <%= f.text_field :name, class: 'phx-form-control' %>
+                            </div>
+                        </div>
+                      </row>
                   </div>
               </div>
-            </div>
 
               <div class="tab-pane" id="itemPanel-records">
 
                 <div class="container-fluid">
-                  <row>
                   <!-- Panel 2, 1st column -->
 
                         <div class="field form-group phx-input-control">
@@ -437,18 +436,17 @@
 
               </div>
 
-               <div class="tab-pane" id="itemPanel-pricing">
+               <!--<div class="tab-pane" id="itemPanel-pricing">-->
 
-                <div class="container-fluid">
-                <row>
-                <!-- Panel 2, 1st column -->
-                </div> <!-- END OF Panel 2 -->
-              </div>
+                <!--<div class="container-fluid">-->
+                <!--<row>-->
+                <!--&lt;!&ndash; Panel 2, 1st column &ndash;&gt;-->
+                <!--</div> &lt;!&ndash; END OF Panel 2 &ndash;&gt;-->
+              <!--</div>-->
 
               <div class="tab-pane" id="itemPanel-times">
 
                 <div class="container-fluid">
-                  <row>
                   <!-- Panel 2, 1st column -->
                 </div> <!-- END OF Panel 2 -->
              </div>
@@ -456,13 +454,12 @@
              <div class="tab-pane" id="itemPanel-orders">
 
                <div class="container-fluid">
-                <row>
                 <!-- Panel 2, 1st column -->
               </div> <!-- END OF Panel 2 -->
             </div>
-
+          </div>
         </div> <!-- end of work area -->
-
+      </div>
 </div>
 
 <% end %>
