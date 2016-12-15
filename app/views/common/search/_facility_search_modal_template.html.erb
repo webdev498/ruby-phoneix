@@ -42,8 +42,8 @@
       </br>
 
       <div class="modal-footer">
-        <%= paginate searchfacilitys,
-                     params: { controller: "facilities", action: "search"} , remote: true  unless searchfacilitys.empty? %>
+        <%= paginate searchFacilities,
+                     params: { controller: "facilities", action: "search"} , remote: true  unless searchFacilities.empty? %>
 
         <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
         <button id="facility_modal_close_btn"
