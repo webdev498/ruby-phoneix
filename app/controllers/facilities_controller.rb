@@ -14,6 +14,7 @@ class FacilitiesController < ApplicationController
   # GET /facilities/1
   # GET /facilities/1.json
   def show
+    render :edit
   end
 
   # GET /facilities/new
