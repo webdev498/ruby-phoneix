@@ -17,6 +17,33 @@ class PosDetailsController < ApplicationController
     @pos_detail = PosDetail.new
   end
 
+  def get_rx_or_item
+    @prescription = nil
+    @selectedItem = params[:categoryId]
+    category = PosCategory.find(@selectedItem) rescue nil
+    if category && category.category_abbreviation == "RX"
+      @isMedical = "Y"
+      @prescription,@item,@fillInfo = PosDetail.getPrescription(params[:id])
+      if @prescription.nil?
+        render status: 400
+      else
+        @quantity = params[:quantity]
+        render layout: false, partial: "prescription_detail"
+      end
+    else
+      @isMedical = "N"
+      @item = PosDetail.getItem(params[:id])
+      if(@item.nil?)
+          render status: 400
+      else
+        @quantity = params[:quantity]
+        @totalPrice = @quantity.to_f * @item.awp_unit_price.to_f
+        render layout: false, partial: "item_detail"
+      end
+
+    end
+  end
+
   # GET /pos_details/1/edit
   def edit
   end

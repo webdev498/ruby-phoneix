@@ -1,3 +1,4 @@
+
 FactoryGirl.define do
   factory :pos_transaction do
     company_id 1

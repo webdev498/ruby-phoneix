@@ -108,7 +108,6 @@ Rails.application.routes.draw do
 
   get 'item/clinicalInquiry'			  => 'items#clinicalInquiry',	as: :clinicalInquiry
   get 'item/nextItems'				   	  => 'items#nextItems',	        as: :nextItems   # arggggghhh !!!!
-  get 'item/:id'                          => 'items#show_item',         as: :get_item
   get 'item/addCompoundItem/:id,:cid'     => 'items#addCompound',       as: :addCompoundItem
   get 'item/removeCompoundItem/:id,:cid'  => 'items#removeCompound',    as: :removeCompoundItem
   get 'item/nextIngredients' => 'items#nextIngredients'
@@ -116,7 +115,15 @@ Rails.application.routes.draw do
   get 'item/nextItemFormulaToCopy' => 'items#nextItemFormulaToCopy'
   get 'item/ingredient_details/:id' => 'items#ingredient_details'
   put 'item/copyFormula' => 'items#copyFormula'
+  get 'item/:id'                          => 'items#show_item',         as: :get_item
 
+  get 'formula/ingredients/:id' => 'formula#ingredients'
+  get 'formulas/ingredients/:id' => 'formulas#ingredients'
+  post 'formulas/addIngredient' => 'formulas#addIngredient'
+  delete 'formulas/removeIngredient/:id' => 'formulas#removeIngredient'
+  put 'formulas/updateIngredient/:id' => 'formulas#updateIngredient'
+
+  resources :formulas
   resources :items, except: :index do
     resources :formulas do
       resources :ingredients
@@ -202,8 +209,18 @@ Rails.application.routes.draw do
 #  get 'posItems'          => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
 #  get 'posPaymentMethods' => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
 #  get 'posTax'            => 'rxoptions#parameterMaintenance',     as: :parameterMaintenance
+  post 'pos_transactions/add_new_detail' => 'pos_transactions#add_new_detail'
+  delete 'pos_transactions/delete_detail' => 'pos_transactions#delete_detail'
+  post 'pos_transactions/create_or_update' => 'pos_transactions#create_or_update'
+
+  get 'pos_transactions/view/:id' => 'pos_transactions#view'
+  get 'pos_transactions/show/:id' => 'pos_transactions#show'
+  get 'pos_transactions/get_ticket/:ticket_number' => 'pos_transactions#get_ticket'
 
   resources :pos_transactions
+
+  get 'pos_details/get_rx_or_item' => 'pos_details#get_rx_or_item'
+
   resources :pos_details
 
   get 'posCategories'         => 'pos_categories#posCategory',              as: :posCategory

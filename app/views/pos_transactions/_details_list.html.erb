@@ -1,0 +1,38 @@
+<div class="col-md-12">
+  <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+    <span id="pos_transaction_items_count" ></span><%= @transaction.posDetails.count %></span> Total Items
+  </div>
+</div>
+<div class="form-group phx-input-control-spacer" style="margin-top: -8px;"><br></div>
+<table class="phx-search-font table table-bordered" id="pos-items-list">
+<input type="hidden" value="<%= @transaction.id %>" id="transaction-id">
+<!--<td class="col-xs-1">&nbsp;</td></tr>-->
+<thead class="">
+<tr class="">
+  <th style="background-color:#f9f9fa;">Qty</th>
+  <th style="background-color:#f9f9fa;">Type</th>
+  <th style="background-color:#f9f9fa;">Rx/UPC Number</th>
+  <th style="background-color:#f9f9fa;">Med</th>
+  <th style="background-color:#f9f9fa;">Description</th>
+  <th style="background-color:#f9f9fa;">Each</th>
+  <th style="background-color:#f9f9fa;">Total</th>
+  <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+</tr>
+</thead>
+<tbody>
+<% @transaction.posDetails.each_with_index do |fff, idx| %>
+    <tr class="" id="pos-item-<%= fff.id %>">
+      <td><input type="text" id="new-pos-qty-<%= fff.id %>" placeholder="" value="<%= fff.quantity %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-type-<%= fff.id %>" placeholder="" value="<%= fff.category %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-rx-upc-number-<%= fff.id %>" placeholder="" value="<%= fff.rx_number || fff.item_number %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-med-<%= fff.id %>" disabled="true" value="<%= fff.medical_item ? "Y" : "N" %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-desc-<%= fff.id %>" disabled="true" value="<%= fff.item_description %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-each-<%= fff.id %>" disabled="true" value="<%= fff.price %>" tabindex="-1"/></td>
+      <td><input type="text" id="new-pos-total-<%= fff.id %>" disabled="true" value="<%= fff.price %>" tabindex="-1"/></td>
+      <td>
+        <span role="button" type="button" id="detail-delete-<%= fff.id %>" class="btn btn-danger button button-danger detail-delete" tabindex="11">-</span>
+      </td>
+    </tr>
+<% end %>
+</tbody>
+</table>

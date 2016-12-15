@@ -1,12 +1,5 @@
 class Facility < ActiveRecord::Base
 
-	has_many :customerFacilities
-
-	enum use_auto_fill: [:noAutofill, :anniversary, :prospective]
-	enum use_patient_counseling: [:notUsed, :onNew, :onRefill, :both]
-	enum print_patient_counseling: [:notPrinted, :newRx, :refillRx, :newAndRefill]
-	enum select_counseling: [:noSelection, :selectAll, :selectSpecific]
-	enum check_dur: [:automatic, :onDemand, :noDur]
 	enum print_monograph: [:noMonogrpah, :monoOnNew, :monoOnRf, :monoOnBoth]
 	enum require_hippa_privacy_notice: [:noHippa, :required, :issueWarning]
 	enum print_order: [:alphabetic, :passOrder]

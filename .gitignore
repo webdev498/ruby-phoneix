@@ -1,4 +1,4 @@
 .rbenv-gemsets
+tmp
+log/*
 .idea
-/tmp/
-/log/
