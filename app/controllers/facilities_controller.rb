@@ -43,7 +43,7 @@ class FacilitiesController < ApplicationController
   end
 
   def search
-    facility_name = params[:facility_name] ? params[:facility_name] : ''
+    facility_name = params[:name] ? params[:name] : ''
     pageNumber = params[:page] ? params[:page] : 1
     perPage = 9
     @searchFacilities = Facility.where("name like '#{facility_name}%'").page(pageNumber).per(perPage)
