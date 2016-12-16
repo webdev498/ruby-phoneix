@@ -462,4 +462,27 @@
       </div>
 </div>
 
+<div id="facility_search_modal_partial">
+  <div id="facilitySearchModal"></div>
+</div>
+
 <% end %>
+
+<script>
+    var cs = FEENX.Search.NewSearch('facility',
+        {   context:      '',
+            basePath : 'search',
+            triggerField: ['name'],
+            fieldPrefix:  '',
+            modalId:      'facilitySearchModal',
+            modalWidth: 450,
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/facilities/' ,
+            });
+
+    // create the corresponding hidden fields in the form
+    cs.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    cs.dataFormattedAttributes();
+</script>
