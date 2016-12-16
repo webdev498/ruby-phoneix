@@ -1,4 +1,7 @@
 class Facility < ActiveRecord::Base
+	has_many :wings
+
+	accepts_nested_attributes_for :wings
 
 	enum print_monograph: [:noMonogrpah, :monoOnNew, :monoOnRf, :monoOnBoth]
 	enum require_hippa_privacy_notice: [:noHippa, :required, :issueWarning]
