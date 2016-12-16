@@ -45,7 +45,15 @@
         <%= paginate searchFacilities,
                      params: { controller: "facilities", action: "search"} , remote: true  unless searchFacilities.empty? %>
 
+
+        <%= link_to "New Facility",
+                    menu_facility_path,
+                    id: "createNewFacilityButton",
+                    method: "get",
+                    class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
         <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+
         <button id="facility_modal_close_btn"
                 class="btn btn-sm btn-default phx-btn-model-control-red"
                 data-dismiss="modal"
