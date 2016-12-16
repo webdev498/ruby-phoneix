@@ -242,22 +242,22 @@
                     <div class="row phx-two-horizontal-controls">
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="type_of_facility">Universal Fee</label>
-                            <%= w.text_field :universal_fee, class: 'phx-form-control' %>
+                            <%= w.text_field :universal_fee, class: 'phx-form-control float-dollar' %>
                         </div>
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Unit Dose Fee</label>
-                            <%= w.text_field :unit_dose_fee, class: 'phx-form-control' %>
+                            <%= w.text_field :unit_dose_fee, class: 'phx-form-control float-dollar' %>
                         </div>
                     </div>
 
                     <div class="row phx-two-horizontal-controls">
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="type_of_facility">Controlled Fee</label>
-                            <%= w.text_field :control_drug_fee, class: 'phx-form-control' %>
+                            <%= w.text_field :control_drug_fee, class: 'phx-form-control float-dollar' %>
                         </div>
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Narcotic Fee</label>
-                            <%= w.text_field :narcotic_fee, class: 'phx-form-control' %>
+                            <%= w.text_field :narcotic_fee, class: 'phx-form-control float-dollar' %>
                         </div>
                     </div>
 
@@ -507,6 +507,11 @@
        $('#wing_' + selected).show();
         $('#wing_record_' + selected).show();
 
+        $('.float-dollar').each(function(index){
+            var val = parseFloat($(this).val());
+            val = val.toFixed(2);
+            $(this).val(val);
+        });
 
        $('#wing_sel').change(function(){
            var newSelected = $(this).val();
