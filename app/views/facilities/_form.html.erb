@@ -131,18 +131,29 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content phx-tab-pane">
-                    <%= f.fields_for :wings do |w| %>
+
                     <div class="tab-pane active" id="wing">
                         <div class="container-fluid">
-                            <row>
+                            <div class="row">
+                              <div class="container-fluid col-lg-4">
+                                <div class="field form-group phx-input-control">
+                                  <label class="phx-form-control-label" for="wing_sel">Wing</label>
+                                  <select id="wing_sel" class="phx-form-control">
+                                    <% ch = 0 %>
+                                    <%  @facility.wings.each do |f| %>
+                                      <option value="<%= ch = ch+1 %>"> <%=  f.name %></option>
+                                    <% end %>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          <% ch = 0 %>
+                          <%= f.fields_for :wings do |w| %>
+
+                            <div class="row" id = "wing_<%= ch = ch+1 %>" style="display:none">
 
                             <!-- First panel, first column -->
                             <div class="container-fluid col-lg-4">
-
-                            <div class="field form-group phx-input-control">
-                                <label class="phx-form-control-label" for="use_patient_counseling">Wing</label>
-                                <%= w.text_field :name, class: 'phx-form-control' %>
-                            </div>
 
                             <div class="row phx-two-horizontal-controls">
                                 <div class="col-md-6 form-group phx-input-control">
@@ -222,7 +233,7 @@
                           </div>
 
                       </div> <!-- END OF WING INFO panel, second column -->
-                  </row>
+
 
                   <div class="container-fluid col-lg-4">
 
@@ -231,26 +242,26 @@
                     <div class="row phx-two-horizontal-controls">
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="type_of_facility">Universal Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
+                            <%= w.text_field :universal_fee, class: 'phx-form-control' %>
                         </div>
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Unit Dose Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
+                            <%= w.text_field :unit_dose_fee, class: 'phx-form-control' %>
                         </div>
                     </div>
 
                     <div class="row phx-two-horizontal-controls">
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="type_of_facility">Controlled Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
+                            <%= w.text_field :control_drug_fee, class: 'phx-form-control' %>
                         </div>
                         <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Narcotic Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
+                            <%= w.text_field :narcotic_fee, class: 'phx-form-control' %>
                         </div>
                     </div>
 
-                    <%= phx_checkbox_for f, :active, "Customer Discounts Apply", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :allow_customer_discount, "Customer Discounts Apply", "col-md-1 pull-right" %>
 
                     <div class="col-md-8 pull-left" style="font-weight: normal; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
                       Assigned Price Schedules
@@ -349,10 +360,11 @@
 
                 </div> <!-- END OF WING INFO panel, third column -->
 
-
+                            </div>
+                          <% end %>
                   </div> <!-- END OF WING INFO panel container-fluid -->
               </div>
-            <% end %>
+
               <div class="tab-pane" id="itemPanel-bed">
                   <div class="container-fluid">
                       <row>
@@ -485,4 +497,18 @@
     cs.addHiddenFields();
     // create the corresponding data attribues in the modal rows
     cs.dataFormattedAttributes();
+
+    var selected = 1;
+
+    $(document).ready(function(){
+        selected = $('#wing_sel').val();
+       $('#wing_' + selected).show();
+
+       $('#wing_sel').change(function(){
+           var newSelected = $(this).val();
+           $('#wing_' + selected).hide();
+           $('#wing_' + newSelected).show();
+           selected = newSelected;
+       })
+    });
 </script>
