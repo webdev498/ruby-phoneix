@@ -248,7 +248,7 @@
 
                   <div class="form-group phx-input-control">
                     <label class="phx-form-control-label" for="Label Default">Assigned Price Schedules</label>
-                    <%= w.text_field :price_schedules, class: 'phx-form-control' %>
+                    <%= w.text_field :price_schedules, class: 'phx-form-control price_schedule_input'%>
                   </div>
 
 
@@ -432,6 +432,13 @@
        $('#wing_' + selected).show();
         $('#wing_record_' + selected).show();
 
+        $('.price_schedule_input').each(function(){
+          var str = $(this).val();
+          str = '{' + str.replace(/ /g, ",") + '}';
+
+          $(this).val(str);
+        });
+
         $('.float-dollar').each(function(index){
             var val = parseFloat($(this).val());
             val = val.toFixed(2);
@@ -442,6 +449,7 @@
        $('#itemPanel-records :input' ).attr('disabled', true);
        $('#wing_' + 1 + ' :input').removeAttr('disabled');
        $('#wing_record_' + 1 + ' :input').removeAttr('disabled');
+      $('#wing_sel').removeAttr('disabled');
 
        $('#wing_sel').change(function(){
            var newSelected = $(this).val();
