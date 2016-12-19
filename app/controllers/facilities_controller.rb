@@ -15,12 +15,25 @@ class FacilitiesController < ApplicationController
   # GET /facilities/1.json
   def show
     @facility.wings.build
+    cnt = @facility.wings.length
+    @facility.wings[cnt-1].name = 'NEW'
+    @facility.wings[cnt-1].name = 'NEW'
+    @facility.wings[cnt-1].universal_fee = 0
+    @facility.wings[cnt-1].unit_dose_fee = 0
+    @facility.wings[cnt-1].control_drug_fee = 0
+    @facility.wings[cnt-1].narcotic_fee = 0
     render :edit
   end
 
   # GET /facilities/new
   def new
     @facility = Facility.new
+    @facility.wings.build
+    @facility.wings[0].name = 'DEFAULT'
+    @facility.wings[0].universal_fee = 0
+    @facility.wings[0].unit_dose_fee = 0
+    @facility.wings[0].control_drug_fee = 0
+    @facility.wings[0].narcotic_fee = 0
   end
 
   # GET /facilities/1/edit
