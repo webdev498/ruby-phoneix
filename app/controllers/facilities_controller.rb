@@ -104,6 +104,7 @@ class FacilitiesController < ApplicationController
       ,:print_monograph,:log_dur_results,:require_hippa_privacy_notice,:print_medication_guide,:print_medication_administration_form,:print_physician_order_form,:print_treatment_form\
       ,:print_delivery_receipt,:medication_administration_form,:physician_orders_form,:treatment_form,:print_order,:print_pass_times,:print_other_allergy,:med_administration_routine_heading\
       ,:med_administration_prn_heading,:treatment_heading,:print_fill_date,:print_original_date,:print_in_frequency_order,:require_rx_copy_in_facility,:expand_sig_codes,:standing_orders\
-      ,:type_of_facility,:emr_interface,:emr_interface_type])
+      ,:type_of_facility,:emr_interface,:emr_interface_type],
+      beds_attributes:[:id,:company_id,:pharmacy_id,:facility_id,:wing_id,:residency_id,:customer_id,:legacy_customer_id_number,:active,:pass_order,:bed,:bed_type,:occupancy_date])
     end
 end

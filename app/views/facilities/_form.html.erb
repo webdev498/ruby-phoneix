@@ -365,7 +365,31 @@
 
               <div class="tab-pane" id="itemPanel-bed">
                   <div class="container-fluid">
-                    <div class="container-fluid">
+                    <div class="row">
+                      <div class="container-fluid col-lg-4">
+                        <div class="row phx-two-horizontal-controls">
+                          <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="type_of_facility">Order</label>
+                            <input class="phx-form-control float-dollar" type="text" value="0" name="facility[wings_attributes][0][universal_fee]" id="facility_wings_attributes_0_universal_fee">
+                          </div>
+                          <div class="col-md-6 form-group phx-input-control">
+                            <label class="phx-form-control-label" for="Label Default">Bed</label>
+                            <input class="phx-form-control float-dollar" type="text" value="0" name="facility[wings_attributes][0][unit_dose_fee]" id="facility_wings_attributes_0_unit_dose_fee">
+                          </div>
+                        </div>
+
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="print_monograph">Customer</label>
+                          <input class="phx-form-control" type="text" name="facility[wings_attributes][0][print_monograph]" id="facility_wings_attributes_0_print_monograph">
+                        </div>
+                      </div>
+
+                      <div class="container-fluid col-lg-4">
+
+                      </div>
+                    </div>
+
+                    <div class="container-fluid row">
                       <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
                         <thead class="phx-table-head">
                           <tr>
@@ -377,7 +401,13 @@
                           </tr>
                         </thead>
                         <tbody>
-
+                          <%= f.fields_for :beds, @facility.beds do |bed|   %>
+                            <tr>
+                              <td>
+                                <%= bed.object.bed %>
+                              </td>
+                            </tr>
+                          <% end %>
                         </tbody>
                       </table>
                     </div>
