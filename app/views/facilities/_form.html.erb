@@ -370,11 +370,11 @@
                         <div class="row phx-two-horizontal-controls">
                           <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="type_of_facility">Order</label>
-                            <input class="phx-form-control float-dollar" type="text" value="0" name="facility[wings_attributes][0][universal_fee]" id="facility_wings_attributes_0_universal_fee">
+                            <input class="phx-form-control float-dollar" type="text" value="" name="facility[wings_attributes][0][universal_fee]" id="facility_wings_attributes_0_universal_fee">
                           </div>
                           <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Bed</label>
-                            <input class="phx-form-control float-dollar" type="text" value="0" name="facility[wings_attributes][0][unit_dose_fee]" id="facility_wings_attributes_0_unit_dose_fee">
+                            <input class="phx-form-control float-dollar" type="text" value="" name="facility[wings_attributes][0][unit_dose_fee]" id="facility_wings_attributes_0_unit_dose_fee">
                           </div>
                         </div>
 
@@ -385,7 +385,14 @@
                       </div>
 
                       <div class="container-fluid col-lg-4">
-
+                        <div class="field form-group phx-input-control">
+                          <div class=" form-inline phx-adjust-checkbox">
+                            <div class="form-group phx-input-control">
+                              <div class="phx-checkbox form-control-static">
+                                <input name="facility[wings_attributes][0][valid_division_codes]" type="hidden" value="0">
+                                <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="facility[wings_attributes][0][valid_division_codes]" id="facility_wings_attributes_0_valid_division_codes">
+                                <label for="facility_wings_attributes_0_valid_division_codes"></label></div><label class="phx-checkbox-label" for="facility_wings_attributes_0_valid_division_codes" '="">Active</label></div></div>
+                        </div>
                       </div>
                     </div>
 
@@ -401,16 +408,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <%= f.fields_for :beds, @facility.beds do |bed|   %>
+                          <% ch = 0 %>
+                          <%= f.fields_for :beds, @facility.beds.order(:pass_order).limit(9) do |bed|   %>
+
                             <tr>
-                              <td>
-                                <%= bed.object.bed %>
+                              <td> <%= ch = ch +1 %>  </td>
+                              <td><%= bed.object.pass_order %> </td>
+                              <td> <%= bed.object.bed %> </td>
+                              <td>  <%= bed.object.active %> </td>
+                              <td></td>
+                                <%#= bed.object.pay_order %>
                               </td>
                             </tr>
                           <% end %>
                         </tbody>
                       </table>
                     </div>
+                    <div class="container-fluid row">
+                      <input type="submit" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">                    </div>
                   </div>
               </div>
 
@@ -479,7 +494,9 @@
 
         $('.float-dollar').each(function(index){
             var val = parseFloat($(this).val());
-            val = val.toFixed(2);
+            if(val)
+              val = val.toFixed(2);
+            else val = '';
             $(this).val(val);
         });
 
