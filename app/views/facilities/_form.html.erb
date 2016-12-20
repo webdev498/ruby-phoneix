@@ -173,8 +173,9 @@
                   <%= phx_checkbox_for w, :active, "Use ProCycle Autofill", "col-md-1 pull-right" %>
                   <%= phx_checkbox_for w, :active, "Use Lot Number", "col-md-1 pull-right" %>
 
-                  <%= phx_red_submit_button_for  f, "Wing", [], "", "phx-btn-model-control-width", false %>
-
+                  <% if @facility.id %>
+                    <%= phx_red_submit_button_for  f, "Wing", [], "", "phx-btn-model-control-width", false %>
+                  <% end %>
                 </div> <!-- END OF first panel, first column -->
 
                 <!-- GENERAL INFO panel, second column -->
@@ -318,8 +319,10 @@
                       <label class="phx-form-control-label" for="active">Treatment Heading</label>
                       <%= w.text_field :treatment_heading, class: 'phx-form-control' %>
                     </div>
-                    <%= phx_red_submit_button_for  f, "Medical Records", [], "", "phx-btn-model-control-width", false %>
-                  </div> <!-- END OF Panel 2 -->
+                    <% if @facility.id %>
+                      <%= phx_red_submit_button_for  f, "Medical Records", [], "", "phx-btn-model-control-width", false %>
+                    <% end %>
+                    </div> <!-- END OF Panel 2 -->
               <% end %>
           <% end %>
 
