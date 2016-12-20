@@ -365,17 +365,22 @@
 
               <div class="tab-pane" id="itemPanel-bed">
                   <div class="container-fluid">
-                      <row>
-                        <!-- First panel, first column -->
-                        <div class="container-fluid col-lg-4">
+                    <div class="container-fluid">
+                      <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
+                        <thead class="phx-table-head">
+                          <tr>
+                            <th style="background-color:#f9f9fa;" ></th>
+                            <th style="background-color:#f9f9fa;" >Order</th>
+                            <th style="background-color:#f9f9fa;" >Bed</th>
+                            <th style="background-color:#f9f9fa;" >Active</th>
+                            <th style="background-color:#f9f9fa;" >Customer</th>
+                          </tr>
+                        </thead>
+                        <tbody>
 
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
-                              <input class="phx-form-control"> </input>
-                              <%#= f.text_field :name, class: 'phx-form-control' %>
-                            </div>
-                        </div>
-                      </row>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
               </div>
 
