@@ -6,7 +6,7 @@ class Plan < ActiveRecord::Base
   enum support_split_billing: [ :'No Split Billing', :'Copay Eligible', :'Plan Accepts', :'Copay and Plan Supported' ]
   enum plan_type: [ :insurance, :workersComp, :charge ]
   enum payor_type: [ :'standard Insurance', :medicaid, :'medicare Part D', :cash ]
-
+  enum print_sort_code: [:alphabetic, :date, :rx, :cardholder_ID, :group_ID, :pharmacy]
 
 
   def self.search_plan plan_name, bin_number

@@ -5,19 +5,15 @@ class Prescriber < ActiveRecord::Base
 	before_save :force_uppercase
 
 	has_many :prescriptions
-
-
 	has_many :supervisors, through: :supervisor_manages, source: :supervisor
 	has_many :supervisor_manages,  foreign_key: "supervisee_id", class_name: "SupervisingPrescriber"
-
 	has_many :supervisees, through: :supervisee_manages, source: :supervisee
 	has_many :supervisee_manages,  foreign_key: "supervisor_id", class_name: "SupervisingPrescriber"
-
-	# accepts_nested_attributes_for :supervisor
-	# accepts_nested_attributes_for :supervisees
-
   has_many :contact_points
   has_many :addreses
+
+	enum receive_messages: [:no_messages, :email, :text, :fax, :all_messages]
+	enum alternate_id1_qualifier: [:not_specified, :NPI, :blue_cross, :blue_shield, :medicare, :medicaid, :UPIN, :NCPDP, :state_number, :tricare, :HIN, :federal_tax_id, :DEA, :state_issued, :plan_specific, :other]
 
 # TODO: search by phone number
 

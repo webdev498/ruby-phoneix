@@ -64,15 +64,10 @@
             </div> -->
 
             <div class="row phx-two-horizontal-controls">
-              <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="account_method">Account Method</label>
-                <%= f.text_field :account_method, class: 'phx-form-control', :disabled => false %>
-              </div>
 
-              <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="payor_type">Payor Type</label>
-                <%= f.text_field :payor_type, class: 'phx-form-control', :disabled => false %>
-              </div>
+              <%= phx_selectfield_for f, :accounting_method, "Acct Method", Account.accounting_methods, false, 0, "col-md-6", true %>
+              <%= phx_selectfield_for f, :payor_type, "Payor Type", Account.payor_types, false, 0, "col-md-6", true %>
+
             </div>
 
             <div class="field form-group phx-input-control">
@@ -217,10 +212,8 @@
                       <%= f.text_field :finance_charges_year_to_date, class: 'phx-form-control', :value => (number_with_precision(f.object.finance_charges_year_to_date, :precision => 2) ), :disabled => true %>
                     </div>
 
-                    <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="statement_type">Statement Type</label>
-                      <%= f.text_field :statement_type, class: 'phx-form-control', :disabled => false %>
-                    </div>
+
+                    <%= phx_selectfield_for f, :statement_type, "Statment Type", Account.statement_types %>
 
                     <div class="field form-group phx-input-control">
                       <label class="phx-form-control-label" for="credit_limit">Credit Limit</label>

@@ -74,6 +74,8 @@
                 <%= phx_datefield_for f, :birthdate, "Birthdate", 0, "col-md-6" %>
   					</div>
 
+            <%= phx_textfield_for f, :head_of_household_id, "Head of Household" %>
+
                 <%= phx_textfield_for f, :address1, "Address 1" %>
 
                 <%= phx_textfield_for f, :address2, "Address 2" %>
@@ -91,9 +93,7 @@
 
           </div>
 
-            <%= phx_textfield_for f, :account_number, "Account Number" %>
-
-            <%= phx_textfield_for f, :facility_id, "Facility Number" %>
+            <%= phx_textfield_for f, :prescriber_id, "Primary Dr" %>
 
             <%= phx_red_submit_button_for  f, "Customer", [], "", "phx-btn-model-control-width", false %>
 </br>&nbsp;
@@ -129,41 +129,126 @@
 									<!-- GENERAL INFO, first column -->
 									<div class="container-fluid col-lg-4">
 
-                    <%= phx_textfield_for f, :preferred_contact, "Preferred Contact", 0, "", :readonly %>
-                    <%= phx_textfield_for f, :phone_number, "Phone Number" %>
-                    <%= phx_textfield_for f, :ssn, "SSN" %>
-                    <%= phx_textfield_for f, :prescriber_id, "Primary Doctor", 0, "", :readonly %>
-                    <%= phx_textfield_for f, :head_of_household_name, "Head of Household", 0, "", :readonly  %>
-                    <%= phx_textfield_for f, :ethnicity, "Ethnicity" %>
-                    <%= phx_selectfield_for f, :other_language, "Language", Customer.other_languages, false %>
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="account_number">Account Number</label>
+                        <input class="phx-form-control" name="account_number" id="account_number" type="text">
+                      </div>
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="facility_id">Facility</label>
+                        <input class="phx-form-control" name="facility_id" id="facility_id" type="text">
+                      </div>
+                    </div>
 
+                    <%= phx_textfield_for f, :phone_number, "Phone Number" %>
+                    <%= phx_textfield_for f, :cell_number, "Cell Number" %>
+                    <%= phx_textfield_for f, :cell_number, "Work Number" %>
+                    <%= phx_textfield_for f, :fax_number, "Fax" %>
+                    <%= phx_textfield_for f, :email, "Email" %>
+
+                    <%= phx_selectfield_for f, :preferred_contact, "Preferred Contact", Customer.preferred_contacts %>
+
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="ssn">SSN</label>
+                        <input class="phx-form-control" name="ssn" id="ssn" type="text">
+                      </div>
+
+                      <%= phx_selectfield_for f, :other_language, "Language", Customer.other_languages, false, 0, "col-md-6", true %>
+
+<!--                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="other_language">Language</label>
+                        <input class="phx-form-control" name="other_language" id="other_language" type="text">
+                      </div>
+                    -->
+
+                    </div>
+
+                    <%= phx_selectfield_for f, :residence_code, "Residence Code", Customer.residence_codes %>
+                    <%= phx_selectfield_for f, :remote_access, "Remote Access", Customer.remote_accesses %>
                     <%= phx_textfield_for f, :memo, "Memo" %>
+                    <%= phx_textarea_for f, :notes, "Notes", 5 %>
 
 									</div> <!-- END OF first panel, first column -->
 
 									<!-- GENERAL INFO, second column -->
 									<div class="container-fluid col-lg-4">
 
-                    <%= phx_textfield_for f, :height, "Height" %>
-                    <%= phx_textfield_for f, :weight, "Weight" %>
-                    <%= phx_datefield_for f, :last_rx_report_date, "Last Report Date" %>
-                    <%= phx_textfield_for f, :residence_code, "Residence Code" %>
-                    <%= phx_textfield_for f, :discount_name, "Discount Name" %>
-                    <%= phx_textfield_for f, :discount_pct, "Discount %" %>
-                    <%= phx_textfield_for f, :price_based_pricing_schedule, "Price Schedule" %>
-</br>
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="height">Height</label>
+                        <input class="phx-form-control" name="height" id="height" type="text">
+                      </div>
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="weight">Weight</label>
+                        <input class="phx-form-control" name="weight" id="weight" type="text">
+                      </div>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :price_based_pricing_schedule, "Price Schedule", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_rx_report_date, "Last Rx Report", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :discount_name, "Discount Name", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :discount_pct, "Discount %", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="flavor">Flavor</label>
+                        <input class="phx-form-control" name="flavor" id="flavor" type="text">
+                      </div>
+                      <div class="col-md-6 field form-group phx-input-control">
+                        <label class="phx-form-control-label" for="ethnicity">Ethnicity</label>
+                        <input class="phx-form-control" name="ethnicity" id="ethnicity" type="text">
+                      </div>
+                    </div>
+
+                    </br>
+                    <%= phx_checkbox_for f, :receive_text_msg, "Receive Text Messages" %>
                     <%= phx_checkbox_for f, :childproof_cap, "Safety Cap", "col-md-1" %>
                     <%= phx_checkbox_for f, :generic_substitution, "Generic Substitution", "col-md-1" %>
-                    <%= phx_checkbox_for f, :doc_u_dose, "Doc-U-Dose" %>
-</br>
-                    <%= phx_textfield_for f, :doc_u_dose_group, "Doc-U-Dose Group" %>
+                    <%= phx_checkbox_for f, :tax_exempt, "Tax Exempt", "col-md-1" %>
+                    <%= phx_checkbox_for f, :pregnant, "Pregnant", "col-md-1" %>
+                    <%= phx_checkbox_for f, :nursing, "Nursing", "col-md-1" %>
+                    <%= phx_checkbox_for f, :needs_review, "Needs Review", "col-md-1" %>
+                    <%= phx_checkbox_for f, :smoker, "Smoker", "col-md-1" %>
+                    <%= phx_checkbox_for f, :special_label, "Special Label", "col-md-1" %>
+                    <%= phx_checkbox_for f, :auto_fill_maintenance_rx, "Auto Fill Maitenance Rx", "col-md-1" %>
+                    <%= phx_checkbox_for f, :wellness, "Wellness Module", "col-md-1" %>
+
+
+                    </br>
 
 								</div> <!-- END OF first panel, second column -->
 
 
                   <!-- GENERAL INFO, third column -->
 									<div class="container-fluid col-lg-4">
-									</div> <!-- END OF first panel, third column -->
+
+                      <%= phx_textfield_for f, :location_code, "Location Code" %>
+
+                      <%= phx_checkbox_for f, :doc_u_dose, "Doc-U-Dose" %>
+
+                      <%= phx_textfield_for f, :doc_u_dose_group, "Doc-U-Dose Group" %>
+
+                      <%= phx_checkbox_for f, :terminal, "Terminally Ill" %>
+
+                      <%= phx_datefield_for f, :deceased_date, "Deceased Date" %>
+
+                      <%= phx_checkbox_for f, :signature_on_file, "Hippa Signature on File" %>
+
+                      <%= phx_datefield_for f, :hippa_signature_date, "Hippa Signature Date" %>
+
+  								</div> <!-- END OF first panel, second column -->
+
+
+
+
+
+
 
 								</row>
 							</div> <!-- END OF GENERAL INFO panel container-fluid -->
