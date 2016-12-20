@@ -1,0 +1,72 @@
+<div class="phx-modal containter-fluid" id="facilitySearchModal" role="dialog" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Facility Search</h3>
+      </div>
+
+      <div class="modal-body">
+        <% choice = 0 %>
+        <table class="table-hover">
+          <thead class="phx-search-row-header">
+          <tr>
+            <th class="phx-search-font"><input type="text" id="facilitySearchModal_Keys1_9" style="width:0.1px;" ></th>
+            <th class="phx-search-font"> Facility Name </th>
+            <th class="phx-search-font"> Address 1 </th>
+            <th class="phx-search-font"> State </th>
+            <th class="phx-search-font"> Active </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% searchFacilities.each do |facility| %>
+
+              <% facilitySearchRowId = "facilitySearchModal-row" + (choice += 1).to_s %>
+              <tr	id="<%=facilitySearchRowId%>"
+                   class="phx-search-row clickable-facilitySearchModal-row"
+                   data-phx-search-facility-id="<%= facility.id %>">
+
+                <td class="phx-search-font" > <%= choice %> </td>
+                <td class="phx-search-font"> <%= facility.name %> </td>
+                <td class="phx-search-font"> <%= facility.address1 %> </td>
+                <td class="phx-search-font"> <%= facility.state %> </td>
+                <td class="phx-search-font"> <%= facility.active %> </td>
+              </tr>
+          <% end %> <!-- END OF facility list -->
+          </tbody>
+        </table>
+      </div> <!-- end of modal-body -->
+
+      </br>
+
+      <div class="modal-footer">
+        <%= paginate searchFacilities,
+                     params: { controller: "facilities", action: "search"} , remote: true  unless searchFacilities.empty? %>
+
+
+        <%= link_to "New Facility",
+                    menu_facility_path,
+                    id: "createNewFacilityButton",
+                    method: "get",
+                    class: "btn btn-sm btn-default phx-btn-model-control-red" %>
+
+        <%# THERE MUST ALWAYS BE A CLOSE BUTTONS %>
+
+        <button id="facility_modal_close_btn"
+                class="btn btn-sm btn-default phx-btn-model-control-red"
+                data-dismiss="modal"
+                aria-hidden="true">
+          Close</button>
+      </div>
+
+    </div>  <!-- end of modal-content -->
+
+  </div>  <!-- end of modal-dialog -->
+
+  <script>
+    $('#facility_search_modal_partial').trigger('contentchanged');
+  </script>
+
+</div>

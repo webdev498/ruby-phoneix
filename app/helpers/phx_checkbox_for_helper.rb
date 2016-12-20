@@ -5,8 +5,7 @@ module PhxCheckboxForHelper
 # lots of lines of code below TO BE compressed at a later date
 
   	checkbox = capture do concat model.check_box(field, class: 'phx-form-control', tabindex: tabindex)  end
-  	model_name = model.object_name
-
+  	model_name = model.object_name.gsub(/[\]\[]+/, '_').chomp '_'
     cb1 = "<div class='#{css_class} form-inline phx-adjust-checkbox'>"  \
       + '<div class="form-group phx-input-control">'  \
   		+ '<div class="phx-checkbox form-control-static">'

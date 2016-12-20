@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015205507) do
+ActiveRecord::Schema.define(version: 20161215104056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,26 +122,6 @@ ActiveRecord::Schema.define(version: 20161015205507) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "beds", force: :cascade do |t|
-    t.integer  "company_id"
-    t.integer  "pharmacy_id"
-    t.integer  "facility_id"
-    t.integer  "wing_id"
-    t.integer  "room_id"
-    t.integer  "residency_id"
-    t.boolean  "active"
-    t.string   "bed",            limit: 8
-    t.string   "bed_type",       limit: 20
-    t.date     "occupancy_date"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "beds", ["facility_id"], name: "index_beds_on_facility_id", using: :btree
-  add_index "beds", ["residency_id"], name: "index_beds_on_residency_id", using: :btree
-  add_index "beds", ["room_id"], name: "index_beds_on_room_id", using: :btree
-  add_index "beds", ["wing_id"], name: "index_beds_on_wing_id", using: :btree
 
   create_table "cdb_allergen_formulations", force: :cascade do |t|
     t.string   "record_type", limit: 3
@@ -1962,20 +1942,6 @@ ActiveRecord::Schema.define(version: 20161015205507) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "rooms", force: :cascade do |t|
-    t.integer  "company_id"
-    t.integer  "pharmacy_id"
-    t.integer  "facility_id"
-    t.integer  "wing_id"
-    t.boolean  "active"
-    t.string   "room",        limit: 8
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  add_index "rooms", ["facility_id"], name: "index_rooms_on_facility_id", using: :btree
-  add_index "rooms", ["wing_id"], name: "index_rooms_on_wing_id", using: :btree
-
   create_table "rx_images", force: :cascade do |t|
     t.integer  "company_id"
     t.integer  "pharmacy_id"
@@ -2180,22 +2146,64 @@ ActiveRecord::Schema.define(version: 20161015205507) do
     t.integer  "company_id"
     t.integer  "pharmacy_id"
     t.integer  "facility_id"
-    t.integer  "facility_options_id"
     t.integer  "pass_times_id"
     t.boolean  "active"
-    t.string   "name",                limit: 30
-    t.string   "contact",             limit: 30
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "name",                                 limit: 30
+    t.string   "contact",                              limit: 30
+    t.integer  "price_schedules",                                                                      array: true
+    t.decimal  "universal_fee",                                   precision: 4, scale: 2
+    t.decimal  "unit_dose_fee",                                   precision: 4, scale: 2
+    t.decimal  "control_drug_fee",                                precision: 4, scale: 2
+    t.decimal  "narcotic_fee",                                    precision: 4, scale: 2
+    t.boolean  "allow_customer_discount"
+    t.string   "label_type",                           limit: 2
+    t.boolean  "spool_labels"
+    t.integer  "label_default"
+    t.boolean  "expiration_date"
+    t.integer  "expiration_default"
+    t.boolean  "lot_number"
+    t.boolean  "doc_u_dose"
+    t.boolean  "default_to_primary_plan"
+    t.boolean  "valid_division_codes"
+    t.boolean  "form_flags"
+    t.boolean  "start_date"
+    t.boolean  "post_zero_copay"
+    t.boolean  "frequency_auto_fill"
+    t.boolean  "anniversary_auto_fill"
+    t.boolean  "procycle_auto_fill"
+    t.integer  "print_monograph"
+    t.boolean  "log_dur_results"
+    t.integer  "require_hippa_privacy_notice"
+    t.integer  "print_medication_guide"
+    t.boolean  "print_medication_administration_form"
+    t.boolean  "print_physician_order_form"
+    t.boolean  "print_treatment_form"
+    t.boolean  "print_delivery_receipt"
+    t.string   "medication_administration_form",       limit: 12
+    t.string   "physician_orders_form",                limit: 12
+    t.string   "treatment_form",                       limit: 12
+    t.integer  "print_order"
+    t.boolean  "print_pass_times"
+    t.boolean  "print_other_allergy"
+    t.string   "med_administration_routine_heading",   limit: 12
+    t.string   "med_administration_prn_heading",       limit: 12
+    t.string   "treatment_heading",                    limit: 12
+    t.boolean  "print_fill_date"
+    t.boolean  "print_original_date"
+    t.boolean  "print_in_frequency_order"
+    t.boolean  "require_rx_copy_in_facility"
+    t.boolean  "expand_sig_codes"
+    t.text     "standing_orders"
+    t.integer  "type_of_facility"
+    t.boolean  "emr_interface"
+    t.string   "emr_interface_type",                   limit: 20
+    t.datetime "created_at",                                                              null: false
+    t.datetime "updated_at",                                                              null: false
   end
 
   add_index "wings", ["facility_id"], name: "index_wings_on_facility_id", using: :btree
 
   add_foreign_key "account_postings", "accounts"
-  add_foreign_key "beds", "facilities"
-  add_foreign_key "beds", "residencies"
-  add_foreign_key "beds", "rooms"
-  add_foreign_key "beds", "wings"
   add_foreign_key "claim_clinicals", "claims"
   add_foreign_key "claim_clinicals", "dispenses"
   add_foreign_key "claim_cob_responses", "claims"
@@ -2241,8 +2249,6 @@ ActiveRecord::Schema.define(version: 20161015205507) do
   add_foreign_key "price_histories", "items"
   add_foreign_key "residencies", "customers"
   add_foreign_key "residencies", "facilities"
-  add_foreign_key "rooms", "facilities"
-  add_foreign_key "rooms", "wings"
   add_foreign_key "rx_payments", "dispenses"
   add_foreign_key "suppliers", "organization_images"
   add_foreign_key "wings", "facilities"
