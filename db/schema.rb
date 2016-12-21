@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215104056) do
+ActiveRecord::Schema.define(version: 20161220164551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,28 @@ ActiveRecord::Schema.define(version: 20161215104056) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "beds", force: :cascade do |t|
+    t.integer  "company_id"
+    t.integer  "pharmacy_id"
+    t.integer  "facility_id"
+    t.integer  "wing_id"
+    t.integer  "residency_id"
+    t.integer  "customer_id"
+    t.integer  "legacy_customer_id_number"
+    t.boolean  "active"
+    t.integer  "pass_order"
+    t.string   "bed",                       limit: 8
+    t.string   "bed_type",                  limit: 20
+    t.date     "occupancy_date"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "beds", ["customer_id"], name: "index_beds_on_customer_id", using: :btree
+  add_index "beds", ["facility_id"], name: "index_beds_on_facility_id", using: :btree
+  add_index "beds", ["residency_id"], name: "index_beds_on_residency_id", using: :btree
+  add_index "beds", ["wing_id"], name: "index_beds_on_wing_id", using: :btree
 
   create_table "cdb_allergen_formulations", force: :cascade do |t|
     t.string   "record_type", limit: 3
@@ -2204,6 +2226,10 @@ ActiveRecord::Schema.define(version: 20161215104056) do
   add_index "wings", ["facility_id"], name: "index_wings_on_facility_id", using: :btree
 
   add_foreign_key "account_postings", "accounts"
+  add_foreign_key "beds", "customers"
+  add_foreign_key "beds", "facilities"
+  add_foreign_key "beds", "residencies"
+  add_foreign_key "beds", "wings"
   add_foreign_key "claim_clinicals", "claims"
   add_foreign_key "claim_clinicals", "dispenses"
   add_foreign_key "claim_cob_responses", "claims"

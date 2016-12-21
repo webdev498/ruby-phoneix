@@ -1,7 +1,6 @@
 class Wing < ActiveRecord::Base
 
   belongs_to :facility
-  has_many :rooms
   has_many :beds
   
   enum print_monograph: [:no_monograph, :mono_on_new, :mono_on_all]

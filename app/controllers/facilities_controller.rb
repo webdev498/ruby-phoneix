@@ -79,6 +79,40 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def delete_bed
+    bed_id = params[:bed_id]
+    Bed.find(bed_id).destroy
+    render json: true
+  end
+
+  def create_bed
+    facility_id = params[:facility_id]
+    wing_id = params[:wing_id]
+    pass_order = params[:pass_order] ? params[:pass_order] : ''
+    bed = params[:bed] ? params[:bed] : ''
+    active = params[:active] ? params[:active] : ''
+
+    Bed.create(:pass_order => pass_order, :bed => bed, :active => active, :wing_id => wing_id, :facility_id =>facility_id)
+    render json: true
+  end
+
+  def update_bed
+    bed_id = params[:bed_id]
+    pass_order = params[:pass_order] ? params[:pass_order] : ''
+    bed = params[:bed] ? params[:bed] : ''
+    active = params[:active] ? params[:active] : ''
+    Bed.update(bed_id, :pass_order => pass_order, :bed => bed, :active => active)
+    render json: true
+  end
+
+  def get_beds_by_wing
+    wing_id = params[:wing_id]
+    data = Wing.find(wing_id).beds.joins("LEFT JOIN customers ON beds.customer_id = customers.id")
+               .select('pass_order, bed, beds.active, beds.id,  (customers.first_name || \' \' || customers.middle_name || \' \' || customers.last_name) as customer_name')
+               .order(:pass_order).limit(9)
+    render json: data
+  end
+
   # DELETE /facilities/1
   # DELETE /facilities/1.json
   def destroy
@@ -104,6 +138,7 @@ class FacilitiesController < ApplicationController
       ,:print_monograph,:log_dur_results,:require_hippa_privacy_notice,:print_medication_guide,:print_medication_administration_form,:print_physician_order_form,:print_treatment_form\
       ,:print_delivery_receipt,:medication_administration_form,:physician_orders_form,:treatment_form,:print_order,:print_pass_times,:print_other_allergy,:med_administration_routine_heading\
       ,:med_administration_prn_heading,:treatment_heading,:print_fill_date,:print_original_date,:print_in_frequency_order,:require_rx_copy_in_facility,:expand_sig_codes,:standing_orders\
-      ,:type_of_facility,:emr_interface,:emr_interface_type])
+      ,:type_of_facility,:emr_interface,:emr_interface_type],
+      beds_attributes:[:id,:company_id,:pharmacy_id,:facility_id,:wing_id,:residency_id,:customer_id,:legacy_customer_id_number,:active,:pass_order,:bed,:bed_type,:occupancy_date])
     end
 end

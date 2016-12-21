@@ -414,6 +414,66 @@
                         <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
                     </div>
 
+
+              <div class="tab-pane" id="itemPanel-bed">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="container-fluid col-lg-4">
+                        <div class="row phx-two-horizontal-controls">
+                          <div class="col-md-6 form-group phx-input-control">
+                            <!--<label class="phx-form-control-label" for="pass_order">Order</label>-->
+                            <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order" style="margin-top:8px">
+                          </div>
+                          <div class="col-md-6 form-group phx-input-control">
+                            <!--<label class="phx-form-control-label" for="Label Default">Bed</label>-->
+                            <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed" style="margin-top:9px">
+                          </div>
+                        </div>
+
+                        <!--<div class="field form-group phx-input-control">-->
+                          <!--<label class="phx-form-control-label" for="customer_name">Customer</label>-->
+                          <!--<input class="phx-form-control" type="text" name="customer_name" id="customer_name">-->
+                        <!--</div>-->
+                      </div>
+
+                      <div class="container-fluid col-lg-4">
+                        <div class="field form-group phx-input-control">
+                          <div class=" form-inline phx-adjust-checkbox">
+                            <div class="form-group phx-input-control">
+                              <div class="phx-checkbox form-control-static">
+                                <input name="active" type="hidden" value="0">
+                                <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
+                                <label for="active"></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <input type="hidden" id="bed_id">
+
+                    <div class="container-fluid row">
+                      <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
+                        <thead class="phx-table-head">
+                          <tr>
+                            <th style="background-color:#f9f9fa;" ></th>
+                            <th style="background-color:#f9f9fa;" >Order</th>
+                            <th style="background-color:#f9f9fa;" >Bed</th>
+                            <th style="background-color:#f9f9fa;" >Active</th>
+                            <th style="background-color:#f9f9fa;" >Customer</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="container-fluid row">
+                      <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                      <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                    </div>
+
                     <row>
                     <!-- First panel, first column -->
                   <div class="container-fluid col-lg-4">
@@ -422,6 +482,7 @@
                           <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
                           <%= f.text_field :name, class: 'phx-form-control' %>
                       </div>
+
                   </div>
 
              <div class="tab-pane" id="itemPanel-records">
