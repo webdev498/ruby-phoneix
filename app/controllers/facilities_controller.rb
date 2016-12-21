@@ -79,6 +79,15 @@ class FacilitiesController < ApplicationController
     end
   end
 
+
+  def get_beds_by_wing
+    wing_id = params[:wing_id]
+    data = Wing.find(wing_id).beds.joins("LEFT JOIN customers ON beds.customer_id = customers.id")
+               .select('pass_order, bed, beds.active, beds.id,  (customers.first_name || \' \' || customers.middle_name || \' \' || customers.last_name) as customer_name')
+               .order(:pass_order).limit(9)
+    render json: data
+  end
+
   # DELETE /facilities/1
   # DELETE /facilities/1.json
   def destroy
