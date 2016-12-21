@@ -117,6 +117,8 @@ Rails.application.routes.draw do
   put 'item/copyFormula' => 'items#copyFormula'
   get 'item/:id'                          => 'items#show_item',         as: :get_item
 
+  get 'items/nextCompoundItems' => 'items#nextCompoundItems'
+
   get 'formula/ingredients/:id' => 'formula#ingredients'
   get 'formulas/ingredients/:id' => 'formulas#ingredients'
   post 'formulas/addIngredient' => 'formulas#addIngredient'

@@ -22,6 +22,11 @@ class ItemsController < ApplicationController
     render  template: 'common/search/js/nextSearchItems.js'
   end
 
+  def nextCompoundItems
+    @searchItems = Item.nextItems params[:start], params[:page], 9
+    render  template: 'common/search/js/nextSearchItems.js'
+  end
+
   #  ajax answer the next page for paginated Ingredient search for a compound
   def nextIngredients
     @searchItems = Item.nextItems params[:start], params[:page], 9
@@ -167,6 +172,9 @@ class ItemsController < ApplicationController
     #   format.json { head :no_content }
     # end
   end
+
+
+
 
   # items/ingredientDetails/1234
 
