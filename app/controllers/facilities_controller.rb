@@ -79,6 +79,11 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def delete_bed
+    bed_id = params[:bed_id]
+    Bed.find(bed_id).destroy
+    render json: true
+  end
 
   def get_beds_by_wing
     wing_id = params[:wing_id]
