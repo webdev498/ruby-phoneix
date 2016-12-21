@@ -233,6 +233,9 @@ Rails.application.routes.draw do
 
   get 'facilities/search' => 'facilities#search'
 
+  get 'facilities/getBedsByWing' => 'facilities#get_beds_by_wing'
+
+
   resources :facilities
 
 
