@@ -31,6 +31,7 @@ class Customer < ActiveRecord::Base
 	enum other_language: [:english, :spanish]
   enum gender: [:unspecified, :male, :female]
   enum residence_code: [:not_identified, :at_home, :skilled_facility, :nursing_facility, :assisted_living, :custodial_care, :grooup_home, :inpatient_psychiatric_facility, :psychiatric_facility, :intermediate_facility, :substance_abuse_facility, :hospice, :psychiatric_residential_treatment, :inpatient_rehab, :homeless_shelter, :correctional_institution]
+  enum remote_access: [:no_remote_access, :customer_only, :primary_dr, :all_drs]
 
 #  Default Scope
   default_scope { order('last_name ASC') }

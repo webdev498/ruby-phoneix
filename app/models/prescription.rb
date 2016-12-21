@@ -20,7 +20,7 @@ class Prescription < ActiveRecord::Base
   enum status: [ :regular, :profile, :delayed, :expired, :canceled, :renewed, :suspended, :transferred, :mar ]
   enum dispense_as_written_code: [ :not_specified, :medically_necessary, :patient, :pharmacist, :generic_unavailable, :brand_as_generic, :override, :state, :brand_unavailable, :other ]
   enum origin_code: [ :unspecified, :written, :phone, :electronic, :fax, :other_origin ]
-  enum dea_schedule: [ :non_scheduled, :experimental, :narcotic, :schedule_3, :schedule_4, :schedule_5, :state_mandated ]
+  enum dea_schedule: [ :no_schedule, :experimental, :narcotic, :schedule_3, :schedule_4, :schedule_5, :state_mandated ]
   enum diagnosis_code_qualifier: [:undefined_diagnosis, :ICD10, :ICD9, :snomed ]
   enum auto_fill_type: [ :no_auto_fill, :anniversary, :frequency, :procycle ]
 

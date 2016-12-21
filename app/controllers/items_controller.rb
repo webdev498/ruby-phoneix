@@ -185,6 +185,22 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
 #      params.require(:item).permit(:dept_number, :rna_item_id_number, :item_name, :ndc_number, :scanned_ndc_number, :gcnseq_number, :synonym, :active_flag, :dea_schedule, :awp_unit_price, :mac_unit_price, :act_unit_price, :wac_unit_price, :govt_340b_unit_price, :custom_unit_price, :awp_automatic_update, :mac_automatic_update, :act_automatic_update, :wac_automatic_update, :govt_340b_automatic_update, :custom_automatic_update, :last_price_update_date, :schedule_number, :quantity_schedule_number, :inventory, :quantity_on_hand, :strength, :package_size, :drug_class, :item_taxable, :dispensing_unit, :state_billing_code, :alternate_product_code, :alternate_product_qualifier, :item_hcpcs_code, :procedure_code, :procedure_modifier1, :procedure_modifier2, :counseling_code1, :counseling_code2, :counseling_code3, :memo, :brand_generic_compound, :brand_generic_xref, :fed_tax, :unit_of_measure, :erx_unit_of_measure, :discard_age, :remote_dispensing, :image_file_name, :imprint_side1, :imprint_side2, :shape, :color, :image_description)
-params.require(:item).permit(:legacy_item_id_number, :item_name, :ndc_number, :scanned_ndc_number, :synonym, :active, :dea_schedule, :awp_unit_price, :mac_unit_price, :act_unit_price, :wac_unit_price, :govt_340b_unit_price, :contract_unit_price, :nadac_unit_price, :custom_unit_price, :awp_automatic_update, :mac_automatic_update, :act_automatic_update, :wac_automatic_update, :govt_340b_automatic_update, :contract_automatic_update, :nadac_automatic_update, :custom_automatic_update, :last_price_update_date, :schedule_number, :quantity_schedule_number, :inventory, :quantity_on_hand, :strength, :package_size, :drug_class, :item_taxable, :dispensing_unit, :state_billing_code, :alternate_product_code, :alternate_product_qualifier, :item_hcpcs_code, :procedure_code, :procedure_modifier1, :procedure_modifier2, :counseling_code, :memo, :brand_generic_compound, :brand_generic_xref, :fed_tax, :unit_of_measure, :dosage_form_code, :strength_code, :discard_age, :remote_dispensing, :image_file_name, :imprint_side1, :imprint_side2, :clarity, :coating, :color, :flavor, :scored, :shape, :appearance_text, :monitoring_program, :monitoring_file_name, :on_contract, :gpo_drug, :pos_item, :upc_product_number, :upc_category)
+        params.require(:item).permit(:company_id, :pharmacy_id, :cdb_monograph_id, :price_based_pricing_schedule,
+          :quantity_based_pricing_schedule, :item_name, :mfg_description, :ndc_number, :scanned_ndc_number, :clinical_ndc_number,
+          :synonym, :ddid_number, :kdc_code, :generic_product_identifier, :active, :dea_schedule, :awp_unit_price,
+          :mac_unit_price, :act_unit_price, :wac_unit_price, :govt_340b_unit_price, :contract_unit_price, :nadac_unit_price,
+          :custom_unit_price, :awp_automatic_update, :mac_automatic_update, :act_automatic_update, :wac_automatic_update,
+          :govt_340b_automatic_update, :contract_automatic_update, :nadac_automatic_update, :custom_automatic_update,
+          :last_awp_update_date, :last_mac_update_date, :last_act_update_date, :last_wac_update_date, :last_340b_update_date,
+          :last_contract_update_date, :last_nadac_update_date, :last_custom_update_date, :route_of_administration_code,
+          :dosage_form, :inventory, :quantity_on_hand, :strength, :package_size, :package_size_unit_measure, :mfg_name,
+          :drug_class, :item_taxable, :dispensing_unit, :state_billing_code, :alternate_product_code, :alternate_product_qualifier,
+          :memo, :notes, :counseling_notes, :brand_generic_compound, :brand_generic_xref, :fed_tax, :unit_of_measure,
+          :dosage_form_code, :strength_unit_measure_code, :potency_code, :maintenance_code, :doc_u_dose, :discard_age_days,
+          :remote_dispensing, :image_file_name, :imprint_side1, :imprint_side2, :clarity, :coating, :color, :flavor, :scored,
+          :shape, :appearance_text, :monitoring_program, :monitoring_file_name, :monograph_file_name, :medication_guide_file_name,
+          :black_box_file_name, :contains_acetaminophen, :contains_pseudoephedrine, :label_warnings, :active_ingredient,
+          :wellness_tracking, :retest_date, :limited_distribution, :on_contract, :gpo_drug, :pos_item, :upc_product_number,
+          :upc_category)
     end
 end

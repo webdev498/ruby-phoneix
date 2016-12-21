@@ -2,7 +2,7 @@ class Account < ActiveRecord::Base
 
 	has_many :accountPosting
 
-	enum account_method: [ :balanceForward, :openItem ]
+	enum accounting_method: [ :balanceForward, :openItem ]
 	enum payor_type: [:patient, :headOfHousehold, :sponsor, :master, :plan, :facility]
 	enum rx_charge_description: [:drug, :customer, :drugAndPatient, :quantityAndDrug]
 	enum statement_type: [:laser, :paperForm, :email]

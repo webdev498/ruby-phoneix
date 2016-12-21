@@ -1,5 +1,7 @@
 class RxPayment < ActiveRecord::Base
 
+  belongs_to :dispenses
+
   enum posted: [ :not_posted, :posted_to_artx, :posted_to_ar ]
 
   def self.payment_from_dispense dispense

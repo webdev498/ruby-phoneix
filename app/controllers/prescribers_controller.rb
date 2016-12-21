@@ -128,6 +128,9 @@ class PrescribersController < ApplicationController
     @prescriber.state = @prescriber.state.upcase
     @prescriber.zip_code = @prescriber.zip_code.upcase
 
+#    @prescriberParams.receive_messages = @prescriber.receive_messages.to_i
+
+
     respond_to do |format|
       if @prescriber.update(prescriber_params)
         format.html { redirect_to @prescriber, notice: 'Prescriber was successfully updated.' }
@@ -175,9 +178,10 @@ class PrescribersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prescriber_params
-      params.require(:prescriber).permit(:dept_number, :rna_prescriber_id_number, :last_name, :first_name, :middle_name,
-          :dea_number, :npi_number, :surescripts_erx_id, :emdeon_erx_id, :active, :participates_in_340b, :location_code,
-          :requires_supervisor, :address1, :address2, :city, :state, :zip_code, :specialty, :memo, :group_code, :sig_default,
+      params.require(:prescriber).permit(:company_id, :pharmacy_id_number, :person_image_id, :last_name, :first_name, :middle_name,
+          :dea_number, :npi_number, :surescripts_erx_id, :alternate_erx_id_number, :active, :participates_in_340b, :location_code,
+          :requires_supervisor, :address1, :address2, :city, :state, :zip_code, :phone, :fax_number, :cell_number, :email,
+          :receive_messages, :specialty, :notes, :memo, :group_code, :sig_default,
           :erx_eligibility, :remote_access, :facility_number, :allowed_to_prescribe_narcotics, :allowed_to_prescribe_controlled,
           :alternate_id1_qualifier, :alternate_id1, :alternate_id1_source, :alternate_id2_qualifier, :alternate_id2, :alternate_id2_source,
           :alternate_id3_qualifier, :alternate_id3, :alternate_id3_source, :alternate_id4_qualifier, :alternate_id4, :alternate_id4_source)

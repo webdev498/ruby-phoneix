@@ -97,8 +97,8 @@
 						</div>
 
 						<div class="col-md-6 form-group phx-input-control">
-							<label class="phx-form-control-label" for="emdeon_erx_id_number">Emdeon ERx</label>
-							<%= f.text_field :emdeon_erx_id_number, class: 'phx-form-control' %>
+							<label class="phx-form-control-label" for="alternate_erx_id_number">Alternate ERx ID</label>
+							<%= f.text_field :alternate_erx_id_number, class: 'phx-form-control' %>
 						</div>
 					</div>
 
@@ -149,31 +149,30 @@
 
                   <%= phx_textfield_for f, :group_code, "Group Code" %>
 
-									<%= phx_checkbox_for f, :sig_default , "Sig Default" %>
-
-									<%= phx_checkbox_for f, :remote_access , "Remote Access" %>
-
-									<%= phx_checkbox_for f, :participates_in_340b , "Participates 340b" %>
-
+                  <%= phx_textarea_for f, :notes, "Notes", 5 %>
 
 								</div> <!-- END OF first panel, first column -->
 
 								<!-- GENERAL INFO panel, second column -->
 								<div class="container-fluid col-lg-4">
 
-                  <%= phx_textfield_for f, :phone1, "Phone 1" %>
+                  <%= phx_textfield_for f, :phone, "Office Phone" %>
 
-                  <%= phx_textfield_for f, :phone2, "Phone 2" %>
+                  <%= phx_textfield_for f, :fax_number, "Fax" %>
 
-                  <%= phx_textfield_for f, :mobile1, "Cell" %>
+                  <%= phx_textfield_for f, :cell_number, "Cell" %>
 
-                  <%= phx_textfield_for f, :home_phone1, "Home Phone" %>
+                  <%= phx_textfield_for f, :email, "Email" %>
 
-                  <%= phx_textfield_for f, :fax1, "Fax" %>
+                  <%= phx_selectfield_for f, :receive_messages, "Receive Notifications", Prescriber.receive_messages %>
 
-                  <%= phx_textfield_for f, :email1, "Email" %>
+                  <%= phx_checkbox_for f, :sig_default , "Sig Default" %>
 
-								</div> <!-- END OF GENERAL INFO panel, second column -->
+									<%= phx_checkbox_for f, :remote_access , "Remote Access" %>
+
+									<%= phx_checkbox_for f, :participates_in_340b , "Participates 340b" %>
+
+								</div> <!-- END OF GENERAL INFO panel, second ve_messages column -->
 
 								<!-- First panel, third column -->
 								<div class="container-fluid col-lg-4">

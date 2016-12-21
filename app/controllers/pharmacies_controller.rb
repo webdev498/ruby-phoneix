@@ -84,6 +84,10 @@ class PharmaciesController < ApplicationController
   # PATCH/PUT /pharmacies/1.json
   def update
     respond_to do |format|
+
+      pharmacy_params[:pharmacy_type] = pharmacy_params[:pharmacy_type].to_i
+      pharmacy_params[:us_or_metric] = pharmacy_params[:us_or_metric].to_i
+
       if @pharmacy.update(pharmacy_params)
         format.html { redirect_to @pharmacy, notice: 'Pharmacy was successfully updated.' }
         format.json { render :show, status: :ok, location: @pharmacy }
