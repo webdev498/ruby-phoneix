@@ -369,18 +369,18 @@
                       <div class="container-fluid col-lg-4">
                         <div class="row phx-two-horizontal-controls">
                           <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Order</label>
-                            <input class="phx-form-control float-dollar" type="text" value="" name="facility[wings_attributes][0][universal_fee]" id="facility_wings_attributes_0_universal_fee">
+                            <label class="phx-form-control-label" for="pass_order">Order</label>
+                            <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order">
                           </div>
                           <div class="col-md-6 form-group phx-input-control">
                             <label class="phx-form-control-label" for="Label Default">Bed</label>
-                            <input class="phx-form-control float-dollar" type="text" value="" name="facility[wings_attributes][0][unit_dose_fee]" id="facility_wings_attributes_0_unit_dose_fee">
+                            <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed">
                           </div>
                         </div>
 
                         <div class="field form-group phx-input-control">
-                          <label class="phx-form-control-label" for="print_monograph">Customer</label>
-                          <input class="phx-form-control" type="text" name="facility[wings_attributes][0][print_monograph]" id="facility_wings_attributes_0_print_monograph">
+                          <label class="phx-form-control-label" for="customer_name">Customer</label>
+                          <input class="phx-form-control" type="text" name="customer_name" id="customer_name">
                         </div>
                       </div>
 
@@ -389,12 +389,20 @@
                           <div class=" form-inline phx-adjust-checkbox">
                             <div class="form-group phx-input-control">
                               <div class="phx-checkbox form-control-static">
-                                <input name="facility[wings_attributes][0][valid_division_codes]" type="hidden" value="0">
-                                <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="facility[wings_attributes][0][valid_division_codes]" id="facility_wings_attributes_0_valid_division_codes">
-                                <label for="facility_wings_attributes_0_valid_division_codes"></label></div><label class="phx-checkbox-label" for="facility_wings_attributes_0_valid_division_codes" '="">Active</label></div></div>
+                                <input name="active" type="hidden" value="0">
+                                <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
+                                <label for="active"></label>
+                              </div>
+                              <label class="phx-checkbox-label" for="active">
+                                Active
+                              </label>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
+
+                    <input type="hidden" id="bed_id">
 
                     <div class="container-fluid row">
                       <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
@@ -408,24 +416,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <% ch = 0 %>
-                          <%= f.fields_for :beds, @facility.beds.order(:pass_order).limit(9) do |bed|   %>
 
-                            <tr>
-                              <td> <%= ch = ch +1 %>  </td>
-                              <td><%= bed.object.pass_order %> </td>
-                              <td> <%= bed.object.bed %> </td>
-                              <td>  <%= bed.object.active %> </td>
-                              <td></td>
-                                <%#= bed.object.pay_order %>
-                              </td>
-                            </tr>
-                          <% end %>
                         </tbody>
                       </table>
                     </div>
                     <div class="container-fluid row">
-                      <input type="submit" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">                    </div>
+                      <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">                    </div>
                   </div>
               </div>
 
@@ -461,6 +457,7 @@
 <% end %>
 
 <script>
+    var wing_id = '';
     var cs = FEENX.Search.NewSearch('facility',
         {   context:      '',
             basePath : 'search',
@@ -485,6 +482,8 @@
        $('#wing_' + selected).show();
         $('#wing_record_' + selected).show();
 
+
+
         $('.price_schedule_input').each(function(){
           var str = $(this).val();
           str = '{' + str.replace(/ /g, ",") + '}';
@@ -504,10 +503,49 @@
        $('#itemPanel-records :input' ).attr('disabled', true);
        $('#wing_' + 1 + ' :input').removeAttr('disabled');
        $('#wing_record_' + 1 + ' :input').removeAttr('disabled');
-      $('#wing_sel').removeAttr('disabled');
+       $('#wing_sel').removeAttr('disabled');
 
        $('#wing_sel').change(function(){
            var newSelected = $(this).val();
+           $('#bed-facility-tbl > tbody').html('');
+           var wing_id = $('#facility_wings_attributes_' + (newSelected-1) + '_id').val();
+
+           if (wing_id) {
+             $.get('getBedsByWing?wing_id=' + wing_id,function(data){
+
+               var res='';
+               var no = 0;
+               data.forEach(function(item) {
+
+                 for (prop in item) {
+                   if(item[prop]== null)
+                     item[prop]='';
+                 }
+                 if(item['id'])
+                   res+='<tr id=bed_' + item['id'] +   '>';
+
+                 no++;
+                 res +='<td>' + no + '</td>';
+                 res += '<td>' + item['pass_order'] + '</td>';
+                 res += '<td>' + item['bed'] + '</td>';
+                 res += '<td>' + item['active'] + '</td>';
+                 res += '<td>' + item['customer_name'] + '</td>';
+
+                 res+='</tr>';
+
+               });
+               $('#bed-facility-tbl > tbody').html(res);
+               $('#bed-facility-tbl tr').click(function() {
+                 $('#pass_order').val(data[$(this).index()]['pass_order']);
+                 $('#bed').val(data[$(this).index()]['bed']);
+                 $('#active').prop("checked",data[$(this).index()]['active']);
+                $('#customer_name').val(data[$(this).index()]['customer_name']);
+                 $('#bed_id').val(data[$(this).index()]['id']);
+               });
+             });
+           }
+
+
            $('#wing_' + selected).hide();
            $('#wing_' + selected + ' :input').attr('disabled', true);
            $('#wing_' + newSelected).show();
@@ -519,6 +557,11 @@
            $('#wing_record_' + newSelected + ' :input').removeAttr('disabled');
 
            selected = newSelected;
-       })
+       });
+
+      $('#wing_sel').trigger('change');
+      $('#btn_submit').click(function(){
+
+      });
     });
 </script>
