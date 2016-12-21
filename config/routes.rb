@@ -236,6 +236,8 @@ Rails.application.routes.draw do
   get 'facilities/getBedsByWing' => 'facilities#get_beds_by_wing'
 
   get 'facilities/deleteBed' => 'facilities#delete_bed'
+  get 'facilities/updateBed' => 'facilities#update_bed'
+  get 'facilities/createBed' => 'facilities#create_bed'
 
 
   resources :facilities

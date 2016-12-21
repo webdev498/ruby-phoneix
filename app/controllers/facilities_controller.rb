@@ -85,6 +85,26 @@ class FacilitiesController < ApplicationController
     render json: true
   end
 
+  def create_bed
+    facility_id = params[:facility_id]
+    wing_id = params[:wing_id]
+    pass_order = params[:pass_order] ? params[:pass_order] : ''
+    bed = params[:bed] ? params[:bed] : ''
+    active = params[:active] ? params[:active] : ''
+
+    Bed.create(:pass_order => pass_order, :bed => bed, :active => active, :wing_id => wing_id, :facility_id =>facility_id)
+    render json: true
+  end
+
+  def update_bed
+    bed_id = params[:bed_id]
+    pass_order = params[:pass_order] ? params[:pass_order] : ''
+    bed = params[:bed] ? params[:bed] : ''
+    active = params[:active] ? params[:active] : ''
+    Bed.update(bed_id, :pass_order => pass_order, :bed => bed, :active => active)
+    render json: true
+  end
+
   def get_beds_by_wing
     wing_id = params[:wing_id]
     data = Wing.find(wing_id).beds.joins("LEFT JOIN customers ON beds.customer_id = customers.id")
