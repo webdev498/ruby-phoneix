@@ -353,36 +353,92 @@
 
                   </div> <!-- END OF WING INFO panel container-fluid -->
               </div>
+
               <div class="tab-pane" id="bed">
                   <div class="container-fluid">
-                      <row>
-                      <!-- First panel, first column -->
-                      <div class="container-fluid col-lg-4">
 
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
-                              <%= f.text_field :name, class: 'phx-form-control' %>
+                    <div class="row">
+                      <div class="container-fluid col-lg-4">
+                        <div class="row phx-two-horizontal-controls">
+                          <div class="col-md-6 form-group phx-input-control">
+                            <!--<label class="phx-form-control-label" for="pass_order">Order</label>-->
+                            <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order" style="margin-top:8px">
                           </div>
+                          <div class="col-md-6 form-group phx-input-control">
+                            <!--<label class="phx-form-control-label" for="Label Default">Bed</label>-->
+                            <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed" style="margin-top:9px">
+                          </div>
+                        </div>
+
+                        <!--<div class="field form-group phx-input-control">-->
+                          <!--<label class="phx-form-control-label" for="customer_name">Customer</label>-->
+                          <!--<input class="phx-form-control" type="text" name="customer_name" id="customer_name">-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="container-fluid col-lg-4">
+                      <div class="field form-group phx-input-control">
+                        <div class=" form-inline phx-adjust-checkbox">
+                          <div class="form-group phx-input-control">
+                            <div class="phx-checkbox form-control-static">
+                              <input name="active" type="hidden" value="0">
+                              <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
+                              <label for="active"></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <input type="hidden" id="bed_id">
+
+                  <div class="container-fluid row">
+                    <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
+                      <thead class="phx-table-head">
+                        <tr>
+                          <th style="background-color:#f9f9fa;" ></th>
+                          <th style="background-color:#f9f9fa;" >Order</th>
+                          <th style="background-color:#f9f9fa;" >Bed</th>
+                          <th style="background-color:#f9f9fa;" >Active</th>
+                          <th style="background-color:#f9f9fa;" >Customer</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                    <div class="container-fluid row">
+                        <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                        <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                    </div>
+
+                    <row>
+                    <!-- First panel, first column -->
+                  <div class="container-fluid col-lg-4">
+
+                      <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
+                          <%= f.text_field :name, class: 'phx-form-control' %>
                       </div>
                   </div>
-              </div>
-            </div>
 
-              <div class="tab-pane" id="itemPanel-records">
+             <div class="tab-pane" id="itemPanel-records">
 
 
 
-              </div>
+             </div>
 
-               <div class="tab-pane" id="itemPanel-pricing">
+                <div class="tab-pane" id="itemPanel-pricing">
 
-                <div class="container-fluid">
-                <row>
-                <!-- Panel 2, 1st column -->
-                </div> <!-- END OF Panel 2 -->
-              </div>
+                  <div class="container-fluid">
+                    <row>
+                    <!-- Panel 2, 1st column -->
+                  </div> <!-- END OF Panel 2 -->
+                </div>
 
-              <div class="tab-pane" id="itemPanel-times">
+             <div class="tab-pane" id="itemPanel-times">
 
                 <div class="container-fluid">
                   <row>
@@ -395,11 +451,149 @@
                <div class="container-fluid">
                 <row>
                 <!-- Panel 2, 1st column -->
-              </div> <!-- END OF Panel 2 -->
-            </div>
+               </div> <!-- END OF Panel 2 -->
+             </div>
 
         </div> <!-- end of work area -->
 
 </div>
 
 <% end %>
+
+<script>
+    var wing_id = '';
+    var cs = FEENX.Search.NewSearch('facility',
+        {   context:      '',
+            basePath : 'search',
+            triggerField: ['name'],
+            fieldPrefix:  '',
+            modalId:      'facilitySearchModal',
+            modalWidth: 450,
+            hiddenDivId:  'hidden_fields',
+            refresh:      true,
+            refreshTo:    '/facilities/' ,
+            });
+
+    // create the corresponding hidden fields in the form
+    cs.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    cs.dataFormattedAttributes();
+
+    var selected = 1;
+
+    $(document).ready(function(){
+        selected = $('#wing_sel').val();
+       $('#wing_' + selected).show();
+        $('#wing_record_' + selected).show();
+
+
+
+        $('.price_schedule_input').each(function(){
+          var str = $(this).val();
+          str = '{' + str.replace(/ /g, ",") + '}';
+
+          $(this).val(str);
+        });
+
+        $('.float-dollar').each(function(index){
+            var val = parseFloat($(this).val());
+            if(val)
+              val = val.toFixed(2);
+            else val = '';
+            $(this).val(val);
+        });
+
+       $('#wing :input').attr('disabled', true);
+       $('#itemPanel-records :input' ).attr('disabled', true);
+       $('#wing_' + 1 + ' :input').removeAttr('disabled');
+       $('#wing_record_' + 1 + ' :input').removeAttr('disabled');
+       $('#wing_sel').removeAttr('disabled');
+
+       $('#wing_sel').change(function(){
+           var newSelected = $(this).val();
+           $('#bed-facility-tbl > tbody').html('');
+           var wing_id = $('#facility_wings_attributes_' + (newSelected-1) + '_id').val();
+
+           if (wing_id) {
+             $.get('getBedsByWing?wing_id=' + wing_id,function(data){
+
+               var res='';
+               var no = 0;
+               data.forEach(function(item) {
+
+                 for (prop in item) {
+                   if(item[prop]== null)
+                     item[prop]='';
+                 }
+                 if(item['id'])
+                   res+='<tr id=bed_' + item['id'] +   '>';
+
+                 no++;
+                 res +='<td>' + no + '</td>';
+                 res += '<td>' + item['pass_order'] + '</td>';
+                 res += '<td>' + item['bed'] + '</td>';
+                 res += '<td>' + item['active'] + '</td>';
+                 res += '<td>' + item['customer_name'] + '</td>';
+
+                 res+='</tr>';
+
+               });
+               $('#bed-facility-tbl > tbody').html(res);
+               $('#bed-facility-tbl tr').click(function() {
+                 $('#pass_order').val(data[$(this).index()]['pass_order']);
+                 $('#bed').val(data[$(this).index()]['bed']);
+                 $('#active').prop("checked",data[$(this).index()]['active']);
+                $('#customer_name').val(data[$(this).index()]['customer_name']);
+                 $('#btn_submit').val('Update Bed');
+                 $('#bed_id').val(data[$(this).index()]['id']);
+               });
+             });
+           }
+
+
+           $('#wing_' + selected).hide();
+           $('#wing_' + selected + ' :input').attr('disabled', true);
+           $('#wing_' + newSelected).show();
+           $('#wing_' + newSelected + ' :input').removeAttr('disabled');
+
+           $('#wing_record_' + selected).hide();
+           $('#wing_record_' + selected + ' :input').attr('disabled', true);
+           $('#wing_record_' + newSelected).show();
+           $('#wing_record_' + newSelected + ' :input').removeAttr('disabled');
+
+           selected = newSelected;
+       });
+
+      $('#wing_sel').trigger('change');
+      $('#btn_submit').click(function(){
+        var pass_order = $('#pass_order').val();
+        var bed = $('#bed').val();
+        var active = $('#active').prop('checked');
+        var bed_id = $('#bed_id').val();
+        if(bed_id) {
+          $.get('updateBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active, function () {
+            $('#wing_sel').trigger('change');
+          });
+        }else{
+          var wing_id = $('#facility_wings_attributes_' + (selected-1) + '_id').val();
+          var facility_id = $('#facility_id').val();
+          if (!wing_id || !facility_id)
+              return;
+          alert(wing_id);
+          alert(facility_id);
+          $.get('createBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active + '&wing_id='+wing_id + '&bed_id='+bed_id, function () {
+            $('#wing_sel').trigger('change');
+          });
+        }
+      });
+      $('#btn_delete').click(function(){
+        var bed_id = $('#bed_id').val();
+        if(bed_id)
+          $.get('deleteBed?bed_id='+bed_id,function(){
+            $('#bed_id').val('');
+            $('#wing_sel').trigger('change');
+            $('#btn_submit').val('Create Bed');
+          });
+      });
+    });
+</script>
