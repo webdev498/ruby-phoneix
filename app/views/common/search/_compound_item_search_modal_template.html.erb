@@ -51,7 +51,7 @@
 			<div class="modal-footer">
 				<%=	paginate searchItems,
 						params: { controller: (searchController.nil? ? "items" : searchController),
-							 				action: "nextItems"} , remote: true  unless searchItems.empty? %>
+							 				action: "nextCompoundItems"} , remote: true  unless searchItems.empty? %>
 
 				<%= link_to "New Item",
 						"/not_defined_menu_item_path",
