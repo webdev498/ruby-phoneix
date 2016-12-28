@@ -1,4 +1,4 @@
-<div class="phx-modal container-fluid" id="itemSearchModal" role="dialog" aria-hidden="true">
+<div class="phx-modal container-fluid" id="compoundItemSearchModal" role="dialog" aria-hidden="true">
 
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -12,7 +12,7 @@
 				<table class="table-hover">
 		  		<thead class="phx-search-row-header">
   		  		<tr>
-						<th class="phx-search-font"><input type="text" id="itemSearchModal_Keys1_9" style="width:0.5px;" ></th>
+						<th class="phx-search-font"><input type="text" id="compoundItemSearchModal_Keys1_9" style="width:0.5px;" ></th>
 						<th class="phx-search-font">NDC</th>
 						<th class="phx-search-font">GNC</th>
 						<th class="phx-search-font">Synonym</th>
@@ -25,8 +25,9 @@
 		  		<tbody>
 						<% searchItems.each do |item| %>
 							<tr	id="<%= 'itemSearchModal-row' + (choice += 1).to_s %>"
-								class="phx-search-row clickable-itemSearchModal-row"
-								data-phx-search-item-id="<%= item.id %>"
+								class="phx-search-row clickable-compoundItemSearchModal-row"
+                data-phx-search-item-id="<%= item.id %>"
+                data-phx-search-item-name="<%= item.item_name %>"
 								data-phx-search-item-display_name="<%= item.display_name %>"
 								data-phx-search-item-ndc_number="<%= item.ndc_number %>"
 								data-phx-search-item-schedule="UNKNOWN SCHEDULE NUMBER IN DB"
@@ -59,7 +60,7 @@
 						method: "get",
 						class: "btn btn-sm btn-default phx-btn-model-control-red" %>
 
-				<button id="itemSearchModal_close_btn"
+				<button id="compoundItemSearchModal_close_btn"
 						class="btn btn-sm btn-default phx-btn-model-control-red"
 						data-dismiss="modal"
 						aria-hidden="true">
@@ -73,5 +74,5 @@
 </div>
 
 <script>
-	$('#item_search_modal_partial').trigger('contentchanged');
+	$('#compoundItem_search_modal_partial').trigger('contentchanged');
 </script>
