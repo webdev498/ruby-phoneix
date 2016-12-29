@@ -17,8 +17,8 @@
             <div class="col-lg-8">
               <div class="phx-working-area-title">Item Maintenance&nbsp;&nbsp;|&nbsp;&nbsp;
                 <span style="font-weight: bold;" id="itemFullDisplayName">
-                                <%= @item.full_display_name %>
-                            </span>
+                  <%= @item.full_display_name %>
+                </span>
               </div>
             </div>
             <div class="col-lg-3 phx-working-area-title-buttons">
@@ -600,6 +600,10 @@
 <% end %> <!-- end of form-->
 
 <script>
+
+  $('[name="item[brand_generic_compound]"]').attr('id','item_brand_generic_compound');
+
+
   var itemsrch = FEENX.Search.NewSearch('item',
       {
         context: '',
@@ -614,14 +618,17 @@
   itemsrch.addHiddenFields();
   // create the corresponding data attribues in the modal rows
   itemsrch.dataFormattedAttributes();
+
   var compoundItemsrch = FEENX.Search.NewSearch('item',
       {
         context: '',
-        triggerField: 'item_name',
+        basePath : '/items/nextCompoundItems',
+        triggerField: ['brand_generic_xref','brand_generic_compound'],
         fieldPrefix: '',
         modalId: 'itemSearchModal',
         hiddenDivId: 'hidden_fields',
         refresh: true,
+        modalWidth : '500',
         refreshTo: ''
       });
   // create the corresponding hidden fields in the form

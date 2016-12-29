@@ -22,6 +22,23 @@ class ItemsController < ApplicationController
     render  template: 'common/search/js/nextSearchItems.js'
   end
 
+  def nextCompoundItems
+    brand_generic_compound  = params[:brand_generic_compound].to_i ? params[:brand_generic_compound] : 0
+    brand_generic_xref  = params[:brand_generic_xref_d] ? params[:brand_generic_xref_d] : ''
+    pageNumber = params[:page] ? params[:page] : 1
+    perPage = 9
+
+    brand_generic_compound = 0 if brand_generic_compound == 1
+    brand_generic_compound = 1 if brand_generic_compound == 0
+
+    if brand_generic_compound == '2'
+      @searchItems = Item.search_arel(brand_generic_xref).page(pageNumber).per(perPage)
+    else
+      @searchItems = Item.search_arel(brand_generic_xref).where("brand_generic_compound=#{brand_generic_compound}").page(pageNumber).per(perPage)
+    end
+    render  template: 'common/search/js/nextSearchCompoundItems.js'
+  end
+
   #  ajax answer the next page for paginated Ingredient search for a compound
   def nextIngredients
     @searchItems = Item.nextItems params[:start], params[:page], 9
@@ -167,6 +184,9 @@ class ItemsController < ApplicationController
     #   format.json { head :no_content }
     # end
   end
+
+
+
 
   # items/ingredientDetails/1234
 

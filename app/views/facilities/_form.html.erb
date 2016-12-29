@@ -640,8 +640,6 @@
           var facility_id = $('#facility_id').val();
           if (!wing_id || !facility_id)
               return;
-          alert(wing_id);
-          alert(facility_id);
           $.get('createBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active + '&wing_id='+wing_id + '&bed_id='+bed_id, function () {
             $('#wing_sel').trigger('change');
           });
