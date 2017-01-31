@@ -37,7 +37,7 @@ class PhxResourceGroup
 		:m_prescriber,
 		:m_3rdParty,
 		:m_pharmacy,
-		:``m_pos``,
+		:m_pos,
 		:m_facility,
 		:m_receivables ]
   end
