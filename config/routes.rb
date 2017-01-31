@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   get 'claims/search' => "claims#search"
   get 'claims/search_cob' => "claims#search_cob"
   get 'claims/search_dur' => "claims#search_dur"
+  post 'claims/send_remote_claim_request' => 'claims#send_remote_claim_request'
 
   resources :plans do
     resource :plan_requirement

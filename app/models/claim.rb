@@ -56,5 +56,36 @@ class Claim < ActiveRecord::Base
 		self.by_rx_number(sourceString).page(pageNumber).per(perPage)
 	end
 
+	def self.send_remote_claim_request
+		redis = Redis.new(:host => "127.0.0.1", :port => 6379)
+
+    @demo_request = "007250D0B1TESTVD01  1010005123708     20161214VD0RRR    AM01CX01CY123456789C419610416C52CADANACBJOHNSONCM1801 NORMAN DRIVECNPINE LAKECOGACP30093CQ4047541821C71CZXYZ123AM04C2987654321AM07EM1D21463450E103D700006094268E730000D30D530D61D80DE20161214DF5DJ1NX1DK1DT128EAAM02EY05E93935939359AM03EZ01DB1234566119DRWRIGHTPM20136395722E01DL12345661194EWRIGHTAM11D9557{DC100{H71H801H9150{DQ807{DU807{DN03"
+    @job_id = Time.now.to_i
+    payload = {
+        jobid: @job_id
+    }
+      payload[:request] = @demo_request
+      job_id = Time.now.to_i + rand(1000)
+    payload[:job_id] = job_id
+
+    transaction = Transaction.where({job_id: job_id}).first
+    if transaction.nil?
+      transaction = Transaction.new({
+          job_id: job_id,
+          created_at: Time.now,
+          status: "submitting",
+          time_to_process: -1
+      })
+      transaction.save!
+    else
+      transaction.status = "submitting"
+      transaction.time_to_process = -1
+      transaction.save!
+    end
+
+    msg = {'class' => 'TransactionWorker', 'args' => payload, 'jid' => job_id, 'retry' => false, 'enqueued_at' => Time.now.to_f}
+    redis.lpush("queue:claims_processor", JSON.dump(msg))
+		return @job_id
+	end
 
 end
