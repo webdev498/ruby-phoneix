@@ -83,8 +83,8 @@ class Claim < ActiveRecord::Base
       transaction.save!
     end
 
-    msg = {'class' => 'TransactionWorker', 'args' => payload, 'jid' => job_id, 'retry' => false, 'enqueued_at' => Time.now.to_f}
-    redis.lpush("queue:claims_processor", JSON.dump(msg))
+    msg = {'class' => 'ClaimRequestSenderWorker', 'args' => payload, 'jid' => job_id, 'retry' => false, 'enqueued_at' => Time.now.to_f}
+    redis.lpush("queue:claims_send", JSON.dump(msg))
 		return @job_id
 	end
 
