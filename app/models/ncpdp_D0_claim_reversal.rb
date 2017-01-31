@@ -9,9 +9,9 @@ class NcpdpD0_ClaimReversal < NcpdpD0_ClaimBuilder
   ]
 
   # AM07 - Insurance
-  @@ClaimSegment = NcpdpD0_Segment.new( REQUIRED,
-    NcpdpD0_Field.new('111-AM', MANDATORY, 'Segment ID', 'A', [2,0], '07' )
-    )
+  # @@ClaimSegment = NcpdpD0_Segment.new( REQUIRED,
+  #   NcpdpD0_Field.new('111-AM', MANDATORY, 'Segment ID', 'A', [2,0], '07' )
+  #   )
 
 
   def self.ncpdpD0
