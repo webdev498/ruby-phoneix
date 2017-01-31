@@ -1,3 +1,5 @@
+
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
   # User Authentication
@@ -274,5 +276,5 @@ Rails.application.routes.draw do
   resources :price_histories
   resources :contacts
   resources :licenses
-
+  mount Sidekiq::Web => '/sidekiq'
 end
