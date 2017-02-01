@@ -1,0 +1,149 @@
+<% phx_subnav_for :m_item %>
+
+<% provide(:item, "active") %>
+
+<%= form_for( @item ) do |f| %>
+
+<div class="col-lg-10 phx-working-area-background">
+
+    <!-- working area title and nav -->
+    <div class="row span10 phx-working-area-nav">
+
+        <%# temporarily disable hamburger  with  type="button" %>
+        <div class="col-xs-1 phx-hamburger-box">
+            <button type="button" class="phx-hamburger">|||</button>
+        </div>
+
+        <div class="phx-working-area-nav">
+            <row>
+				<div class="col-lg-8">
+			      <div class="phx-working-area-title">Price Check
+			      </div>
+				</div>
+				<div class="col-lg-3 phx-working-area-title-buttons">
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Back</button>
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Show</button>
+			        <button type="button" class="btn btn-sm btn-default phx-btn-model-control-white">Update</button>
+				</div>
+			</row>
+			</div> <%# END of Working Area TITLE %>
+
+		</div> <%# END of Working Area TITLE and NAV %>
+
+		<!-- working area -->
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+				<!-- Primary Info -->
+				<div class="col-lg-4">
+
+					<div class="phx-primary-info-column">
+
+
+	                    <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+	                    <div class="col-md-12">
+	                        <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+	                        Clinical Drug Inquiry
+	                        </div>
+	                    </div>
+
+	                    <div class="form-group phx-input-control-spacer" style="margin-bottom: -15px;">&nbsp;</div>
+
+						<%= phx_textfield_for f, :item_name, "Drug" %>
+
+						<div class="form-group phx-input-control-spacer"></div>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Allergies</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Geriatric</button>
+    					</div>
+
+                        </br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Interactions</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Pediatric</button>
+    					</div>
+
+                        </br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Contraindications</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Pregnancy</button>
+    					</div>
+
+                        </br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Food Interference</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Lactation</button>
+    					</div>
+
+</br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Lab Interference</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Counseling</button>
+    					</div>
+
+</br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Duplicate Therapy</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Min-Max Dosage</button>
+    					</div>
+
+</br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Indications</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Monographs</button>
+    					</div>
+
+</br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">AHFS Codes</button>
+                            <button type="button" style="width:120px;" class="col-xs-offset-2 btn btn-sm btn-default phx-btn-model-control-cream">Medication Guide</button>
+    					</div>
+</br>
+
+                        <div class="row phx-two-horizontal-controls">
+                            <button type="button" style="width:120px;" class="col-xs-offset-1 btn btn-sm btn-default phx-btn-model-control-cream">Side Effects</button>
+    					</div>
+
+                        <div class="form-group phx-input-control-spacer"></div>
+
+					</div> <!-- end of container fluid for Primary Info -->
+
+				</div> <!-- end of Primary Info col lg def -->
+
+				<div class="col-lg-7">
+
+					<!-- Tab labels -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="active"><a href="#itemPanel-clinicalInquiry" role="tab" data-toggle="tab">Clinical Inquiry Results</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content phx-tab-pane">
+
+						<div class="tab-pane active" id="citemPanel-clinicalInquiry">
+                        </div>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+					</div> <!-- end of tab panes -->
+
+				</div> <!-- end of tab area -->
+
+    </div> <!-- end of work area -->
+
+    <div id="item_search_modal_partial">
+        <div id="itemSearchModal">
+        </div>
+    </div>
+
+<% end %> <!-- end of form-->
+
+<script>
+
+</script>

@@ -1,0 +1,645 @@
+<%# item form %>
+
+<%= form_for(@item) do |f| %>
+
+    <div class="col-lg-10 phx-working-area-background">
+
+      <!-- working area title and nav -->
+      <div class="row span10 phx-working-area-nav">
+
+        <%# temporarily disable hamburger  with  type="button" %>
+        <div class="col-xs-1 phx-hamburger-box">
+          <button type="button" class="phx-hamburger">|||</button>
+        </div>
+
+        <div class="phx-working-area-nav">
+          <row>
+            <div class="col-lg-8">
+              <div class="phx-working-area-title">Item Maintenance&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span style="font-weight: bold;" id="itemFullDisplayName">
+                  <%= @item.full_display_name %>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-3 phx-working-area-title-buttons">
+            </div>
+          </row>
+        </div> <%# END of Working Area TITLE %>
+
+      </div> <%# END of Working Area TITLE and NAV %>
+
+      <%# BEGIN Working Area %>
+      <div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+        <!-- Primary Info -->
+        <div class="col-lg-4">
+
+          <div class="phx-primary-info-column">
+
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
+
+            <%# TODO: FIX THIS %>
+            <% imageFile = !@item.image_file_name.present? ? "no-image.png" : ("cdbimages/" + @item.image_file_name) %>
+            <%= image_tag(imageFile, {id: "itemImageFilename", crop: :scale, class: "phx-primary-info-image"}) %>
+
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Primary Info
+              </div>
+              <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+            </div>
+
+            <div class="form-group phx-input-control-spacer" style="margin-bottom: -25px;">&nbsp;</div>
+
+            <%= phx_textsearchfield_for f, :item_name, "Item Name" %>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :ndc_number, "NDC Number", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :synonym, "Synonym", 0, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <!-- <%= phx_textfield_for f, :brand_generic_compound, "Brand / Generic / Compound", 0, "col-md-6", Item.brand_generic_compounds, false %> -->
+                <%= phx_selectfield_for f, :brand_generic_compound, "Brand / Generic / Compound", Item.brand_generic_compounds, false, nil, "col-md-6" %>
+                <!-- <%= phx_textfield_for f, :dea_schedule, "DEA Schedule", 0, "col-md-6", Item.dea_schedules, false %> -->
+                <%= phx_selectfield_for f, :dea_schedule, "DEA Schedule", Item.dea_schedules, false, nil, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :strength, "Strength", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :strength_unit_measure_code, "Stength Unit Measure", 0, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :dosage_form, "Dosage Form", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :dosage_form_code, "Dosage Form Code", 0, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_textfield_for f, :package_size, "Package Size", 0, "col-md-6" %>
+                <%= phx_textfield_for f, :package_size_unit_measure, "Pkg Size Unit Measure", 0, "col-md-6" %>
+            </div>
+
+            <%= phx_textfield_for f, :mfg_name, "Mfg Description" %>
+            <%= phx_textfield_for f, :brand_generic_xref, "Assigned Brand/Generic" %>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :drug_class, "Drug Class", Item.drug_classes, false, 0, "col-md-6", true %>
+                <%= phx_textfield_for f, :dispensing_unit, "Dispense Unit", 0, "col-md-6" %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+                <%= phx_checkbox_for f, :item_taxable, "Taxable", 0, "col-md-6" %>
+                <%= phx_checkbox_for f, :inventory, "Inventory", 0, "col-md-6" %>
+            </div>
+
+            </br>
+
+            <%= phx_red_submit_button_for f, "Item", [], "", "phx-btn-model-control-width pull-right", false %>
+
+            <div class="field form-group phx-input-control-spacer">&nbsp;
+              </br>
+            </div>
+
+          </div> <!-- end of container fluid for Primary Info -->
+
+        </div> <!-- end of Primary Info col lg def -->
+
+        <div class="col-lg-8  ">
+
+          <!-- Tab labels -->
+          <ul class="nav nav-tabs" role="tablist">
+              <li  <%if !@item.compound? %> class="active"  <%end%> >
+                  <a href="#itemPanel-general" role="tab" data-toggle="tab">Price & General Info</a></li>
+              <li><a href="#itemPanel-clinical" role="tab" data-toggle="tab">Clinical</a></li>
+              <li  <%if @item.compound? %> class="active"  <%end%> >
+                  <a href="#itemPanel-compound" role="tab" data-toggle="tab">Compounding</a></li>
+              <li><a href="#itemPanel-inventory" role="tab" data-toggle="tab">Inventory</a></li>
+              <li><a href="#itemPanel-pedigree" role="tab" data-toggle="tab">Pedigree</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content phx-tab-pane">
+
+            <div class="tab-pane
+              <% if !f.object.compound? %> active
+              <% end %>" id="itemPanel-general">
+
+              <div class="container-fluid">
+                <row>
+
+                  <!-- First panel, first column -->
+                  <div class="container-fluid col-lg-6">
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :price_based_pricing_schedule, "Regular Price Schedule", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :quantity_based_pricing_schedule, "Qty Based Price Schedule", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :discard_age_days, "Discard Days", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :fed_tax, "Federal Tax", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :awp_unit_price, "AWP Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_awp_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :mac_unit_price, "MAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_mac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :act_unit_price, "Acquistion Cost Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_act_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :wac_unit_price, "WAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_wac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :govt_340b_unit_price, "340b Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_340b_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :contract_unit_price, "Contract Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_contract_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :nadac_unit_price, "NADAC Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_nadac_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :custom_unit_price, "Custom Unit Price", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :last_custom_update_date, "Last Update Date", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :on_contract, "On Contract", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :gpo_drug, "GPO Item", 0, "col-md-6" %>
+                    </div>
+
+                    </br>
+
+                    <%= "                     Price Update History" %>
+
+                  </div> <!-- END OF first panel, first column -->
+
+                  <!-- First panel, second column -->
+                  <div class="container-fluid col-lg-6">
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :scanned_ndc_number, "Scanned NDC Number", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :quantity_on_hand, "Quantity on Hand", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :route_of_administration_code, "Route of Administration", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :mfg_name, "Manufacturer", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :unit_of_measure, "Unit of Measure", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :potency_code, "Potency Code", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :state_billing_code, "State Billing Code", 0, "col-md-6" %>
+                        <%= phx_selectfield_for f, :maintenance_code, "Maintenance Drug", Item.maintenance_codes, false, 0, "col-md-6", true %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :alternate_product_code, "Alternate Product Code", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :alternate_product_qualifier, "Type of Alternate Code", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_textfield_for f, :upc_product_number, "UPC Number", 0, "col-md-6" %>
+                        <%= phx_textfield_for f, :upc_category, "POS Category", 0, "col-md-6" %>
+                    </div>
+
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :doc_u_dose, "Doc-U-Dose Item", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :remote_dispensing, "Remote Dispense", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :limited_distribution, "Limited Distribution", 0, "col-md-6" %>
+                        <%= phx_checkbox_for f, :wellness_tracking, "Wellness Tracking", 0, "col-md-6" %>
+                    </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                        <%= phx_checkbox_for f, :active_ingredient, "Active Ingredient", 0, "col-md-6" %>
+                        <%= phx_datefield_for f, :retest_date, "Re-Test Date", 0, "col-md-6" %>
+                    </div>
+
+                    <%= phx_textfield_for f, :memo, "Item Memo" %>
+                    <%= phx_textarea_for f, :notes, "Notes", 5 %>
+                    <%= phx_textarea_for f, :counseling_notes, "Counseling Notes", 4 %>
+
+                    </br>
+
+                  </div> <!-- END OF first panel, second column -->
+                  <!-- Spans 2 columns in the 1st panel -->
+
+                </row>
+
+              </div>
+
+              <div class="form-group phx-input-control-spacer">
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="itemPanel-clinical">
+
+                 <div class="container-fluid">
+                     <row>
+                     <!-- Panel 2, 1st column -->
+                     <div class="container-fluid col-lg-5">
+
+
+                         <%= phx_checkbox_for f, :contains_acetaminophen, "Contains Acetaminophen" %>
+                         <%= phx_checkbox_for f, :contains_pseudoephedrine, "Contains Pseudoephedrine" %>
+                         <%= phx_textfield_for f, :imprint_side1, "Imprint Side 1" %>
+                         <%= phx_textfield_for f, :imprint_side2, "Imprint Side 2" %>
+                         <%= phx_textfield_for f, :color, "Color" %>
+                         <%= phx_textfield_for f, :coating, "Coating" %>
+                         <%= phx_textfield_for f, :clarity, "Clarity" %>
+                         <%= phx_textfield_for f, :flavor, "Flavor" %>
+                         <%= phx_textfield_for f, :shape, "Shape" %>
+                         <%= phx_textfield_for f, :scored, "scored" %>
+                         <%= phx_textfield_for f, :appearance_text, "Appearance" %>
+                         <%= phx_textfield_for f, :label_warnings, "Label Warnings" %>
+
+                       </br>
+
+                     </div>
+
+                     <div class="col-lg-7">
+                         <div class="phx-input-control-spacer">
+                         </div>
+                         <%= phx_textfield_for f, :black_box_file_name, "Black Box File" %>
+                         <%= phx_textfield_for f, :monitoring_program, "Monitoring Program" %>
+                         <%= phx_textfield_for f, :monitoring_file_name, "Monitoring File" %>
+                         <%= phx_textfield_for f, :monograph_file_name, "Monograph" %>
+                         <%= phx_textfield_for f, :medication_guide_file_name, "Medication Guide" %>
+                     </div>
+
+                 </div> <!-- END OF Panel 2 -->
+             </div>
+
+
+
+            <div class="tab-pane
+              <% if f.object.compound? %> active
+              <% end %>" id="itemPanel-compound">
+              <input type="hidden" id="formula-parent-item-id" value="<%= @item.id %>"/>
+              <div class="container-fluid">
+                <div class="row">
+
+                  <%= f.fields_for :formula do |ff| %>
+
+                      <!-- Panel 2, 1st column -->
+                      <div class="container-fluid col-lg-6">
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="compound_form">Compound Form</label>
+                          <%= phx_selectfield_for ff, :compound_form, "Dispensing Unit", Formula.compound_forms, false, 0, "formula-compound-form", true, "item_formula_attributes_compound_form", true %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="dispensing_unit">Dispensing Unit</label>
+                          <%= phx_selectfield_for ff, :dispensing_unit, "Dispensing Unit", Formula.dispensing_units, false, 0, "formula-dispensing-unit", true, "item_formula_attributes_dispensing_unit", true %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label">Quantity Produced</label>
+                          <%= ff.text_field :quantity_produced,  class: 'phx-form-control' %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="level_of_effort_code">Level of Effort</label>
+                          <%= phx_selectfield_for ff, :level_of_effort_code, "Level of effort", Formula.level_of_efforts, false, 0, "formula-level-of-effort", true, "item_formula_attributes_level_of_effort_code", true %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="route_of_administration">Route of
+                            Administration</label>
+                          <%= ff.text_field :route_of_administration, class: 'phx-form-control' %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="number_legend_ingredients">Number of Legend
+                            Ingredients</label>
+                          <%= ff.text_field :number_legend_ingredients, class: 'phx-form-control' %>
+                        </div>
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="number_otc_ingredients">Number of OTC
+                            Ingredients</label>
+                          <%= ff.text_field :number_otc_ingredients, class: 'phx-form-control' %>
+                        </div>
+<!-- Added the flavor field  -->
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="flavor">Flavor</label>
+                          <%= ff.text_field :flavor, class: 'phx-form-control' %>
+                        </div>
+<!-- End of Modification  -->
+
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="instructions">Instructions</label>
+                          <%= ff.text_area :instructions, class: 'phx-form-control phx-textarea-limitwidth', rows: 10 %>
+                        </div>
+                        <div id="item-target-to-copy-formula-modal" class="modal"  tabindex="0">
+                            <div class="modal-dialog" role="document">
+                              <input type="hidden" id="item-target-to-copy-formula-selected-id" value="">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Select Ingredient to copy the formula to
+                                </div>
+                                <div class="modal-body">
+                                  <input type="text" class="form-control col-xs-12" id="item-to-copy-formula-to-modal" placeholder="Ingredient name" tabindex="0"/>
+                                  <div id="item_formula_search_modal_partial">
+                                    <% choice = 0 %>
+                                    <table class="table">
+                                      <thead class="phx-search-row-header">
+                                      <tr>
+                                        <th class="phx-search-font"><input type="text" id="itemFormulaSearchModal_Keys1_9" style="width:0.5px;" ></th>
+                                        <th class="phx-search-font">NDC</th>
+                                        <th class="phx-search-font">GNC</th>
+                                        <th class="phx-search-font">Synonym</th>
+                                        <th class="phx-search-font">Item Name</th>
+                                        <th class="phx-search-font">Active</th>
+                                        <th class="phx-search-font">DEA Schedule<th>
+                                      </tr>
+                                      </thead>
+
+                                      <tbody id="item_formula_to_copy_search_results">
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <div class="modal-footer" style="border-top: 20px">
+                                  <div id="item_formula_to_copy_search_pagination_control">
+
+                                  </div>
+                                  <button type="button" class="btn phx-btn-model-control-red btn-default btn-sm" id="formula-modal-dismiss" data-dismiss="modal" tabindex="0">Close</button>
+                                  <button type="button" class="btn phx-btn-model-control-red btn-default btn-sm" id="formula-copy-modal-savechanges" tabindex="0">Copy Formula</button>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <%= phx_red_submit_button_for f, "Formula", [], "", "phx-btn-model-control-width pull-right update-formula", false, true, "formula_id_#{@item.formula.nil? ? "unknown" : @item.formula.id}" %>
+                        <input type="button" id="copy-formula-to-ingedient" class="btn-default btn-sm phx-btn-model-control-width phx-btn-model-control-cream" value="Copy Formula"/>
+                        </br>
+                      </div> <!-- end of panel 2, 1st column -->
+
+                      <!-- Panel 2, 2nd column -->
+
+                      <div class="col-lg-6">
+                        <div class="modal" tabindex="0" id="compound-instructions-modal">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                          <div class="modal-header">
+                            Instructions
+                          </div>
+                          <div class="modal-body">
+                            <textarea class="form-control col-xs-12" rows="10" id="formula-modal-instructions" placeholder="Enter Instuctions Here" tabindex="0"><%= @item.formula.instructions %></textarea>
+                          </div>
+                              <div class="modal-footer" style="border-top: 20px">
+                                <button type="button" class="btn phx-btn-model-control-red btn-default btn-sm" data-dismiss="modal" tabindex="0">Close</button>
+                                <button type="button" class="btn phx-btn-model-control-red btn-default btn-sm" id="formula-modal-savechanges" tabindex="0">Save Changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="phx-input-control-spacer">
+                        </div>
+                        <% choice = 0 %>
+                          <table class="phx-search-font table table-bordered">
+                            <thead class="">
+                            <tr class="">
+                              <th style="background-color:#f9f9fa;" >Ingredient</th>
+                              <th style="background-color:#f9f9fa;">Basis</th>
+                              <th style="background-color:#f9f9fa;">Quantity</th>
+                              <th style="background-color:#f9f9fa;">Cost</th>
+                              <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr id="new-compound-search" class="">
+                              <input type="hidden" id="new-compound-item-id"/>
+                              <input type="hidden" id="new-compound-basis-value-id" value="<%= @item.price_basis_code %>"/>
+                              <td><input type="text" id="new-compound-ingredient" placeholder=""/></td>
+                              <td><input type="text" class="phx-ingredient-basis" id="new-compound-basis" value="<%= @item.price_basis.nil? ? "" : @item.price_basis.humanize %>" disabled="true"/></td>
+                              <td><input type="text" class="new-compound phx-ingredient-quantity" id="new-compound-quantity" value="0"/></td>
+                              <td><input type="text" class="phx-ingredient-cost" id="new-compound-cost" disabled="true" /></td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        <!--<button tabindex="9" role="button" type="button" id="item-add-compound-button" class="btn btn-md btn-default phx-btn-model-control-blue pull-right">Add-->
+                          <!--Ingredient-->
+                        <!--</button>-->
+
+                        <table class="phx-search-font table table-bordered" id="ingredient-list">
+                          <!--<td class="col-xs-1">&nbsp;</td></tr>-->
+                          <thead class="">
+                          <tr class="">
+                            <th style="background-color:#f9f9fa;" >Ingredient</th>
+                            <th style="background-color:#f9f9fa;">Basis</th>
+                            <th style="background-color:#f9f9fa;">Quantity</th>
+                            <th style="background-color:#f9f9fa;">Cost</th>
+                            <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% @item.formula.ingredients.each_with_index do |fff, idx| %>
+                              <tr class="" id="compound_ingredient_<%= fff.id %>">
+                                <td><input id="ingredient-name-<%= fff.id %>" class="existing-ingredient-name" value="<%=fff.name %>" tabindex="0" type="text"></td>
+                                <td><%= @item.price_basis.humanize %></td>
+                                <td ><input class="existing-ingredient-quantity" id="ingredient-quantity-<%= fff.id %>" type="text" value="<%=fff.quantity%>" tabindex="0"/></td>
+                                <td id="ingredient-base-cost-<%= fff.id %>"><%= fff.base_cost %></td>
+                                <td>
+                                  <span role="button" type="button" id="ingredient-delete-<%= fff.id %>" class="btn btn-default phx-btn-model-control-red ingredient-delete" tabindex="0">-</span>
+                                  <!-- link_to "-", "/formulas/removeIngredient/#{fff.id}", method: "delete", class: "button button-danger btn btn-xs btn-default phx-btn-model-control-red", remote: true -->
+                                </td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+<%# TODO: %>
+<%# 01 - AWP %>
+<%# 05 - ACT %>
+<%# 06 - MAC %>
+<%# 08 - 340B %>
+<%# 12 - WAC %>
+                        </br>
+
+                      </div> <!-- end of panel 2, wnd column -->
+                  <% end %>
+
+                  </div>
+
+                </div> <!-- END OF Panel 2 -->
+              </div>
+
+              <div class="tab-pane" id="itemPanel-inventory">
+                <div class="row container-fluid">
+
+                  <div class="container-fluid col-lg-6">
+
+<%# while waiting for rest of item fields, use the "image_description" field, since it is most blank %>
+
+                    <%= phx_textfield_for f, :quantity_on_hand, "Quantity on Hand" %>
+
+                    <%= phx_textfield_for f, :image_description, "Quantity on Order" %>
+
+                    <%= phx_textfield_for f, :image_description, "Reorder Point" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Vendor 1  -  ID" %>
+
+                    <%= phx_textfield_for f, :image_description, "Minimum Order Quantity" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Vendor 2  -  ID" %>
+
+                    <%= phx_textfield_for f, :image_description, "Minimum Order Quantity" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Vendor 3  -  ID" %>
+
+                    <%= phx_textfield_for f, :image_description, "Minimum Order Quantity" %>
+
+                  </div> <!-- END OF first panel, first column -->
+
+                  <!-- GENERAL INFO panel, second column -->
+                  <div class="container-fluid col-lg-6">
+
+                    <%= phx_textfield_for f, :image_description, "POS Item" %>
+
+                    <%= phx_textfield_for f, :image_description, "Last Order Qauntity" %>
+
+                    <%= phx_textfield_for f, :image_description, "Optimal Quantity" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Order Number" %>
+
+                    <%= phx_textfield_for f, :image_description, "Cost" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Order Number" %>
+
+                    <%= phx_textfield_for f, :image_description, "Cost" %>
+
+                    <div class="form-group phx-input-control-spacer">
+                    </div>
+
+                    <%= phx_textfield_for f, :image_description, "Order Number" %>
+
+                    <%= phx_textfield_for f, :image_description, "Cost" %>
+
+                  </div> <!-- END OF GENERAL INFO panel, second column -->
+
+                  <div class="form-group phx-input-control-spacer">&nbsp;
+                  </div>
+
+                </div> <!-- END inventory panel container-fluid -->
+
+              </div> <!-- END OF Panel 3 -->
+
+              <div class="tab-pane" id="itemPanel-pedigree">
+                <div class="row container-fluid">
+                  <%= f.fields_for :item_pedigree do |ff| %>
+                      <div class="col-lg-12">
+
+                        <div class="phx-input-control-spacer"></div>
+
+                        <% choice = 0 %>
+                        <table class="phx-table phx-search-font">
+                          <thead class="phx-table-head">
+                          <tr>
+                            <th style="background-color:#f9f9fa;" class="col-md-4">Vendor</th>
+                            <th style="background-color:#f9f9fa;" class="col-md-2">Lot Number</th>
+                            <th style="background-color:#f9f9fa;" class="col-md-2">Serial Number</th>
+                            <th style="background-color:#f9f9fa;" class="col-md-2">Date Received</th>
+                            <th style="background-color:#f9f9fa;" class="col-md-1">Quantity Received</th>
+                            <th style="background-color:#f9f9fa;" class="col-md-1">Quantity Remaining</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                        </br>
+
+                      </div> <!-- end of panel 3, 2nd column -->
+                  <% end %>
+                </div>
+              </div> <!-- END OF Panel 3 -->
+
+            </div> <!-- end of tab panes -->
+
+          </div> <!-- end of tab area -->
+
+        </div> <!-- end of work area -->
+
+        <div id="item_search_modal_partial">
+          <div id="itemSearchModal">
+          </div>
+        </div>
+      </div>
+
+<% end %> <!-- end of form-->
+
+<script>
+
+  $('[name="item[brand_generic_compound]"]').attr('id','item_brand_generic_compound');
+
+
+  var itemsrch = FEENX.Search.NewSearch('item',
+      {
+        context: '',
+        triggerField: 'item_name',
+        fieldPrefix: '',
+        modalId: 'itemSearchModal',
+        hiddenDivId: 'hidden_fields',
+        refresh: true,
+        refreshTo: '/items/'
+      });
+  // create the corresponding hidden fields in the form
+  itemsrch.addHiddenFields();
+  // create the corresponding data attribues in the modal rows
+  itemsrch.dataFormattedAttributes();
+
+  var compoundItemsrch = FEENX.Search.NewSearch('item',
+      {
+        context: '',
+        basePath : '/items/nextCompoundItems',
+        triggerField: ['brand_generic_xref','brand_generic_compound'],
+        fieldPrefix: '',
+        modalId: 'itemSearchModal',
+        hiddenDivId: 'hidden_fields',
+        refresh: true,
+        modalWidth : '500',
+        refreshTo: ''
+      });
+  // create the corresponding hidden fields in the form
+  compoundItemsrch.addHiddenFields();
+  // create the corresponding data attribues in the modal rows
+  compoundItemsrch.dataFormattedAttributes();
+</script>
