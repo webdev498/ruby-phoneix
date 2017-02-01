@@ -34,6 +34,9 @@ class IngredientsController < ApplicationController
   # POST /ingredients
   # POST /ingredients.json
   def create
+
+    ingredient_params[:formula][:basis_of_cost] = ingredient_params[:formula][:basis_of_cost].to_i
+
     params[:ingredient][:basis_of_cost] = Ingredient.cost_basis_options.find_index(params[:ingredient][:basis_of_cost])
     @ingredient = Ingredient.new(params)
 
@@ -51,6 +54,8 @@ class IngredientsController < ApplicationController
   # PATCH/PUT /ingredients/1
   # PATCH/PUT /ingredients/1.json
   def update
+    ingredient_params[:formula][:basis_of_cost] = ingredient_params[:formula][:basis_of_cost].to_i
+
     respond_to do |format|
       if @ingredient.update(ingredient_params)
         format.html { redirect_to @ingredient, notice: 'Ingredient was successfully updated.' }
@@ -79,7 +84,7 @@ class IngredientsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def ingredient_params
-    params.require(:ingredient).permit(:dept_number, :id_number, :ndc_number, :basis_of_cost, :base_cost, :acquisition_cost, :quantity, :alternate_product_type, :alternate_product_code, :modifier_code1, :modifier_code2, :modifier_code3)
-  end
+    def ingredient_params
+      params.require(:ingredient).permit(:company_id, :pharmacy_id, :formula_id, :item_id, :base_item_id, :legacy_item_id_number, :ndc_number, :basis_of_cost, :base_cost, :acquisition_cost, :quantity, :alternate_product_type, :alternate_product_code, :waste_factor)
+    end
 end

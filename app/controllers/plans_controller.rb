@@ -49,6 +49,13 @@ class PlansController < ApplicationController
   # POST /plans
   # POST /plans.json
   def create
+
+    plan_params[:plan_type] = plan_params[:plan_type].to_i
+    plan_params[:payor_type] = plan_params[:payor_type].to_i
+    plan_params[:print_sort_code] = plan_params[:print_sort_code].to_i
+    plan_params[:copay_type] = plan_params[:copay_type].to_i
+    plan_params[:support_split_billing] = plan_params[:support_split_billing].to_i
+
     @plan = Plan.new(plan_params)
 
     respond_to do |format|
@@ -65,6 +72,13 @@ class PlansController < ApplicationController
   # PATCH/PUT /plans/1
   # PATCH/PUT /plans/1.json
   def update
+
+    plan_params[:plan_type] = plan_params[:plan_type].to_i
+    plan_params[:payor_type] = plan_params[:payor_type].to_i
+    plan_params[:print_sort_code] = plan_params[:print_sort_code].to_i
+    plan_params[:copay_type] = plan_params[:copay_type].to_i
+    plan_params[:support_split_billing] = plan_params[:support_split_billing].to_i
+
     respond_to do |format|
       if @plan.update(plan_params)
         format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }

@@ -24,6 +24,10 @@ class ClaimCobsController < ApplicationController
   # POST /claim_cobs
   # POST /claim_cobs.json
   def create
+
+    claim_cob_params[:payor_id_qualifier] = claim_cob_params[:payor_id_qualifier].to_i
+    claim_cob_params[:patient_amount_qualifier] = claim_cob_params[:patient_amount_qualifier].to_i
+
     @claim_cob = ClaimCob.new(claim_cob_params)
 
     respond_to do |format|
@@ -40,6 +44,10 @@ class ClaimCobsController < ApplicationController
   # PATCH/PUT /claim_cobs/1
   # PATCH/PUT /claim_cobs/1.json
   def update
+
+    claim_cob_params[:payor_id_qualifier] = claim_cob_params[:payor_id_qualifier].to_i
+    claim_cob_params[:patient_amount_qualifier] = claim_cob_params[:patient_amount_qualifier].to_i
+
     respond_to do |format|
       if @claim_cob.update(claim_cob_params)
         format.html { redirect_to @claim_cob, notice: 'Claim cob was successfully updated.' }

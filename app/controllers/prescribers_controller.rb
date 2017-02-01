@@ -100,6 +100,12 @@ class PrescribersController < ApplicationController
     @prescriber.state       = @prescriber.state.upcase
     @prescriber.zip_code    = @prescriber.zip_code.upcase
 
+    params[:prescriber][:receive_messages] = params[:prescriber][:receive_messages].to_i
+    params[:prescriber][:alternate_id1_qualifier] = params[:prescriber][:alternate_id1_qualifier].to_i
+    params[:prescriber][:alternate_id2_qualifier] = params[:prescriber][:alternate_id2_qualifier].to_i
+    params[:prescriber][:alternate_id3_qualifier] = params[:prescriber][:alternate_id3_qualifier].to_i
+    params[:prescriber][:alternate_id4_qualifier] = params[:prescriber][:alternate_id4_qualifier].to_i
+
     set_contact_points
 
     respond_to do |format|
@@ -127,9 +133,11 @@ class PrescribersController < ApplicationController
     @prescriber.city = @prescriber.city.upcase
     @prescriber.state = @prescriber.state.upcase
     @prescriber.zip_code = @prescriber.zip_code.upcase
-
-#    @prescriberParams.receive_messages = @prescriber.receive_messages.to_i
-
+    params[:prescriber][:receive_messages] = params[:prescriber][:receive_messages].to_i
+    params[:prescriber][:alternate_id1_qualifier] = params[:prescriber][:alternate_id1_qualifier].to_i
+    params[:prescriber][:alternate_id2_qualifier] = params[:prescriber][:alternate_id2_qualifier].to_i
+    params[:prescriber][:alternate_id3_qualifier] = params[:prescriber][:alternate_id3_qualifier].to_i
+    params[:prescriber][:alternate_id4_qualifier] = params[:prescriber][:alternate_id4_qualifier].to_i
 
     respond_to do |format|
       if @prescriber.update(prescriber_params)

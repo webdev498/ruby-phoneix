@@ -33,6 +33,10 @@ class SigcodesController < ApplicationController
 # POST /sigcodes
   # POST /sigcodes.json
   def create
+
+    sigcode_params[:language] = sigcode_params[:language].to_i
+    sigcode_params[:frequency] = sigcode_params[:frequency].to_i
+
     @sigcode = Sigcode.new(sigcode_params)
 
     respond_to do |format|
@@ -49,6 +53,10 @@ class SigcodesController < ApplicationController
   # PATCH/PUT /sigcodes/1
   # PATCH/PUT /sigcodes/1.json
   def update
+
+    sigcode_params[:language] = sigcode_params[:language].to_i
+    sigcode_params[:frequency] = sigcode_params[:frequency].to_i
+
     respond_to do |format|
       if @sigcode.update(sigcode_params)
         format.html { redirect_to @sigcode, notice: 'Sigcode was successfully updated.' }
@@ -78,6 +86,6 @@ class SigcodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sigcode_params
-      params.require(:sigcode).permit(:company_id, :pharmacy_id, :sig_type, :sig_code, :active, :language, :expanded_text, :frequency)
+      params.require(:sigcode).permit(:company_id, :pharmacy_id, :sig_code, :active, :language, :expanded_text, :frequency)
     end
 end

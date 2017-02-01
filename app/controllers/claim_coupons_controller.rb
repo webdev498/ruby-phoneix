@@ -24,6 +24,9 @@ class ClaimCouponsController < ApplicationController
   # POST /claim_coupons
   # POST /claim_coupons.json
   def create
+
+    claim_coupon_params[:coupon_type] = claim_coupon_params[:coupon_type].to_i
+
     @claim_coupon = ClaimCoupon.new(claim_coupon_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class ClaimCouponsController < ApplicationController
   # PATCH/PUT /claim_coupons/1
   # PATCH/PUT /claim_coupons/1.json
   def update
+
+    claim_coupon_params[:coupon_type] = claim_coupon_params[:coupon_type].to_i
+
     respond_to do |format|
       if @claim_coupon.update(claim_coupon_params)
         format.html { redirect_to @claim_coupon, notice: 'Claim coupon was successfully updated.' }

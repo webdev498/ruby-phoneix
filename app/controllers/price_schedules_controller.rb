@@ -42,6 +42,16 @@ class PriceSchedulesController < ApplicationController
   # POST /price_schedules
   # POST /price_schedules.json
   def create
+
+    price_schedule_params[:basis] = price_schedule_params[:basis].to_i
+    price_schedule_params[:break_type] = price_schedule_params[:break_type].to_i
+    price_schedule_params[:qualifier] = price_schedule_params[:qualifier].to_i
+    price_schedule_params[:fee_calculation_type] = price_schedule_params[:fee_calculation_type].to_i
+    price_schedule_params[:usual_customary_calculation] = price_schedule_params[:usual_customary_calculation].to_i
+    price_schedule_params[:customer_assigned_schedule] = price_schedule_params[:customer_assigned_schedule].to_i
+    price_schedule_params[:percentage_fee_type] = price_schedule_params[:percentage_fee_type].to_i
+    price_schedule_params[:amount_fee_type] = price_schedule_params[:amount_fee_type].to_i
+
     @price_schedule = PriceSchedule.new(price_schedule_params)
 
     respond_to do |format|
@@ -58,6 +68,16 @@ class PriceSchedulesController < ApplicationController
   # PATCH/PUT /price_schedules/1
   # PATCH/PUT /price_schedules/1.json
   def update
+
+    price_schedule_params[:basis] = price_schedule_params[:basis].to_i
+    price_schedule_params[:break_type] = price_schedule_params[:break_type].to_i
+    price_schedule_params[:qualifier] = price_schedule_params[:qualifier].to_i
+    price_schedule_params[:fee_calculation_type] = price_schedule_params[:fee_calculation_type].to_i
+    price_schedule_params[:usual_customary_calculation] = price_schedule_params[:usual_customary_calculation].to_i
+    price_schedule_params[:customer_assigned_schedule] = price_schedule_params[:customer_assigned_schedule].to_i
+    price_schedule_params[:percentage_fee_type] = price_schedule_params[:percentage_fee_type].to_i
+    price_schedule_params[:amount_fee_type] = price_schedule_params[:amount_fee_type].to_i
+
     respond_to do |format|
       if @price_schedule.update(price_schedule_params)
         format.html { redirect_to @price_schedule, notice: 'Price Schedule was successfully updated.' }
@@ -89,6 +109,6 @@ class PriceSchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def price_schedule_params
-      params.require(:price_schedule).permit( :schedule_number, :active_flag, :schedule_basis, :schedule_name, :break_type, :schedule_type, :schedule_modifier, :discounts_allowed, :cumulative, :require_exact_hit, :require_rounding, :rounding_amount, :percentage_fee_type, :amount_fee_type)
+      params.require(:price_schedule).permit( :company_id, :pharmacy_id, :number, :active, :basis, :name, :break_type, :qualifier, :fee_calculation_type, :usual_customary_calculation, :customer_assigned_schedule, :generic_percentage_calculation, :discounts_allowed, :cumulative, :require_exact_hit, :round_price, :round_to_amount, :percentage_fee_type, :amount_fee_type)
     end
 end

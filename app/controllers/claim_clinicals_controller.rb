@@ -24,6 +24,9 @@ class ClaimClinicalsController < ApplicationController
   # POST /claim_clinicals
   # POST /claim_clinicals.json
   def create
+
+    claim_clinical_params[:diagnosis_code_qualifier] = claim_clinical_params[:diagnosis_code_qualifier].to_i
+
     @claim_clinical = ClaimClinical.new(claim_clinical_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class ClaimClinicalsController < ApplicationController
   # PATCH/PUT /claim_clinicals/1
   # PATCH/PUT /claim_clinicals/1.json
   def update
+
+    claim_clinical_params[:diagnosis_code_qualifier] = claim_clinical_params[:diagnosis_code_qualifier].to_i
+
     respond_to do |format|
       if @claim_clinical.update(claim_clinical_params)
         format.html { redirect_to @claim_clinical, notice: 'Claim clinical was successfully updated.' }

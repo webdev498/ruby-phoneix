@@ -134,13 +134,13 @@ class PosTransactionsController < ApplicationController
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
-  def pos_header_params
-    params.require(:pos_header).permit(:dept_number, :transaction_date, :pos_ticket_number, :rna_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :tertiary_payment_method, :tertiary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
-  end
+    def pos_transaction_params
+      params.require(:pos_transaction).permit(:company_id, :pharmacy_id, :customer_id, :transaction_date, :ticket_number, :legacy_customer_id_number, :initials, :register_number, :account_number, :posted_flag, :any_flex_spending_items, :number_items, :primary_payment_method, :primary_payment_amount, :secondary_payment_method, :secondary_payment_amount, :total_amount, :total_tax, :medical_amount, :medical_tax, :medical_total, :non_medical_amount, :non_medical_tax, :non_medical_total)
+    end
 
-  def update_payment_types
-    params[:pos_header][:primary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:primary_payment_method]) if params[:pos_header][:primary_payment_method]
-    params[:pos_header][:secondary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:secondary_payment_method]) if params[:pos_header][:secondary_payment_method]
-  end
+    def update_payment_types
+      params[:pos_header][:primary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:primary_payment_method]) if params[:pos_header][:primary_payment_method]
+      params[:pos_header][:secondary_payment_method] = PosTransaction.payment_method_enum_to_string(params[:pos_header][:secondary_payment_method]) if params[:pos_header][:secondary_payment_method]
+    end
 
 end

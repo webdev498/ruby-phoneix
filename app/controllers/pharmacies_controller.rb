@@ -67,6 +67,10 @@ class PharmaciesController < ApplicationController
   # POST /pharmacies
   # POST /pharmacies.json
   def create
+
+    pharmacy_params[:pharmacy_type] = accountParams[:pharmacy_type].to_i
+    pharmacy_params[:us_or_metric] = accountParams[:us_or_metric].to_i
+  
     @pharmacy = Pharmacy.new(pharmacy_params)
 
     respond_to do |format|
@@ -83,6 +87,10 @@ class PharmaciesController < ApplicationController
   # PATCH/PUT /pharmacies/1
   # PATCH/PUT /pharmacies/1.json
   def update
+
+    pharmacy_params[:pharmacy_type] = accountParams[:pharmacy_type].to_i
+    pharmacy_params[:us_or_metric] = accountParams[:us_or_metric].to_i
+
     respond_to do |format|
 
       pharmacy_params[:pharmacy_type] = pharmacy_params[:pharmacy_type].to_i
@@ -129,6 +137,6 @@ class PharmaciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pharmacy_params
-      params.require(:pharmacy).permit(:dept_number, :active_flag, :pharmacy_name, :address1, :address2, :city, :state, :zip_code, :rna_acct_number, :sys_exp_date, :ncpdp_number, :dea_number, :npi_number, :ncpdp_number, :max_sessions, :federal_tax_id, :rx_taxable_flag, :local_tax_rate, :state_tax_rate, :total_tax_rate, :pharmacy_type, :claimguard_counter, :eligibility_counter, :us_or_metric)
+      params.require(:pharmacy).permit(:company_id, :active, :pharmacy_name, :address1, :address2, :city, :state, :zip_code, :rna_account_number, :expiration_date, :ncpdp_number, :dea_number, :npi_number, :max_sessions, :federal_tax_id_number, :rx_taxable_flag, :local_tax_rate, :state_tax_rate, :total_tax_rate, :pharmacy_type, :claimguard_counter, :eligibility_counter, :us_or_metric, :promotional_message, :phone_number, :fax_number, :email)
     end
 end

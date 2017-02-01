@@ -29,6 +29,9 @@ class ClaimErrorsController < ApplicationController
   # POST /claim_errors
   # POST /claim_errors.json
   def create
+
+    claim_error_params[:error_type] = claim_error_params[:error_type].to_i
+  
     @claim_error = ClaimError.new(claim_error_params)
 
     respond_to do |format|
@@ -45,6 +48,9 @@ class ClaimErrorsController < ApplicationController
   # PATCH/PUT /claim_errors/1
   # PATCH/PUT /claim_errors/1.json
   def update
+
+    claim_error_params[:error_type] = claim_error_params[:error_type].to_i
+
     respond_to do |format|
       if @claim_error.update(claim_error_params)
         format.html { redirect_to @claim_error, notice: 'Claim error was successfully updated.' }

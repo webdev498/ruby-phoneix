@@ -69,6 +69,6 @@ class PosTaxesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pos_tax_params
-      params.require(:pos_tax).permit(:dept_number, :tax_code, :tax_description, :tax_rate)
+      params.require(:pos_tax).permit(:company_id, :pharmacy_id, :tax_code, :tax_description, :tax_rate)
     end
 end

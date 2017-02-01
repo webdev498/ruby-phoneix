@@ -44,6 +44,8 @@ class ElectronicPrescriptionsController < ApplicationController
   # POST /electronic_prescriptions
   # POST /electronic_prescriptions.json
   def create
+
+    electronic_prescription_params[:status] = electronic_prescription_params[:status].to_i
     @electronic_prescription = ElectronicPrescription.new(electronic_prescription_params)
 
     respond_to do |format|
@@ -60,6 +62,9 @@ class ElectronicPrescriptionsController < ApplicationController
   # PATCH/PUT /electronic_prescriptions/1
   # PATCH/PUT /electronic_prescriptions/1.json
   def update
+
+    electronic_prescription_params[:status] = electronic_prescription_params[:status].to_i
+
     respond_to do |format|
       if @electronic_prescription.update(electronic_prescription_params)
         format.html { redirect_to @electronic_prescription, notice: 'Electronic prescription was successfully updated.' }

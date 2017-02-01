@@ -97,6 +97,7 @@ class FormulasController < ApplicationController
   # POST /formulas
   # POST /formulas.json
   def create
+
     params[:formula][:compound_form] = params[:formula][:compound_form].to_i
     params[:formula][:dispensing_unit] = params[:formula][:dispensing_unit].to_i
     params[:formula][:level_of_effort] = params[:formula][:level_of_effort].to_i
@@ -150,6 +151,6 @@ class FormulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def formula_params
-      params.require(:formula).permit(:dept_number, :id_number, :compound_form, :dispensing_unit, :route_of_administration, :total_act_cost, :total_base_cost, :qty_made, :number_legend_ingredients, :number_otc_ingredients, :level_of_effort_code, :instructions, :quantity_produced)
+      params.require(:formula).permit(:company_id, :pharmacy_id, :item_id, :legacy_item_id_number, :compound_form, :dispensing_unit, :route_of_administration, :total_acquisition_cost, :total_base_cost, :quantity_produced, :number_legend_ingredients, :number_otc_ingredients, :level_of_effort_code, :instructions, :flavor)
     end
 end
