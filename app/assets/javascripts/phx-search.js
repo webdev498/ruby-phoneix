@@ -363,6 +363,7 @@ FEENX.Search = (function () {
                     $('#'+visibilityContext+model+'_'+field.visibilityField).val(targetValue);
                 }
             });
+            debugger;
 
             // determine whether next action is remote vs local
             if( refresh ) {

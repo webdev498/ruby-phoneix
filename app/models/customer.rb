@@ -50,7 +50,7 @@ class Customer < ActiveRecord::Base
                                 where(" birthdate = '%s' and account_number > 0" % [sourceString[0,2] + "/" + sourceString[2,2] + "/" +  sourceString[4,4] ] ) }
 	scope :by_phone_number_with_account, -> sourceString { where("phone_number = '#{sourceString}' and account_number > 0" ) }
   scope :by_active,  -> { where("active is TRUE") }
-
+  scope :with_account, -> { where("account_number > 0")}
 
   # TODO: the following fields need to be properly adjusted
   attr_accessor :reporting_group1
@@ -161,6 +161,10 @@ class Customer < ActiveRecord::Base
     self.search_arel(sourceString).by_active().page(pageNumber).per(perPage)
 	end
 
+  def self.with_account_paged_search_by_partial sourceString, pageNumber, perPage
+    self.search_arel(sourceString).with_account().page(pageNumber).per(perPage)
+  end
+
 
   #  answer the next batch of items
   #  used by Search
@@ -235,6 +239,18 @@ class Customer < ActiveRecord::Base
             self.paged_search_by_partial searchItem, startPage, pageSize
         else
             self.paged_search_by_partial searchItem, 1, pageSize
+        end
+
+    end
+
+    def self.nextCustomersWithAccount searchFor, startPage=1, pageSize=9
+
+        searchItem = searchFor ? searchFor : ""
+
+        if startPage
+            self.with_account_paged_search_by_partial searchItem, startPage, pageSize
+        else
+            self.with_account_paged_search_by_partial searchItem, 1, pageSize
         end
 
     end

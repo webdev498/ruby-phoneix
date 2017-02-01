@@ -25,7 +25,6 @@ class AccountsController < ApplicationController
     @account = Account.where({account_number: params[:id].to_i}).first
     if(@account.nil?)
       @account = Account.new
-      @account.last_name = "No Account Found"
       @account_records = []
       @account_postings_page_number = 1
       @account_postings_total_pages = 1
@@ -89,9 +88,8 @@ class AccountsController < ApplicationController
   end
 
   def next_accounts
-    @searchCustomers = Customer.nextCustomersWithAccount params[:start], params[:page], 9
+    @searchCustomers = Account.next_account params[:start], params[:page], 9
 
-    binding.pry
 
     # technique below eliminates the extra .js file used in the ajax response.   it trades off the disk access for the \n replacement below
     # remember, its not quite a standard rails approach
