@@ -1,10 +1,10 @@
 ---
-:concurrency: 5
+:concurrency: 2
 :pidfile: tmp/pids/sidekiq.pid
 staging:
-  :concurrency: 10
+  :concurrency: 2
 production:
-  :concurrency: 20
+  :concurrency: 2
 :queues:
-  - claims_send
-  - claims_response_and_parse
+  - ["claims_send_and_process_response", 1]
+  - ["claims_preprocess_and_request_send", 1]

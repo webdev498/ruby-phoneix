@@ -4,7 +4,7 @@ require "openssl"
 
 class ClaimRequestSenderWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'claims_send'
+  sidekiq_options queue: 'claims_send_and_process_response'
   def perform(*args)
     transmit(args)
     # Do something
@@ -91,19 +91,6 @@ class ClaimRequestSenderWorker
       transaction.save
     end
 
-    request_parse_and_process
-
   end
-
-  def request_parse_and_process
-    # TODO place Redis configuration into yaml file
-    redis = Redis.new(:host => "127.0.0.1", :port => 6379)
-    payload = {
-
-    }
-    job_id = Time.now.to_i + rand(1000)
-    message = {"class" => "ClaimResponseProcessorWorker", "args" => payload, "jid" => job_id, "retry" => false, "enqueued_at" => Time.now.to_f}
-    redis.lpush("queue:claims_response_and_parse", JSON.dump(message))
-  end  
 
 end

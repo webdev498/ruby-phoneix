@@ -56,6 +56,11 @@ class Claim < ActiveRecord::Base
 		self.by_rx_number(sourceString).page(pageNumber).per(perPage)
 	end
 
+	def self.format_claim_and_send
+		# TODO call method to format claim
+		self.send_remote_claim_request
+	end
+
 	def self.send_remote_claim_request
 		redis = Redis.new(:host => "127.0.0.1", :port => 6379)
 
@@ -84,8 +89,19 @@ class Claim < ActiveRecord::Base
     end
 
     msg = {'class' => 'ClaimRequestSenderWorker', 'args' => payload, 'jid' => job_id, 'retry' => false, 'enqueued_at' => Time.now.to_f}
-    redis.lpush("queue:claims_send", JSON.dump(msg))
+    redis.lpush("queue:claims_send_and_process_response", JSON.dump(msg))
 		return @job_id
+	end
+
+	def self.request_format_and_send
+		# TODO place Redis configuration into yaml file
+		redis = Redis.new(:host => "127.0.0.1", :port => 6379)
+		payload = {
+
+		}
+		job_id = Time.now.to_i + rand(1000)
+		message = {"class" => "ClaimFormatAndSendWorker", "args" => payload, "jid" => job_id, "retry" => false, "enqueued_at" => Time.now.to_f}
+		redis.lpush("queue:claims_preprocess_and_request_send", JSON.dump(message))
 	end
 
 end
