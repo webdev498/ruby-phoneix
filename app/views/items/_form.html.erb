@@ -343,6 +343,13 @@
                             Ingredients</label>
                           <%= ff.text_field :number_otc_ingredients, class: 'phx-form-control' %>
                         </div>
+<!-- Added the flavor field  -->
+                        <div class="field form-group phx-input-control">
+                          <label class="phx-form-control-label" for="flavor">Flavor</label>
+                          <%= ff.text_field :flavor, class: 'phx-form-control' %>
+                        </div>
+<!-- End of Modification  -->
+
                         <div class="field form-group phx-input-control">
                           <label class="phx-form-control-label" for="instructions">Instructions</label>
                           <%= ff.text_area :instructions, class: 'phx-form-control phx-textarea-limitwidth', rows: 10 %>
