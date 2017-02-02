@@ -77,14 +77,20 @@ class PriceRequest
     schedule = select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
     if schedule
       base_cost = calculate_base_cost(schedule)
-      fee1 = find_percentage_fee(base_cost, schedule)
+      fee1, markup_percent = find_percentage_fee(base_cost, schedule)
       fee2 = find_amount_fee(base_cost, schedule)
-      return base_cost + fee1 + fee2
+      return [(base_cost + fee1 + fee2), schedule, base_cost, markup_percent, fee2]
     else
-      return nil
+      return [nil, nil, nil, nil, nil]
     end
   end
 
+  def process
+    price, schedule, base_cost, markup_percent, markup_amount = calculate_price
+    return params[:company_id], params[:pharmacy_id], schedule.id, schedule.name, price, base_cost,
+           acquisition_cost, markup_percent, markup_amount, schedule.basis, schedule.discounts_allowed, usual_customary_price,
+           params[:quantity]
+  end
 
     private
 
@@ -151,6 +157,7 @@ class PriceRequest
       def find_percentage_fee(base_cost, schedule)
         min = 0
         fee = 0.0
+        markup_percent = 0.0
         max = 0
         if schedule.break_type == :quantity_based
           value_to_compare = @quantity
@@ -160,12 +167,13 @@ class PriceRequest
         schedule.priceBreaks.where("markup_percent != 0").order(:break_limit).each do |price_break|
           max = price_break.break_limit
           if value_to_compare > min && value_to_compare <= max
+            markup_percent = price_break.markup_percent
             fee = base_cost.to_f * (price_break.markup_percent/100.0)
             break
           end
           min = max
         end
-        return fee
+        return [fee, markup_percent]
       end
 
       def find_amount_fee(base_cost, schedule)
