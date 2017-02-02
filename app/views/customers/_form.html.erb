@@ -132,7 +132,22 @@
                     <%= phx_textfield_for f, :preferred_contact, "Preferred Contact", 0, "", :readonly %>
                     <%= phx_textfield_for f, :phone_number, "Phone Number" %>
                     <%= phx_textfield_for f, :ssn, "SSN" %>
-                    <%= phx_textfield_for f, :prescriber_id, "Primary Doctor", 0, "", :readonly %>
+                    <%#= phx_textfield_for f, :prescriber_id, "Primary Doctor", 0, ""%>
+
+                    <%
+                      if @customer.prescriber_id
+                        prescriber_name = Prescriber.find(@customer.prescriber_id).last_name
+                      else
+                        prescriber_name = ''
+                      end
+                    %>
+
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="prescriber_last_name">Primary Doctor</label>
+                      <input class="phx-form-control" tabindex="0" type="text" id="prescriber_last_name" value="<%= prescriber_name %>">
+                    </div>
+
+                    <input class="phx-form-control" tabindex="0" type="hidden" name="customer[prescriber_id]" id="customer_prescriber_id" value="<%= @customer.prescriber_id%>">
                     <%= phx_textfield_for f, :head_of_household_name, "Head of Household", 0, "", :readonly  %>
                     <%= phx_textfield_for f, :ethnicity, "Ethnicity" %>
                     <%= phx_selectfield_for f, :other_language, "Language", Customer.other_languages, false %>
@@ -1117,6 +1132,11 @@
 
 <% end %>
 
+<div id="prescriber_search_modal_partial">
+  <div id="prescriberSearchModal">
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -1149,6 +1169,27 @@
 
 <script>
     // define the search
+
+    var prescribsrch = FEENX.Search.NewSearch('prescriber',
+        {   context:      '',
+            triggerField: 'last_name',
+            fieldPrefix:  '',
+            modalId:      'prescriberSearchModal',
+            hiddenDivId:  'hidden_fields',
+            customProcessSearchSelection : function(target){
+                var prescriber_id = target.attr("data-phx-search-prescriber-id")
+                var last_name = target.attr("data-phx-search-prescriber-last_name")
+                $('#prescriber_last_name').val(last_name)
+                $('#customer_prescriber_id').val(prescriber_id)
+                $("#prescriberSearchModal").modal("hide")
+            }
+        });
+
+    // create the corresponding hidden fields in the form
+    prescribsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    prescribsrch.dataFormattedAttributes();
+
     var cs = FEENX.Search.NewSearch('customer',
         {   context:      '',
             triggerField: 'last_name',
