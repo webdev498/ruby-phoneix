@@ -9,45 +9,54 @@ class PriceRequest
     @days_supply = params[:days_supply]
   end
 
-  def find_schedules
-    price_based_schedule = nil
-    quantity_based_schedule = nil
-    plan_schedule = nil
-    facility_schedule = nil
-    customer_schedule = nil
-    price_based_schedule = PriceSchedule.find(@item.price_based_pricing_schedule) if @item && @item.price_based_pricing_schedule
-    quantity_based_schedule = PriceSchedule.find(@item.quantity_based_pricing_schedule) if @item && @item.quantity_based_pricing_schedule
-    plan_schedule = PriceSchedule.find(@plan.price_based_pricing_schedule) if @plan && @plan.price_based_pricing_schedule
-    # TODO facility price schedule
-    customer_schedule = PriceSchedule.find(@customer.price_based_pricing_schedule) if @customer && @customer.price_based_pricing_schedule
-    binding.pry
-    return [plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule]
-  end
 
-  def select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
-binding.pry
-    if plan_schedule
-      return plan_schedule
-    elsif facility_schedule
-      return facility_schedule
-    elsif customer_schedule
-      return customer_schedule
-    elsif price_based_schedule
-      return price_based_schedule
-    elsif quantity_based_schedule
-      return quantity_based_schedule
-    else
-      return nil
-    end
-  end
 
-  def calculate_price(price_schedule)
-    unit_price = getPrice(price_schedule.basis)
-    base_cost = unit_price * @quantity
+  def calculate_price
+    plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule = find_schedules
+    schedule = select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
+    base_cost = calculate_base_cost(schedule)
+    fee1 = find_percentage_fee(base_cost, schedule)
+    fee2 = find_amount_fee(base_cost, schedule)
+    return base_cost + fee1 + fee2
   end
 
 
-    # private
+    private
+
+      def find_schedules
+        price_based_schedule = nil
+        quantity_based_schedule = nil
+        plan_schedule = nil
+        facility_schedule = nil
+        customer_schedule = nil
+        price_based_schedule = PriceSchedule.find(@item.price_based_pricing_schedule) if @item && @item.price_based_pricing_schedule
+        quantity_based_schedule = PriceSchedule.find(@item.quantity_based_pricing_schedule) if @item && @item.quantity_based_pricing_schedule
+        plan_schedule = PriceSchedule.find(@plan.price_based_pricing_schedule) if @plan && @plan.price_based_pricing_schedule
+        # TODO facility price schedule
+        customer_schedule = PriceSchedule.find(@customer.price_based_pricing_schedule) if @customer && @customer.price_based_pricing_schedule
+        return [plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule]
+      end
+
+      def select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
+        if plan_schedule
+          return plan_schedule
+        elsif facility_schedule
+          return facility_schedule
+        elsif customer_schedule
+          return customer_schedule
+        elsif price_based_schedule
+          return price_based_schedule
+        elsif quantity_based_schedule
+          return quantity_based_schedule
+        else
+          return nil
+        end
+      end
+
+      def calculate_base_cost(price_schedule)
+        unit_price = getPrice(price_schedule.basis)
+        base_cost = unit_price * @quantity
+      end
 
       def getPrice(price_basis)
         price = nil
@@ -78,10 +87,25 @@ binding.pry
         min = 0
         fee = 0.0
         max = 0
-        @price_schedule.priceBreaks.where("markup_percent != 0").order(:break_limit).each do |price_break|
+        schedule.priceBreaks.where("markup_percent != 0").order(:break_limit).each do |price_break|
           max = price_break.break_limit
-          if cost_basis > min && cost_basis <= max
+          if base_cost > min && base_cost <= max
             fee = base_cost.to_f * (price_break.markup_percent/100.0)
+            break
+          end
+          min = max
+        end
+        return fee
+      end
+
+      def find_amount_fee(base_cost, schedule)
+        min = 0
+        fee = 0.0
+        max = 0
+        schedule.priceBreaks.where("markup_amount != 0").order(:break_limit).each do |price_break|
+          max = price_break.break_limit
+          if base_cost > min && base_cost <= max
+            fee = price_break.markup_amount
             break
           end
           min = max
