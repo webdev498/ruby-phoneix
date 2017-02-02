@@ -10,6 +10,9 @@ namespace "tst" do
     request = PriceRequest.new({item_id: item.id, quantity: 100})
     price = request.calculate_price
     puts "price = " + price.to_s
+    schedule = PriceSchedule.first
+    isok = request.evaluate_schedule(schedule)
+    puts "isok = " + isok.to_s
     # plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule = request.find_schedules
     # schedule = request.select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
     # base_cost = request.calculate_base_cost(schedule)
