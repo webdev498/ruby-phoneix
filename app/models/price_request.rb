@@ -1,15 +1,22 @@
-class PriceRequest
+class PriceRequest < ActiveRecord::Base
 
-  def initialize(params = {})
-    @item = Item.find(params[:item_id]) if params[:item_id]
-    @plan = Plan.find(params[:plan_id]) if params[:plan_id]
-    @facility = Facility.find[:facility_id] if params[:facility_id]
-    @wing = Wing.find[:wing_id] if params[:wing_id]
-    @customer = Customer.find[:customer_id] if params[:customer_id]
-    @quantity = params[:quantity]
-    @days_supply = params[:days_supply]
-    @params = params
-  end
+  belongs_to :customer
+  belongs_to :plan
+  belongs_to :wing
+  belongs_to :item
+  belongs_to :pharmacy
+  belongs_to :company
+
+  # def initialize(params = {})
+  #   @item = Item.find(params[:item_id]) if params[:item_id]
+  #   @plan = Plan.find(params[:plan_id]) if params[:plan_id]
+  #   @facility = Facility.find[:facility_id] if params[:facility_id]
+  #   @wing = Wing.find[:wing_id] if params[:wing_id]
+  #   @customer = Customer.find[:customer_id] if params[:customer_id]
+  #   @quantity = params[:quantity]
+  #   @days_supply = params[:days_supply]
+  #   @params = params
+  # end
 
   def evaluate_schedule(schedule)
     if schedule.active == false
@@ -21,27 +28,27 @@ class PriceRequest
       return false
     end
     if schedule.qualifier != :default
-      if schedule.qualifier == :generic && @item.brand_generic_compound != :generic
+      if schedule.qualifier == :generic && self.item.brand_generic_compound != :generic
         puts "not generic"
         return false
       end
-      if schedule.qualifier == :brand && @item.brand_generic_compound != :brand
+      if schedule.qualifier == :brand && self.item.brand_generic_compound != :brand
         puts "not brand"
         return false
       end
-      if schedule.qualifier == :compound && @item.brand_generic_compound != :compound
+      if schedule.qualifier == :compound && self.item.brand_generic_compound != :compound
         puts "not compound"
         return false
       end
-      if schedule.qualifier == :over_the_counter && @item.drug_class != :over_the_counter
+      if schedule.qualifier == :over_the_counter && self.item.drug_class != :over_the_counter
         puts "not otc"
         return false
       end
-      if schedule.qualifier == :controlled && @item.dea_schedule == :no_schedule
+      if schedule.qualifier == :controlled && self.item.dea_schedule == :no_schedule
         puts "not controlled"
         return false
       end
-      if schedule.qualifier == :unit_dose && @item.drug_class != :legend_unit_dose && @item.drug_class != :otc_unit_dose
+      if schedule.qualifier == :unit_dose && self.item.drug_class != :legend_unit_dose && self.item.drug_class != :otc_unit_dose
         puts "not unit dose"
         return false
       end
@@ -61,7 +68,7 @@ class PriceRequest
     hit_found = false
     if schedule.break_type == :quantity_based && schedule.exact_hit == true
       schedule.priceBreaks.where("markup_percent != 0").order(:break_limit).each do |price_break|
-        if schedule.break_limit.to_i == @quantity.to_i
+        if schedule.break_limit.to_i == self.quantity.to_i
           hit_found = true
           break
         end
@@ -100,11 +107,24 @@ class PriceRequest
 
   def process
     price, schedule, base_cost, markup_percent, markup_amount = calculate_price
-    acquisition_cost = @item.act_unit_price * @quantity
+    acquisition_cost = self.item.act_unit_price * self.quantity
     usual_customary_price = calculate_usual_and_customary
-    return @params[:company_id], @params[:pharmacy_id], schedule.id, schedule.name, price, base_cost,
-           acquisition_cost, markup_percent, markup_amount, schedule.basis, schedule.discounts_allowed, usual_customary_price,
-           @params[:quantity]
+    price_response = PriceResponse.create({
+      company_id: self.company_id,
+      pharmacy_id: self.pharmacy_id,
+      schedule_used: schedule.id,
+      schedule_name: schedule.name,
+      calculated_price: price,
+      base_cost: base_cost,
+      acquisition_cost: acquisition_cost,
+      markup_oercentage: markup_percent,
+      markup_amount: markup_amount,
+      basis_used: schedule.basis,
+      discounts_allowed: schedule.discounts_allowed,
+      usual_customary_price: usual_customary_price,
+      quantity_to_dispense: self.quantity
+      })
+    return price_response
   end
 
     private
@@ -115,11 +135,11 @@ class PriceRequest
         plan_schedule = nil
         facility_schedule = nil
         customer_schedule = nil
-        price_based_schedule = PriceSchedule.find(@item.price_based_pricing_schedule) if @item && @item.price_based_pricing_schedule
-        quantity_based_schedule = PriceSchedule.find(@item.quantity_based_pricing_schedule) if @item && @item.quantity_based_pricing_schedule
-        plan_schedule = PriceSchedule.find(@plan.price_based_pricing_schedule) if @plan && @plan.price_based_pricing_schedule
-        facility_schedule = PriceSchedule.find(@wing.price_based_pricing_schedule) if @wing && @wing.price_based_pricing_schedule
-        customer_schedule = PriceSchedule.find(@customer.price_based_pricing_schedule) if @customer && @customer.price_based_pricing_schedule
+        price_based_schedule = PriceSchedule.find(self.item.price_based_pricing_schedule) if self.item && self.item.price_based_pricing_schedule
+        quantity_based_schedule = PriceSchedule.find(self.item.quantity_based_pricing_schedule) if self.item && self.item.quantity_based_pricing_schedule
+        plan_schedule = PriceSchedule.find(self.plan.price_based_pricing_schedule) if self.plan && self.plan.price_based_pricing_schedule
+        facility_schedule = PriceSchedule.find(self.wing.price_based_pricing_schedule) if self.wing && self.wing.price_based_pricing_schedule
+        customer_schedule = PriceSchedule.find(self.customer.price_based_pricing_schedule) if self.customer && self.customer.price_based_pricing_schedule
         return [plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule]
       end
 
@@ -141,28 +161,28 @@ class PriceRequest
 
       def calculate_base_cost(price_schedule)
         unit_price = getPrice(price_schedule.basis)
-        base_cost = unit_price * @quantity
+        base_cost = unit_price * self.quantity
       end
 
       def getPrice(price_basis)
         price = nil
         case (price_basis.to_i)
           when 0#[:awp]
-            price = @item.awp_unit_price
+            price = self.item.awp_unit_price
           when 1 #[:act]
-            price = @item.act_unit_price
+            price = self.item.act_unit_price
           when 2 #[:basis_340b]
-            price = @item.govt_340b_unit_price
+            price = self.item.govt_340b_unit_price
           when 3 #[:wac]
-            price = @item.wac_unit_price
+            price = self.item.wac_unit_price
           when 4 #[:contract]
-            price = @item.contract_unit_price
+            price = self.item.contract_unit_price
           when 5 #[:nadac]
-            price = @item.nadac_unit_price
+            price = self.item.nadac_unit_price
           when 6 #[:custom]
-            price = @item.custom_unit_price
+            price = self.item.custom_unit_price
           when 7 #[:user]
-            price = @item.mac_unit_price
+            price = self.item.mac_unit_price
           else
             price = nil
         end
@@ -175,7 +195,7 @@ class PriceRequest
         markup_percent = 0.0
         max = 0
         if schedule.break_type == :quantity_based
-          value_to_compare = @quantity
+          value_to_compare = self.quantity
         else
           value_to_compare = base_cost
         end

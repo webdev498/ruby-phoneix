@@ -7,12 +7,9 @@ namespace "tst" do
   desc "test price schedule methods"
   task :price_schedule => :environment do
     item = Item.where("price_based_pricing_schedule > 0").last
-    request = PriceRequest.new({item_id: item.id, quantity: 100})
-    price = request.calculate_price
-    puts "price = " + price.to_s
-    schedule = PriceSchedule.first
+    request = PriceRequest.create({item_id: item.id, quantity: 100})
     isok = request.process
-    puts "isok = " + isok.to_s
+    puts "isok = " + isok.inspect.to_s
     # plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule = request.find_schedules
     # schedule = request.select_applicable_schedule(plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule)
     # base_cost = request.calculate_base_cost(schedule)
