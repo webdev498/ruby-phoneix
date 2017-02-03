@@ -8,6 +8,7 @@ class PriceRequest
     @customer = Customer.find[:customer_id] if params[:customer_id]
     @quantity = params[:quantity]
     @days_supply = params[:days_supply]
+    @params = params
   end
 
   def evaluate_schedule(schedule)
@@ -85,11 +86,25 @@ class PriceRequest
     end
   end
 
+  def calculate_usual_and_customary
+    plan_schedule, facility_schedule, customer_schedule, price_based_schedule, quantity_based_schedule = find_schedules
+    if price_based_schedule
+      base_cost = calculate_base_cost(price_based_schedule)
+      fee1, markup_percent = find_percentage_fee(base_cost, price_based_schedule)
+      fee2 = find_amount_fee(base_cost, price_based_schedule)
+      return (base_cost + fee1 + fee2)
+    else
+      return nil
+    end
+  end
+
   def process
     price, schedule, base_cost, markup_percent, markup_amount = calculate_price
-    return params[:company_id], params[:pharmacy_id], schedule.id, schedule.name, price, base_cost,
+    acquisition_cost = @item.act_unit_price * @quantity
+    usual_customary_price = calculate_usual_and_customary
+    return @params[:company_id], @params[:pharmacy_id], schedule.id, schedule.name, price, base_cost,
            acquisition_cost, markup_percent, markup_amount, schedule.basis, schedule.discounts_allowed, usual_customary_price,
-           params[:quantity]
+           @params[:quantity]
   end
 
     private
