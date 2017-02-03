@@ -98,6 +98,8 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'bunny'
 
 ### DEVELOPMENT ONLY FROM HERE DOWN
+#  For claims processing
+gem 'sidekiq'
 
 group :development, :test do
   gem 'factory_girl_rails'

@@ -18,7 +18,7 @@ class NcpdpD0_Field
   # fieldControl - the field in PlanRequirement object that controls whether or not a value is sent
   # modelField - field name from the model object that maps to this ncpdpD0 field
 
-  def initialize elementId, mandatory, name, datatype, pic=[], **options
+  def initialize elementId, mandatory, name, datatype, pic, **options
     @fullId        = elementId
     @shortId       = elementId.split('-',2)[1]
     @name          = name

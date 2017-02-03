@@ -4,14 +4,14 @@ class NcpdpD0_PriorAuthorizationRequest < NcpdpD0_ClaimBuilder
 
   # Prior Authorization Request
 
-  @@NCPDP_D0_PriorAuthorizationRequest = [
-    @@PriorAuthorizationRequestSegment
-  ]
-
-  # AM....... - Insurance
-  @@PriorAuthorizationRequestSegment = NcpdpD0_Segment.new( REQUIRED,
-    NcpdpD0_ClaimField.new('111-AM', MANDATORY, 'Segment ID', 'A', [2,0], 'NNNNNNNNN' )
-    )
+  # @@NCPDP_D0_PriorAuthorizationRequest = [
+  #   @@PriorAuthorizationRequestSegment
+  # ]
+  #
+  # # AM....... - Insurance
+  # @@PriorAuthorizationRequestSegment = NcpdpD0_Segment.new( REQUIRED,
+  #   NcpdpD0_ClaimField.new('111-AM', MANDATORY, 'Segment ID', 'A', [2,0], 'NNNNNNNNN' )
+  #   )
 
 
   def self.ncpdpD0

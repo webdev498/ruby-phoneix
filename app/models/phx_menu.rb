@@ -31,7 +31,7 @@ class PhxMenu
 	# Class methods
 
 	def self.setup_menus
-
+		Rails.application.reload_routes!
 		rails_routes = Rails.application.routes.url_helpers
 
 	 	{ m_prescription: [

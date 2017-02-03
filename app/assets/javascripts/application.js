@@ -73,9 +73,13 @@ $(document).ready(function() {
         if($(this).hasClass("disabled"))
             return false;
     });
+    $("#test-claim").click(function(e){
+      e.preventDefault();
+      console.log("test-claim clicked");
+      $.post("/claims/send_remote_claim_request", {}, function(data, error) {
+        console.log(data, error);
+        return;
+      }, "json");
+
+    })
 });
-
-
-
-
-

@@ -167,6 +167,17 @@ class ClaimsController < ApplicationController
     end
   end
 
+  def send_remote_claim_request
+
+    request = params[:request]
+    job_id = Claim.request_format_and_send
+    respond_to do |format|
+      format.json { render json: {status: "ok", job_id: job_id} }
+      format.html { render html: "<div>#{job_id}</div>" }
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_claim
