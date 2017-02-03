@@ -27,7 +27,7 @@
 
           <tbody>
           <% searchCustomers.each do |customer| %>
-
+          
               <tr	id="<%= 'accountSearchModal-row' + (choice += 1).to_s %>" class="phx-search-row clickable-accountSearchModal-row" data-phx-search-account-id="<%= customer.account_number %>"
                    data-phx-search-account-last_name="<%= customer.last_name %>"
                    data-phx-search-account-display_name="<%= customer.display_name %>"

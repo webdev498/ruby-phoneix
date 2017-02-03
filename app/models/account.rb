@@ -12,13 +12,15 @@ class Account < ActiveRecord::Base
   after_find :set_display_name
 
 
-  # def set_display_name
-	# 	self.display_name = self.last_name + ", " + self.first_name
-	# end
+	  def set_display_name
+			customer = Customer.find_by_account_number(self.account_number)
+			self.display_name = customer.last_name + ", " + customer.first_name
+		end
 
-	# def customer_full_name
-	#     return self.first_name.to_s + " " + self.last_name.to_s
-	#   end
+		def customer_full_name
+			customer = Customer.find_by_account_number(self.account_number)
+			return customer.first_name.to_s + " " + customer.last_name.to_s
+	  end
 
 	  def balance
 	    self.current_period_amount.to_f + self.last_period_amount.to_f  + self.over_30_amount.to_f  + self.over_60_amount.to_f  + self.over_90_amount.to_f
@@ -37,6 +39,14 @@ class Account < ActiveRecord::Base
 	    date_string ||= self.last_statement_date
 	    AccountPosting.getCount(self.account_number,date_string,transaction_type)
 
+		end
+
+		def self.search_by_name sourceString
+			customers = Customer.search_by_name sourceString
+		end
+
+		def self.next_account	searchFor, startPage=1, pageSize=9
+			Customer.nextCustomersWithAccount searchFor, startPage, pageSize
 		end
 
 end
