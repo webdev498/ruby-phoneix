@@ -4,734 +4,455 @@
 
     <div class="col-lg-10 phx-working-area-background">
 
-        <!-- working area title and nav -->
-        <div class="row span10 phx-working-area-nav">
+      <!-- working area title and nav -->
+      <div class="row span10 phx-working-area-nav">
 
-            <%# temporarily disable hamburger  with  type="button" %>
-            <div class="col-xs-1 phx-hamburger-box">
-                <button type="button" class="phx-hamburger">|||</button>
+        <%# temporarily disable hamburger  with  type="button" %>
+        <div class="col-xs-1 phx-hamburger-box">
+          <button type="button" class="phx-hamburger">|||</button>
+        </div>
+
+        <div class="phx-working-area-nav">
+          <row>
+            <div class="col-lg-8">
+              <div class="phx-working-area-title">Facility Maintenance&nbsp;&nbsp;|&nbsp;&nbsp;
+              </div>
+            </div>
+            <div class="col-lg-3 phx-working-area-title-buttons">
+            </div>
+          </row>
+        </div> <%# END of Working Area TITLE %>
+      </div> <%# END of Working Area TITLE and NAV %>
+
+      <%# BEGIN Working Area %>
+      <div class="containter-fluid phx-working-area-background phx-working-area-position">
+
+        <!-- Primary Info -->
+        <div class="col-lg-4">
+
+          <div class="phx-primary-info-column">
+
+            <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
+
+            <div class="col-md-12">
+              <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Primary Info
+              </div>
+              <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
             </div>
 
-            <div class="phx-working-area-nav">
-                <row>
-                    <div class="col-lg-8">
-                        <div class="phx-working-area-title">Facility Maintenance&nbsp;&nbsp;|&nbsp;&nbsp;
-                        </div>
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="name">Facility Name</label>
+              <%= f.text_field :name, class: 'phx-form-control' %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="short_name">Short Name</label>
+                <%= f.text_field :short_name, class: 'phx-form-control' %>
+              </div>
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="id">Number</label>
+                <%= f.text_field :id, class: 'phx-form-control' %>
+              </div>
+            </div>
+
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="address1">Address 1</label>
+              <%= f.text_field :address1, class: 'phx-form-control' %>
+            </div>
+
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="address2">Address 2</label>
+              <%= f.text_field :address2, class: 'phx-form-control' %>
+            </div>
+
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="city">City</label>
+              <%= f.text_field :city, class: 'phx-form-control' %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="state">State</label>
+                <%= f.text_field :state, class: 'phx-form-control' %>
+              </div>
+
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="zip_code">Zip Code</label>
+                <%= f.text_field :zip_code, class: 'phx-form-control' %>
+              </div>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="phone">Phone</label>
+                <%= f.text_field :phone, class: 'phx-form-control' %>
+              </div>
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="fax">Fax</label>
+                <%= f.text_field :fax, class: 'phx-form-control' %>
+              </div>
+            </div>
+
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="email">Email</label>
+              <%= f.text_field :email, class: 'phx-form-control' %>
+            </div>
+
+            <div class="field form-group phx-input-control">
+              <label class="phx-form-control-label" for="account_number">Account Number</label>
+              <%= f.text_field :account_number, class: 'phx-form-control' %>
+            </div>
+
+            <div class="row phx-two-horizontal-controls">
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="internal_id_number">Facility Assigned ID</label>
+                <%= f.text_field :internal_id_number, class: 'phx-form-control' %>
+              </div>
+              <div class="col-md-6 form-group phx-input-control">
+                <label class="phx-form-control-label" for="state_id_number">State ID Number</label>
+                <%= f.text_field :state_id_number, class: 'phx-form-control' %>
+              </div>
+            </div>
+            <%= phx_red_submit_button_for  f, "Facility", [], "", "phx-btn-model-control-width", false %>
+          </div>
+        </div>
+
+        <% ch = 0 %>
+        <%= f.fields_for :wings, @facility.wings do |w| %>
+            <% ch = ch +1 %>
+            <% content_for :wing_content do %>
+                <div class="row" id = "wing_<%= ch  %>" style="display:none">
+                  <% if w.object.id%>
+                      <%= w.hidden_field :id %>
+                  <% end %>
+
+                  <!-- First panel, first column -->
+                  <div class="container-fluid col-lg-4">
+
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="name">Name</label>
+                      <%= w.text_field :name, class: 'phx-form-control' %>
                     </div>
-                    <div class="col-lg-3 phx-working-area-title-buttons">
+
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="type_of_facility">Type of Facility</label>
+                        <%= w.text_field :type_of_facility, class: 'phx-form-control' %>
+                      </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <%= phx_checkbox_for w, :active, "Active", "col-md-1 pull-right" %>
+                      </div>
                     </div>
-                </row>
-            </div> <%# END of Working Area TITLE %>
-        </div> <%# END of Working Area TITLE and NAV %>
 
-        <%# BEGIN Working Area %>
-        <div class="containter-fluid phx-working-area-background phx-working-area-position">
-
-            <!-- Primary Info -->
-            <div class="col-lg-4">
-
-                <div class="phx-primary-info-column">
-
-                    <div class="form-group phx-input-control-spacer" style="margin-top: -8px;"></div>
-
-                        <div class="col-md-12">
-                            <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
-                              Primary Info
-                            </div>
-                            <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="name">Facility Name</label>
-                            <%= f.text_field :name, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="row phx-two-horizontal-controls">
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="short_name">Short Name</label>
-                                <%= f.text_field :short_name, class: 'phx-form-control' %>
-                            </div>
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="id">Number</label>
-                                <%= f.text_field :id, class: 'phx-form-control' %>
-                            </div>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="address1">Address 1</label>
-                            <%= f.text_field :address1, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="address2">Address 2</label>
-                            <%= f.text_field :address2, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="city">City</label>
-                            <%= f.text_field :city, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="row phx-two-horizontal-controls">
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="state">State</label>
-                                <%= f.text_field :state, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="zip_code">Zip Code</label>
-                                <%= f.text_field :zip_code, class: 'phx-form-control' %>
-                            </div>
-                        </div>
-
-                        <div class="row phx-two-horizontal-controls">
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="phone">Phone</label>
-                                <%= f.text_field :phone, class: 'phx-form-control' %>
-                            </div>
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="fax">Fax</label>
-                                <%= f.text_field :fax, class: 'phx-form-control' %>
-                            </div>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="email">Email</label>
-                            <%= f.text_field :email, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="account_number">Account Number</label>
-                            <%= f.text_field :account_number, class: 'phx-form-control' %>
-                        </div>
-
-                        <div class="row phx-two-horizontal-controls">
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="internal_id_number">Facility Assigned ID</label>
-                                <%= f.text_field :internal_id_number, class: 'phx-form-control' %>
-                            </div>
-                            <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="state_id_number">State ID Number</label>
-                                <%= f.text_field :state_id_number, class: 'phx-form-control' %>
-                            </div>
-                        </div>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="use_patient_counseling">Contact</label>
+                      <%= w.text_field :contact, class: 'phx-form-control' %>
                     </div>
-                </div>
 
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="type_of_facility">Label Type</label>
+                        <%= w.text_field :label_type, class: 'phx-form-control' %>
+                      </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="Label Default">Default # Labels</label>
+                        <%= w.text_field :label_default, class: 'phx-form-control' %>
+                      </div>
+                    </div>
 
-                <!-- Modal View -->
-                <% ch = 0 %>
-                <%= f.fields_for :wings, @facility.wings do |w| %>
-                    <% ch = ch +1 %>
-                    <% content_for :wing_content do %>
-                        <div class="row" id = "wing_<%= ch  %>" style="display:none">
-                          <% if w.object.id%>
-                              <%= w.hidden_field :id %>
-                          <% end %>
+                    <%= phx_checkbox_for w, :active, "Spool Labels", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Expand Sigs", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Default to Primary Plan", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Start Date", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Post Zero Copay", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Doc-U-Dose", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Frequency Autofill", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Anniversary Autofill", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use ProCycle Autofill", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Lot Number", "col-md-1 pull-right" %>
 
-                          <!-- First panel, first column -->
-                          <div class="container-fluid col-lg-4">
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="name">Name</label>
-                              <%= w.text_field :name, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="row phx-two-horizontal-controls">
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="type_of_facility">Type of Facility</label>
-                                <%= w.text_field :type_of_facility, class: 'phx-form-control' %>
-                              </div>
-                              <div class="col-md-6 form-group phx-input-control">
-                                <%= phx_checkbox_for w, :active, "Active", "col-md-1 pull-right" %>
-                              </div>
-                            </div>
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Contact</label>
-                              <%= w.text_field :contact, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="row phx-two-horizontal-controls">
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="type_of_facility">Label Type</label>
-                                <%= w.text_field :label_type, class: 'phx-form-control' %>
-                              </div>
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="Label Default">Default # Labels</label>
-                                <%= w.text_field :label_default, class: 'phx-form-control' %>
-                              </div>
-                            </div>
-
-                            <%= phx_checkbox_for w, :active, "Spool Labels", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Expand Sigs", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Default to Primary Plan", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use Start Date", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Post Zero Copay", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use Doc-U-Dose", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use Frequency Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use Anniversary Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use ProCycle Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for w, :active, "Use Lot Number", "col-md-1 pull-right" %>
-
-                            <% if @facility.id %>
-                                <%= phx_red_submit_button_for  f, "Wing", [], "", "phx-btn-model-control-width", false %>
-                            <% end %>
-                          </div> <!-- END OF first panel, first column -->
-
-                          <!-- GENERAL INFO panel, second column -->
-                          <div class="container-fluid col-lg-4">
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">Print Monographs</label>
-                              <%= w.text_field :print_monograph, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">Print Medication Guides</label>
-                              <%= w.text_field :print_medication_guide, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">HIPPA Privacy Notice</label>
-                              <%= w.text_field :require_hippa_privacy_notice, class: 'phx-form-control' %>
-                            </div>
-
-                            <%= phx_checkbox_for w, :print_delivery_receipt, "Print Delivery Receipt" %>
-                            <%= phx_checkbox_for w, :print_fill_date, "Print Fill Date" %>
-                            <%= phx_checkbox_for w, :print_original_date, "Print Original Date" %>
-                            <%= phx_checkbox_for w, :require_rx_copy_in_facility, "Require Rx Copy in Facility" %>
-                            <%= phx_checkbox_for w, :form_flags, "Use Form Flags" %>
-                            <%= phx_checkbox_for w, :log_dur_results, "Log DUR Results" %>
-                            <%= phx_checkbox_for w, :expiration_date, "Use Expiration Date", "col-md-1 pull-right" %>
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Expiration Date Default</label>
-                              <%= w.text_field :expiration_default, class: 'phx-form-control' %>
-                            </div>
-
-                            <%= phx_checkbox_for w, :emr_interface, "EMR Interface", "col-md-1 pull-right" %>
-
-                            <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">EMR Interface Type</label>
-                              <%= w.text_field :emr_interface_type, class: 'phx-form-control' %>
-                            </div>
-
-                          </div> <!-- END OF WING INFO panel, second column -->
-
-
-                          <div class="container-fluid col-lg-4">
-
-                            <!-- END OF WING INFO panel, third column -->
-
-                            <div class="row phx-two-horizontal-controls">
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="type_of_facility">Universal Fee</label>
-                                <%= w.text_field :universal_fee, class: 'phx-form-control float-dollar' %>
-                              </div>
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="Label Default">Unit Dose Fee</label>
-                                <%= w.text_field :unit_dose_fee, class: 'phx-form-control float-dollar' %>
-                              </div>
-                            </div>
-
-                            <div class="row phx-two-horizontal-controls">
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="type_of_facility">Controlled Fee</label>
-                                <%= w.text_field :control_drug_fee, class: 'phx-form-control float-dollar' %>
-                              </div>
-                              <div class="col-md-6 form-group phx-input-control">
-                                <label class="phx-form-control-label" for="Label Default">Narcotic Fee</label>
-                                <%= w.text_field :narcotic_fee, class: 'phx-form-control float-dollar' %>
-                              </div>
-                            </div>
-
-                            <%= phx_checkbox_for w, :allow_customer_discount, "Customer Discounts Apply", "col-md-1 pull-right" %>
-
-                            <div class="form-group phx-input-control">
-                              <label class="phx-form-control-label" for="Label Default">Assigned Price Schedules</label>
-                              <%= w.text_field :price_schedules, class: 'phx-form-control price_schedule_input'%>
-                            </div>
-
-
-                          </div> <!-- END OF WING INFO panel, third column -->
-
-                        </div>
+                    <% if @facility.id %>
+                        <%= phx_red_submit_button_for  f, "Wing", [], "", "phx-btn-model-control-width", false %>
                     <% end %>
-                    <% content_for :wing_record_content do %>
-                        <div class="container-fluid" id="wing_record_<%= ch %>" style="display:none">
-                          <!-- Panel 2, 1st column -->
+                  </div> <!-- END OF first panel, first column -->
 
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">Print Order</label>
-                            <%= w.text_field :print_order, class: 'phx-form-control' %>
-                          </div>
+                  <!-- GENERAL INFO panel, second column -->
+                  <div class="container-fluid col-lg-4">
 
-                          <div class="field form-group phx-input-control">
-                            <%= phx_checkbox_for w, :valid_division_codes, "Use Valid Division Codes", "col-md-1 pull-right" %>
-                          </div>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="print_monograph">Print Monographs</label>
+                      <%= w.text_field :print_monograph, class: 'phx-form-control' %>
+                    </div>
 
-                          <div class="field form-group phx-input-control">
-                            <%= phx_checkbox_for w, :print_pass_times, "Print Pass Times", "col-md-1 pull-right" %>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="print_monograph">Print Medication Guides</label>
+                      <%= w.text_field :print_medication_guide, class: 'phx-form-control' %>
+                    </div>
 
-                          </div>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="print_monograph">HIPPA Privacy Notice</label>
+                      <%= w.text_field :require_hippa_privacy_notice, class: 'phx-form-control' %>
+                    </div>
 
-                          <div class="field form-group phx-input-control">
-                            <%= phx_checkbox_for w, :print_medication_administration_form, "Print MAR Forms", "col-md-1 pull-right" %>
-                            <%#= f.text_field :name, class: 'phx-form-control' %>
-                          </div>
+                    <%= phx_checkbox_for w, :print_delivery_receipt, "Print Delivery Receipt" %>
+                    <%= phx_checkbox_for w, :print_fill_date, "Print Fill Date" %>
+                    <%= phx_checkbox_for w, :print_original_date, "Print Original Date" %>
+                    <%= phx_checkbox_for w, :require_rx_copy_in_facility, "Require Rx Copy in Facility" %>
+                    <%= phx_checkbox_for w, :form_flags, "Use Form Flags" %>
+                    <%= phx_checkbox_for w, :log_dur_results, "Log DUR Results" %>
+                    <%= phx_checkbox_for w, :expiration_date, "Use Expiration Date", "col-md-1 pull-right" %>
 
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">MAR Form</label>
-                            <%= w.text_field :medication_administration_form, class: 'phx-form-control' %>
-                          </div>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="use_patient_counseling">Expiration Date Default</label>
+                      <%= w.text_field :expiration_default, class: 'phx-form-control' %>
+                    </div>
 
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">Routine Heading</label>
-                            <%= w.text_field :med_administration_routine_heading, class: 'phx-form-control' %>
-                          </div>
+                    <%= phx_checkbox_for w, :emr_interface, "EMR Interface", "col-md-1 pull-right" %>
 
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">PRN Heading</label>
-                            <%= w.text_field :med_administration_prn_heading, class: 'phx-form-control' %>
-                          </div>
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="use_patient_counseling">EMR Interface Type</label>
+                      <%= w.text_field :emr_interface_type, class: 'phx-form-control' %>
+                    </div>
 
-                          <div class="field form-group phx-input-control">
-                            <%= phx_checkbox_for w, :print_physician_order_form, "Print Physician Orders", "col-md-1 pull-right" %>
-                            <%#= f.text_field :name, class: 'phx-form-control' %>
-                          </div>
+                  </div> <!-- END OF WING INFO panel, second column -->
 
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">PO Form</label>
-                            <%= w.text_field :physician_orders_form, class: 'phx-form-control' %>
-                          </div>
-
-                          <div class="field form-group phx-input-control">
-                            <%= phx_checkbox_for w, :print_treatment_form, "Print Treatment Forms", "col-md-1 pull-right" %>
-                            <%#= f.text_field :name, class: 'phx-form-control' %>
-                          </div>
-
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">Treatment Form</label>
-                            <%= w.text_field :treatment_form, class: 'phx-form-control' %>
-                          </div>
-
-                          <div class="field form-group phx-input-control">
-                            <label class="phx-form-control-label" for="active">Treatment Heading</label>
-                            <%= w.text_field :treatment_heading, class: 'phx-form-control' %>
-                          </div>
-                          <% if @facility.id %>
-                              <%= phx_red_submit_button_for  f, "Medical Records", [], "", "phx-btn-model-control-width", false %>
-                          <% end %>
-                        </div> <!-- END OF Panel 2 -->
-                    <% end %>
-                <% end %>
-                <!-- END OF Modal View -->
-
-            <div class="col-lg-8  ">
-
-                <!-- Tab labels -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#wings" role="tab" data-toggle="tab">Wing</a></li>
-                    <li><a href="#itemPanel-bed" role="tab" data-toggle="tab">Bed</a></li>
-                    <li><a href="#itemPanel-records" role="tab" data-toggle="tab">Medical Records</a></li>
-                    <li><a href="#itemPanel-times" role="tab" data-toggle="tab">Pass Times</a></li>
-                    <li><a href="#itemPanel-orders" role="tab" data-toggle="tab">Standing Orders</a></li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content phx-tab-pane">
-
-                    <div class="tab-pane active" id="wing">
-                        <div class="container-fluid">
-                            <div class="row">
-
-                                <!-- First panel, first column -->
-                                <div class="container-fluid col-lg-4">
-
-                                <div class="field form-group phx-input-control">
-                                    <label class="phx-form-control-label" for="use_patient_counseling">Wing</label>
-                                    <%= f.text_field :name, class: 'phx-form-control' %>
-                                </div>
-
-                            <div class="row phx-two-horizontal-controls">
-                                <div class="col-md-6 form-group phx-input-control">
-                                    <label class="phx-form-control-label" for="type_of_facility">Type of Facility</label>
-                                    <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                                </div>
-                                <div class="col-md-6 form-group phx-input-control">
-                                    <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
-                                </div>
-                            </div>
-
-                            <div class="field form-group phx-input-control">
-                                <label class="phx-form-control-label" for="use_patient_counseling">Contact</label>
-                                <%= f.text_field :use_patient_counseling, class: 'phx-form-control' %>
-                            </div>
-
-                            <div class="row phx-two-horizontal-controls">
-                                <div class="col-md-6 form-group phx-input-control">
-                                    <label class="phx-form-control-label" for="type_of_facility">Label Type</label>
-                                    <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                                </div>
-                                <div class="col-md-6 form-group phx-input-control">
-                                    <label class="phx-form-control-label" for="Label Default">Default # Labels</label>
-                                    <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                                </div>
-                            </div>
-
-                            <%= phx_checkbox_for f, :active, "Spool Labels", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Expand Sigs", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Default to Primary Plan", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use Start Date", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Post Zero Copay", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use Doc-U-Dose", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use Frequency Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use Anniversary Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use ProCycle Autofill", "col-md-1 pull-right" %>
-                            <%= phx_checkbox_for f, :active, "Use Lot Number", "col-md-1 pull-right" %>
-
-                        </div> <!-- END OF first panel, first column -->
-
-                        <!-- GENERAL INFO panel, second column -->
-                        <div class="container-fluid col-lg-4">
-
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">Print Monographs</label>
-                              <%= f.text_field :print_monograph, class: 'phx-form-control' %>
-                          </div>
-
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">Print Medication Guides</label>
-                              <%= f.text_field :print_monograph, class: 'phx-form-control' %>
-                          </div>
-
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="print_monograph">HIPPA Privacy Notice</label>
-                              <%= f.text_field :print_monograph, class: 'phx-form-control' %>
-                          </div>
-
-                          <%= phx_checkbox_for f, :print_delivery_receipt, "Print Delivery Receipt" %>
-                          <%= phx_checkbox_for f, :print_fill_date, "Print Fill Date" %>
-                          <%= phx_checkbox_for f, :print_original_date, "Print Original Date" %>
-                          <%= phx_checkbox_for f, :print_fill_date, "Require Rx Copy in Facility" %>
-                          <%= phx_checkbox_for f, :print_fill_date, "Use Form Flags" %>
-                          <%= phx_checkbox_for f, :print_fill_date, "Log DUR Results" %>
-                          <%= phx_checkbox_for f, :active, "Use Expiration Date", "col-md-1 pull-right" %>
-
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">Expiration Date Default</label>
-                              <%= f.text_field :use_patient_counseling, class: 'phx-form-control' %>
-                          </div>
-
-                          <%= phx_checkbox_for f, :active, "EMR Interface", "col-md-1 pull-right" %>
-
-                          <div class="field form-group phx-input-control">
-                              <label class="phx-form-control-label" for="use_patient_counseling">EMR Interface Type</label>
-                              <%= f.text_field :use_patient_counseling, class: 'phx-form-control' %>
-                          </div>
-
-                      </div> <!-- END OF WING INFO panel, second column -->
-                  </row>
 
                   <div class="container-fluid col-lg-4">
 
                     <!-- END OF WING INFO panel, third column -->
 
                     <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Universal Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Unit Dose Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Controlled Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Narcotic Fee</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <%= phx_checkbox_for f, :active, "Customer Discounts Apply", "col-md-1 pull-right" %>
-
-                    <div class="col-md-8 pull-left" style="font-weight: normal; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
-                      Assigned Price Schedules
-                    </div>
-
-                    <br>
-                    </br>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                    <div class="row phx-two-horizontal-controls">
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="type_of_facility">Price Schedule</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                        <div class="col-md-6 form-group phx-input-control">
-                            <label class="phx-form-control-label" for="Label Default">Name</label>
-                            <%= f.text_field :type_of_facility, class: 'phx-form-control' %>
-                        </div>
-                    </div>
-
-                </div> <!-- END OF WING INFO panel, third column -->
-
-
-                  </div> <!-- END OF WING INFO panel container-fluid -->
-              </div>
-
-              <div class="tab-pane" id="bed">
-                  <div class="container-fluid">
-
-                    <div class="row">
-                      <div class="container-fluid col-lg-4">
-                        <div class="row phx-two-horizontal-controls">
-                          <div class="col-md-6 form-group phx-input-control">
-                            <!--<label class="phx-form-control-label" for="pass_order">Order</label>-->
-                            <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order" style="margin-top:8px">
-                          </div>
-                          <div class="col-md-6 form-group phx-input-control">
-                            <!--<label class="phx-form-control-label" for="Label Default">Bed</label>-->
-                            <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed" style="margin-top:9px">
-                          </div>
-                        </div>
-
-                        <!--<div class="field form-group phx-input-control">-->
-                          <!--<label class="phx-form-control-label" for="customer_name">Customer</label>-->
-                          <!--<input class="phx-form-control" type="text" name="customer_name" id="customer_name">-->
-                        <!--</div>-->
-                    </div>
-
-                    <div class="container-fluid col-lg-4">
-                      <div class="field form-group phx-input-control">
-                        <div class=" form-inline phx-adjust-checkbox">
-                          <div class="form-group phx-input-control">
-                            <div class="phx-checkbox form-control-static">
-                              <input name="active" type="hidden" value="0">
-                              <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
-                              <label for="active"></label>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="type_of_facility">Universal Fee</label>
+                        <%= w.text_field :universal_fee, class: 'phx-form-control float-dollar' %>
+                      </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="Label Default">Unit Dose Fee</label>
+                        <%= w.text_field :unit_dose_fee, class: 'phx-form-control float-dollar' %>
                       </div>
                     </div>
+
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="type_of_facility">Controlled Fee</label>
+                        <%= w.text_field :control_drug_fee, class: 'phx-form-control float-dollar' %>
+                      </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="Label Default">Narcotic Fee</label>
+                        <%= w.text_field :narcotic_fee, class: 'phx-form-control float-dollar' %>
+                      </div>
+                    </div>
+
+                    <%= phx_checkbox_for w, :allow_customer_discount, "Customer Discounts Apply", "col-md-1 pull-right" %>
+
+                    <div class="form-group phx-input-control">
+                      <label class="phx-form-control-label" for="Label Default">Assigned Price Schedules</label>
+                      <%= w.text_field :price_schedules, class: 'phx-form-control price_schedule_input'%>
+                    </div>
+
+
+                  </div> <!-- END OF WING INFO panel, third column -->
+
+                </div>
+            <% end %>
+            <% content_for :wing_record_content do %>
+                <div class="container-fluid" id="wing_record_<%= ch %>" style="display:none">
+                  <!-- Panel 2, 1st column -->
+
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">Print Order</label>
+                    <%= w.text_field :print_order, class: 'phx-form-control' %>
                   </div>
 
-                  <input type="hidden" id="bed_id">
-
-                  <div class="container-fluid row">
-                    <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
-                      <thead class="phx-table-head">
-                        <tr>
-                          <th style="background-color:#f9f9fa;" ></th>
-                          <th style="background-color:#f9f9fa;" >Order</th>
-                          <th style="background-color:#f9f9fa;" >Bed</th>
-                          <th style="background-color:#f9f9fa;" >Active</th>
-                          <th style="background-color:#f9f9fa;" >Customer</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                      </tbody>
-                    </table>
+                  <div class="field form-group phx-input-control">
+                    <%= phx_checkbox_for w, :valid_division_codes, "Use Valid Division Codes", "col-md-1 pull-right" %>
                   </div>
-                    <div class="container-fluid row">
-                        <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
-                        <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
-                    </div>
 
+                  <div class="field form-group phx-input-control">
+                    <%= phx_checkbox_for w, :print_pass_times, "Print Pass Times", "col-md-1 pull-right" %>
 
-              <div class="tab-pane" id="itemPanel-bed">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="container-fluid col-lg-4">
-                        <div class="row phx-two-horizontal-controls">
-                          <div class="col-md-6 form-group phx-input-control">
-                            <!--<label class="phx-form-control-label" for="pass_order">Order</label>-->
-                            <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order" style="margin-top:8px">
-                          </div>
-                          <div class="col-md-6 form-group phx-input-control">
-                            <!--<label class="phx-form-control-label" for="Label Default">Bed</label>-->
-                            <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed" style="margin-top:9px">
-                          </div>
-                        </div>
+                  </div>
 
-                        <!--<div class="field form-group phx-input-control">-->
-                          <!--<label class="phx-form-control-label" for="customer_name">Customer</label>-->
-                          <!--<input class="phx-form-control" type="text" name="customer_name" id="customer_name">-->
-                        <!--</div>-->
-                      </div>
+                  <div class="field form-group phx-input-control">
+                    <%= phx_checkbox_for w, :print_medication_administration_form, "Print MAR Forms", "col-md-1 pull-right" %>
+                    <%#= f.text_field :name, class: 'phx-form-control' %>
+                  </div>
 
-                      <div class="container-fluid col-lg-4">
-                        <div class="field form-group phx-input-control">
-                          <div class=" form-inline phx-adjust-checkbox">
-                            <div class="form-group phx-input-control">
-                              <div class="phx-checkbox form-control-static">
-                                <input name="active" type="hidden" value="0">
-                                <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
-                                <label for="active"></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">MAR Form</label>
+                    <%= w.text_field :medication_administration_form, class: 'phx-form-control' %>
+                  </div>
 
-                    <input type="hidden" id="bed_id">
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">Routine Heading</label>
+                    <%= w.text_field :med_administration_routine_heading, class: 'phx-form-control' %>
+                  </div>
 
-                    <div class="container-fluid row">
-                      <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
-                        <thead class="phx-table-head">
-                          <tr>
-                            <th style="background-color:#f9f9fa;" ></th>
-                            <th style="background-color:#f9f9fa;" >Order</th>
-                            <th style="background-color:#f9f9fa;" >Bed</th>
-                            <th style="background-color:#f9f9fa;" >Active</th>
-                            <th style="background-color:#f9f9fa;" >Customer</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">PRN Heading</label>
+                    <%= w.text_field :med_administration_prn_heading, class: 'phx-form-control' %>
+                  </div>
 
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="container-fluid row">
-                      <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
-                      <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
-                    </div>
+                  <div class="field form-group phx-input-control">
+                    <%= phx_checkbox_for w, :print_physician_order_form, "Print Physician Orders", "col-md-1 pull-right" %>
+                    <%#= f.text_field :name, class: 'phx-form-control' %>
+                  </div>
 
-                    <row>
-                    <!-- First panel, first column -->
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">PO Form</label>
+                    <%= w.text_field :physician_orders_form, class: 'phx-form-control' %>
+                  </div>
+
+                  <div class="field form-group phx-input-control">
+                    <%= phx_checkbox_for w, :print_treatment_form, "Print Treatment Forms", "col-md-1 pull-right" %>
+                    <%#= f.text_field :name, class: 'phx-form-control' %>
+                  </div>
+
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">Treatment Form</label>
+                    <%= w.text_field :treatment_form, class: 'phx-form-control' %>
+                  </div>
+
+                  <div class="field form-group phx-input-control">
+                    <label class="phx-form-control-label" for="active">Treatment Heading</label>
+                    <%= w.text_field :treatment_heading, class: 'phx-form-control' %>
+                  </div>
+                  <% if @facility.id %>
+                      <%= phx_red_submit_button_for  f, "Medical Records", [], "", "phx-btn-model-control-width", false %>
+                  <% end %>
+                </div> <!-- END OF Panel 2 -->
+            <% end %>
+        <% end %>
+
+        <div class="col-lg-8  ">
+
+          <!-- Tab labels -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#wing" role="tab" data-toggle="tab">Wing</a></li>
+            <li><a href="#itemPanel-bed" role="tab" data-toggle="tab">Bed</a></li>
+            <li><a href="#itemPanel-records" role="tab" data-toggle="tab">Medical Records</a></li>
+            <li><a href="#itemPanel-times" role="tab" data-toggle="tab">Pass Times</a></li>
+            <li><a href="#itemPanel-orders" role="tab" data-toggle="tab">Standing Orders</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content phx-tab-pane">
+
+            <div class="tab-pane active" id="wing">
+              <div class="container-fluid">
+                <div class="row">
                   <div class="container-fluid col-lg-4">
+                    <div class="field form-group phx-input-control">
+                      <label class="phx-form-control-label" for="wing_sel">Wing</label>
+                      <select id="wing_sel" class="phx-form-control">
+                        <% ch = 0 %>
+                        <%  @facility.wings.each do |f| %>
+                            <option value="<%= ch = ch+1 %>"> <%=  f.name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <%= content_for :wing_content  %>
+              </div> <!-- END OF WING INFO panel container-fluid -->
+            </div>
 
-                      <div class="field form-group phx-input-control">
-                          <label class="phx-form-control-label" for="use_patient_counseling">Room/Bed</label>
-                          <%= f.text_field :name, class: 'phx-form-control' %>
+            <div class="tab-pane" id="itemPanel-records">
+              <%= content_for :wing_record_content %>
+            </div>
+
+            <div class="tab-pane" id="itemPanel-bed">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="container-fluid col-lg-4">
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 form-group phx-input-control">
+                        <!--<label class="phx-form-control-label" for="pass_order">Order</label>-->
+                        <input class="phx-form-control float-dollar" type="text" value="" name="pass_order" id="pass_order" style="margin-top:8px">
                       </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <!--<label class="phx-form-control-label" for="Label Default">Bed</label>-->
+                        <input class="phx-form-control float-dollar" type="text" value="" name="bed" id="bed" style="margin-top:9px">
+                      </div>
+                    </div>
 
+                    <!--<div class="field form-group phx-input-control">-->
+                    <!--<label class="phx-form-control-label" for="customer_name">Customer</label>-->
+                    <!--<input class="phx-form-control" type="text" name="customer_name" id="customer_name">-->
+                    <!--</div>-->
                   </div>
 
-             <div class="tab-pane" id="itemPanel-records">
-
-
-
-             </div>
-
-                <div class="tab-pane" id="itemPanel-pricing">
-
-                  <div class="container-fluid">
-                    <row>
-                    <!-- Panel 2, 1st column -->
-                  </div> <!-- END OF Panel 2 -->
+                  <div class="container-fluid col-lg-4">
+                    <div class="field form-group phx-input-control">
+                      <div class=" form-inline phx-adjust-checkbox">
+                        <div class="form-group phx-input-control">
+                          <div class="phx-checkbox form-control-static">
+                            <input name="active" type="hidden" value="0">
+                            <input class="phx-form-control" tabindex="col-md-1 pull-right" type="checkbox" value="1" name="active" id="active">
+                            <label for="active"></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-             <div class="tab-pane" id="itemPanel-times">
+                <input type="hidden" id="bed_id">
 
-                <div class="container-fluid">
-                  <row>
-                  <!-- Panel 2, 1st column -->
-                </div> <!-- END OF Panel 2 -->
-             </div>
+                <div class="container-fluid row">
+                  <table class="table table-hover phx-table phx-search-font" id="bed-facility-tbl">
+                    <thead class="phx-table-head">
+                    <tr>
+                      <th style="background-color:#f9f9fa;" ></th>
+                      <th style="background-color:#f9f9fa;" >Order</th>
+                      <th style="background-color:#f9f9fa;" >Bed</th>
+                      <th style="background-color:#f9f9fa;" >Active</th>
+                      <th style="background-color:#f9f9fa;" >Customer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-             <div class="tab-pane" id="itemPanel-orders">
+                    </tbody>
+                  </table>
+                </div>
+                <div class="container-fluid row">
+                  <input id="btn_submit" type="button" name="" value="Create Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                  <input id="btn_delete" type="button" name="" value="Delete Bed" class="btn btn-sm btn-default phx-btn-model-control-red phx-btn-model-control-width" remote="false">
+                </div>
+              </div>
+            </div>
 
-               <div class="container-fluid">
-                <row>
+            <!--<div class="tab-pane" id="itemPanel-pricing">-->
+
+            <!--<div class="container-fluid">-->
+            <!--<row>-->
+            <!--&lt;!&ndash; Panel 2, 1st column &ndash;&gt;-->
+            <!--</div> &lt;!&ndash; END OF Panel 2 &ndash;&gt;-->
+            <!--</div>-->
+
+            <div class="tab-pane" id="itemPanel-times">
+
+              <div class="container-fluid">
                 <!-- Panel 2, 1st column -->
-               </div> <!-- END OF Panel 2 -->
-             </div>
+              </div> <!-- END OF Panel 2 -->
+            </div>
 
+            <div class="tab-pane" id="itemPanel-orders">
+
+              <div class="container-fluid">
+                <!-- Panel 2, 1st column -->
+              </div> <!-- END OF Panel 2 -->
+            </div>
+          </div>
         </div> <!-- end of work area -->
+      </div>
     </div>
-</div>
 
-<div id="facility_search_modal_partial">
-  <div id="facilitySearchModal"></div>
-</div>
-
+    <div id="facility_search_modal_partial">
+      <div id="facilitySearchModal"></div>
+    </div>
 <% end %>
 
 <script>
@@ -746,7 +467,7 @@
             hiddenDivId:  'hidden_fields',
             refresh:      true,
             refreshTo:    '/facilities/' ,
-            });
+        });
 
     // create the corresponding hidden fields in the form
     cs.addHiddenFields();
@@ -757,115 +478,115 @@
 
     $(document).ready(function(){
         selected = $('#wing_sel').val();
-       $('#wing_' + selected).show();
+        $('#wing_' + selected).show();
         $('#wing_record_' + selected).show();
 
 
 
         $('.price_schedule_input').each(function(){
-          var str = $(this).val();
-          str = '{' + str.replace(/ /g, ",") + '}';
+            var str = $(this).val();
+            str = '{' + str.replace(/ /g, ",") + '}';
 
-          $(this).val(str);
+            $(this).val(str);
         });
 
         $('.float-dollar').each(function(index){
             var val = parseFloat($(this).val());
             if(val)
-              val = val.toFixed(2);
+                val = val.toFixed(2);
             else val = '';
             $(this).val(val);
         });
 
-       $('#wing :input').attr('disabled', true);
-       $('#itemPanel-records :input' ).attr('disabled', true);
-       $('#wing_' + 1 + ' :input').removeAttr('disabled');
-       $('#wing_record_' + 1 + ' :input').removeAttr('disabled');
-       $('#wing_sel').removeAttr('disabled');
+        $('#wing :input').attr('disabled', true);
+        $('#itemPanel-records :input' ).attr('disabled', true);
+        $('#wing_' + 1 + ' :input').removeAttr('disabled');
+        $('#wing_record_' + 1 + ' :input').removeAttr('disabled');
+        $('#wing_sel').removeAttr('disabled');
 
-       $('#wing_sel').change(function(){
-           var newSelected = $(this).val();
-           $('#bed-facility-tbl > tbody').html('');
-           var wing_id = $('#facility_wings_attributes_' + (newSelected-1) + '_id').val();
+        $('#wing_sel').change(function(){
+            var newSelected = $(this).val();
+            $('#bed-facility-tbl > tbody').html('');
+            var wing_id = $('#facility_wings_attributes_' + (newSelected-1) + '_id').val();
 
-           if (wing_id) {
-             $.get('getBedsByWing?wing_id=' + wing_id,function(data){
+            if (wing_id) {
+                $.get('getBedsByWing?wing_id=' + wing_id,function(data){
 
-               var res='';
-               var no = 0;
-               data.forEach(function(item) {
+                    var res='';
+                    var no = 0;
+                    data.forEach(function(item) {
 
-                 for (prop in item) {
-                   if(item[prop]== null)
-                     item[prop]='';
-                 }
-                 if(item['id'])
-                   res+='<tr id=bed_' + item['id'] +   '>';
+                        for (prop in item) {
+                            if(item[prop]== null)
+                                item[prop]='';
+                        }
+                        if(item['id'])
+                            res+='<tr id=bed_' + item['id'] +   '>';
 
-                 no++;
-                 res +='<td>' + no + '</td>';
-                 res += '<td>' + item['pass_order'] + '</td>';
-                 res += '<td>' + item['bed'] + '</td>';
-                 res += '<td>' + item['active'] + '</td>';
-                 res += '<td>' + item['customer_name'] + '</td>';
+                        no++;
+                        res +='<td>' + no + '</td>';
+                        res += '<td>' + item['pass_order'] + '</td>';
+                        res += '<td>' + item['bed'] + '</td>';
+                        res += '<td>' + item['active'] + '</td>';
+                        res += '<td>' + item['customer_name'] + '</td>';
 
-                 res+='</tr>';
+                        res+='</tr>';
 
-               });
-               $('#bed-facility-tbl > tbody').html(res);
-               $('#bed-facility-tbl tr').click(function() {
-                 $('#pass_order').val(data[$(this).index()]['pass_order']);
-                 $('#bed').val(data[$(this).index()]['bed']);
-                 $('#active').prop("checked",data[$(this).index()]['active']);
-                $('#customer_name').val(data[$(this).index()]['customer_name']);
-                 $('#btn_submit').val('Update Bed');
-                 $('#bed_id').val(data[$(this).index()]['id']);
-               });
-             });
-           }
+                    });
+                    $('#bed-facility-tbl > tbody').html(res);
+                    $('#bed-facility-tbl tr').click(function() {
+                        $('#pass_order').val(data[$(this).index()]['pass_order']);
+                        $('#bed').val(data[$(this).index()]['bed']);
+                        $('#active').prop("checked",data[$(this).index()]['active']);
+                        $('#customer_name').val(data[$(this).index()]['customer_name']);
+                        $('#btn_submit').val('Update Bed');
+                        $('#bed_id').val(data[$(this).index()]['id']);
+                    });
+                });
+            }
 
 
-           $('#wing_' + selected).hide();
-           $('#wing_' + selected + ' :input').attr('disabled', true);
-           $('#wing_' + newSelected).show();
-           $('#wing_' + newSelected + ' :input').removeAttr('disabled');
+            $('#wing_' + selected).hide();
+            $('#wing_' + selected + ' :input').attr('disabled', true);
+            $('#wing_' + newSelected).show();
+            $('#wing_' + newSelected + ' :input').removeAttr('disabled');
 
-           $('#wing_record_' + selected).hide();
-           $('#wing_record_' + selected + ' :input').attr('disabled', true);
-           $('#wing_record_' + newSelected).show();
-           $('#wing_record_' + newSelected + ' :input').removeAttr('disabled');
+            $('#wing_record_' + selected).hide();
+            $('#wing_record_' + selected + ' :input').attr('disabled', true);
+            $('#wing_record_' + newSelected).show();
+            $('#wing_record_' + newSelected + ' :input').removeAttr('disabled');
 
-           selected = newSelected;
-       });
+            selected = newSelected;
+        });
 
-      $('#wing_sel').trigger('change');
-      $('#btn_submit').click(function(){
-        var pass_order = $('#pass_order').val();
-        var bed = $('#bed').val();
-        var active = $('#active').prop('checked');
-        var bed_id = $('#bed_id').val();
-        if(bed_id) {
-          $.get('updateBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active, function () {
-            $('#wing_sel').trigger('change');
-          });
-        }else{
-          var wing_id = $('#facility_wings_attributes_' + (selected-1) + '_id').val();
-          var facility_id = $('#facility_id').val();
-          if (!wing_id || !facility_id)
-              return;
-          $.get('createBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active + '&wing_id='+wing_id + '&bed_id='+bed_id, function () {
-            $('#wing_sel').trigger('change');
-          });
-        }
-      });
-      $('#btn_delete').click(function(){
-        var bed_id = $('#bed_id').val();
-        if(bed_id)
-          $.get('deleteBed?bed_id='+bed_id,function(){
-            $('#bed_id').val('');
-            $('#wing_sel').trigger('change');
-            $('#btn_submit').val('Create Bed');
-          });
-      });
+        $('#wing_sel').trigger('change');
+        $('#btn_submit').click(function(){
+            var pass_order = $('#pass_order').val();
+            var bed = $('#bed').val();
+            var active = $('#active').prop('checked');
+            var bed_id = $('#bed_id').val();
+            if(bed_id) {
+                $.get('updateBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active, function () {
+                    $('#wing_sel').trigger('change');
+                });
+            }else{
+                var wing_id = $('#facility_wings_attributes_' + (selected-1) + '_id').val();
+                var facility_id = $('#facility_id').val();
+                if (!wing_id || !facility_id)
+                    return;
+                $.get('createBed?bed_id=' + bed_id + '&bed=' + bed + '&pass_order=' + pass_order + '&active=' + active + '&wing_id='+wing_id + '&bed_id='+bed_id, function () {
+                    $('#wing_sel').trigger('change');
+                });
+            }
+        });
+        $('#btn_delete').click(function(){
+            var bed_id = $('#bed_id').val();
+            if(bed_id)
+                $.get('deleteBed?bed_id='+bed_id,function(){
+                    $('#bed_id').val('');
+                    $('#wing_sel').trigger('change');
+                    $('#btn_submit').val('Create Bed');
+                });
+        });
     });
 </script>

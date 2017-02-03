@@ -96,10 +96,10 @@
 							<%= f.text_field :surescripts_erx_id_number, class: 'phx-form-control' %>
 						</div>
 
-						<div class="col-md-6 form-group phx-input-control">
-							<label class="phx-form-control-label" for="alternate_erx_id_number">Alternate ERx ID</label>
-							<%= f.text_field :alternate_erx_id_number, class: 'phx-form-control' %>
-						</div>
+						<!--<div class="col-md-6 form-group phx-input-control">-->
+							<!--<label class="phx-form-control-label" for="alternate_erx_id_number">Alternate ERx ID</label>-->
+							<!--<%#= f.text_field :alternate_erx_id_number, class: 'phx-form-control' %>-->
+						<!--</div>-->
 					</div>
 
 					<div class="row phx-two-horizontal-controls">
@@ -156,13 +156,13 @@
 								<!-- GENERAL INFO panel, second column -->
 								<div class="container-fluid col-lg-4">
 
-                  <%= phx_textfield_for f, :phone, "Office Phone" %>
+                  <%#= phx_textfield_for f, :phone, "Office Phone" %>
 
-                  <%= phx_textfield_for f, :fax_number, "Fax" %>
+                  <%#= phx_textfield_for f, :fax_number, "Fax" %>
 
-                  <%= phx_textfield_for f, :cell_number, "Cell" %>
+                  <%#= phx_textfield_for f, :cell_number, "Cell" %>
 
-                  <%= phx_textfield_for f, :email, "Email" %>
+                  <%#= phx_textfield_for f, :email, "Email" %>
 
                   <%= phx_selectfield_for f, :receive_messages, "Receive Notifications", Prescriber.receive_messages %>
 

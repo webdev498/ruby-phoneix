@@ -80,8 +80,8 @@
               </div>
 
               <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="address2">Proc. Control #</label>
-                <%= f.text_field :address2, class: 'phx-form-control' %>
+                <label class="phx-form-control-label" for="processor_control_number">Proc. Control #</label>
+                <%= f.text_field :processor_control_number, class: 'phx-form-control' %>
               </div>
             </div>
 
@@ -92,20 +92,20 @@
               </div>
 
               <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="address2">Software ID</label>
-                <%= f.text_field :address2, class: 'phx-form-control' %>
+                <label class="phx-form-control-label" for="company_id">Software ID</label>
+                <%= f.text_field :company_id, class: 'phx-form-control' %>
               </div>
             </div>
 
             <div class="row phx-two-horizontal-controls">
               <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="address2">ID Qualifier</label>
-                <%= f.text_field :address2, class: 'phx-form-control' %>
+                <label class="phx-form-control-label" for="pharmacy_id">ID Qualifier</label>
+                <%= f.text_field :pharmacy_id, class: 'phx-form-control' %>
               </div>
 
               <div class="col-md-6 form-group phx-input-control">
-                <label class="phx-form-control-label" for="address2">Provider ID</label>
-                <%= f.text_field :address2, class: 'phx-form-control' %>
+                <label class="phx-form-control-label" for="provider_number">Provider ID</label>
+                <%= f.text_field :provider_number, class: 'phx-form-control' %>
               </div>
             </div>
 
@@ -131,9 +131,9 @@
               </div>
             </div>
 
+            <%= phx_red_submit_button_for f, "Plan", [], "", "phx-btn-model-control-width pull-right", false %>
+
             <div class="phx-input-control-spacer">&nbsp;</div>
-
-
             <div class="phx-input-control-spacer">&nbsp;</div>
             <div class="phx-input-control-spacer">&nbsp;</div>
 
@@ -188,12 +188,12 @@
                     </div>
 
                     <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="address2">Print Sort Code</label>
-                      <%= f.text_field :address2, class: 'phx-form-control' %>
+                      <label class="phx-form-control-label" for="print_sort_code">Print Sort Code</label>
+                      <%= f.text_field :print_sort_code, class: 'phx-form-control' %>
                     </div>
 
                     <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="print_sort_code">Copay Type</label>
+                      <label class="phx-form-control-label" for="copay_type">Copay Type</label>
                       <%= f.text_field :copay_type, class: 'phx-form-control' %>
                     </div>
 
