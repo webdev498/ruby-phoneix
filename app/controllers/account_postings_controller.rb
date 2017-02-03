@@ -25,8 +25,8 @@ class AccountPostingsController < ApplicationController
   # POST /account_postings.json
   def create
 
-    account_posting.post_source] = account_posting.post_source.to_i
-    account_posting.post_type] = account_posting.post_type.to_i
+    account_posting.post_source = account_posting.post_source.to_i
+    account_posting.post_type = account_posting.post_type.to_i
 
     @account_posting = AccountPosting.new(account_posting_params)
 
@@ -45,8 +45,8 @@ class AccountPostingsController < ApplicationController
   # PATCH/PUT /account_postings/1.json
   def update
 
-    account_posting.post_source] = account_posting.post_source.to_i
-    account_posting.post_type] = account_posting.post_type.to_i
+    account_posting.post_source = account_posting.post_source.to_i
+    account_posting.post_type = account_posting.post_type.to_i
 
     respond_to do |format|
       if @account_posting.update(account_posting_params)

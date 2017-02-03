@@ -32,7 +32,7 @@ class DispensesController < ApplicationController
     params[:reason_for_delay] = params[:reason_for_delay].to_i
     params[:partial_fill_status] = params[:partial_fill_status].to_i
     params[:reported_to_pmp] = params[:reported_to_pmp].to_i
-  
+
     @dispense = Dispense.new(dispense_params)
 
     respond_to do |format|
@@ -86,6 +86,7 @@ class DispensesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-	params.require(:dispense).permit(:company_id, :pharmacy_id, :customer_id, :prescription_id, :item_id, :rx_signature_id, :rx_number, :fill_number, :legacy_customer_id_number, :fill_time, :legacy_item_id_number, :refill_type, :status, :split_bill_rx, :billing_complete, :pharmacist_initials, :technician_initials, :quantity, :days_supply, :delivery_route, :lot_number, :serial_number, :discard_date, :price, :usual_customary_price, :base_cost, :acquisition_cost, :fee, :discount, :tax, :ancillary_fee, :professional_service_fee, :cost_basis, :other_coverage_code, :other_amount, :other_amount_type, :reason_for_delay, :denial_override_code, :partial_fill_status, :reported_to_pmp, : )
+    def set_dispense_posting_params
+  params.require(:dispense).permit(:company_id, :pharmacy_id, :customer_id, :prescription_id, :item_id, :rx_signature_id, :rx_number, :fill_number, :legacy_customer_id_number, :fill_time, :legacy_item_id_number, :refill_type, :status, :split_bill_rx, :billing_complete, :pharmacist_initials, :technician_initials, :quantity, :days_supply, :delivery_route, :lot_number, :serial_number, :discard_date, :price, :usual_customary_price, :base_cost, :acquisition_cost, :fee, :discount, :tax, :ancillary_fee, :professional_service_fee, :cost_basis, :other_coverage_code, :other_amount, :other_amount_type, :reason_for_delay, :denial_override_code, :partial_fill_status, :reported_to_pmp)
     end
 end
