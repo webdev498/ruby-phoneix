@@ -73,21 +73,6 @@ class Claim < ActiveRecord::Base
       job_id = Time.now.to_i + rand(1000)
     payload[:job_id] = job_id
 
-    transaction = Transaction.where({job_id: job_id}).first
-    if transaction.nil?
-      transaction = Transaction.new({
-          job_id: job_id,
-          created_at: Time.now,
-          status: "submitting",
-          time_to_process: -1
-      })
-      transaction.save!
-    else
-      transaction.status = "submitting"
-      transaction.time_to_process = -1
-      transaction.save!
-    end
-
     msg = {'class' => 'ClaimRequestSenderWorker', 'args' => payload, 'jid' => job_id, 'retry' => false, 'enqueued_at' => Time.now.to_f}
     redis.lpush("queue:claims_send_and_process_response", JSON.dump(msg))
 		return @job_id
