@@ -24,6 +24,10 @@ class AccountPostingsController < ApplicationController
   # POST /account_postings
   # POST /account_postings.json
   def create
+
+    account_posting.post_source] = account_posting.post_source.to_i
+    account_posting.post_type] = account_posting.post_type.to_i
+
     @account_posting = AccountPosting.new(account_posting_params)
 
     respond_to do |format|
@@ -40,6 +44,10 @@ class AccountPostingsController < ApplicationController
   # PATCH/PUT /account_postings/1
   # PATCH/PUT /account_postings/1.json
   def update
+
+    account_posting.post_source] = account_posting.post_source.to_i
+    account_posting.post_type] = account_posting.post_type.to_i
+
     respond_to do |format|
       if @account_posting.update(account_posting_params)
         format.html { redirect_to @account_posting, notice: 'Account posting was successfully updated.' }
@@ -69,6 +77,6 @@ class AccountPostingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_posting_params
-      params.require(:account_posting).permit(:dept_number, :master_account_number, :account_number, :post_date, :post_ticket_number, :post_ticket_sequence, :post_payor_id_number, :post_source, :post_type, :post_description, :post_medical_amount, :post_non_medical_amount, :post_tax_amount)
+      params.require(:account_posting).permit(:company_id, :pharmacy_id, :account_id, :master_account_number, :account_number, :post_date, :post_ticket, :post_ticket_sequence, :post_payor_id, :post_source, :post_type, :post_description, :post_medical_amount, :post_non_medical_amount, :post_tax_amount)
     end
 end

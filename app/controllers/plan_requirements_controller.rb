@@ -24,6 +24,9 @@ class PlanRequirementsController < ApplicationController
   # POST /plan_requirements
   # POST /plan_requirements.json
   def create
+
+    plan_requirement_params[:provider_id_qualifier] = plan_requirement_params[:provider_id_qualifier].to_i
+
     @plan_requirement = PlanRequirement.new(plan_requirement_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class PlanRequirementsController < ApplicationController
   # PATCH/PUT /plan_requirements/1
   # PATCH/PUT /plan_requirements/1.json
   def update
+
+    plan_requirement_params[:provider_id_qualifier] = plan_requirement_params[:provider_id_qualifier].to_i
+
     respond_to do |format|
       if @plan_requirement.update(plan_requirement_params)
         format.html { redirect_to @plan_requirement, notice: 'Plan requirement was successfully updated.' }

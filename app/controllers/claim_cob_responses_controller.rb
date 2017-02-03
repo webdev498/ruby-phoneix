@@ -24,6 +24,9 @@ class ClaimCobResponsesController < ApplicationController
   # POST /claim_cob_responses
   # POST /claim_cob_responses.json
   def create
+
+    claim_cob_response_params[:payor_id_qualifier] = claim_cob_response_params[:payor_id_qualifier].to_i
+    
     @claim_cob_response = ClaimCobResponse.new(claim_cob_response_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class ClaimCobResponsesController < ApplicationController
   # PATCH/PUT /claim_cob_responses/1
   # PATCH/PUT /claim_cob_responses/1.json
   def update
+
+    claim_cob_response_params[:payor_id_qualifier] = claim_cob_response_params[:payor_id_qualifier].to_i
+
     respond_to do |format|
       if @claim_cob_response.update(claim_cob_response_params)
         format.html { redirect_to @claim_cob_response, notice: 'Claim cob response was successfully updated.' }

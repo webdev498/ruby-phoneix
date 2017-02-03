@@ -74,6 +74,6 @@ class PosPaymentMethodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pos_payment_method_params
-      params.require(:pos_payment_method).permit(:dept_number, :payment_method_code, :payment_method_description, :payment_method_processing_pct, :merchant_id_number)
+      params.require(:pos_payment_method).permit(:company_id, :pharmacy_id, :payment_method_code, :payment_method_description, :payment_method_processing_percent, :merchant_id_number)
     end
 end

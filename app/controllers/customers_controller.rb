@@ -92,8 +92,13 @@ class CustomersController < ApplicationController
     customerParams = params[:customer]
 
     # convert enums to integer equivalent
-    customerParams[:gender]         = customerParams[:gender].to_i
     customerParams[:other_language] = customerParams[:other_language].to_i
+    customerParams[:gender] = customerParams[:gender].to_i
+    customerParams[:residence_code] = customerParams[:residence_code].to_i
+    customerParams[:remote_access] = customerParams[:remote_access].to_i
+    customerParams[:preferred_contact_method] = customerParams[:preferred_contact_method].to_i
+
+
 
     @customer = Customer.new(customer_params)
 
@@ -139,11 +144,17 @@ class CustomersController < ApplicationController
     customerParams[:state]       = customerParams[:state].upcase
     customerParams[:zip_code]    = customerParams[:zip_code].upcase
     customerParams[:birthdate]   = DateTime.strptime(customerParams[:birthdate], '%m-%d-%Y')    if !customerParams[:birthdate].empty?
-    customerParams[:ssn].gsub!(/[\-]/, '')
+
+    if customerParams[:ssn] != nil
+      customerParams[:ssn].gsub!(/[\-]/, '')
+    end
 
     # convert enums to integer equivalent
     customerParams[:other_language] = customerParams[:other_language].to_i
     customerParams[:gender] = customerParams[:gender].to_i
+    customerParams[:residence_code] = customerParams[:residence_code].to_i
+    customerParams[:remote_access] = customerParams[:remote_access].to_i
+    customerParams[:preferred_contact_method] = customerParams[:preferred_contact_method].to_i
 
     # TODO: need to restrict view to 2 digits only
     customerPct = customerParams[:discount_pct].to_f
@@ -180,18 +191,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:dept_number, :rna_customer_id_number, :active, :last_name, :first_name, :middle_name,
-            :address1, :address2, :city, :state, :zip_code, :head_of_household_rna_id_number, :doc_u_dose, :doc_u_dose_group,
-            :birthdate, :ssn, :phone_number, :alternate_address, :gender, :head_of_household_flag,
-            :rna_customer_id_number, :tax_exempt, :discount_name, :discount_pct, :nursing_home_resident, :schedule_number,
-            :childproof_cap, :generic_substitution, :last_rx_report_date, :pregnant, :nursing, :height, :weight,
-            :other_language, :other_allergies, :notes, :terminal, :deceased_date, :needs_review, :signature_on_file,
-            :hippa_signature_date, :smoker, :facility_id_number, :location_code, :residence_code,
-            :reporting_group1, :reporting_group2, :reporting_group3, :diagnosis_code, :wellness, :ethnicity, :account_number,
-            :memo, :special_label,:text_msg, :id,:facility_id,:preferred_contact_method,:prescriber_id,:head_of_household_name,:price_based_pricing_schedule,
-            customerPlans_attributes:[:id, :company_id,:pharmacy_id,:customer_id,:legacy_customer_id_number,:plan_id_code,:sequence_number,:plan_type,:plan_abb_name,:active,:effective_date,:expiration_date,:prior_authorization,:prior_authorization_type,:first_name,:last_name,:card_number,:plan_number,:group_number,:person_code,:relationship_code,
-            :other_insurance_code,:pending,:home_plan,:eligibility_code,:employee_id_number,:universal_id_number,:universal_id_type,:cardholder_first_name,:cardholder_last_name,:facility_id_number,:location_code,:limit_of_rx,:current_number_rx,:current_amount,:ytd_number_rx,:ytd_amount,:date_of_injury,
-            :medigap_id_number,:state_medicaid,:medicaid_id_number,:employer_name,:employer_address,:employer_city,:employer_state,:employer_zip_code,:employer_phone,:employer_contact,:employer_carrier_id_number,:employer_claim_number,:carrier_id_number,:assist_drug_ndc,:brand_name_copay,:generic_drug_copay,
-            :brand_name_copay_pct,:generic_copay_pct,:ytd_copay,:ytd_copay_limit,:fixed_copay,:higher_copay,:begin_range,:account_number,:master_account_number,:accounting_method,:payor_type])
+	  params.require(:customer).permit(:company_id, :pharmacy_id, :person_image_id, :prescriber_id, :facility_id, :head_of_household_id, :legacy_customer_id_number, :active, :last_name, :first_name, :middle_name, :address1, :address2, :city, :state, :zip_code, :doc_u_dose, :doc_u_dose_group, :birthdate, :ssn, :phone_number, :cell_number, :fax_number, :work_number, :email, :alternate_address, :gender, :tax_exempt, :discount_name, :discount_pct, :nursing_home_resident, :price_based_pricing_schedule, :childproof_cap, :generic_substitution, :last_rx_report_date, :pregnant, :nursing, :height, :weight, :other_language, :terminal, :deceased_date, :needs_review, :signature_on_file, :hippa_signature_date, :smoker, :location_code, :residence_code, :wellness, :ethnicity, :preferred_contact_method, :account_number, :memo, :notes, :special_label, :receive_text_msg, :auto_fill_maintenance_rx, :flavor, :remote_access, :—force)
     end
 end

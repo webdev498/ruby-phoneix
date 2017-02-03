@@ -1,0 +1,6 @@
+<input type="hidden" id="new-compound-item-id" value="<%= @item.id %>"/>
+<input type="hidden" id="new-compound-basis-value-id" value="<%= @item.price_basis_code %>"/>
+<td ><input type="text" id="new-compound-ingredient" placeholder="Ingredient Name" value="<%=@item.item_name %>"/></td>
+<td ><input type="text" class="phx-ingredient-basis" id="new-compound-basis" value="<%= @parent_item.price_basis.humanize %>" disabled="true"/></td>
+<td ><input type="text" class="new-compound phx-ingredient-quantity" id="new-compound-quantity" value="0"/></td>
+<td ><input type="text" class="phx-ingredient-cost" id="new-compound-cost" disabled="true"/></td>

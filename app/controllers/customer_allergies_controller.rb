@@ -24,6 +24,9 @@ class CustomerAllergiesController < ApplicationController
   # POST /customer_allergies
   # POST /customer_allergies.json
   def create
+
+    customer_allergy_params[:allergy_type] = customer_allergy_params[:allergy_type].to_i
+
     @customer_allergy = CustomerAllergy.new(customer_allergy_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class CustomerAllergiesController < ApplicationController
   # PATCH/PUT /customer_allergies/1
   # PATCH/PUT /customer_allergies/1.json
   def update
+
+    customer_allergy_params[:allergy_type] = customer_allergy_params[:allergy_type].to_i
+
     respond_to do |format|
       if @customer_allergy.update(customer_allergy_params)
         format.html { redirect_to @customer_allergy, notice: 'Customer allergy was successfully updated.' }

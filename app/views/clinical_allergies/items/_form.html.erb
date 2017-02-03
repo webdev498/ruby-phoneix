@@ -86,7 +86,7 @@
             <%= phx_textfield_for f, :brand_generic_xref, "Assigned Brand/Generic" %>
 
             <div class="row phx-two-horizontal-controls">
-                <%= phx_textfield_for f, :drug_class, "Drug Class", 0, "col-md-6" %>
+                <%= phx_selectfield_for f, :drug_class, "Drug Class", Item.drug_classes, false, 0, "col-md-6", true %>
                 <%= phx_textfield_for f, :dispensing_unit, "Dispense Unit", 0, "col-md-6" %>
             </div>
 
@@ -214,7 +214,7 @@
 
                     <div class="row phx-two-horizontal-controls">
                         <%= phx_textfield_for f, :state_billing_code, "State Billing Code", 0, "col-md-6" %>
-                        <%= phx_textfield_for f, :maintenance_code, "Maintenance Drug", 0, "col-md-6", Item.maintenance_codes, false %>
+                        <%= phx_selectfield_for f, :maintenance_code, "Maintenance Drug", Item.maintenance_codes, false, 0, "col-md-6", true %>
                     </div>
 
                     <div class="row phx-two-horizontal-controls">

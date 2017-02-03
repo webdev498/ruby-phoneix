@@ -24,6 +24,9 @@ class ClaimPreferencesController < ApplicationController
   # POST /claim_preferences
   # POST /claim_preferences.json
   def create
+
+    claim_preference_params[:product_qualifier] = claim_preference_params[:product_qualifier].to_i
+
     @claim_preference = ClaimPreference.new(claim_preference_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class ClaimPreferencesController < ApplicationController
   # PATCH/PUT /claim_preferences/1
   # PATCH/PUT /claim_preferences/1.json
   def update
+
+    claim_preference_params[:product_qualifier] = claim_preference_params[:product_qualifier].to_i
+
     respond_to do |format|
       if @claim_preference.update(claim_preference_params)
         format.html { redirect_to @claim_preference, notice: 'Claim preference was successfully updated.' }

@@ -143,6 +143,13 @@ class PrescriptionsController < ApplicationController
 
   # POST /prescriptions
   def create
+    prescription_params[:rx_type] = prescription_params[:rx_type].to_i
+    prescription_params[:status] = prescription_params[:status].to_i
+    prescription_params[:dea_schedule] = prescription_params[:dea_schedule].to_i
+    prescription_params[:dispense_as_written_code] = prescription_params[:dispense_as_written_code].to_i
+    prescription_params[:diagnosis_code_qualifier] = prescription_params[:diagnosis_code_qualifier].to_i
+    prescription_params[:origin_code] = prescription_params[:origin_code].to_i
+    prescription_params[:auto_fill_type] = prescription_params[:auto_fill_type].to_i
 
     user = User.find session[:user_id]
     session_rph_intials = session[:initials]
@@ -196,6 +203,14 @@ class PrescriptionsController < ApplicationController
   # PATCH/PUT /prescriptions/1
   # PATCH/PUT /prescriptions/1.json
   def update
+
+    prescription_params[:rx_type] = prescription_params[:rx_type].to_i
+    prescription_params[:status] = prescription_params[:status].to_i
+    prescription_params[:dea_schedule] = prescription_params[:dea_schedule].to_i
+    prescription_params[:dispense_as_written_code] = prescription_params[:dispense_as_written_code].to_i
+    prescription_params[:diagnosis_code_qualifier] = prescription_params[:diagnosis_code_qualifier].to_i
+    prescription_params[:origin_code] = prescription_params[:origin_code].to_i
+    prescription_params[:auto_fill_type] = prescription_params[:auto_fill_type].to_i
 
     user = User.find session[:user_id]
     session_rph_intials = session[:initials]

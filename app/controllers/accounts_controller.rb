@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
     @account = Account.where({account_number: params[:id].to_i}).first
     if(@account.nil?)
       @account = Account.new
-      @account.last_name = "No Account Found"
+#      @account.last_name = "No Account Found"
       @account_records = []
       @account_postings_page_number = 1
       @account_postings_total_pages = 1
@@ -51,6 +51,13 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+
+    accountParams[:accounting_method] = accountParams[:accounting_method].to_i
+    accountParams[:payor_type] = accountParams[:payor_type].to_i
+    accountParams[:print_statement] = accountParams[:print_statement].to_i
+    accountParams[:rx_charge_description] = accountParams[:rx_charge_description].to_i
+    accountParams[:statement_type] = accountParams[:statement_type].to_i
+
     @account = Account.new(account_params)
 
     respond_to do |format|
@@ -67,6 +74,13 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
   def update
+
+    accountParams[:accounting_method] = accountParams[:accounting_method].to_i
+    accountParams[:payor_type] = accountParams[:payor_type].to_i
+    accountParams[:print_statement] = accountParams[:print_statement].to_i
+    accountParams[:rx_charge_description] = accountParams[:rx_charge_description].to_i
+    accountParams[:statement_type] = accountParams[:statement_type].to_i
+
     respond_to do |format|
       if @account.update(account_params)
         format.html { redirect_to @account, notice: 'Account was successfully updated.' }
@@ -151,6 +165,6 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:dept_number, :account_number, :master_account_number, :last_name, :first_name, :account_method, :payor_type, :rna_customer_id_number, :sponsor_id_number, :rna_plan_id_code, :rna_facility_id_number, :allow_otc_charges, :active_flag, :print_statement, :date_opened, :last_statement_date, :last_charge_date, :last_payment_date, :last_past_due_date, :past_due_letter_sent, :current_period_amount, :last_period_amount, :high_balance_amount, :high_past_due_amount, :over_30_amount, :over_60_amount, :over_90_amount, :number_times_past_30, :number_times_past_60, :number_times_past_90, :last_charge_amount, :last_payment_amount, :last_statement_balance, :tax_deductible_amount_year_to_date, :non_deductible_amount_year_to_date, :finance_charges_year_to_date, :tax_paid_year_to_date, :credit_limit, :finance_charge_percentage, :memo, :rx_charge_description, :statement_type)
+      params.require(:account).permit(:company_id, :pharmacy_id, :plan_id_code, :facility_id, :account_payor_id, :account_sponsor_id, :account_number, :master_account_number, :accounting_method, :payor_type, :legacy_customer_id_number, :legacy_sponsor_id_number, :allow_otc_charges, :active, :print_statement, :date_opened, :last_statement_date, :last_charge_date, :last_payment_date, :last_past_due_date, :past_due_letter_sent, :current_period_amount, :last_period_amount, :high_balance_amount, :high_past_due_amount, :over_30_amount, :over_60_amount, :over_90_amount, :number_times_past_30, :number_times_past_60, :number_times_past_90, :last_charge_amount, :last_payment_amount, :last_statement_balance, :tax_deductible_amount_year_to_date, :non_deductible_amount_year_to_date, :finance_charges_year_to_date, :tax_paid_year_to_date, :credit_limit, :finance_charge_percentage1, :finance_charge_percentage2, :finance_percentage1_limit, :terms_rate, :terms_amount, :memo, :notes, :rx_charge_description, :statement_type)
     end
 end

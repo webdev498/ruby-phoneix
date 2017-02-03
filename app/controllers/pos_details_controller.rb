@@ -96,6 +96,6 @@ class PosDetailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pos_detail_params
-      params.require(:pos_detail).permit(:dept_number, :pos_ticket_number, :rx_number, :fill_number, :category, :quantity, :item_type, :item_number, :item_description, :price, :extended_price, :tax_amount, :medical_item, :price_override)
+      params.require(:pos_detail).permit(:company_id, :pharmacy_id, :pos_transaction_id, :ticket_number, :sequence_number, :rx_number, :fill_number, :category, :quantity, :item_type, :item_number, :item_description, :price, :extended_price, :tax_amount, :medical_item, :price_override)
     end
 end

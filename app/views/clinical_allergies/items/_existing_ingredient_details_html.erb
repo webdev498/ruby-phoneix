@@ -1,0 +1,7 @@
+<td ><input class="existing-ingredient-name" id=ingredient-name-<%= @ingredient.id %>" value="<%=@ingredient.name %>" tabindex="0" type="text"></td>
+<td <%= fff.id %>"><%= @item.price_basis.humanize %></td>
+<td ><input class="existing-ingredient-quantity" id="ingredient-quantity-<%= @ingredient.id %>" tabindex="0" type="text" value="<%=@ingredient.quantity%>"/></td>
+<td id="ingredient-base-cost-<%= @ingredient.id %>"><%= @ingredient.base_cost %></td>
+<td>
+  <span role="button" type="button" id="ingredient-delete-<%= @ingredient.id %>" class="btn btn-danger button button-danger ingredient-delete" tabindex="0">-</span>
+</td>

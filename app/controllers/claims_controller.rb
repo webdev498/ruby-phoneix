@@ -110,6 +110,16 @@ class ClaimsController < ApplicationController
   # POST /claims
   # POST /claims.json
   def create
+
+    claim_params[:status] = claim_params[:status].to_i
+    claim_params[:transmission_code] = claim_params[:transmission_code].to_i
+    claim_params[:cost_basis] = claim_params[:cost_basis].to_i
+    claim_params[:product_type] = claim_params[:product_type].to_i
+    claim_params[:percentage_tax_basis_submitted] = claim_params[:percentage_tax_basis_submitted].to_i
+    claim_params[:reimbursement_basis] = claim_params[:reimbursement_basis].to_i
+    claim_params[:tax_basis_paid] = claim_params[:tax_basis_paid].to_i
+    claim_params[:other_coverage_code] = claim_params[:other_coverage_code].to_i
+
     @claim = Claim.new(claim_params)
 
     respond_to do |format|
@@ -126,6 +136,16 @@ class ClaimsController < ApplicationController
   # PATCH/PUT /claims/1
   # PATCH/PUT /claims/1.json
   def update
+
+    claim_params[:status] = claim_params[:status].to_i
+    claim_params[:transmission_code] = claim_params[:transmission_code].to_i
+    claim_params[:cost_basis] = claim_params[:cost_basis].to_i
+    claim_params[:product_type] = claim_params[:product_type].to_i
+    claim_params[:percentage_tax_basis_submitted] = claim_params[:percentage_tax_basis_submitted].to_i
+    claim_params[:reimbursement_basis] = claim_params[:reimbursement_basis].to_i
+    claim_params[:tax_basis_paid] = claim_params[:tax_basis_paid].to_i
+    claim_params[:other_coverage_code] = claim_params[:other_coverage_code].to_i
+
     respond_to do |format|
       if @claim.update(claim_params)
         format.html { redirect_to @claim, notice: 'Claim was successfully updated.' }

@@ -24,6 +24,13 @@ class CustomerPlansController < ApplicationController
   # POST /customer_plans
   # POST /customer_plans.json
   def create
+
+    customer_plan_params[:plan_type] = customer_plan_params[:allergy_type].to_i
+    customer_plan_params[:prior_authorization_type] = customer_plan_params[:prior_authorization_type].to_i
+    customer_plan_params[:relationship_code] = customer_plan_params[:relationship_code].to_i
+    customer_plan_params[:accounting_method] = customer_plan_params[:accounting_method].to_i
+    customer_plan_params[:payor_type] = customer_plan_params[:payor_type].to_i
+
     @customer = Customer.find(params[:customer_id])
     @customerPlan = @customer.customerPlans.create(customer_plan_params)
 
@@ -41,6 +48,13 @@ class CustomerPlansController < ApplicationController
   # PATCH/PUT /customer_plans/1
   # PATCH/PUT /customer_plans/1.json
   def update
+
+    customer_plan_params[:plan_type] = customer_plan_params[:allergy_type].to_i
+    customer_plan_params[:prior_authorization_type] = customer_plan_params[:prior_authorization_type].to_i
+    customer_plan_params[:relationship_code] = customer_plan_params[:relationship_code].to_i
+    customer_plan_params[:accounting_method] = customer_plan_params[:accounting_method].to_i
+    customer_plan_params[:payor_type] = customer_plan_params[:payor_type].to_i
+
     respond_to do |format|
       if @customer_plan.update(customer_plan_params)
         format.html { redirect_to @customer_plan, notice: 'Customer plan was successfully updated.' }
@@ -70,6 +84,6 @@ class CustomerPlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_plan_params
-      params.require(:customer_plan).permit(:dept_number, :rna_customer_id_number, :rna_plan_id_code, :sequence_number, :plan_type, :plan_abb_name, :active_flag, :plan_start_date, :plan_end_date, :plan_prior_authorization, :plan_prior_authorization_type, :plan_first_name, :plan_last_name, :plan_card_number, :plan_number, :plan_group_number, :plan_person_code, :plan_relationship_code, :plan_other_insurance_code, :plan_home_plan, :plan_eligibility_code, :plan_employee_id, :plan_universal_id, :plan_universal_id_type, :plan_cardholder_first_name, :plan_cardholder_last_name, :plan_facility_id, :plan_location_code, :plan_limit_of_rx, :plan_current_number_rx, :plan_current_amount, :plan_ytd_number_rx, :plan_ytd_amount, :plan_date_of_injury, :plan_medigap_id, :plan_state_medicaid, :plan_medicaid_id, :plan_employer_name, :plan_employer_address, :plan_employer_city, :plan_employer_state, :plan_employer_zip_code, :plan_employer_phone, :plan_employer_contact, :plan_employer_carrier_id, :plan_employer_claim_number, :plan_carrier_id_number, :plan_assist_drug_ndc, :plan_brand_name_copay, :plan_generic_drug_copay, :plan_brand_name_copay_pct, :plan_generic_copay_pct, :plan_ytd_copay, :plan_ytd_copay_limit, :plan_fixed_copay, :plan_higher_copay, :plan_begin_range)
+      params.require(:customer_plan).permit(:company_id, :pharmacy_id, :customer_id, :legacy_customer_id_number, :plan_id_code, :sequence_number, :plan_type, :plan_abb_name, :active, :effective_date, :expiration_date, :prior_authorization, :prior_authorization_type, :first_name, :last_name, :card_number, :plan_number, :group_number, :person_code, :relationship_code, :other_insurance_code, :pending, :home_plan, :eligibility_code, :employee_id_number, :universal_id_number, :universal_id_type, :cardholder_first_name, :cardholder_last_name, :facility_id_number, :location_code, :limit_of_rx, :current_number_rx, :current_amount, :ytd_number_rx, :ytd_amount, :date_of_injury, :medigap_id_number, :state_medicaid, :medicaid_id_number, :employer_name, :employer_address, :employer_city, :employer_state, :employer_zip_code, :employer_phone, :employer_contact, :employer_carrier_id_number, :employer_claim_number, :carrier_id_number, :assist_drug_ndc, :brand_name_copay, :generic_drug_copay, :brand_name_copay_pct, :generic_copay_pct, :ytd_copay, :ytd_copay_limit, :fixed_copay, :higher_copay, :begin_range, :account_number, :master_account_number, :accounting_method, :payor_type, :—force)
     end
 end

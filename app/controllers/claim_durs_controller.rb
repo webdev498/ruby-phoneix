@@ -24,6 +24,9 @@ class ClaimDursController < ApplicationController
   # POST /claim_durs
   # POST /claim_durs.json
   def create
+
+    claim_dur_params[:level_of_effort] = claim_dur_params[:level_of_effort].to_i
+
     @claim_dur = ClaimDur.new(claim_dur_params)
 
     respond_to do |format|
@@ -40,6 +43,9 @@ class ClaimDursController < ApplicationController
   # PATCH/PUT /claim_durs/1
   # PATCH/PUT /claim_durs/1.json
   def update
+
+    claim_dur_params[:level_of_effort] = claim_dur_params[:level_of_effort].to_i
+
     respond_to do |format|
       if @claim_dur.update(claim_dur_params)
         format.html { redirect_to @claim_dur, notice: 'Claim dur was successfully updated.' }

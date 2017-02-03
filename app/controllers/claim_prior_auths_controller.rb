@@ -24,6 +24,10 @@ class ClaimPriorAuthsController < ApplicationController
   # POST /claim_prior_auths
   # POST /claim_prior_auths.json
   def create
+
+    claim_prior_auth_params[:authorization_basis] = claim_prior_auth_params[:authorization_basis].to_i
+    claim_prior_auth_params[:request_type] = claim_prior_auth_params[:request_type].to_i
+
     @claim_prior_auth = ClaimPriorAuth.new(claim_prior_auth_params)
 
     respond_to do |format|
@@ -40,6 +44,10 @@ class ClaimPriorAuthsController < ApplicationController
   # PATCH/PUT /claim_prior_auths/1
   # PATCH/PUT /claim_prior_auths/1.json
   def update
+
+    claim_prior_auth_params[:authorization_basis] = claim_prior_auth_params[:authorization_basis].to_i
+    claim_prior_auth_params[:request_type] = claim_prior_auth_params[:request_type].to_i
+
     respond_to do |format|
       if @claim_prior_auth.update(claim_prior_auth_params)
         format.html { redirect_to @claim_prior_auth, notice: 'Claim prior auth was successfully updated.' }
