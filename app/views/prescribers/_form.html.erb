@@ -186,22 +186,12 @@
 						<div class="row container-fluid">
 								<!-- PLAN panel, 1st column -->
 								<div class="container-fluid col-lg-4">
-									<div class="field form-group phx-input-control">
-										<label class="phx-form-control-label" for="alternate_id1_qualifier">Alternate qualifier#1</label>
-										<%= f.text_field :alternate_id1_qualifier, class: 'phx-form-control', readonly: true  %>
-									</div>
-									<div class="field form-group phx-input-control">
-										<label class="phx-form-control-label" for="alternate_id2_qualifier">Alternate qualifier#2</label>
-										<%= f.text_field :alternate_id2_qualifier, class: 'phx-form-control' %>
-									</div>
-									<div class="field form-group phx-input-control">
-										<label class="phx-form-control-label" for="alternate_id3_qualifier">Alternate qualifier#3</label>
-										<%= f.text_field :alternate_id3_qualifier, class: 'phx-form-control' %>
-									</div>
-									<div class="field form-group phx-input-control">
-										<label class="phx-form-control-label" for="alternate_id4_qualifier">Alternate qualifier#4</label>
-										<%= f.text_field :alternate_id4_qualifier, class: 'phx-form-control' %>
-									</div>
+
+                  <%= phx_selectfield_for f, :alternate_id1_qualifier, "Alternate qualifier #1", Prescriber.alternate_id1_qualifiers %>
+                  <%= phx_selectfield_for f, :alternate_id2_qualifier, "Alternate qualifier #2", Prescriber.alternate_id2_qualifiers %>
+                  <%= phx_selectfield_for f, :alternate_id3_qualifier, "Alternate qualifier #3", Prescriber.alternate_id3_qualifiers %>
+                  <%= phx_selectfield_for f, :alternate_id4_qualifier, "Alternate qualifier #4", Prescriber.alternate_id4_qualifiers %>
+
 								</div> <!-- END OF SECOND panel, 1st column -->
 
 								<!-- PLAN panel, 2nd column -->

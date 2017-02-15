@@ -5,98 +5,104 @@
     <div class="col-lg-10 phx-working-area-background">
 
 		<%# BEGIN Working Area TITLE and NAV %>
-		  <div class="row span10 phx-working-area-nav">
+		<div class="row span10 phx-working-area-nav">
 
-			    <div class="col-xs-1 phx-hamburger-box">
-				      <button class="phx-hamburger">|||</button>
-			    </div>
+			<div class="col-xs-1 phx-hamburger-box">
+				<button class="phx-hamburger">|||</button>
+			</div>
 
-			   <%# BEGIN Working Area TITLE %>
-			   <div class="phx-working-area-title-info">
-				    <row>
-				    <div class="col-lg-8">
-						    <div class="phx-working-area-title">Customer Maintenance
-					          <% if @customer.display_name %>
-								        <span style="font-weight:font-weight: bold;bold;" id="customer_display_name">
-									          &nbsp;&nbsp;|&nbsp;&nbsp;<%= @customer.display_name %>
-                        </span>
-							      <% end %>
-						    </div>
-					   </div>
-
-					  <div class="col-lg-3 phx-working-area-title-buttons">
-					  </div>
+			<%# BEGIN Working Area TITLE %>
+			<div class="phx-working-area-title-info">
+				<row>
+					<div class="col-lg-8">
+						<div class="phx-working-area-title">Customer Maintenance
+							<% if @customer.display_name %>
+								<span style="font-weight:font-weight: bold;bold;" id="customer_display_name">
+									&nbsp;&nbsp;|&nbsp;&nbsp;<%= @customer.display_name %>
+                </span>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-lg-3 phx-working-area-title-buttons">
+					</div>
           <%#= @customer.customerPlans.to_ary.length %>
-				  </row>
-			   </div> <%# END of Working Area TITLE %>
+				</row>
+			</div> <%# END of Working Area TITLE %>
 
-		  </div> <%# END of Working Area TITLE and NAV %>
+		</div> <%# END of Working Area TITLE and NAV %>
 
-		  <%# BEGIN Working Area %>
-		  <div class="containter-fluid phx-working-area-background phx-working-area-position">
+		<%# BEGIN Working Area %>
+		<div class="containter-fluid phx-working-area-background phx-working-area-position">
 
 			<!-- Primary Info -->
 	        <div class="col-lg-4">
 
-				      <div class="phx-primary-info-column">
+				<div class="phx-primary-info-column">
 
-                  <!-- hidden field div to grab the value from the modal -->
-                  <div id="hidden_fields">
-                  </div>
+            <!-- hidden field div to grab the value from the modal -->
+            <div id="hidden_fields">
+            </div>
 
-  					      <% if @customer.id == 1 %>
-  						      <%= image_tag "sample_customer.jpg", :crop => :scale, :class => "phx-primary-info-image"  %>
-  					      <% else %>
-  						      <%= image_tag "person.png", :crop => :scale, :class => "phx-primary-info-image"  %>
-  				        <% end %>
+  					<% if @customer.id == 1 %>
+  						<%= image_tag "sample_customer.jpg", :crop => :scale, :class => "phx-primary-info-image"  %>
+  					<% else %>
+  						<%= image_tag "person.png", :crop => :scale, :class => "phx-primary-info-image"  %>
+  					<% end %>
 
-                  <div class="col-md-12">
-                      <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
-                        Primary Info
-                      </div>
-                      <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
-                  </div>
+<!--						<%= image_tag "person.png", :crop => :scale, :class => "phx-primary-info-image"  %> -->
 
-                  </br>
-                  <%= f.hidden_field :id %>
+            <div class="col-md-12">
+                <div class="col-md-8 pull-left" style="font-weight: bold; font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">
+                Primary Info
+                </div>
+                <%= phx_checkbox_for f, :active, "Active", "col-md-1 pull-right" %>
+            </div>
 
-                  <%= phx_textsearchfield_for f, :last_name, "Last Name" %>
-                  <%= phx_textfield_for f, :first_name, "First Name" %>
-                  <%= phx_textfield_for f, :middle_name, "Middle Name" %>
+            </br>
+            <%= f.hidden_field :id %>
 
-  					      <div class="row phx-two-horizontal-controls">
+            <%= phx_textsearchfield_for f, :last_name, "Last Name" %>
 
-                      <%= phx_selectfield_for f, :gender, "Gender", Customer.genders, false, 0, "col-md-6", true %>
+            <%= phx_textfield_for f, :first_name, "First Name" %>
 
-                      <%= phx_datefield_for f, :birthdate, "Birthdate", 0, "col-md-6" %>
-  					      </div>
+            <%= phx_textfield_for f, :middle_name, "Middle Name" %>
 
-                  <%= phx_textfield_for f, :head_of_household_id, "Head of Household" %>
-                  <%= phx_textfield_for f, :address1, "Address 1" %>
-                  <%= phx_textfield_for f, :address2, "Address 2" %>
-                  <%= phx_textfield_for f, :city, "City" %>
+  			<div class="row phx-two-horizontal-controls">
 
-  					      <div class="row phx-two-horizontal-controls">
+                <%= phx_selectfield_for f, :gender, "Gender", Customer.genders, false, 0, "col-md-6", true %>
 
-                    <%= phx_selectfield_for f, :state, "State", phx_us_states(), false, 0, "col-md-6" %>
+                <%= phx_datefield_for f, :birthdate, "Birthdate", 0, "col-md-6" %>
+  			</div>
+  			
+  			<%= phx_textfield_for f, :head_of_household_id, "Head of Household" %>
 
-						        <div class="col-md-6 form-group phx-input-control">
-						            <label class="phx-form-control-label" for="zip_code">Zip</label>
-							          <%= f.text_field :zip_code, class: 'phx-form-control' %>
-						        </div>
+                <%= phx_textfield_for f, :address1, "Address 1" %>
 
-                  </div>
+                <%= phx_textfield_for f, :address2, "Address 2" %>
 
-                  <%= phx_textfield_for f, :prescriber_id, "Primary Dr" %>
+                <%= phx_textfield_for f, :city, "City" %>
 
-                  <%= phx_red_submit_button_for  f, "Customer", [], "", "phx-btn-model-control-width", false %>
-                  </br>&nbsp;
-                  </br>&nbsp;
-				      </div> <!-- end of container fluid for Primary Info -->
+  					<div class="row phx-two-horizontal-controls">
 
-			    </div> <!-- end of Primary Info col lg def -->
+                <%= phx_selectfield_for f, :state, "State", phx_us_states(), false, 0, "col-md-6" %>
 
-			  <div class="col-lg-8">
+						<div class="col-md-6 form-group phx-input-control">
+							<label class="phx-form-control-label" for="zip_code">Zip</label>
+							<%= f.text_field :zip_code, class: 'phx-form-control' %>
+						</div>
+
+          </div>
+          
+            <%= phx_textfield_for f, :prescriber_id, "Primary Dr" %>
+
+            <%= phx_red_submit_button_for  f, "Customer", [], "", "phx-btn-model-control-width", false %>
+</br>&nbsp;
+</br>&nbsp;
+				</div> <!-- end of container fluid for Primary Info -->
+
+			</div> <!-- end of Primary Info col lg def -->
+
+			<div class="col-lg-8">
 
 				<!-- Tab labels -->
 				<ul class="nav nav-tabs" id="tabs" role="tablist">
@@ -108,16 +114,17 @@
 					<li><a href="#customerPanel-residency" role="tab" data-toggle="tab">Residency</a></li>
 					<li><a href="#customerClinical" role="tab" data-toggle="tab">Clinical</a></li>
           <li><a href="#customerWellness" role="tab" data-toggle="tab">Wellness</a></li>
+          <li><a href="#customerContacts" role="tab" data-toggle="tab">Contacts</a></li>
 				</ul>
 
 				<!-- Tab panes -->
 				<div class="tab-content phx-tab-pane">
 
-						<div class="tab-pane active" id="customerPanel-general">
+					<div class="tab-pane active" id="customerPanel-general">
 
-							<div class="container-fluid">
+						<div class="container-fluid">
 
-								<row>
+						<row>
 
 									<!-- GENERAL INFO, first column -->
 									<div class="container-fluid col-lg-4">
@@ -150,10 +157,10 @@
                     <%= phx_textfield_for f, :memo, "Memo" %>
                     <%= phx_textarea_for f, :notes, "Notes", 5 %>
 
-									</div> <!-- END OF first panel, first column -->
+				</div> <!-- END OF first panel, first column -->
 
-									<!-- GENERAL INFO, second column -->
-									<div class="container-fluid col-lg-4">
+				<!-- GENERAL INFO, second column -->
+					<div class="container-fluid col-lg-4">
 
                     <div class="row phx-two-horizontal-controls">
                         <%= phx_textfield_for f, :height, "Height/Inches", 0, "col-md-6" %>
@@ -191,11 +198,11 @@
 
                     </br>
 
-								</div> <!-- END OF first panel, second column -->
+				</div> <!-- END OF first panel, second column -->
 
 
-                  <!-- GENERAL INFO, third column -->
-									<div class="container-fluid col-lg-4">
+                <!-- GENERAL INFO, third column -->
+					<div class="container-fluid col-lg-4">
 
                       <%= phx_textfield_for f, :location_code, "Location Code" %>
 
@@ -211,15 +218,9 @@
 
                       <%= phx_datefield_for f, :hippa_signature_date, "Hippa Signature Date" %>
 
-  								</div> <!-- END OF first panel, second column -->
+					</div>
 
-								</row>
-							</div> <!-- END OF GENERAL INFO panel container-fluid -->
-
-							<div class="form-group phx-input-control-spacer">
-							</div>
-
-						</div>
+  				</div> <!-- END OF first panel, second column -->
 
             <div class="tab-pane" id="customerPanel-plan">
               <div class="container-fluid">
@@ -315,8 +316,8 @@
                           <%= phx_textfield_for ff, :plan_number, "Plan Number" %>
 
                           <div class="row phx-two-horizontal-controls">
-                              <%= phx_textfield_for ff, :person_code, "Person Code", 0, "col-md-6" %>
-                              <%= phx_selectfield_for ff, :relationship_code, "Relationship", CustomerPlan.relationship_codes, false, 0, "col-md-6", true %>
+                            <%= phx_textfield_for ff, :person_code, "Person Code", 0, "col-md-6" %>
+                            <%= phx_textfield_for ff, :relationship_code, "Relationship Code", 0, "col-md-6" %>
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
@@ -325,8 +326,8 @@
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
-                              <%= phx_textfield_for ff, :prior_authorization, "Prior Auth", 0, "col-md-6" %>
-                              <%= phx_selectfield_for ff, :prior_authorization_type, "Relationship", CustomerPlan.prior_authorization_types, false, 0, "col-md-6", true %>
+                            <%= phx_textfield_for ff, :prior_authorization, "Prior Auth", 0, "col-md-6" %>
+                            <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
@@ -374,6 +375,11 @@
                           <div class="row phx-two-horizontal-controls">
                             <%= phx_textfield_for ff, :current_number_rx, "Current Rx #", 0, "col-md-6" %>
                             <%= phx_textfield_for ff, :current_amount, "Current Amount", 0, "col-md-6" %>
+                          </div>
+
+                          <div class="row phx-two-horizontal-controls">
+                            <%# phx_textfield_for ff, :, "Plan", 0, "col-md-6" %>
+                            <%# phx_textfield_for ff, :, "Sequence", 0, "col-md-6" %>
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
@@ -432,7 +438,7 @@
 
                           <div class="row phx-two-horizontal-controls">
                             <%= phx_textfield_for ff, :plan_type, "Plan Type", 0, "col-md-6",:readonly %>
-                            <%= phx_checkbox_for ff, :pending, "Pending", 0, "col-md-6" %>
+                            <%= phx_textfield_for ff, :pending, "Pending", 0, "col-md-6" %>
                           </div>
 
                           <%= phx_textfield_for ff, :first_name, "Patient First Name" %>
@@ -450,10 +456,9 @@
                           <%= phx_textfield_for ff, :plan_number, "Plan Number" %>
 
                           <div class="row phx-two-horizontal-controls">
-                              <%= phx_textfield_for ff, :person_code, "Person Code", 0, "col-md-6" %>
-                              <%= phx_selectfield_for ff, :relationship_code, "Relationship", CustomerPlan.relationship_codes, false, 0, "col-md-6", true %>
+                            <%= phx_textfield_for ff, :person_code, "Person Code", 0, "col-md-6" %>
+                            <%= phx_textfield_for ff, :relationship_code, "Relationship Code", 0, "col-md-6" %>
                           </div>
-
 
                           <div class="row phx-two-horizontal-controls">
                             <%= phx_datefield_for ff, :effective_date, "Start Date", 0, "col-md-6" %>
@@ -461,12 +466,12 @@
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
-                              <%= phx_textfield_for ff, :prior_authorization, "Prior Auth", 0, "col-md-6" %>
-                              <%= phx_selectfield_for ff, :prior_authorization_type, "Relationship", CustomerPlan.prior_authorization_types, false, 0, "col-md-6", true %>
+                            <%= phx_textfield_for ff, :prior_authorization, "Prior Auth", 0, "col-md-6" %>
+                            <%= phx_textfield_for ff, :prior_authorization_type, "Type", 0, "col-md-6" %>
                           </div>
 
                           <div class="row phx-two-horizontal-controls">
-
+                            <div class="form-group phx-input-control-spacer"></div>
                             <button class="button btn-danger col-md-6" style="margin-left: 9px" type="submit">Save</button>
                           </div>
 
@@ -1057,6 +1062,98 @@
 							</div> <!-- END OF WELLNESS panel container-fluid -->
 						</div>
 
+            <!--<div class="tab-pane" id="customerContacts">-->
+							<!--<div class="container-fluid">-->
+
+                <!--<div class="col-md-12">-->
+                    <!--<div class="col-md-8 pull-left" style="font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">-->
+                    <!--Contacts:-->
+                    <!--</div>-->
+
+                    <!--<div class="col-lg-7">-->
+                        <!--<div class="phx-input-control-spacer">-->
+                        <!--</div>-->
+
+                        <!--<%# choice = 0 %>-->
+                        <!--<table class="phx-table phx-search-font">-->
+                            <!--<thead class="phx-table-head">-->
+                                <!--<tr>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-6">Kind</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">Use</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">Contact</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+
+<!--<%#= @customer.contact_points.size %>-->
+                                <!--<%# f.fields_for :contact_points do |cp| %>-->
+<!--<%#= cp.text_field :kind %>-->
+                                    <!--<tr class="phx-table-detail" id="customer_contact_point_<%#=choice += 1%>">-->
+                                        <!--<td><%#= cp.object.kind %></td>-->
+                                        <!--<td><%#= cp.object.use %></td>-->
+                                        <!--<td><%#= cp.object.contact %></td>-->
+                                        <!--<td>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--<%# end %>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                        <!--</br>-->
+
+                     <!--</div> &lt;!&ndash; end of panel 2, wnd column &ndash;&gt;-->
+
+
+
+                <!--<div class="col-md-12">-->
+                    <!--<div class="col-md-8 pull-left" style="font-family:'Arial'; font-size: 18px; margin-left: -20px; margin-top:5px;">-->
+                    <!--Addresses:-->
+                    <!--</div>-->
+
+
+
+                    <!--<div class="col-lg-7">-->
+                        <!--<div class="phx-input-control-spacer">-->
+                        <!--</div>-->
+
+                        <!--<%# choice = 0 %>-->
+                        <!--<table class="phx-table phx-search-font">-->
+                            <!--<thead class="phx-table-head">-->
+                                <!--<tr>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-6">Kind</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">Use</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">Street</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">City</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">State</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-sm-1">Postal</th>-->
+                                    <!--<th style="background-color:#f9f9fa;" class="col-xs-1">&nbsp;</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                                <!--<%# f.fields_for :addresses do |addr| %>-->
+                                    <!--<tr class="phx-table-detail" id="customer_address_<%#=choice += 1%>">-->
+                                        <!--<td><%#= addr.object.kind %></td>-->
+                                        <!--<td><%#= addr.object.use %></td>-->
+                                        <!--<td><%#= addr.object.street[0] %></td>-->
+                                        <!--<td><%#= addr.object.city %></td>-->
+                                        <!--<td><%#= addr.object.state %></td>-->
+                                        <!--<td><%#= addr.object.postal %></td>-->
+                                        <!--<td>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--<%# end %>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                        <!--</br>-->
+
+                     <!--</div> &lt;!&ndash; end of panel 2, wnd column &ndash;&gt;-->
+
+                <!--</div>-->
+
+						<!--</div> &lt;!&ndash; END OF WELLNESS panel container-fluid &ndash;&gt;-->
+					<!--</div>-->
+
+	    	<!--</div>-->
     	</div> <!-- end of col lg 10 -->
 
     <div id="customer_search_modal_partial">
@@ -1068,6 +1165,11 @@
       </div>
 
 <% end %>
+
+<div id="prescriber_search_modal_partial">
+  <div id="prescriberSearchModal">
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1101,6 +1203,27 @@
 
 <script>
     // define the search
+
+    var prescribsrch = FEENX.Search.NewSearch('prescriber',
+        {   context:      '',
+            triggerField: 'last_name',
+            fieldPrefix:  '',
+            modalId:      'prescriberSearchModal',
+            hiddenDivId:  'hidden_fields',
+            customProcessSearchSelection : function(target){
+                var prescriber_id = target.attr("data-phx-search-prescriber-id")
+                var last_name = target.attr("data-phx-search-prescriber-last_name")
+                $('#prescriber_last_name').val(last_name)
+                $('#customer_prescriber_id').val(prescriber_id)
+                $("#prescriberSearchModal").modal("hide")
+            }
+        });
+
+    // create the corresponding hidden fields in the form
+    prescribsrch.addHiddenFields();
+    // create the corresponding data attribues in the modal rows
+    prescribsrch.dataFormattedAttributes();
+
     var cs = FEENX.Search.NewSearch('customer',
         {   context:      '',
             triggerField: 'last_name',

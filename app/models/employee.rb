@@ -6,7 +6,7 @@ class Employee < ActiveRecord::Base
 
     validates_presence_of :last_name
     validates_presence_of :first_name, message: "First Name can't be blank"
-    validates_presence_of :employee_id
+    validates_presence_of :employee_id_number
 #    validates_presence_of :employee_type
 #    validates_presence_of :social_security_number
     validates :initials, presence: true, uniqueness: true, length: 3..3  # to become 3..4

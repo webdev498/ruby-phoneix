@@ -137,10 +137,8 @@
                     </div>
 
                     <div class="row phx-two-horizontal-controls">
-                      <div class="col-md-6 form-group phx-input-control">
-                        <label class="phx-form-control-label" for="type_of_facility">Type of Facility</label>
-                        <%= w.text_field :type_of_facility, class: 'phx-form-control' %>
-                      </div>
+                        <%= phx_selectfield_for f, :type_of_facility, "Type of Facility", Wing.type_of_facilities, false, 0, "col-md-6", true %>
+
                       <div class="col-md-6 form-group phx-input-control">
                         <%= phx_checkbox_for w, :active, "Active", "col-md-1 pull-right" %>
                       </div>
@@ -167,7 +165,6 @@
                     <%= phx_checkbox_for w, :active, "Default to Primary Plan", "col-md-1 pull-right" %>
                     <%= phx_checkbox_for w, :active, "Use Start Date", "col-md-1 pull-right" %>
                     <%= phx_checkbox_for w, :active, "Post Zero Copay", "col-md-1 pull-right" %>
-                    <%= phx_checkbox_for w, :active, "Use Doc-U-Dose", "col-md-1 pull-right" %>
                     <%= phx_checkbox_for w, :active, "Use Frequency Autofill", "col-md-1 pull-right" %>
                     <%= phx_checkbox_for w, :active, "Use Anniversary Autofill", "col-md-1 pull-right" %>
                     <%= phx_checkbox_for w, :active, "Use ProCycle Autofill", "col-md-1 pull-right" %>
@@ -181,19 +178,15 @@
                   <!-- GENERAL INFO panel, second column -->
                   <div class="container-fluid col-lg-4">
 
-                    <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="print_monograph">Print Monographs</label>
-                      <%= w.text_field :print_monograph, class: 'phx-form-control' %>
-                    </div>
-
-                    <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="print_monograph">Print Medication Guides</label>
-                      <%= w.text_field :print_medication_guide, class: 'phx-form-control' %>
-                    </div>
-
-                    <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="print_monograph">HIPPA Privacy Notice</label>
-                      <%= w.text_field :require_hippa_privacy_notice, class: 'phx-form-control' %>
+                    <%= phx_selectfield_for w, :print_monograph, "Print Monographs", Wing.print_monographs %>
+                    <%= phx_selectfield_for w, :print_medication_guide, "Print Medication Guides", Wing.print_medication_guides %>
+                    <div class="row phx-two-horizontal-controls">
+                      <div class="col-md-6 form-group phx-input-control">
+                        <%= phx_selectfield_for w, :require_hippa_privacy_notice, "HIPPA Privacy Notice", Wing.require_hippa_privacy_notices %>
+                      </div>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <%= phx_selectfield_for w, :print_order, "Print Order", Wing.print_orders %>
+                      </div>
                     </div>
 
                     <%= phx_checkbox_for w, :print_delivery_receipt, "Print Delivery Receipt" %>
@@ -246,6 +239,7 @@
                     </div>
 
                     <%= phx_checkbox_for w, :allow_customer_discount, "Customer Discounts Apply", "col-md-1 pull-right" %>
+                    <%= phx_checkbox_for w, :active, "Use Doc-U-Dose", "col-md-1 pull-right" %>
 
                     <!--<div class="form-group phx-input-control">-->
                     <!--<label class="phx-form-control-label" for="Label Default">Assigned Price Schedules</label>-->

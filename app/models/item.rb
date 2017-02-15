@@ -4,18 +4,16 @@ class Item < ActiveRecord::Base
 
 	has_many :priceHistories, -> {order('created_at DESC')}
 	has_one :clinicalMaster
-
 	has_many :generic_items, class_name: 'Item', foreign_key: 'brand_item_id'
 	belongs_to :'brand_item', class_name: 'Item', foreign_key: 'brand_item_id'
-
-  has_one  :formula
-  has_many :ingredients, through: :formula
-  accepts_nested_attributes_for :formula
-
-  has_many :item_pedigrees
+        has_one  :formula
+        has_many :ingredients, through: :formula
+        accepts_nested_attributes_for :formula
+        has_many :item_pedigrees
+        has_many :dispenses
 
 #	scope :by_active_drug_name, -> sourceString { where("item_name like '#{sourceString.upcase}%' and active is TRUE") }
-  scope :by_drug_name, -> sourceString { where("item_name LIKE '#{sourceString.upcase}%'") }
+        scope :by_drug_name, -> sourceString { where("item_name LIKE '#{sourceString.upcase}%'") }
 	scope :by_synonym, -> sourceString { where( synonym: sourceString.upcase ) }
 	scope :by_ndc10,   -> sourceString { where( scanned_ndc_number: sourceString ) }
 	scope :by_ndc11,   -> sourceString { where( ndc_number: sourceString ) }
@@ -23,8 +21,8 @@ class Item < ActiveRecord::Base
   scope :by_active,  -> { where("active is TRUE") }
 
 	enum brand_generic_compound: [ :brand, :generic, :compound ]
-  enum dea_schedule: [ :no_schedule, :experimental, :narcotic, :schedule_3, :schedule_4, :schedule_5, :state_mandated ]
-  enum drug_class: [:legend, :over_the_counter]
+  enum dea_schedule: [ :non_scheduled, :experimental, :narcotic, :schedule_3, :schedule_4, :schedule_5, :state_mandated ]
+  enum drug_class: [:legend, :over_the_counter, :legend_unit_dose, :otc_unit_dose]
   enum maintenance_code: [:unknown, :not_maintenance, :maintenance]
 
 #validates_presence_of :drug_class, inclusion: { in: %w(O L), message: "OTC/Legend " }

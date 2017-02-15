@@ -1,8 +1,8 @@
 class AccountPosting < ActiveRecord::Base
    belongs_to :account
 
-    enum post_source: [ :rxPosting, :posPosting, :manual, :remittance ]
-    enum post_type: [ :charge, :payment, :adjustment, :financeCharge, :discount ]
+    enum post_source: [ :rx_posting, :pos_posting, :manual, :remittance ]
+    enum post_type: [ :charge, :payment, :adjustment, :finance_charge, :discount ]
     scope :later_than, -> later_than_date {  where("post_date > '#{later_than_date}'") }
     # scope :payment, -> { where(post_type: payment) }
     # scope :charge, -> { where(post_type: charge) }

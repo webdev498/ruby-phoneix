@@ -7,6 +7,7 @@ class Claim < ActiveRecord::Base
 	belongs_to :customer
 	belongs_to :prescription
 	belongs_to :plan
+        belongs_to :dispense
 
 	has_many :claimAuthorizations
 	has_many :claimClinicals
@@ -27,7 +28,7 @@ class Claim < ActiveRecord::Base
 	scope :by_rx_number, -> sourceString { }
 
 
-		enum status: [:paid, :duplicate, :captured, :accepted, :rejected, :pending]
+    enum status: [:paid, :duplicate, :captured, :accepted, :rejected, :pending]
     enum transmission_code: [ :claim, :reversal, :rebill, :eligibility_check ]
     enum cost_basis: [ :default, :awp, :local_wholesaler, :direct, :eac, :acquisition, :mac, :usual_and_customary, :basis_340b, :other, :average_sales_price, :average_mfg_price, :wac, :special_patient_pricing, :unreportable_qty, :free ]
     enum product_type: [ :single_source, :generic, :supply, :brand_otc, :generic_otc, :any ]

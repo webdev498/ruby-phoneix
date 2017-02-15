@@ -7,7 +7,7 @@ class Customer < ActiveRecord::Base
     has_many :prescriptions
     has_many :dispenses
     has_many :claims
-    has_one  :customerFacility
+    has_one  :residency
 #    has_many :dependents, class_name: 'Customer', foreign_key: 'head_of_household_id'
 
 # leaving in for now
@@ -26,11 +26,11 @@ class Customer < ActiveRecord::Base
 
     accepts_nested_attributes_for :customerPlans
 
-#	enum head_of_household_flag: [ :'Not Specified', :'Head Of Household', :Dependent, :Sponsor ]
-	enum preferred_contact: [:undefined, :home_phone, :cell_phone, :work_phone, :email, :text_message ]
-	enum other_language: [:english, :spanish]
-  enum gender: [:unspecified, :male, :female]
-  enum residence_code: [:not_identified, :at_home, :skilled_facility, :nursing_facility, :assisted_living, :custodial_care, :grooup_home, :inpatient_psychiatric_facility, :psychiatric_facility, :intermediate_facility, :substance_abuse_facility, :hospice, :psychiatric_residential_treatment, :inpatient_rehab, :homeless_shelter, :correctional_institution]
+    enum preferred_contact_method: [:undefined, :home_phone, :cell_phone, :work_phone, :email, :text_message ]
+    enum other_language: [:english, :spanish]
+    enum gender: [:unspecified, :male, :female]
+    enum residence_code: [:not_identified, :at_home, :skilled_facility, :nursing_facility, :assisted_living, :custodial_care, :group_home, :inpatient_psychiatric_facility, :psychiatric_facility, :intermediate_facility, :substance_abuse_facility, :hospice, :psychiatric_residential_treatment, :inpatient_rehab, :homeless_shelter, :correctional_institution]
+    enum remote_access: [:no_remote_access, :customer_only, :primary_dr, :all_drs]
 
 #  Default Scope
   default_scope { order('last_name ASC') }
