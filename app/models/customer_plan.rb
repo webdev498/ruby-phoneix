@@ -4,7 +4,7 @@ class CustomerPlan < ActiveRecord::Base
 
     enum plan_type: [ :insurance, :workers_comp, :charge ]
     enum prior_authorization_type: [ :not_applicable, :prior_authorization, :medical_certification, :epsdt, :copay_exemption, :rx_exemption, :family_plan, :afdc, :payor_defined ]
-    enum plan_relationship_code: [ :not_used, :insured, :spouse, :child, :other ]
+    enum relationship_code: [ :not_used, :insured, :spouse, :child, :other ]
     enum accounting_method: [ :balance_forward, :open_item ]
     enum payor_type: [ :patient, :head_of_household, :sponsor, :master ]
 

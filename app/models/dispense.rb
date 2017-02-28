@@ -4,8 +4,8 @@ class Dispense < ActiveRecord::Base
 
 	belongs_to :prescription
 	belongs_to :item
-  belongs_to :customer
-  has_many :rx_payments
+        belongs_to :customer
+        has_many :rx_payments
 
 	enum posted_flag: [ :not_posted, :posted_to_artx, :posted_to_ar ]
 	enum refill_type: [ :retail, :nursing_home ]

@@ -14,6 +14,9 @@ class Prescriber < ActiveRecord::Base
 
 	enum receive_messages: [:no_messages, :email, :text, :fax, :all_messages]
 	enum alternate_id1_qualifier: [:not_specified, :NPI, :blue_cross, :blue_shield, :medicare, :medicaid, :UPIN, :NCPDP, :state_number, :tricare, :HIN, :federal_tax_id, :DEA, :state_issued, :plan_specific, :other]
+	enum alternate_id2_qualifier: [:id2_not_specified, :id2_NPI, :id2_blue_cross, :id2_blue_shield, :id2_medicare, :id2_medicaid, :id2_UPIN, :id2_NCPDP, :id2_state_number, :id2_tricare, :id2_HIN, :id2_federal_tax_id, :id2_DEA, :id2_state_issued, :id2_plan_specific, :id2_other]
+	enum alternate_id3_qualifier: [:id3_not_specified, :id3_NPI, :id3_blue_cross, :id3_blue_shield, :id3_medicare, :id3_medicaid, :id3_UPIN, :id3_NCPDP, :id3_state_number, :id3_tricare, :id3_HIN, :id3_federal_tax_id, :id3_DEA, :id3_state_issued, :id3_plan_specific, :id3_other]
+	enum alternate_id4_qualifier: [:id4_not_specified, :id4_NPI, :id4_blue_cross, :id4_blue_shield, :id4_medicare, :id4_medicaid, :id4_UPIN, :id4_NCPDP, :id4_state_number, :id4_tricare, :id4_HIN, :id4_federal_tax_id, :id4_DEA, :id4_state_issued, :id4_plan_specific, :id4_other]
 
 # TODO: search by phone number
 

@@ -1,6 +1,8 @@
 class PosTransaction < ActiveRecord::Base
 
   has_many :posDetails
+  has_many :posPayments
+
   enum payment_methods: [:cash, :credit, :hsa, :other]
   before_create :getNewTicketNumber
   def self.payment_method_enum_to_string(enumvalue)

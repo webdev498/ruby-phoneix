@@ -110,6 +110,7 @@ class CustomersController < ApplicationController
     @customer.city        = @customer.city.upcase
     @customer.state       = @customer.state.upcase
     @customer.zip_code    = @customer.zip_code.upcase
+    @customer.active      = “true”
     @customer.birthdate   = DateTime.strptime(params[:customer][:birthdate], '%m-%d-%Y')   if !customerParams[:birthdate].empty?
     @customer.ssn         = customerParams[:ssn].gsub!(/[\-]/, '').to_i
 
@@ -191,6 +192,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-	  params.require(:customer).permit(:company_id, :pharmacy_id, :person_image_id, :prescriber_id, :facility_id, :head_of_household_id, :legacy_customer_id_number, :active, :last_name, :first_name, :middle_name, :address1, :address2, :city, :state, :zip_code, :doc_u_dose, :doc_u_dose_group, :birthdate, :ssn, :phone_number, :cell_number, :fax_number, :work_number, :email, :alternate_address, :gender, :tax_exempt, :discount_name, :discount_pct, :nursing_home_resident, :price_based_pricing_schedule, :childproof_cap, :generic_substitution, :last_rx_report_date, :pregnant, :nursing, :height, :weight, :other_language, :terminal, :deceased_date, :needs_review, :signature_on_file, :hippa_signature_date, :smoker, :location_code, :residence_code, :wellness, :ethnicity, :preferred_contact_method, :account_number, :memo, :notes, :special_label, :receive_text_msg, :auto_fill_maintenance_rx, :flavor, :remote_access, :—force)
+	  params.require(:customer).permit(:company_id, :pharmacy_id, :person_image_id, :prescriber_id, :facility_id, :head_of_household_id, :legacy_customer_id_number, :active, :last_name, :first_name, :middle_name, :address1, :address2, :city, :state, :zip_code, :doc_u_dose, :doc_u_dose_group, :birthdate, :ssn, :phone_number, :cell_number, :fax_number, :work_number, :email, :alternate_address, :gender, :tax_exempt, :discount_name, :discount_pct, :nursing_home_resident, :price_based_pricing_schedule, :childproof_cap, :generic_substitution, :last_rx_report_date, :pregnant, :nursing, :height, :weight, :other_language, :terminal, :deceased_date, :needs_review, :signature_on_file, :hippa_signature_date, :smoker, :location_code, :residence_code, :wellness, :ethnicity, :preferred_contact_method, :account_number, :memo, :notes, :special_label, :receive_text_msg, :auto_fill_maintenance_rx, :flavor, :remote_access)
     end
 end

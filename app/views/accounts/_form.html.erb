@@ -62,13 +62,9 @@
               </div>
             </div>
 
-
-
             <div class="row phx-two-horizontal-controls">
-
               <%= phx_selectfield_for f, :accounting_method, "Acct Method", Account.accounting_methods, false, 0, "col-md-6", true %>
               <%= phx_selectfield_for f, :payor_type, "Payor Type", Account.payor_types, false, 0, "col-md-6", true %>
-
             </div>
 
             <div class="field form-group phx-input-control">
@@ -213,12 +209,17 @@
                       <%= f.text_field :finance_charges_year_to_date, class: 'phx-form-control', :value => (number_with_precision(f.object.finance_charges_year_to_date, :precision => 2) ), :disabled => true %>
                     </div>
 
+                    <div class="row phx-two-horizontal-controls">
+                      <%= phx_selectfield_for f, :print_statement, "Print Statement", Account.print_statements, false, 0, "col-md-6", true %>
+                      <%= phx_selectfield_for f, :statement_type, "Statement Type", Account.statement_types, false, 0, "col-md-6", true %>
+                    </div>
 
-                    <%= phx_selectfield_for f, :statement_type, "Statment Type", Account.statement_types %>
-
-                    <div class="field form-group phx-input-control">
-                      <label class="phx-form-control-label" for="credit_limit">Credit Limit</label>
-                      <%= f.text_field :credit_limit, class: 'phx-form-control', :value => (number_with_precision(f.object.credit_limit, :precision => 2) ), :disabled => false%>
+                    <div class="row phx-two-horizontal-controls">
+                      <%= phx_selectfield_for f, :rx_charge_description, "Charge Description", Account.rx_charge_descriptions, false, 0, "col-md-6", true %>
+                      <div class="col-md-6 form-group phx-input-control">
+                        <label class="phx-form-control-label" for="credit_limit">Credit Limit</label>
+                        <%= f.text_field :credit_limit, class: 'phx-form-control', :value => (number_with_precision(f.object.last_period_amount, :precision => 2) ), :disabled => true %>
+                      </div>
                     </div>
 
                     <div class="field form-group phx-input-control">

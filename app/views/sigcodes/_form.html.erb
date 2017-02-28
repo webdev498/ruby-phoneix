@@ -3,19 +3,21 @@
 
   <div class="form-inputs">
   	    <%= f.hidden_field :dept_number %>
-    	<%= f.hidden_field :sig_type %>      	                 
-    	<div style="block:inline">                          
-			<div style="float:left; border-style: dotted; border-width: thin;width:400px;">  
+    	<%= f.hidden_field :sig_type %>
+    	<div style="block:inline">
+			<div style="float:left; border-style: dotted; border-width: thin;width:400px;">
 				<div style="float:left; border-style:none; width:390px; height: 300px; padding-left:15px; padding-top: 15px;">
                      <%= f.input :sig_code %>
                      </br>
                      <%= f.input :active_flag %>
                      </br>
+
                      <%= f.input :language, collection: Sigcode.languages.keys,:selected =>Sigcode.languages.keys[@sigcode[:language].to_i] %>
+
                      <%= f.input :expanded_text %>
                      </br>
                      <%= f.input :frequency %>
-               </div> 
+               </div>
             </div>
          </div>
    </div>
